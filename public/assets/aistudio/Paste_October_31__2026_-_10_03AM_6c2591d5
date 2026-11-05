@@ -1,0 +1,1190 @@
+SWIFTVERO EXPRESS: COMPLETE WEBSITE AND CUSTOMER PORTAL UPGRADE
+
+ROLE AND LEVEL OF EXPERTISE
+
+Act as a:
+
+Senior Professional UI/UX Designer.
+Senior Product Designer.
+Senior Frontend Developer.
+Senior Software Architect.
+Senior Full-Stack Application Developer.
+Logistics Technology Product Specialist.
+Conversion Rate Optimisation (CRO) Specialist.
+Professional Website Experience Strategist.
+You are responsible for upgrading the existing Swiftvero Express website into a sophisticated, practical, visually impressive and genuinely problem-solving logistics platform.
+
+Do not approach this as a simple website redesign.
+
+Think like a senior professional who is building a real digital logistics product that customers will depend on to organise, book, manage and monitor their shipments.
+
+Your work must demonstrate professional design judgement, technical understanding, excellent user experience, clean architecture and commercial awareness.
+
+PART 1: MOST IMPORTANT PROJECT INSTRUCTIONS
+
+1. Work on the existing project
+
+The existing project is called:
+
+Swiftvero Express Refined
+
+You must work on the existing project and its existing codebase.
+
+DO NOT rebuild the entire website from scratch.
+
+DO NOT replace the current website with a completely different template.
+
+DO NOT remove existing working features simply because you have an alternative design.
+
+DO NOT unnecessarily change existing navigation, page structures, working forms, components or user journeys.
+
+Before making changes, inspect the entire existing project.
+
+Review:
+
+Existing pages.
+Existing components.
+Existing navigation.
+Existing customer portal.
+Existing booking workflows.
+Existing tracking interface.
+Existing quotation process.
+Existing pickup scheduling.
+Existing payment demonstrations.
+Existing notification system.
+Existing forms.
+Existing shipment management features.
+Existing responsive layouts.
+Existing visual identity.
+Existing demo functionality.
+Existing data structures and application logic.
+Identify which features are:
+
+Fully implemented.
+Partially implemented.
+Present visually but not functional.
+Missing entirely.
+Working but unnecessarily complicated.
+Duplicated in different parts of the application.
+Use this audit to decide what needs to be improved.
+
+Critical implementation rule
+
+If a feature already exists and works properly, preserve it.
+
+If it exists but has a poor user experience, improve it without destroying its existing functionality.
+
+If it exists partially, complete it.
+
+If it does not exist, add it.
+
+If an existing feature already solves a problem adequately, DO NOT introduce another feature that performs the same job.
+
+The goal is to improve the existing product, not inflate it with unnecessary functionality.
+
+2. Preserve the existing product architecture
+
+The active frontend must continue to focus on two main experiences:
+
+Public Website.
+Customer Portal.
+Do not introduce internal staff dashboards into the public navigation.
+
+Staff and operational dashboards are reserved for a later backend and operations phase.
+
+You may prepare customer-facing interfaces and clearly labelled simulated workflows that will eventually connect to the internal systems.
+
+Do not expose unfinished staff functionality to customers.
+
+3. Maintain simplicity
+
+This is extremely important.
+
+More features must not mean a more complicated website.
+
+A customer visiting Swiftvero should immediately understand:
+
+What Swiftvero does.
+What services are available.
+What they can ship.
+Where they can ship.
+How to obtain a quotation.
+How to arrange pickup.
+How to track a shipment.
+How to get assistance.
+Avoid overwhelming users with too many choices.
+
+Use progressive disclosure.
+
+Show essential information first and advanced options only when relevant.
+
+For example, a customer sending one document should not be forced to navigate through bulk shipment management, corporate account settings or cargo documentation.
+
+A business shipping 100 parcels should be able to access advanced business tools without making the personal shipping experience complicated.
+
+Create an interface that adapts to the customer’s needs.
+
+PART 2: OFFICIAL BRAND IDENTITY
+
+Maintain Swiftvero Express’s existing official brand identity.
+
+The official logo is the supplied Swiftvero Express logo featuring the green globe/swoosh symbol and black wordmark.
+
+Use the supplied logo exactly as provided.
+
+Do not recreate, distort, redesign or replace it with a generic logistics logo.
+
+Design direction
+
+Swiftvero should look:
+
+Premium.
+Modern.
+International.
+Professional.
+Trustworthy.
+Clean.
+Technology-enabled.
+Approachable.
+Easy to understand.
+Colour direction
+
+Use:
+
+White: #FFFFFF
+Background: #F8FBF8
+Pale mint: #EEF6EF
+Light green: #DDEEDD
+Muted green accents: #397A55, used sparingly
+Dark text: #202A23
+Secondary text: #68746C
+Borders: #DEE7DF
+White must remain the dominant colour.
+
+Do not use deep green backgrounds or large dark-green panels.
+
+Do not introduce purple, blue, orange, red, pink, neon colours or unnecessary gradients.
+
+Use green for subtle emphasis, icons, progress indicators, small buttons and relevant highlights.
+
+Maintain excellent contrast and readability.
+
+Typography
+
+Use a clean professional typeface such as Inter.
+
+Maintain consistent:
+
+Heading hierarchy.
+Font sizes.
+Line spacing.
+Button styles.
+Border radii.
+Spacing.
+Icon sizes.
+Form styling.
+Card layouts.
+Avoid excessively rounded cards, oversized headings, excessive shadows and unnecessary decorative elements.
+
+PART 3: VISUAL DESIGN AND IMAGE REQUIREMENTS
+
+This is a very important part of the upgrade.
+
+I want the website to look more visually engaging, not like a collection of forms and dashboard cards.
+
+Act as an experienced visual designer.
+
+Where images, illustrations or diagrams would improve understanding, introduce them thoughtfully.
+
+1. Use relevant images to explain services
+
+For important services, use relevant, high-quality images that communicate what the service does.
+
+Examples:
+
+International shipping
+
+Use a relevant image of:
+
+Properly packaged parcels.
+International shipment preparation.
+Cargo handling.
+Global delivery operations.
+Airport cargo logistics.
+Business shipping
+
+Use images showing:
+
+An entrepreneur preparing customer orders.
+Multiple packages being organised.
+A small business owner preparing shipments.
+Warehouse package organisation.
+Bulk shipping
+
+Use:
+
+Multiple labelled parcels.
+Package sorting.
+A business shipping multiple orders.
+A visual illustration of one batch containing multiple individual shipments.
+Personal shipping
+
+Use:
+
+Someone preparing a gift package.
+A person packing personal belongings.
+Properly packaged documents.
+A family sending a parcel.
+Cargo and freight
+
+Use:
+
+Air cargo handling.
+Sea freight containers.
+Warehouse cargo.
+Palletised freight.
+Commercial goods transportation.
+Tracking
+
+Use an illustrative tracking timeline or a professionally designed shipment journey illustration.
+
+Pickup scheduling
+
+Use an image or illustration showing a courier collecting a parcel from a customer’s home or business.
+
+Corporate shipping
+
+Use professional images of business operations, logistics coordination and shipment management.
+
+2. Add explanatory visual descriptions
+
+Where appropriate, include short descriptions alongside images.
+
+Examples:
+
+Bulk Shipping
+
+“Manage multiple shipments in one organised workflow. Upload recipient details, create individual tracking records and manage your entire shipment batch from one place.”
+
+International Shipping
+
+“Send eligible packages across international destinations with clearer quotations, organised documentation and shipment visibility.”
+
+Shipment Tracking
+
+“Follow your shipment through available tracking milestones and receive important updates as it moves towards its destination.”
+
+Business Shipping
+
+“Manage your business shipments, organise customer deliveries and keep your shipping records in one convenient place.”
+
+These descriptions should explain real customer benefits, not just describe the image.
+
+3. Image quality requirements
+
+Use authentic-looking professional photography.
+Use consistent image treatments.
+Prefer wide landscape images for important service sections.
+Use suitable illustrations for technical workflows.
+Avoid random stock images that have no relationship to the feature.
+Avoid excessive imagery.
+Avoid images that make the website look like a generic template.
+Do not stretch images.
+Maintain proper cropping and responsive behaviour.
+Use suitable image descriptions and accessibility alt text.
+If image generation or image retrieval is available, use it where appropriate.
+
+If relevant imagery is unavailable, create clean CSS/SVG illustrations or visual diagrams.
+
+Do not leave broken image placeholders.
+
+Do not use images that falsely imply Swiftvero owns aircraft, ships, warehouses or delivery fleets.
+
+Images must communicate the service without making unsupported claims.
+
+PART 4: PUBLIC WEBSITE UPGRADE
+
+Improve the public website while preserving its existing identity and useful content.
+
+1. Homepage
+
+The homepage must immediately explain the value of Swiftvero.
+
+Create a professional hero section with:
+
+A clear headline.
+A short explanation of the service.
+A prominent “Get a Quote” action.
+A “Track Shipment” action.
+A relevant shipping/logistics visual.
+A clear indication that Swiftvero supports personal and business shipping.
+Suggested headline:
+
+Shipping Made Clear. Logistics Made Easier.
+
+Supporting description:
+
+“From personal packages to business shipments and commercial cargo, Swiftvero helps you organise your shipping with clearer quotations, convenient booking and shipment visibility.”
+
+Include a visual explanation of the shipping journey.
+
+For example:
+
+Create your shipment.
+Arrange collection or drop-off.
+Confirm your quotation.
+Complete payment.
+Follow your shipment.
+Receive delivery confirmation.
+Only display steps that apply to the selected service.
+
+Add a section explaining why customers use Swiftvero.
+
+Focus on genuine benefits:
+
+Clear quotations.
+Convenient shipment booking.
+Free pickup where eligible and available.
+Shipment visibility.
+Organised documentation.
+Business shipping support.
+Customer assistance.
+Do not make unsupported claims such as guaranteed delivery or the fastest shipping company.
+
+2. Services section
+
+Organise the available services into clear categories.
+
+Personal Shipping
+
+For individuals sending:
+
+Gifts.
+Personal belongings.
+Eligible documents.
+Family packages.
+Other permitted items.
+Business Shipping
+
+For:
+
+Online sellers.
+E-commerce businesses.
+Small businesses.
+Distributors.
+Manufacturers.
+Commercial customers.
+International Shipping
+
+For eligible international parcels and documents.
+
+Cargo and Freight
+
+For larger commercial shipments, air freight, sea freight and other supported cargo arrangements.
+
+Clearly distinguish active services from services still under development.
+
+SwiftShare
+
+Present SwiftShare as a separate traveller-assisted delivery concept.
+
+Keep its controlled pilot status clear.
+
+Do not present unavailable services as currently bookable.
+
+3. Business solutions page
+
+Create or improve a dedicated business shipping page.
+
+Explain how Swiftvero helps businesses manage shipping more efficiently.
+
+Include visual sections explaining:
+
+Multiple shipment booking.
+Bulk recipient management.
+Batch references.
+Individual shipment tracking.
+Business shipment history.
+Downloadable receipts.
+Business account management.
+Shipment reporting.
+Use a visual example of a business managing multiple parcels.
+
+Include a strong CTA:
+
+“Manage Your Business Shipments”
+
+4. Cargo and freight page
+
+Improve the existing cargo section.
+
+Include:
+
+Air Cargo.
+Sea Cargo.
+Freight Coordination.
+Larger Commercial Loads.
+For each service, provide:
+
+A clear explanation.
+Suitable customer examples.
+Relevant imagery.
+Information about the quotation process.
+An enquiry or quotation CTA.
+Required shipment information.
+Allow customers to submit cargo enquiries with:
+
+Origin.
+Destination.
+Cargo description.
+Number of packages.
+Approximate weight.
+Dimensions.
+Preferred shipping method.
+Desired shipping timeframe.
+Contact details.
+Do not invent live freight prices.
+
+If a service is not operationally available, clearly mark it as an enquiry or upcoming service.
+
+5. How It Works page
+
+Make the shipping process extremely easy to understand.
+
+Use visual illustrations and numbered steps.
+
+Separate the journey into:
+
+Personal shipment.
+Business shipment.
+Bulk shipment.
+Cargo enquiry.
+Each journey should explain what the customer does and what Swiftvero does.
+
+PART 5: SMART SHIPPING ASSISTANT
+
+Add or improve a guided shipping assistant.
+
+Do not make it a complicated chatbot.
+
+It should be a practical step-by-step shipping guide.
+
+The assistant should ask relevant questions:
+
+What are you sending?
+Is it personal or commercial?
+Where is it being sent from?
+Where is it going?
+How many packages are involved?
+What is the approximate weight?
+What are the package dimensions?
+When would you like it delivered?
+Do you prefer lower cost or faster delivery?
+Would you like pickup or office drop-off?
+Based on the information, guide the customer to an appropriate available shipping service.
+
+Provide explanations for unfamiliar terms.
+
+For example:
+
+“Dimensional weight is a way carriers calculate the space your package occupies, not just how heavy it is.”
+
+Show customers what information they need before proceeding.
+
+Do not invent shipping rates, carrier availability or delivery estimates.
+
+Connect to verified service data when available.
+
+If the application is still running in demo mode, display clearly labelled sample results.
+
+PART 6: CUSTOMER PORTAL UPGRADE
+
+Improve the existing customer portal without making it unnecessarily complicated.
+
+Maintain the existing dashboard structure wherever it works.
+
+The customer portal should provide a clear overview of:
+
+Active shipments.
+Completed shipments.
+Pending quotations.
+Pending payments.
+Upcoming pickups.
+Important notifications.
+Recent shipment activity.
+Use clear visual status indicators.
+
+Do not display unnecessary statistics that have no practical value to customers.
+
+1. Shipment creation
+
+Improve the existing shipment booking experience.
+
+Include:
+
+Sender details.
+Recipient details.
+Origin.
+Destination.
+Shipment category.
+Item description.
+Quantity.
+Declared value.
+Approximate weight.
+Dimensions.
+Packaging information.
+Preferred service.
+Delivery priority where supported.
+Pickup or drop-off preference.
+Relevant supporting documents.
+Use conditional fields.
+
+For example, a document shipment should not display irrelevant cargo fields.
+
+A commercial shipment may require additional declaration information.
+
+Make forms easy to complete on mobile devices.
+
+Save progress where technically supported.
+
+Show clear validation errors.
+
+2. Bulk shipment management
+
+This is a major feature.
+
+Create a bulk shipment workflow for business customers.
+
+Customers should be able to:
+
+Add multiple recipients.
+Create multiple packages.
+Upload a CSV or Excel file.
+Review imported information.
+Correct invalid entries.
+Save recipient information.
+Create a batch reference.
+Generate separate shipment records.
+Generate unique tracking numbers for each shipment.
+View individual shipment statuses.
+View the overall batch summary.
+Download individual receipts.
+Download consolidated batch reports.
+Use one sender form and separate recipient information for each shipment.
+
+Do not create one tracking number for multiple independent parcels.
+
+Every parcel must maintain its own shipment record and tracking number.
+
+Create a clear visual demonstration of this process.
+
+Example:
+
+Business shipment batch: SV-BATCH-001
+
+Recipient 1: SV-10001
+Recipient 2: SV-10002
+Recipient 3: SV-10003
+The batch should group the shipments while each shipment remains independently trackable.
+
+3. Shipment templates
+
+Allow customers to save commonly used shipment information.
+
+Examples:
+
+Regular business parcel.
+Standard clothing package.
+Document envelope.
+Repeat customer shipment.
+Allow customers to reuse saved templates when creating new shipments.
+
+Do not force them to re-enter the same information every time.
+
+4. Address book
+
+Create an address book where customers can:
+
+Save recipients.
+Edit recipients.
+Delete recipients.
+Label frequently used addresses.
+Search saved contacts.
+Reuse addresses during booking.
+For business accounts, allow multiple saved recipients.
+
+5. Repeat shipment booking
+
+Allow customers to open a completed or previous shipment and use its details to create a new shipment.
+
+Before submitting, require confirmation of the current:
+
+Recipient.
+Destination.
+Package details.
+Declared value.
+Shipping option.
+Never automatically reuse outdated shipment details without review.
+
+PART 7: INTERNATIONAL SHIPPING INTELLIGENCE
+
+Improve the platform’s international shipping experience.
+
+Add:
+
+Available shipping service comparison.
+Delivery estimate comparison.
+Shipping speed information.
+Package dimensions guidance.
+Dimensional weight explanation.
+Prohibited and restricted goods guidance.
+Customs declaration assistance.
+Destination-specific documentation guidance.
+Declared shipment value.
+Insurance options where available.
+Duties and taxes information.
+Packaging instructions.
+Create a destination guide where customers can learn about the requirements that apply to their selected route.
+
+Clearly separate:
+
+Transportation charges.
+Duties.
+Taxes.
+Customs charges.
+Additional destination fees.
+Explain whether each charge is included, excluded or not yet determined.
+
+Do not present estimated customs charges as guaranteed.
+
+PART 8: PERSONAL SHIPPING EXPERIENCE
+
+Make Swiftvero welcoming to people who are not business owners.
+
+A first-time customer should be able to send a package without understanding logistics terminology.
+
+Add:
+
+Guided personal shipment booking.
+Gift shipment information.
+Personal belongings declaration.
+Document shipment guidance.
+Packaging instructions.
+Saved personal addresses.
+Recipient information.
+Pickup scheduling.
+Drop-off information.
+Booking confirmation.
+Shipment status.
+Customer assistance.
+Include a visual guide titled:
+
+“Sending Your First Package?”
+
+Show the process using simple illustrations and explanations.
+
+Avoid overwhelming personal customers with business features.
+
+PART 9: TRACKING AND SHIPMENT VISIBILITY
+
+Improve the existing tracking system rather than duplicating it.
+
+The tracking page should clearly display:
+
+Tracking number.
+Shipment status.
+Origin.
+Destination.
+Booking date.
+Available estimated delivery window.
+Shipment activity timeline.
+Pickup status.
+Package verification status.
+Quote status.
+Payment status.
+Transit updates.
+Customs information where supplied.
+Delivery status.
+Available delivery evidence.
+Create a clear shipment timeline.
+
+Possible milestones include:
+
+Booking submitted.
+Pickup scheduled.
+Pickup completed.
+Package received.
+Package inspected.
+Quotation issued.
+Payment confirmed.
+Shipment dispatched.
+In transit.
+Customs processing.
+Out for delivery.
+Delivered.
+Not every shipment will have every milestone.
+
+Only show milestones relevant to the actual service and available carrier information.
+
+Add exception states for:
+
+Shipment delay.
+Customs hold.
+Failed delivery.
+Address problem.
+Missing documentation.
+Shipment investigation.
+When an exception occurs, explain what it means and what the customer should do next.
+
+Never fabricate tracking events.
+
+Public tracking versus customer tracking
+
+Preserve the distinction.
+
+Public visitors should receive limited tracking information after entering a valid tracking number.
+
+Authenticated customers should see the shipment information belonging to their accounts.
+
+Never expose private customer details through public tracking.
+
+PART 10: NOTIFICATIONS AND COMMUNICATION
+
+Improve the existing notification system.
+
+Create useful notifications for:
+
+Booking confirmation.
+Pickup confirmation.
+Pickup completion.
+Package verification.
+Quotation availability.
+Payment confirmation.
+Shipment dispatch.
+Transit milestones.
+Customs exceptions.
+Delivery delays.
+Failed delivery.
+Successful delivery.
+Allow customers to manage their notification preferences.
+
+Where supported, provide email and in-app notifications.
+
+WhatsApp notifications should only be represented as active if a real authorised integration exists.
+
+Create a clear notification history.
+
+PART 11: DELIVERY EVIDENCE, CLAIMS AND CUSTOMER SUPPORT
+
+Create a shipment-linked support experience.
+
+Customers should be able to:
+
+Report delays.
+Report damaged packages.
+Report missing shipments.
+Ask about a particular tracking number.
+Report failed delivery.
+Submit a complaint.
+Request eligible return-to-sender assistance.
+Upload relevant evidence.
+View the status of their support request.
+Where supported, show proof-of-delivery information such as:
+
+Delivery date and time.
+Available recipient confirmation.
+Delivery evidence.
+Carrier-provided delivery details.
+Create clear support ticket statuses.
+
+For example:
+
+Submitted.
+Under review.
+Awaiting customer information.
+Resolved.
+Closed.
+Do not promise compensation or insurance payouts without an approved policy and applicable cover.
+
+PART 12: CORPORATE AND BUSINESS ACCOUNTS
+
+Add a business account mode to the existing customer portal.
+
+Allow customers to create a business profile.
+
+Include:
+
+Business name.
+Business contact details.
+Business verification status.
+Authorised account users.
+User permissions.
+Shipment history.
+Business shipment reports.
+Downloadable receipts.
+Invoice records.
+Monthly shipment summaries.
+Spending summaries.
+Cost-centre references.
+Business support enquiries.
+Allow appropriate roles such as:
+
+Business Owner.
+Operations Manager.
+Shipping Staff.
+Finance Viewer.
+Ensure users only access information permitted by their assigned roles.
+
+Do not introduce postpaid billing or credit facilities unless separately approved and properly implemented.
+
+PART 13: SWIFTSHARE
+
+Preserve SwiftShare as a separate product concept.
+
+Do not merge it into normal courier shipping.
+
+SwiftShare supports controlled traveller-assisted delivery.
+
+Only these categories are permitted in the current product specification:
+
+Clothing.
+Documents.
+Hair and wigs.
+Include:
+
+Sender registration.
+Traveller registration.
+Verification status.
+Item declarations.
+Category-specific information.
+Route selection.
+Route approval.
+Inspection.
+Custody records.
+Tamper-evident packaging.
+Recipient verification.
+Handover confirmation.
+Incident reporting.
+Dispute management.
+Display clear warnings that route and item eligibility must be verified.
+
+Keep the feature clearly labelled as a controlled pilot/demo until legal, insurance and operational approvals are completed.
+
+Do not allow live bookings or payments through the demo.
+
+PART 14: REVIEWS AND TRUST
+
+Improve the existing reviews feature if present.
+
+Only customers with completed shipments should be able to submit reviews.
+
+Allow feedback on:
+
+Overall experience.
+Communication.
+Shipment updates.
+Delivery speed compared with the estimate.
+Package condition.
+Customer support.
+Allow optional photo evidence where appropriate.
+
+Do not allow users to review shipments they did not make.
+
+Create a professional testimonials section on the public website.
+
+Clearly identify genuine verified customer reviews versus sample demo reviews.
+
+Never fabricate customer testimonials or company achievements.
+
+PART 15: CUSTOMER REWARDS AND REFERRALS
+
+Preserve the previously planned referral and reward functionality.
+
+Rewards should only become available after the required qualifying shipment is completed.
+
+Clearly explain:
+
+Referral eligibility.
+Reward conditions.
+Cashback rules.
+Credit usage.
+Expiry conditions, if applicable.
+Do not represent non-withdrawable credit as cash that customers can withdraw.
+
+Keep this feature simple.
+
+PART 16: WEBSITE CONTENT AND CUSTOMER EDUCATION
+
+Improve the written content across the website.
+
+Use plain, natural and professional English.
+
+Avoid excessive logistics jargon.
+
+Write for both experienced business shippers and first-time individual customers.
+
+Explain:
+
+What the service is.
+Who needs it.
+How it works.
+What information the customer needs.
+What the customer should expect.
+What happens next.
+Use examples to explain complicated features.
+
+For example:
+
+“Imagine you run an online store and have 20 orders to send today. Instead of creating every shipment separately, you can organise the recipients in one batch and manage each delivery independently.”
+
+Use short explanatory sections, visual diagrams and useful illustrations.
+
+Avoid long walls of text.
+
+PART 17: CONVERSION AND CUSTOMER EXPERIENCE
+
+Make it easy for visitors to become customers.
+
+Improve:
+
+Get a Quote.
+Start a Shipment.
+Create an Account.
+Track Shipment.
+Business Enquiry.
+Cargo Enquiry.
+Contact Support.
+Make calls to action clear and consistent.
+
+Do not put too many buttons in one section.
+
+Avoid unnecessary registration requirements before customers can understand the service.
+
+Use clear forms with useful validation.
+
+Include helpful empty states.
+
+For example:
+
+“You haven’t created a shipment yet. Start by entering your destination and package details.”
+
+Include clear success messages after important actions.
+
+PART 18: MOBILE EXPERIENCE
+
+The website must be excellent on mobile devices.
+
+Most users may access Swiftvero through mobile browsers.
+
+Ensure:
+
+Responsive navigation.
+Readable typography.
+Properly sized buttons.
+Easy-to-use forms.
+Mobile-friendly tracking timelines.
+Responsive images.
+No horizontal overflow.
+Appropriate spacing.
+Fast-loading interfaces.
+Clear mobile dashboard navigation.
+Do not simply shrink the desktop design.
+
+Design the mobile experience deliberately.
+
+PART 19: DEMO MODE AND INTERACTIVITY
+
+Every new feature must have a clickable and viewable demo.
+
+This is mandatory.
+
+Create realistic demonstration data for:
+
+Personal customers.
+E-commerce businesses.
+Bulk shipments.
+Importers.
+Corporate accounts.
+Cargo enquiries.
+Shipment quotations.
+Pickup scheduling.
+Tracking timelines.
+Shipment exceptions.
+Claims.
+Reviews.
+Business reports.
+Notifications.
+SwiftShare.
+All demo actions must provide meaningful feedback.
+
+For example:
+
+Buttons should perform an action.
+Forms should accept and validate input.
+Tables should display realistic records.
+Search should return relevant demo results.
+Filters should work.
+Tabs should switch content.
+Download buttons should generate valid sample files where feasible.
+Status changes should update the relevant demo interface.
+Clearly label simulated data and simulated transactions.
+
+Do not pretend a simulated payment has reached a real bank account.
+
+Do not claim a real shipment has been booked through a carrier when no production integration exists.
+
+PART 20: TECHNICAL IMPLEMENTATION
+
+Work as a senior software engineer.
+
+Maintain clean, maintainable and reusable code.
+
+Requirements:
+
+Preserve the existing framework.
+Preserve existing routing.
+Reuse existing components.
+Avoid unnecessary dependencies.
+Avoid duplicated logic.
+Maintain consistent data structures.
+Implement appropriate form validation.
+Add proper loading states.
+Add success and error states.
+Handle empty states.
+Maintain accessibility.
+Ensure keyboard navigation where applicable.
+Use semantic HTML.
+Optimise images.
+Avoid unnecessary rendering.
+Maintain responsive performance.
+Prepare features for future backend integration without falsely claiming backend functionality.
+
+Production features such as authentication, payment verification, carrier tracking, email delivery, role enforcement and customer data protection must eventually be handled securely by the backend.
+
+Never trust client-side demo states as production payment or authorisation evidence.
+
+PART 21: IMPORTANT THINGS NOT TO DO
+
+DO NOT:
+
+Rebuild the website from scratch.
+Remove working features.
+Introduce unnecessary dashboard complexity.
+Add duplicate features.
+Make every service look identical.
+Add random stock photographs.
+Use dark green-heavy designs.
+Invent shipping rates.
+Invent delivery guarantees.
+Invent carrier partnerships.
+Invent customer reviews.
+Invent operational capabilities.
+Expose private customer information.
+Expose internal staff dashboards.
+Make simulated features appear live.
+Introduce complicated forms where simple ones already work.
+Add unnecessary animations.
+Fill the website with excessive cards.
+Add features without explaining the customer problem they solve.
+PART 22: IMPLEMENTATION PROCESS
+
+Follow this order.
+
+Stage 1: Full existing website audit
+
+Inspect the complete existing application.
+
+Identify:
+
+Existing working features.
+Existing incomplete features.
+Missing features.
+UX problems.
+Design inconsistencies.
+Broken interactions.
+Duplicate functionality.
+Mobile usability problems.
+Stage 2: Feature mapping
+
+Create a feature comparison:
+
+| Feature | Existing status | Required action |
+| Existing and working | Preserve | No unnecessary changes |
+| Existing but weak | Improve | Maintain existing workflow |
+| Partially implemented | Complete | Preserve current progress |
+| Missing | Add | Integrate naturally |
+
+Stage 3: Design improvements
+
+Improve the visual experience.
+
+Introduce relevant photography, illustrations, diagrams and visual descriptions where they add genuine value.
+
+Ensure images help customers understand the service rather than merely decorate the page.
+
+Stage 4: Incremental implementation
+
+Implement the upgrades in logical sections.
+
+Preserve working functionality after each section.
+
+Do not attempt to redesign and rewrite every part of the project in one uncontrolled operation.
+
+Stage 5: Interactive testing
+
+Test every:
+
+Button.
+Form.
+Link.
+Tab.
+Menu.
+Search field.
+Filter.
+Booking workflow.
+Tracking workflow.
+Demo payment.
+Bulk shipment interaction.
+Customer portal feature.
+Verify mobile and desktop layouts.
+
+Stage 6: Final quality audit
+
+Produce a final implementation report.
+
+Include:
+
+Features already present and preserved.
+Features improved.
+New features added.
+Features still simulated.
+Features requiring backend integration.
+Features requiring carrier integration.
+Features requiring legal or regulatory approval.
+Any incomplete functionality.
+Any remaining bugs.
+Recommendations for the next development phase.
+FINAL PRODUCT STANDARD
+
+The final Swiftvero Express website should feel like a serious international-standard logistics technology platform.
+
+A first-time individual customer should find it easy to send a package.
+
+An e-commerce entrepreneur should be able to manage multiple customer shipments without repetitive manual work.
+
+An importer should understand the available freight options and the information needed for a quotation.
+
+A corporate customer should be able to organise shipping records and manage authorised users.
+
+A diaspora customer should be able to understand the shipment process and receive useful updates.
+
+Every customer should understand what is happening and what to do next.
+
+The objective is not to build the website with the most features. The objective is to build a website that solves the most important customer problems through the simplest possible experience.
+
+Make professional design decisions independently. Do not ask me to approve every small design choice.
+
+However, inspect the existing application before changing it, preserve all working functionality, and implement the upgrade carefully.
+
+Begin with the full audit and feature mapping, then proceed with the implementation.
+

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Swiftvero Express Refined",
+  "description": "A professional UI/UX overhaul focusing on intuitive navigation, clean aesthetics, and a cohesive, brand-aligned design system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

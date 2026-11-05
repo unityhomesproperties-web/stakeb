@@ -1,0 +1,295 @@
+Swiftvero Express — Frontend Build Prompt (Premium Revision)
+Phase 1: frontend only. For use in Google AI Studio or an equivalent AI build environment.
+0. What Changed In This Revision
+Three corrections, applied throughout:
+1. No carrier disclosure, anywhere a customer can see it. The earlier build showed "DHL Express Worldwide Linehaul" directly on the service-tier comparison. That must never happen again — not on that screen, not anywhere public-facing.
+2. A genuinely premium visual identity, replacing the light green-and-white system, which read as generic SaaS rather than a premium international shipping brand.
+3. Frontend only for this phase. No real backend, database, payment processing, or carrier integration. Everything is simulated with realistic mock data, built the way a real system would be structured later.
+Everything else from the previous build — the booking workflow, the transparency standard on weight verification, proactive stall detection, reviews, cashback, and the realistic Nigerian pricing detail (VAT, jet fuel surcharge, export manifest lodging) — is working well and should be preserved.
+1. Role and Product Vision
+Act as a senior frontend engineer, premium brand designer, and conversion-focused product designer.
+Build a polished, mobile-first, production-quality frontend only for Swiftvero Express Ltd, a Nigerian logistics technology company coordinating international cargo, parcel, and express shipping from Nigeria to supported destinations abroad.
+This is a real, interactive application, not a plan or static screenshots. Every navigation item, button, and form must work end to end using realistic simulated data and local state. Build it the way a real system would be structured — a clear separation between UI components and a mock "data/service" layer — so a real backend can be connected later without a rewrite. Do not build actual servers, databases, or third-party integrations in this phase.
+Swiftvero Express should solve practical shipping problems:
+• Customers should never need to repeatedly contact Swiftvero to understand the next step.
+• Customers should never be charged an unexplained final amount after an initial estimate.
+• Customers should be able to declare their goods accurately and track their shipment's progress.
+• Customers should receive proactive, honest communication when a shipment has an overdue update or a confirmed problem.
+• Customers should be able to reach support without hunting for the right page.
+• Swiftvero should project precision and restraint — the feeling of a brand that ships valuable things for a living, not a generic logistics app.
+Carrier confidentiality is a hard rule, not a style preference. Swiftvero works with established international carrier networks behind the scenes, but the carrier's name, logo, or any identifying detail must never appear anywhere a customer can see it — not on the homepage, not in the quote flow, not on the service-tier comparison, not on the tracking page, not in FAQs, not in the footer. Refer to service tiers only by Swiftvero's own branded names — "Priority Air Express," "Standard Air Courier" — and describe them only by what the customer actually cares about: transit window, price, pickup conditions, and restrictions. A line like "DHL Express Worldwide Linehaul" or "Consolidated Air Cargo Courier via [Carrier]" must never appear. Replace any such line with a short, carrier-neutral description — for example, "Fastest available international lane" or "Cost-optimized international lane, consolidated for efficiency." This applies without exception to every public and customer-facing screen in this build.
+The brand's central promise: Swiftvero Express — Your world, connected.
+Homepage headline: "International shipping from Nigeria. Handled with precision."
+Supporting copy: "Book international parcel and cargo shipments with transparent pricing, verified measurements, and proactive updates — without chasing anyone for answers."
+Primary CTA: Get a Shipping Quote. Secondary CTA: Track a Shipment.
+Trust principle, which should shape the actual tracking and support screens, not just the marketing copy: "When your shipment needs attention, you shouldn't have to chase us for answers."
+Do not make unsupported claims about guaranteed delivery, universal destination coverage, perfect reliability, or any named carrier partnership.
+2. Design System — Premium Visual Identity
+The previous light-green-and-white system read as generic SaaS. Replace it entirely.
+Brand direction: think a premium bank's digital app, or private-aviation check-in — not a logistics dashboard. Quiet confidence and precision, not decoration. Every screen should look like it was designed by people who ship valuable things for a living.
+Colour system
+Role
+Colour
+Hex
+Ink (primary text, darkest surfaces)
+Near-black bottle-green
+#0B1F17
+Deep green (sparing emphasis panels)
+Deep green
+#123B2A
+Ivory (dominant background)
+Warm off-white
+#F8F5EE
+Card white (elevated surfaces only)
+White
+#FFFFFF
+Brass (the one accent — use sparingly)
+Muted brass/gold
+#B8914A
+Text secondary
+Warm grey
+#5B655D
+Border/hairline
+Warm hairline grey
+#E4DFD2
+Success
+Deep green
+#2F6B4F
+Warning
+Amber-brown
+#93631B
+Error
+Deep red
+#9B2E26
+Usage rules — this is what makes it premium, not the colours themselves:
+• At least 80% of every screen is ivory, card-white, or ink text. Brass appears only as a thin rule, an icon accent, a primary-button state, or a small badge — never as a block fill.
+• At most one subtle gradient in the whole build, reserved for the hero section (ink to deep green).
+• Never more than one accent colour visible in a single viewport.
+Typography: a refined serif or high-contrast display face for H1/H2 only (something in the spirit of Fraunces, Canela, or GT Super — use a real, licensable equivalent available in the build environment), used sparingly at large sizes. Inter or an equivalent clean grotesk for body and UI text, with deliberate variation in weight and size so the hierarchy is real, not flat. Use a tabular/monospaced numeral style for prices, weights, and tracking codes — it signals precision.
+What premium means here, concretely:
+• Generous whitespace. When in doubt, remove an element rather than add one.
+• Hairline borders (1px, #E4DFD2), not heavy drop-shadows. Reserve shadow for genuinely floating elements like modals and dropdowns, and keep it soft.
+• Custom, consistent-stroke line icons. Never a mixed icon pack, never emoji as UI icons.
+• Asymmetric, editorial rhythm on marketing pages — not a perfectly centered, identical-card grid on every section.
+• Quiet micro-interactions: a 150–200ms fade or ease, never a bouncy or playful animation.
+• Specific, locally-grounded copy — the existing VAT/FIRS, jet-fuel-surcharge, and export-manifest line items are a good model. That specificity is itself what reads as premium and trustworthy.
+What to explicitly avoid — the "AI-generated look" checklist:
+• Identical rounded-corner cards repeated edge to edge with no variation
+• Pastel gradient blobs or floating abstract 3D shapes in the hero
+• Soft drop-shadows on every card and button
+• Pill-shaped buttons and badges on every element
+• Perfectly symmetrical, centered layout on every section
+• Generic "diverse people smiling while holding a parcel" stock photography
+• More than one accent colour competing for attention in one view
+• Decorative sparkline charts added purely for visual texture
+• A caption under every icon, even when the icon is already self-explanatory
+Logo: reuse the existing Swiftvero Express asset if supplied. If unavailable, build a refined placeholder from the wordmark plus a simple geometric globe or compass mark — not a cartoon airplane or box icon. Make it easy to swap for the final logo later.
+Responsive requirements: mobile-first from roughly 360–390px wide, and smooth on tablets, laptops, and large desktops. Touch-friendly controls, an easily reachable primary CTA, sensible form steps rather than long intimidating forms, visible tracking information without excessive scrolling, mobile-friendly navigation, and a compact bottom navigation inside the authenticated customer app where appropriate. No horizontal scrolling, no dense desktop-style tables, no tiny text. File uploads, date pickers, address entry, payment review, and document display must all be genuinely usable on a phone.
+3. Application Architecture — Frontend Scope
+Build these areas, in this priority order for Phase 1:
+1. Public website — full priority
+2. Customer account and shipping portal — full priority
+3. Future-service demonstration area (local delivery, interstate, moving) — lightweight, clickable demo
+4. Pickup-agent portal and admin/operations dashboard — lower priority for this phase; a skeleton with the main navigation and one or two working screens is enough for now. Treat the full build-out as a later pass.
+Use reusable components and one shared design system across all of them.
+Structure the code as if a real backend exists: a typed data layer, service functions that currently return mock data but could later call real APIs, and no business logic hardwired directly into UI components. Do not build actual servers, databases, payment gateways, carrier integrations, or identity-verification providers — simulate all of it convincingly with local state and realistic sample data.
+Do not put any real or placeholder "secret" values anywhere in the frontend code, even for mock integrations. Keep demo data clearly separate from any structure meant to later hold production data.
+4. Public Website Pages
+Homepage header: logo, Services, How It Works, Track Shipment, Business Shipping, About Us, Contact, Sign In, Get a Quote. Accessible mobile menu on small screens.
+Hero: headline and supporting copy as above. Primary button "Get a Shipping Quote," secondary "Track a Shipment." Use a restrained, high-quality visual of international transit — never a generic airline-advert look, never a stock photo of smiling people with boxes. If real review data exists, show the genuine overall rating and verified review count near the hero; if none yet, show an honest line that reviews will appear as eligible shipments are completed. Never invent a rating or testimonial.
+Quick quote entry: origin country/city, destination country/postal code, shipment type, parcel count, approximate weight and dimensions, pickup requirement, customer type (individual/business). Guide the customer to the next step; if a precise rate can't be shown yet, collect the details and explain that a verified quotation follows. Never fabricate a live rate.
+How it works: 1. Create a shipment request → 2. Declare contents → 3. Schedule pickup or use an approved drop-off point → 4. Verification and measurement → 5. Review and approve the final quote → 6. Pay securely → 7. Carrier booking confirmed → 8. Track and receive updates.
+Services: the live launch services are international shipping — parcels, documents, and eligible cargo on supported routes. Never imply every cargo type or destination is supported.
+Trust and communication: itemized quotations, verified measurements, milestone updates, proactive investigation of overdue updates, support, secure identity verification, and a clear claims process. Never claim a feature is live before the workflow actually exists.
+Business shipping: targets SMEs, online sellers, exporters, importers, and recurring shippers. CTA: Business Shipping Enquiry. Do not build a bulk/trade-desk workspace in this version.
+Reviews section: genuine published reviews only, each with rating, date, service category, and a verified-shipment badge where applicable.
+Footer: About, Contact, FAQs, Track Shipment, Business Shipping, Shipping Terms, Privacy Notice, KYC Notice, Prohibited and Restricted Goods Policy, Cancellation and Refund Policy, Claims and Liability Policy, Priority Shipping Terms, Cashback and Referral Terms, Optional Protection Terms (when available), Complaints and Dispute Resolution, applicable regulatory information. Use only genuine, admin-configurable company details — never invented addresses, numbers, or licence references.
+Services / How It Works / FAQs / About / Contact pages: the services page explains the live international service only, filtered by verified route, destination, size, weight, and eligibility — never listed simply because a carrier offers it somewhere in the world. FAQs cover booking, supported origins/destinations, weight and dimensions, pickup and drop-off, prohibited goods, final pricing, Priority vs Standard shipping, customs charges, tracking delays, identity verification, cashback/referrals, damage/loss/claims/cancellation/refunds, shipment protection, and contacting support — keep answers admin-editable. Contact form: name, email or verified phone, shipment reference where relevant, reason for contact, message, optional supporting file, categorized by booking, payment, pickup, tracking, claims, refunds, business accounts, or general enquiry.
+5. Customer Accounts and KYC
+Build account creation, sign-in, password reset, contact verification, and session handling — all simulated for this phase.
+Profile fields: full legal name, contact details, residential/business address where required, customer type, identity-verification status, business details for business accounts, notification preferences. Collect nothing beyond what's needed.
+KYC statuses to build, all simulated: Not started, In progress, Submitted, Pending review, Verified, Additional information required, Rejected, Expired/re-verification required. Include a manual-review and escalation path in the UI. A customer must not be able to reach checkout without completing the required KYC step — enforce this in the UI flow even though there's no real backend check yet. Never expose ID documents or numbers to the customer-facing tracking page.
+6. International Shipment Booking Workflow
+A real multistep flow with a visible stepper, inline validation, and save-and-resume where sensible.
+Step 1 — Route: origin, destination, sender and recipient contact details, appropriate address fields per country. Only eligible routes may proceed to payment.
+Step 2 — Contents declaration: description, category, quantity, declared value and currency, package count, weight, dimensions, packaging, shipment purpose, relevant customs information, optional supporting documents. Show prohibited/restricted guidance before submission and require confirmation of accuracy. A restricted item pauses the booking for review rather than silently blocking it.
+Step 3 — Pickup or drop-off: pickup scheduling with date, time window, address, access instructions; or an approved physical drop-off with staff identity verification and a recorded custody event. Show pickup fees separately. The existing doorstep-pickup vs. hub-drop-off pattern already built is good — keep it, including the named Victoria Island / Ikeja hub locations if those are real.
+Step 4 — Verification and measurement: actual count, weight, dimensions, condition, permitted photos, discrepancies, screening status, customer acknowledgement, custody handover. The existing "Swiftvero Transparency Standard" messaging — verifying measurements in the customer's presence and requiring itemized approval before payment if they differ — is exactly right. Keep it, and consider surfacing this same transparency principle at other points in the flow, since it's doing real work for the brand promise.
+Step 5 — Verified quote: a clear, itemized breakdown (consider keeping the existing pattern: base linehaul, applicable surcharges, security/documentation, collection method, optional protection, subtotal, VAT, total) with currency, quote timestamp and expiry, selected service, estimated transit window, and exclusions. Record the original estimate and verified figures separately, and require renewed approval if the final quote changes materially. Never silently change an accepted quote.
+Step 6 — Service selection: show Standard and Priority/Express side by side when both are available. For each, show only: Swiftvero's own service-tier name, total price and currency, estimated transit window, relevant cutoff and pickup conditions, restrictions, and applicable refund/claim terms. Never show a carrier name or carrier service name here or anywhere else customer-facing — describe the lane only in Swiftvero's own terms ("Priority Air Express," "2–3 business day transit window," not "DHL Express Worldwide Linehaul"). If no Priority option exists for a route, say so and show the available alternative.
+Step 7 — Acceptance: a final review summarizing route, declared goods, verified measurements, pickup arrangement, selected service, itemized charges, and total. Require acceptance of the final quote, service terms, and contents declaration, and record the exact document version accepted.
+Step 8 — Payment: simulate initiation, pending, success, failure, cancellation, and refund states. Treat the eventual backend as the only source of truth for payment confirmation, even though it's mocked now. Issue a receipt once payment is confirmed in the simulation.
+Step 9 — Carrier booking: simulate booking confirmation and generate a clearly-labelled sample tracking number. Store the service selected, booking timestamp, and status in mock data — but never surface the underlying carrier identity in any customer-facing view.
+Step 10 — Tracking and delivery: a readable timeline, clearly distinguishing confirmed milestone events from internal operational notes, with delivery confirmation and proof of delivery where available, plus access to shipment history, support, claims, and the final receipt.
+7. Customer Dashboard
+Overview, New Shipment, My Shipments, Track Shipment, Quotes, Payments and Receipts, Pickups, Addresses, Reviews, Cashback, Refer a Friend, Support, Profile and Security. Show active shipments, pending quotes, upcoming pickups, payments awaiting completion, items needing customer action, recent tracking events, support cases, cashback balance, referral status, and recent reviews — as a clean overview, not an overwhelming enterprise table. Must be genuinely usable on mobile.
+8. Proactive Stall Detection
+This is the central product differentiator — build the UI and state machine for it properly, not just as copy.
+Model configurable stages (pickup assigned, awaiting pickup, verified, awaiting payment, carrier booking pending, origin processing, international transit, customs clearance, destination processing, out for delivery, delivery exception) and a simulated monitoring process that, when a stage goes stale past its threshold, creates a stall record, simulates an internal alert, and sends a truthful, specific customer message — never inventing a reason that isn't confirmed. Example message when no cause is known: "Your shipment hasn't received a new tracking update within the expected window. We're checking the latest available information and will update you as soon as we have confirmation." Let the customer see: last confirmed event and its time, whether an update is overdue, any confirmed issue, what Swiftvero is doing about it, and a support contact.
+9. WhatsApp Tracking and Support
+Build the entry points (start a WhatsApp conversation from relevant screens) using a mock adapter — shipment status enquiries, tracking-reference submission, identity verification before disclosing anything private, support-ticket creation, and escalation to a human. Do not invent an official WhatsApp number; make it a configuration value. If unavailable, show an honest "unavailable" state rather than pretending to send a message.
+10. Reviews and Ratings
+A genuine verified-shipment review system: invitation roughly 24–48 hours after delivery, capturing an overall 1–5 rating plus sub-ratings for communication clarity, delivery speed vs. estimate, and condition on arrival, with optional photos and a written review. Only a customer linked to an eligible completed shipment can submit one — a tracking number alone is not proof of ownership. States: invitation pending, submitted, pending moderation, published, rejected, hidden, flagged. Build a moderation view with public company responses, and never suppress a legitimate negative review just because it's negative. Show real averages and counts only once genuine reviews exist — never invented testimonials or scores.
+11. Cashback and Referral Programme
+Simulate real monetary cashback (not a withdrawable wallet) released after a qualifying shipment is delivered, closed, and past any refund/dispute window. Build the full configurable-rule surface even though it's mocked: calculation rate, cap per shipment, eligible services, minimum qualifying charge, campaign dates, eligibility conditions, pending period, payout method. Calculate on the eligible economic portion of the transaction, not the full amount including carrier pass-through costs and taxes.
+Referral: a unique code/link, bonuses released only after the referred customer's first qualifying shipment clears, with self-referral and duplicate-account protection modeled in the UI. Show the complete terms before enrolment. No real money moves in this phase — simulate every state.
+12. Revision 2 — Read This First: Cut Scope, Fix the Execution
+What went wrong in the previous build, and the fix for this pass:
+Scope was too wide. The build surfaced an Ops Desk / Control Center with a simulation-scenario switcher as a prominent, default-visible part of the experience — audit streams, trust-metrics consoles, and numbered scenario-trigger buttons stacked above the site on every screen. That is the opposite of simple. For this build, do not create an admin dashboard, an operations console, a pickup-agent portal, or any visible "demo scenario" switcher at all. Build only the public marketing website and the customer account and shipping journey (Sections 4–11 above). Nothing else. If those other pieces are wanted later, they are a separate, later build — do not include even a lightweight version of them now.
+Demo data should be invisible, not a feature. Do not build a "Simulation Mode" toolbar, scenario buttons, or an audit-stream display. Instead, hardcode realistic sample data directly into the app so every screen a customer would actually see — including one sample in-progress shipment with a believable tracking history — works and looks real when clicked through. The person using it should never see a control panel; they should just see the finished product. This replaces anything written earlier in this document about a switchable demo-scenario system.
+Font — committed, not a suggestion. Headlines (H1/H2, hero text): Fraunces, a premium serif available on Google Fonts — large, confident, editorial. Body copy, labels, navigation, buttons, and all other UI text: Inter. Use only these two typefaces anywhere in the build.
+Colour — this is still green and white, executed properly. The brand colour is, and remains, green and white. What changed is the execution: a light, bright green-and-white reads as a generic template, which is exactly the problem. A deep, restrained green against a warm white does not. Use the palette already specified in Section 2 — deep ink-green #0B1F17, deep green #123B2A, warm ivory #F8F5EE, white #FFFFFF, with the small brass accent #B8914A reserved only for the primary button and the single most important highlight on a screen. Nothing here is a new brand colour — it is a more premium execution of the same green and white.
+Density — the single biggest fix. The previous screen stacked panel on panel on badge on badge: a toolbar, two rows of buttons, a header, a bordered card containing more badges, a tab row, then another card. Premium design is mostly empty space. On any given screen: at most one bordered "hero" card, at most one small badge or label per section, and never a card nested inside another card. If a screen seems to need more than one visually distinct panel to explain itself, the content is doing too much — simplify the content rather than adding another panel.
+13. Priority and Standard Shipping
+Service selection is part of the quote flow (Step 6, Section 6). Show Swiftvero's own tier name, price, transit window, cutoff, and restrictions — never a carrier name, anywhere. If Priority isn't available on a route, say so plainly and show the available alternative. If a price changes before booking, explain why and ask for renewed approval before proceeding.
+14. Optional Shipment Protection
+An optional add-on at the quote stage: coverage description, eligible value, premium and currency, exclusions, coverage limit, and a separate, affirmative opt-in — never pre-selected. Never imply Swiftvero is itself an insurer. Until a real protection product exists, label it "coming soon" rather than charging for it.
+15. Legal and Policy Pages
+Build simple, readable pages for: Terms of Use, Privacy Notice, KYC and Identity Verification Notice, Prohibited and Restricted Goods Policy, Shipping and Carrier Service Terms (generic tier language only, no carrier names here either), Pricing and Quotation Policy, Cancellation and Refund Policy, Claims and Liability Policy, and Cashback and Referral Terms. Use plain language, not intimidating legal copy. The real legal content needs a Nigerian legal adviser's review before any real launch — this prompt does not replace that.
+16. Business Shipping Enquiries
+A simple enquiry form for SMEs, exporters, and recurring shippers: business name, contact person, email and phone, estimated monthly volume, typical weights, common routes, and a message. A confirmation screen is enough for this phase — no internal review workflow needed since there's no admin side in this build.
+17. Customer Support and Claims
+A simple support form categorized by booking, payment, pickup, tracking, customs, delivery, damage, loss, refund, or general enquiry, with a reference number and a clear confirmation. For claims, collect the shipment reference, description, date, and optional photos. Keep this light — no admin-side ticket management in this build.
+18. Prohibited Goods and Shipment Safety
+Show clear, plain-language prohibited and restricted goods guidance during the contents-declaration step, with a required acknowledgement before continuing. Note in the copy that this list isn't a final determination for every destination — it's general guidance.
+19. Notifications
+Build the notification UI for key customer moments — booking confirmed, pickup confirmed, quote ready, payment confirmed, tracking update, overdue-update notice, delivered, review invitation — using sample/simulated content only. No real email, SMS, or WhatsApp sending in this phase.
+20. Frontend Delivery
+Deliver real, working code for the public website and the customer journey: organized components, responsive layouts for every page in scope, realistic hardcoded sample data, and clear empty, loading, success, and error states where they matter. Keep it simple — don't build an elaborate backend-ready service-layer architecture at the expense of shipping something clean and working now. A well-organized set of components with good sample data is enough for this phase.
+21. Build Order
+1. Design system — Fraunces and Inter, deep green/ivory/brass, restrained density. Get this exactly right first; everything else is judged against it.
+2. Public website — homepage, services, how it works, FAQs, about, contact.
+3. Registration, sign-in, and the KYC steps, simulated.
+4. The full booking workflow, Steps 1–10, with realistic hardcoded sample data throughout. This is the heart of the product.
+5. Customer dashboard, reviews, cashback and referral, WhatsApp entry points.
+6. Legal pages, business enquiries, support.
+7. Walk through the complete sample journey start to finish, mobile first, then desktop. There should be no visible demo controls, toolbars, or scenario switchers anywhere in the result — just the finished site.
+22. Final Standard
+Judge every screen against one question before anything else: would a first-time customer, with no explanation, immediately know what to do next? If not, or if a screen needs a caption to explain itself, simplify it. Premium here means restraint and clarity, not more panels, more badges, or more features. No admin tooling, no scenario switcher, no visible "demo mode" controls anywhere in the delivered experience — just a beautiful, simple, working international shipping website.
+23. Revision 3 — Global Positioning, Free Pickup, and New Features
+This section supersedes the Nigeria-specific framing in Section 1 and the pickup-fee language in Section 6, Step 3.
+This is a global shipping brand, not a Nigeria-only one. Nothing on the site should read as if the service is only for Nigerians or only usable from within Nigeria. Replace the company description, headline, and supporting copy:
+• Company description: Swiftvero Express is an international logistics technology company, headquartered in Nigeria, coordinating cargo, parcel, and express shipping to destinations worldwide, built to an international operating standard.
+• Headline: "Global shipping, from Nigeria to the world."
+• Supporting copy: "Book international parcel and cargo shipments with transparent pricing, verified measurements, and proactive updates — wherever you're shipping from."
+Keep the factual scope honest — for now, bookings originate from Nigeria to supported international destinations, and address fields, pickup locations, and currency should reflect that — but the company's voice, standard, and ambition should read as international throughout. Review every page already specified in this document (homepage, services, FAQs, trust section) and remove any phrasing that implies the service is exclusively for Nigerians or only relevant within Nigeria.
+Delivery estimation. At the quote stage (Step 5) and on the tracking page, calculate and display a specific estimated delivery date, not just a transit-day range — derived from the pickup date plus the selected service tier's transit window (pickup on a given date, a 2–3 business day tier, shows "Estimated delivery: [date]"). Label it clearly as an estimate, not a guarantee, consistent with the no-guaranteed-delivery rule already in this document.
+Pickup tracking and notification. For any shipment using doorstep pickup, give it its own visible status on the customer dashboard, separate from the overall shipment timeline: Pickup Requested → Agent Assigned → Agent En Route → Picked Up (or Rescheduled/Failed, with a reason). Send the customer a clear notification the moment pickup is successfully completed — treat this with the same care as the stall-detection notifications in Section 8; it's one of the proactive-communication moments the whole product is built around.
+Pickup is free — no fee, under any circumstance. Doorstep pickup and hub drop-off are both free. Do not display a pickup charge anywhere, do not frame free pickup as a limited campaign, and remove the "+₦3,500" style collection-fee line from the quote breakdown entirely. (Worth flagging, not blocking: at real scale, free pickup with no constraints is a genuine cost to absorb somewhere — but that's a pricing decision for you and your partner, not a build note, so implement it as free throughout.)
+Cancellation disclaimer. Add this to the Cancellation and Refund Policy (Section 15), and surface it as an explicit acknowledgment at the moment a customer cancels a shipment that has already been picked up or dropped off: "Once your shipment has arrived at a Swiftvero facility, cancelling it does not include returning or redelivering the goods to you — Swiftvero is not responsible for returning or delivering the goods back after a cancellation at this stage. Arranging collection of cancelled goods from our facility is the customer's responsibility." Show this plainly before the customer confirms a cancellation, not buried in a longer terms document.
+Final Consolidated Build Prompt — Copy From Here
+Everything below is self-contained and supersedes every revision above. Paste only from this heading down into Google AI Studio / Gemini.
+Role and Scope
+Act as a senior frontend engineer and a premium brand/UI designer. Build a polished, mobile-first, production-quality frontend only for Swiftvero Express Ltd, an international logistics technology company coordinating cargo, parcel, and express shipping.
+This is a real, interactive, clickable application — not a plan, a wireframe, or static screenshots. Every navigation item, button, and form must work end to end using realistic hardcoded sample data and local state.
+Build only the public marketing website and the customer account and shipping journey. Do not build an admin dashboard, an operations console, a pickup-agent portal, or any visible "demo mode" / "simulation mode" toolbar, scenario switcher, or audit-stream display. There should be no control panel of any kind visible anywhere in the result — the person using it should just see the finished product, with sample data already built in. Do not build a real backend, database, payment gateway, carrier integration, or identity-verification service — simulate all of it convincingly.
+I will provide the official logo file, social media handles, and phone number separately. Use exactly what I provide wherever branding appears — header, footer, contact page, social links — rather than inventing placeholder handles or numbers. If an asset hasn't been provided yet, leave a clearly labeled placeholder that's easy to swap, never an invented one.
+Brand and Positioning
+Swiftvero Express is an international logistics technology company, headquartered in Nigeria, coordinating cargo, parcel, and express shipping to destinations worldwide, built to an international operating standard. This is a global brand, not a Nigeria-only one — nothing anywhere on the site should read as if the service is only for Nigerians or only usable from within Nigeria. Keep the factual scope honest (bookings currently originate from Nigeria to supported international destinations, so address fields, pickup locations, and currency reflect that) but the company's voice and ambition should read as international throughout.
+Tagline: Swiftvero Express — Your world, connected.
+Headline: "Global shipping, from Nigeria to the world."
+Supporting copy: "Book international parcel and cargo shipments with transparent pricing, verified measurements, and proactive updates — wherever you're shipping from."
+Primary CTA: Get a Shipping Quote. Secondary CTA: Track a Shipment.
+Trust principle, which should shape the actual product, not just the marketing copy: "When your shipment needs attention, you shouldn't have to chase us for answers."
+Carrier confidentiality — a hard rule. Swiftvero works with established international carrier networks behind the scenes, but the carrier's name, logo, or any identifying detail must never appear anywhere a customer can see it — not the homepage, the quote flow, the service-tier comparison, the tracking page, the FAQs, or the footer. Refer to service tiers only by Swiftvero's own branded names ("Priority Air Express," "Standard Air Courier") and describe them only by transit window, price, pickup conditions, and restrictions.
+Never make unsupported claims: no guaranteed delivery, no claim of universal destination coverage, no named carrier partnership, no invented ratings or testimonials.
+Design System
+Direction: a premium bank's digital app, or private-aviation check-in — not a logistics dashboard, and not a generic AI-generated template. Quiet confidence and precision, not decoration.
+Colours — a light, premium execution of green and white, inspired by the brand's other platform (Unity Homes): a vivid, confident green used sparingly against a dominant white and pale-green canvas.
+Role
+Hex
+Primary green (the one accent — buttons, links, highlights, badges)
+#0C8A3E
+Deep green (headings needing extra weight, hover/active states)
+#0A5C2A
+White (dominant background)
+#FFFFFF
+Pale green (alternating section backgrounds, subtle variety)
+#EDF9F0
+Text primary
+#1C2420
+Text secondary
+#5B655D
+Border/hairline
+#E3ECE6
+Success
+#0C8A3E
+Warning
+#93631B
+Error
+#9B2E26
+At least 80% of every screen is white or pale-green background with dark text — never a solid green wash across a hero image or a translucent green glass panel over a photo, which is what made an earlier design read as heavy rather than light. The primary green appears only as a thin rule, an icon accent, a button, a badge, or a short highlighted phrase — never as a full-bleed background or an overlay tint on a photo. At most one subtle gradient in the whole build, reserved for a single section, never over imagery. Never more than one accent colour visible in a single viewport.
+Typography: Fraunces (a premium serif, available on Google Fonts) for H1/H2 and hero text only — large, confident, editorial. Inter for everything else — body, labels, navigation, buttons. Use only these two typefaces anywhere in the build. Tabular/monospaced numerals for prices, weights, and tracking codes.
+What premium means here: generous whitespace — when in doubt, remove an element rather than add one. Hairline borders (1px, #E4DFD2), not heavy drop-shadows; reserve shadow for genuinely floating elements like modals. Custom, consistent-stroke line icons, never a mixed pack, never emoji as UI icons. Asymmetric, editorial rhythm on marketing pages, not identical centered card grids. Quiet 150–200ms transitions, never bouncy or playful. Specific, locally-grounded copy (real VAT/FIRS references, jet-fuel-surcharge language, export-manifest detail) reads as premium and trustworthy — keep that level of specificity throughout.
+On any single screen: at most one bordered "hero" card, at most one small badge or label per section, never a card nested inside another card. If a screen needs more than one visually distinct panel to explain itself, simplify the content rather than adding another panel.
+Avoid, explicitly — the "AI-generated look": identical rounded cards repeated edge to edge; pastel gradient blobs or floating 3D shapes; soft shadows on every card and button; pill-shaped buttons and badges on every element; perfectly symmetrical centered layout on every section; generic stock photography of people smiling with parcels; more than one accent colour competing in one view; decorative sparkline charts added for texture; a caption under every icon even when it's self-explanatory.
+Logo: use the file I provide. If none is available yet, build a refined placeholder from the wordmark plus a simple geometric globe or compass mark — never a cartoon airplane or box icon — and make it easy to swap later.
+Responsive: mobile-first from roughly 360–390px, smooth on tablets, laptops, and desktop. Touch-friendly controls, an easily reachable primary CTA, sensible form steps instead of long intimidating forms, visible tracking information without excessive scrolling, no horizontal scrolling, no dense desktop-style tables, no tiny text. File uploads, date pickers, address entry, payment review, and document display must all be genuinely usable on a phone — and checkout especially must feel short and simple, never like a long form.
+Public Website
+Header: logo, Services, How It Works, Track Shipment, Business Shipping, About Us, Contact, Sign In, Get a Quote — with an accessible mobile menu.
+Hero: headline and copy as above. Restrained, high-quality visual of international transit — never a generic airline-advert look or stock photo cliche. If real reviews exist, show the genuine rating and count near the hero; if not yet, an honest line that reviews will appear once eligible shipments are completed. Never invent a number.
+Quick quote entry: origin country/city, destination country/postal code, shipment type, parcel count, approximate weight/dimensions, pickup requirement, customer type. Guide to the next step; if a precise rate isn't available yet, collect the details and explain a verified quotation follows — never fabricate a live rate.
+How it works: Create a shipment request → Declare contents → Schedule pickup (free) or use an approved drop-off point → Verification and measurement → Review and approve the final quote, with an estimated delivery date → Pay securely → Carrier booking confirmed → Track and receive updates.
+Services: the live launch service is international shipping — parcels, documents, and eligible cargo on supported routes. Never imply every cargo type or destination is supported.
+Trust and communication: itemized quotations, verified measurements, milestone updates, proactive investigation of overdue updates, support, secure identity verification, a clear claims process. Never claim a feature is live before the workflow exists.
+Business shipping: targets SMEs, online sellers, exporters, importers, recurring shippers. CTA: Business Shipping Enquiry. No bulk/trade-desk workspace in this version.
+Reviews section: genuine published reviews only — rating, date, service category, verified-shipment badge.
+Footer: About, Contact, FAQs, Track Shipment, Business Shipping, Shipping Terms, Privacy Notice, KYC Notice, Prohibited and Restricted Goods Policy, Cancellation and Refund Policy, Claims and Liability Policy, Priority Shipping Terms, Cashback and Referral Terms, Optional Protection Terms, Complaints and Dispute Resolution, applicable regulatory information, and the real social handles and phone number I provide.
+Services / How It Works / FAQs / About / Contact pages: services filtered by verified route, destination, size, weight, and eligibility — never listed just because a carrier offers it somewhere. FAQs cover booking, supported routes, weight/dimensions, pickup and drop-off (both free), prohibited goods, final pricing, Priority vs Standard, customs charges, tracking delays, identity verification, cashback/referrals, damage/loss/claims/cancellation/refunds (including the cancellation disclaimer below), shipment protection, and support. Contact form: name, email or verified phone, shipment reference where relevant, reason, message, optional file.
+Customer Accounts and KYC
+Account creation, sign-in, password reset, contact verification, session handling — all simulated. Minimal profile fields: legal name, contact details, address where required, customer type, verification status, notification preferences.
+KYC states, all simulated: Not started, In progress, Submitted, Pending review, Verified, Additional information required, Rejected, Expired/re-verification required. A customer cannot reach checkout without completing the required step — enforce this in the UI flow. Never expose ID documents or numbers on the customer-facing tracking page.
+The Booking Workflow
+A real multistep flow, visible stepper, inline validation.
+Step 1 — Route: origin, destination, sender and recipient contact details.
+Step 2 — Contents declaration: description, category, quantity, declared value and currency, package count, weight, dimensions, packaging, purpose, customs information, optional documents. Show prohibited/restricted guidance before submission and require confirmation. A restricted item pauses for review rather than silently blocking.
+Step 3 — Pickup or drop-off, both completely free. No fee anywhere, under any circumstance — do not display a collection charge, and do not frame free pickup as a limited campaign. Doorstep pickup: date, time window, address, access instructions. Hub drop-off: an approved physical location with immediate staff verification. Keep the existing weight/dimension transparency pattern — actual weight vs. volumetric weight (IATA formula: L×W×H÷5000) vs. chargeable weight — and the "Swiftvero Transparency Standard" message that measurements are reverified in the customer's presence, with an itemized approval notification before payment if they differ. This is core to the brand promise; keep it prominent.
+Step 4 — Verification and pickup tracking: actual count, weight, dimensions, condition, photos, discrepancies, screening status, custody handover. Give pickup its own visible status on the customer dashboard, separate from the overall shipment timeline: Pickup Requested → Agent Assigned → Agent En Route → Picked Up (or Rescheduled/Failed, with a reason). Send a clear notification the moment pickup completes successfully — this is one of the proactive-communication moments the whole product is built around.
+Step 5 — Verified quote: itemized breakdown (base linehaul, applicable surcharges, security/documentation, collection — always ₦0 — optional protection, subtotal, VAT, total), currency, quote timestamp and expiry, selected service, and a calculated estimated delivery date — not just a transit-day range — derived from the pickup date plus the tier's transit window, clearly labeled as an estimate, not a guarantee. Record the original estimate and verified figures separately; require renewed approval if the quote changes materially; never silently change an accepted quote.
+Step 6 — Service selection: Standard and Priority/Express side by side where both exist. Show only Swiftvero's own tier name, price, estimated transit window and delivery date, cutoff conditions, restrictions, and refund terms. Never a carrier name, anywhere. If no Priority option exists for a route, say so and show the alternative.
+Step 7 — Acceptance: final summary of route, declared goods, verified measurements, pickup arrangement, selected service, itemized charges, total. Require acceptance of the quote, service terms, and declaration; record the exact document version accepted.
+Step 8 — Payment: simulated initiation, pending, success, failure, cancellation, refund states. Receipt issued once payment is confirmed in the simulation. Keep this step short — checkout should feel like the fastest part of the whole flow, not the slowest.
+Step 9 — Carrier booking: simulated confirmation, a clearly-labelled sample tracking number. Never surface the underlying carrier identity anywhere customer-facing.
+Step 10 — Tracking and delivery: a readable timeline distinguishing confirmed milestones from internal notes, the estimated delivery date kept visible and updated, delivery confirmation and proof where available, access to history, support, claims, and the final receipt.
+Customer Dashboard
+Overview, New Shipment, My Shipments, Track Shipment, Quotes, Payments and Receipts, Pickups (showing the pickup-specific tracker from Step 4), Addresses, Reviews, Cashback, Refer a Friend, Support, Profile and Security. A clean overview — active shipments, pending quotes, upcoming pickups, payments awaiting completion, items needing action, recent tracking events, support cases, cashback balance, referral status, recent reviews — not an overwhelming table. Genuinely usable on mobile.
+Proactive Stall Detection
+The central product differentiator. Model shipment stages (pickup assigned, awaiting pickup, verified, awaiting payment, carrier booking pending, origin processing, international transit, customs clearance, destination processing, out for delivery, delivery exception) with a simulated process that, past a configured threshold with no new event, sends a truthful customer message — never inventing a reason. Example when no cause is confirmed: "Your shipment hasn't received a new tracking update within the expected window. We're checking the latest available information and will update you as soon as we have confirmation." The customer can always see: last confirmed event and time, whether an update is overdue, any confirmed issue, what Swiftvero is doing, and a support contact.
+WhatsApp, Reviews, Cashback and Referral
+WhatsApp: entry points on relevant screens using a mock adapter — status enquiries, tracking-reference submission, identity check before disclosing anything private, ticket creation, human escalation. Use a configuration value for the number, never invent one; show an honest unavailable state if needed.
+Reviews: invitation 24–48 hours after delivery; overall 1–5 rating plus sub-ratings for communication clarity, delivery speed vs. estimate, and condition on arrival; optional photos and written review. Only a customer linked to a completed shipment can submit one — a tracking number alone isn't proof. States: invitation pending, submitted, pending moderation, published, rejected, hidden, flagged. Public company responses allowed; never suppress a legitimate negative review. Real averages only once genuine reviews exist.
+Cashback and referral: simulated real monetary cashback (never a withdrawable wallet), released after delivery, closure, and any refund window — calculated on the eligible economic portion, not carrier pass-through costs or tax. Referral code/link, bonus only after the referred customer's first qualifying shipment clears, with self-referral and duplicate-account protection modeled. All states simulated; no real money moves.
+Optional Shipment Protection
+An add-on at the quote stage: coverage description, eligible value, premium and currency, exclusions, coverage limit, a separate affirmative opt-in, never pre-selected. Never implies Swiftvero is an insurer. Show as "coming soon" until a real product exists.
+Legal and Policy Pages
+Simple, readable pages: Terms of Use, Privacy Notice, KYC and Identity Verification Notice, Prohibited and Restricted Goods Policy, Shipping and Carrier Service Terms (generic tier language only, no carrier names), Pricing and Quotation Policy, Claims and Liability Policy, Cashback and Referral Terms.
+Cancellation and Refund Policy, including this disclaimer: "Once your shipment has arrived at a Swiftvero facility, cancelling it does not include returning or redelivering the goods to you — Swiftvero is not responsible for returning or delivering the goods back after a cancellation at this stage. Arranging collection of cancelled goods from our facility is the customer's responsibility." Surface this plainly as an explicit acknowledgment at the moment a customer cancels a shipment already picked up or dropped off — not buried in a long document.
+Plain language throughout, not intimidating legal copy. The real legal content needs a Nigerian legal adviser's review before any real launch; this prompt doesn't replace that.
+Business Enquiries, Support, and Prohibited Goods
+Business shipping: a simple form — business name, contact person, email/phone, estimated monthly volume, typical weights, common routes, frequency, message — with a confirmation screen; no internal review workflow needed since there's no admin side in this build.
+Support and claims: a simple categorized form (booking, payment, pickup, tracking, customs, delivery, damage, loss, refund, general), reference number, clear confirmation. Claims collect shipment reference, description, date, optional photos.
+Prohibited goods: plain-language guidance during contents declaration with a required acknowledgment; note it's general guidance, not a final determination for every destination.
+Notifications
+UI for key customer moments — booking confirmed, pickup confirmed, pickup completed, quote ready with estimated delivery date, payment confirmed, tracking update, overdue-update notice, delivered, review invitation — sample content only, no real sending in this phase.
+Frontend Delivery
+Real, working code: organized components, responsive layouts for every page in scope, realistic hardcoded sample data, clear empty/loading/success/error states, simple validation with helpful error messages. Keep it simple — a clean, well-organized set of components with good sample data is enough; don't over-build a backend-ready architecture at the expense of shipping something working now.
+Build Order
+1. Design system — Fraunces and Inter, the deep green/ivory/brass palette, restrained density. Get this exactly right first.
+2. Public website.
+3. Registration, sign-in, KYC, simulated.
+4. The full booking workflow, Steps 1–10, with realistic sample data — free pickup, pickup tracking, delivery-date estimation, no carrier names. This is the heart of the product.
+5. Customer dashboard, reviews, cashback/referral, WhatsApp entry points.
+6. Legal pages (with the cancellation disclaimer), business enquiries, support.
+7. Walk the complete sample journey start to finish, mobile first, then desktop. No visible demo controls, toolbars, or scenario switchers anywhere in the result.
+Final Standard
+Judge every screen against one question: would a first-time customer, with no explanation, immediately know what to do next? If not, simplify it. Checkout specifically should feel like the easiest, fastest part of the whole site. Premium means restraint and clarity, not more panels or badges. No admin tooling, no scenario switcher, no visible demo controls, no carrier names, no Nigeria-only language — just a beautiful, simple, global shipping website that's effortless to use and effortless to check out on.
+Revision 5 — Import and Export, Simpler Language, Logo Size, and the Pickup-Agent Question
+This updates the headline and supporting copy given earlier in Brand and Positioning, and adds three standing items.
+The business is import and export, not outbound-only. Swiftvero moves goods in both directions — into Nigeria and out of it — not just shipping from Nigeria outward. Update the hero copy to reflect this:
+• Badge: "International Import & Export Logistics"
+• Headline: "Global shipping, in and out of Nigeria."
+• Supporting copy: "Import or export — book your shipment with clear pricing, verified measurements, and updates you don't have to chase."
+Carry this bidirectional framing through the Services section and FAQs too — wherever the site currently implies shipping only moves outward from Nigeria, correct it to cover both import and export. Local delivery, interstate transport, and moving services stay a later addition — nothing new to build for those yet, just keep the business description consistent with the fact that they're coming eventually.
+Simple English, everywhere. Use plain, everyday words and short sentences on every page — the homepage, FAQs, legal-page summaries, notifications, error messages, all of it. No jargon, no complex vocabulary, no long sentences where a short one says the same thing.
+Logo size. Increase the logo in the header noticeably — it currently reads too small to register clearly at a glance. It should be one of the more prominent elements in the header, not a small icon beside the wordmark.
+On pickup agents signing in — a recommendation, not just an instruction. Agents need their own way in eventually, but not in this build — for the same reason the admin dashboard and ops console got cut earlier. A full agent portal is real additional surface area, and adding it now risks reintroducing the exact clutter this document already corrected once. For this phase, keep agents conceptual only: the customer-facing pickup tracker (Agent Assigned → Agent En Route → Picked Up) already implies they exist, and that's as far as this build should go. When the agent side is eventually built, keep it deliberately small and separate from everything else — not a dashboard: one screen at its own route, not linked anywhere in the main customer navigation, showing just that day's assigned pickups with a single clear action per job (something like "Mark picked up"), no KPIs, no metrics, no console framing. Build it alongside the admin dashboard in a later, internal-tools phase — not this one.
