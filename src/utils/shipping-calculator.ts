@@ -360,6 +360,12 @@ export function calculateShippingQuote(params: {
   dimensions: { length: number; width: number; height: number };
   serviceTier: ServiceTier;
   pickupType?: 'doorstep' | 'hub';
+  protectionCharge?: number;
+  protectionPlan?: 'basic' | 'premium';
+  protectionCoverageNgn?: number;
+  protectionRatePercentage?: number;
+  protectionDeductibleText?: string;
+  items?: Array<{ id: string; description: string; quantity: number; declaredValue?: number }>;
 }): QuoteBreakdown {
   return generateQuoteBreakdown({
     destinationCountry: params.destinationCountry,
@@ -370,6 +376,11 @@ export function calculateShippingQuote(params: {
     tier: params.serviceTier,
     direction: params.direction,
     pickupRequired: params.pickupType === 'doorstep',
+    protectionCharge: params.protectionCharge,
+    protectionPlan: params.protectionPlan,
+    protectionCoverageNgn: params.protectionCoverageNgn,
+    protectionRatePercentage: params.protectionRatePercentage,
+    protectionDeductibleText: params.protectionDeductibleText,
   });
 }
 

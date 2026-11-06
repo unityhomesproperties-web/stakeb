@@ -45,6 +45,30 @@ export const INITIAL_BRANCHES: Branch[] = [
     staffCount: 3,
     managerName: 'Tunde Balogun',
   },
+  {
+    id: 'branch_abuja',
+    code: 'ABJ-CEN',
+    name: 'Abuja Central Cargo Hub',
+    address: 'Plot 418 Constitution Avenue, Central Business District, Abuja FCT',
+    city: 'Abuja',
+    phone: '+234 9 461 0033',
+    email: 'abuja.hub@swiftvero.com',
+    status: 'active',
+    staffCount: 4,
+    managerName: 'Zainab Mohammed',
+  },
+  {
+    id: 'branch_ph',
+    code: 'PHC-AIR',
+    name: 'Port Harcourt Gateway Hub',
+    address: 'Aba Road Logistics Park, Rumuola, Port Harcourt, Rivers State',
+    city: 'Port Harcourt',
+    phone: '+234 84 301 0044',
+    email: 'phc.hub@swiftvero.com',
+    status: 'active',
+    staffCount: 2,
+    managerName: 'Tarila Briggs',
+  },
 ];
 
 export const INITIAL_CUSTOMERS: Record<string, CustomerProfile> = {

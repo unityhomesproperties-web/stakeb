@@ -10,6 +10,11 @@ import { AboutPage } from './components/public/AboutPage';
 import { ContactPage } from './components/public/ContactPage';
 import { TrackingView } from './components/tracking/TrackingView';
 import { CustomerPortal } from './components/customer/CustomerPortal';
+import { BranchDeskPortal } from './components/desk/BranchDeskPortal';
+import { PickupAgentPortal } from './components/pickup/PickupAgentPortal';
+import { OperationsDashboard } from './components/operations/OperationsDashboard';
+import { FinanceLeadPortal } from './components/finance/FinanceLeadPortal';
+import { SuperAdminPortal } from './components/superadmin/SuperAdminPortal';
 import { LogoSkeleton } from './components/common/LogoSkeleton';
 import { AuthModal } from './components/auth/AuthModal';
 import { KycWizardModal } from './components/customer/KycWizardModal';
@@ -38,13 +43,13 @@ const MainAppContent: React.FC = () => {
 
   // Modals state
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authInitialMode, setAuthInitialMode] = useState<'signin' | 'register'>('signin');
+  const [authInitialMode, setAuthInitialMode] = useState<'signin' | 'register' | 'staff'>('signin');
   const [kycModalOpen, setKycModalOpen] = useState(false);
   const [legalModalOpen, setLegalModalOpen] = useState(false);
   const [activePolicyKey, setActivePolicyKey] = useState<PolicyKey>('terms');
   const [futureModalOpen, setFutureModalOpen] = useState(false);
 
-  const handleOpenAuth = (mode: 'signin' | 'register' = 'signin') => {
+  const handleOpenAuth = (mode: 'signin' | 'register' | 'staff' = 'signin') => {
     setAuthInitialMode(mode);
     setAuthModalOpen(true);
   };
@@ -66,6 +71,21 @@ const MainAppContent: React.FC = () => {
   };
 
   const getPortalLabel = () => {
+    if (role === 'front_desk') {
+      return `Branch Desk Admin Portal · Counter Intake`;
+    }
+    if (role === 'pickup_agent') {
+      return `Pickup Courier Portal · Field Operations`;
+    }
+    if (role === 'operations') {
+      return `MMIA Operations Control Tower · Hub Transit`;
+    }
+    if (role === 'finance') {
+      return `Corporate Finance & VAT Audit Portal`;
+    }
+    if (role === 'platform_admin' || role === 'super_admin' || role === 'owner') {
+      return `Central Head Office · Super Admin & Governance`;
+    }
     if (role === 'business') {
       return `Business Consignor Portal · ${currentCustomer.companyName || currentCustomer.name}`;
     }
@@ -230,39 +250,74 @@ const MainAppContent: React.FC = () => {
         /* Authenticated Role Portal View */
         <div className="flex-1 flex flex-col">
           {/* Authenticated Top Navbar */}
-          <div className="bg-white border-b border-[#DCEFF3] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-40 shadow-xs">
-            <div className="flex items-center gap-4">
+          <div className="bg-white border-b border-[#DDEEF2] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-40 shadow-xs">
+            <div className="flex items-center gap-3">
               <button
                 onClick={() => setRole('visitor')}
                 title="Go to public website"
-                className="hover:opacity-90 transition-opacity"
+                className="hover:opacity-90 transition-opacity shrink-0"
               >
                 <Logo size="sm" />
               </button>
-              <div className="h-5 w-px bg-[#DCEFF3] hidden sm:block" />
-              <div className="text-xs text-[#6A808C] hidden sm:block font-medium">
+              <div className="h-5 w-px bg-[#DDEEF2] hidden sm:block" />
+              <div className="text-xs text-[#637984] hidden md:block font-medium truncate max-w-xs">
                 {getPortalLabel()}
               </div>
             </div>
 
             <div className="flex items-center gap-2.5">
+              {/* Quick Role Switcher Pill for Demo Review */}
+              <div className="flex items-center gap-1.5 bg-[#F7FCFD] border border-[#DDEEF2] rounded-lg px-2 py-1">
+                <span className="text-[10px] text-[#637984] font-semibold hidden sm:inline">Role:</span>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value as any)}
+                  className="text-xs bg-transparent font-bold text-[#00B4D8] focus:outline-hidden cursor-pointer"
+                >
+                  <option value="customer">Customer</option>
+                  <option value="front_desk">Front Desk</option>
+                  <option value="pickup_agent">Pickup Agent</option>
+                  <option value="operations">Operations</option>
+                  <option value="finance">Finance</option>
+                  <option value="super_admin">Super Admin</option>
+                  <option value="business">Business Shipper</option>
+                </select>
+              </div>
+
               <button
                 onClick={() => setRole('visitor')}
-                className="px-3 py-1.5 border border-[#DCEFF3] rounded-lg text-xs font-medium text-[#354B55] hover:bg-[#CAF0F8]/50 transition-colors flex items-center gap-1.5"
-                title="Sign out of customer portal"
+                className="px-3 py-1.5 border border-[#DDEEF2] rounded-lg text-xs font-medium text-[#253B45] hover:bg-[#CAF0F8]/50 transition-colors flex items-center gap-1.5"
+                title="Sign out of portal"
               >
-                <LogOut className="w-3.5 h-3.5 text-[#6A808C]" />
-                <span>Sign Out</span>
+                <LogOut className="w-3.5 h-3.5 text-[#637984]" />
+                <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
           </div>
 
-          {/* Active Authenticated View: Customer Portal (Individual & Business) */}
-          <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8">
-            <CustomerPortal
-              onOpenPolicy={handleOpenPolicy}
-              onOpenKyc={() => setKycModalOpen(true)}
-            />
+          {/* Active Authenticated View: Role-specific portals */}
+          <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-5 sm:py-7">
+            {role === 'front_desk' && (
+              <BranchDeskPortal onOpenKycModal={() => setKycModalOpen(true)} />
+            )}
+            {role === 'pickup_agent' && (
+              <PickupAgentPortal />
+            )}
+            {role === 'operations' && (
+              <OperationsDashboard />
+            )}
+            {role === 'finance' && (
+              <FinanceLeadPortal />
+            )}
+            {(role === 'platform_admin' || role === 'super_admin' || role === 'owner') && (
+              <SuperAdminPortal />
+            )}
+            {(role === 'customer' || role === 'business') && (
+              <CustomerPortal
+                onOpenPolicy={handleOpenPolicy}
+                onOpenKyc={() => setKycModalOpen(true)}
+              />
+            )}
           </main>
         </div>
       )}

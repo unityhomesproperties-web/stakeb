@@ -1,0 +1,939 @@
+SWIFTVERO EXPRESS: COMPLETE UI/UX REDESIGN AND OPERATIONAL WORKFLOW IMPROVEMENT
+
+ROLE AND EXPECTATIONS
+
+Act as a senior full-stack software engineer, senior product designer, UI/UX specialist, logistics technology consultant, and mobile-first application architect.
+
+You are responsible for improving the existing Swiftvero Express application to the standard of a premium international logistics technology company.
+
+Do not behave like a basic website builder that only changes colours, fonts, and button shapes.
+
+Study the existing application, understand its architecture, inspect its components, identify operational problems, and implement the improvements directly in the existing project.
+
+Your work must include:
+
+* Professional UI/UX redesign.
+* Frontend implementation.
+* Workflow simplification.
+* Responsive layout improvements.
+* Form and interaction improvements.
+* Validation and error handling.
+* Functional testing.
+* DEMO MODE compatibility.
+
+IMPORTANT: DO NOT REBUILD THE APPLICATION FROM SCRATCH.
+
+Preserve all existing working functionality, business rules, user roles, authentication, database connections, shipment records, payment logic, tracking systems, notifications, branch management, staff permissions, and existing integrations.
+
+Do not delete existing features because they are inconvenient to redesign.
+
+Where existing functionality needs improvement, refactor it carefully while maintaining compatibility.
+
+⸻
+
+1. NEW SWIFTVERO DESIGN SYSTEM
+
+Redesign every dashboard across the Swiftvero application using a consistent, premium, modern visual identity.
+
+Official colour palette
+
+Use only the following primary brand colours:
+
+* Primary Cyan: #00B4D8
+* Secondary Cyan: #90E0EF
+* Light Cyan: #CAF0F8
+* White: #FFFFFF
+
+Supporting neutral colours:
+
+* Main background: #F7FCFD
+* Card background: #FFFFFF
+* Main text: #253B45
+* Secondary text: #637984
+* Borders: #DDEEF2
+* Muted background: #EDF7F9
+
+Use colour intelligently.
+
+Design rules:
+
+* White should be the dominant colour.
+* Use #00B4D8 for primary actions, active navigation, important highlights, and selected elements.
+* Use #90E0EF for subtle secondary highlights.
+* Use #CAF0F8 for light backgrounds, selected cards, and visual separation.
+* Avoid large dark-green dashboard sections.
+* Remove the old green gradient-heavy dashboard appearance.
+* Avoid excessive gradients, strong shadows, neon effects, and unnecessary decorative elements.
+* Use soft borders, subtle shadows, rounded corners, and excellent spacing.
+* Maintain strong text contrast and readability.
+
+Typography
+
+Use a clean professional font such as Inter.
+
+Create a clear hierarchy:
+
+* Page title.
+* Section title.
+* Card heading.
+* Main numerical value.
+* Supporting description.
+* Form label.
+* Helper text.
+
+Avoid oversized headings that consume valuable mobile screen space.
+
+Overall design direction
+
+The application should feel like a premium logistics SaaS platform.
+
+Think of the clarity and operational simplicity of modern banking applications combined with the professionalism of an international shipping platform.
+
+Do not copy another company’s interface.
+
+Create an original Swiftvero design system.
+
+⸻
+
+2. MOBILE-FIRST DASHBOARD REDESIGN
+
+This is one of the most important requirements.
+
+The existing dashboard is not sufficiently optimized for mobile devices.
+
+Redesign every dashboard individually, including:
+
+* Customer dashboard.
+* Front Desk / Desk Admin dashboard.
+* Pickup Agent dashboard.
+* Operations Admin dashboard.
+* Finance Lead dashboard.
+* Branch Manager dashboard.
+* Central Head Office / Super Admin dashboard.
+
+Every dashboard must be independently designed for its user’s responsibilities while maintaining the same Swiftvero design language.
+
+Mobile layout requirements
+
+Design for a mobile viewport starting at approximately 375px wide.
+
+At the first screen:
+
+* Display the dashboard title.
+* Display the user’s name and role.
+* Show the active branch where applicable.
+* Show the most important operational action.
+* Display a small number of important summary metrics.
+* Avoid unnecessary blank space.
+* Avoid excessive scrolling before the user can perform an important task.
+
+Use:
+
+* Compact summary cards.
+* Responsive two-column layouts where readable.
+* Single-column layouts where necessary.
+* Collapsible sections.
+* Clear navigation.
+* Sticky primary action buttons where useful.
+* Bottom navigation on mobile where appropriate.
+* A desktop sidebar on larger screens.
+
+Do not squeeze desktop layouts into mobile screens.
+
+Reorganize components specifically for mobile.
+
+Dashboard information hierarchy
+
+Every dashboard should answer three questions immediately:
+
+1. What is happening?
+2. What needs my attention?
+3. What should I do next?
+
+Prioritize pending actions over decorative statistics.
+
+For example, a Front Desk Admin should immediately see:
+
+* Create Shipment.
+* Register Walk-in Customer.
+* Pending Inspection.
+* Awaiting Payment.
+* Ready for Handover.
+
+The user should not have to search through several sections to find everyday actions.
+
+⸻
+
+3. COMPLETE REDESIGN OF THE FRONT DESK ADMIN DASHBOARD
+
+The screenshots provided show the current Front Desk Admin dashboard.
+
+Redesign this interface completely while retaining its existing operational capabilities.
+
+A. Compact staff identity section
+
+Display:
+
+* Swiftvero logo.
+* Staff name.
+* Staff ID.
+* Staff role.
+* Active branch.
+* Branch selector if the staff member is authorized to access multiple branches.
+* Sign-out option.
+
+Make the staff identity card compact.
+
+Do not allow long branch names to break the layout or force unnecessary horizontal scrolling.
+
+B. Simplified operational dashboard
+
+Create a clean dashboard with the following priority actions:
+
+1. Create Shipment.
+2. Register Walk-in Customer.
+3. Find Existing Customer.
+4. Pending Inspections.
+5. Awaiting Payments.
+6. Ready for Handover.
+7. Dispatch Manifest.
+
+Use compact action cards or buttons with clear icons.
+
+Make the most frequently used actions visually prominent.
+
+C. Operational summary
+
+Display these metrics:
+
+* Shipments Created Today.
+* Customers Served Today.
+* Packages Received.
+* Awaiting Inspection.
+* Awaiting Payment.
+* Paid Shipments.
+* Ready for Handover.
+* Handed Over to Operations.
+
+Use compact cards with readable figures.
+
+Each card should be clickable and open the relevant filtered shipment or customer list.
+
+Do not make dashboard cards decorative or non-functional.
+
+Use clear status colours:
+
+* Blue/cyan for general activity.
+* Orange for pending attention.
+* Green for completed operations.
+* Red only for genuine errors or urgent exceptions.
+
+Do not use colour as the only way to communicate a status.
+
+⸻
+
+4. SIMPLIFY CUSTOMER KYC AND REGISTRATION
+
+The current KYC process needs to be redesigned.
+
+The objective is to make customer registration and identity verification easier for front-desk staff without weakening security or regulatory compliance.
+
+Do not make customers go through an unnecessarily long form before staff can create a shipment.
+
+A. Customer identification
+
+When the Desk Admin clicks “Create Shipment”, first provide a simple customer identification step.
+
+Show two options:
+
+1. Existing Customer.
+2. New Walk-in Customer.
+
+Existing Customer
+
+Allow staff to search using:
+
+* Customer name.
+* Phone number.
+* Email address.
+* Customer ID.
+
+When a customer is selected:
+
+* Display the customer’s basic profile.
+* Display their KYC verification status.
+* Display their contact information.
+* Show whether additional verification is required.
+* Allow staff to continue if the applicable rules permit it.
+
+Prevent unnecessary duplicate customer accounts.
+
+New Walk-in Customer
+
+Collect only essential information initially:
+
+* Full name.
+* Phone number.
+* Email address (optional, but recommended).
+* Country of residence.
+* Customer type where relevant.
+
+Create the customer record and continue into the shipment process.
+
+Do not force staff to complete unrelated profile fields.
+
+B. Simplified identity verification
+
+Provide three identity verification methods:
+
+1. NIN.
+2. BVN.
+3. International Passport.
+
+Allow the staff member to select the appropriate verification method based on the customer’s circumstances and applicable compliance requirements.
+
+Do not require customers to submit all three forms of identification.
+
+NIN verification
+
+* Enter NIN.
+* Obtain the required customer consent.
+* Submit through an authorized identity verification provider.
+* Display verification status.
+* Use an OTP or additional verification step if required by the provider.
+* Store only the information necessary for the approved process.
+* Mask sensitive identification numbers in the interface.
+
+BVN verification
+
+* Enter BVN.
+* Obtain the required customer consent.
+* Verify through an authorized provider.
+* Display verification status.
+* Apply additional verification requirements where necessary.
+* Mask sensitive information.
+
+International Passport
+
+* Allow customers to upload a clear passport image.
+* Support camera capture and gallery upload on mobile.
+* Validate file type and size.
+* Allow image preview and replacement.
+* Use an authorized document verification service where available.
+* Provide a manual review status where automated verification is unavailable.
+
+C. KYC status system
+
+Display simple statuses:
+
+* Not Started.
+* Pending Verification.
+* Verified.
+* Failed Verification.
+* Manual Review Required.
+
+Show a short explanation of what the staff member needs to do next.
+
+Never mark a customer as verified simply because an identification number was entered.
+
+Staff permissions must control who can review, approve, or override KYC.
+
+Desk Admins must not have unrestricted access to full NIN/BVN numbers or sensitive passport records.
+
+Maintain an audit trail.
+
+D. KYC experience
+
+Create a short step-by-step interface:
+
+Step 1: Customer Information.
+
+Step 2: Choose Identification Method.
+
+Step 3: Complete Verification.
+
+Step 4: Continue to Shipment.
+
+Use a progress indicator.
+
+Allow customers whose verification is already valid to skip unnecessary steps.
+
+Allow shipment creation to proceed only when the applicable verification rules are satisfied.
+
+If verification is pending, failed, or unavailable, clearly explain the restriction and the next action.
+
+Do not invent a verification success response in production.
+
+In DEMO MODE, provide simulated verification scenarios.
+
+⸻
+
+5. REDESIGN THE CREATE NEW SHIPMENT PROCESS
+
+The current shipment creation process should be easier, faster, and more intuitive.
+
+The goal is to let a Desk Admin create a walk-in shipment without navigating multiple confusing pages.
+
+Use a clean step-by-step wizard.
+
+Recommended shipment creation workflow
+
+STEP 1: Customer
+
+* Select existing customer.
+* Register new walk-in customer.
+* Confirm customer contact details.
+* Check KYC status.
+
+STEP 2: Sender and Receiver
+
+Display a clean sender information section.
+
+For walk-in customers:
+
+* Automatically populate sender details from the customer profile.
+* Allow authorized staff to edit incorrect details.
+* Allow the sender to be different from the customer where applicable.
+
+Receiver information:
+
+* Full name.
+* Phone number.
+* Email where available.
+* Destination country.
+* Complete delivery address.
+* City and postal code where applicable.
+
+Provide a clear country selector.
+
+STEP 3: Package Details
+
+Allow staff to add one or multiple packages.
+
+For each package, collect:
+
+* Package description.
+* Category.
+* Quantity.
+* Declared value.
+* Actual weight where available.
+* Package dimensions where operationally required.
+* Restricted goods declaration.
+
+Allow staff to:
+
+* Add another package.
+* Remove a package.
+* Edit package details.
+* View the combined shipment summary.
+
+Do not make the user repeatedly re-enter the sender’s information for every package belonging to the same shipment.
+
+STEP 4: SHIPPING SPEED SELECTION
+
+THIS FEATURE IS MANDATORY.
+
+Currently, the shipment creation process does not clearly allow customers to choose priority shipping.
+
+Introduce a dedicated shipping speed selection section before quotation and checkout.
+
+Display two clear options:
+
+STANDARD SHIPPING
+
+* Regular international shipping service.
+* Standard estimated delivery window.
+* Standard shipping price.
+* Suitable for customers who are not in a hurry.
+
+PRIORITY SHIPPING
+
+* Faster available shipping service.
+* Priority handling where operationally supported.
+* Shorter estimated delivery window where confirmed by the carrier or service provider.
+* Additional priority fee.
+
+Show the available options as selectable cards.
+
+Each card should display:
+
+* Service name.
+* Estimated delivery window.
+* Shipping fee or price difference where available.
+* A short explanation.
+
+Make the selected option visually obvious.
+
+Default to Standard Shipping.
+
+Allow the customer or Desk Admin to select Priority Shipping.
+
+IMPORTANT:
+
+Do not invent delivery times or guarantee priority delivery unless the underlying carrier service supports those commitments.
+
+Priority selection must connect to the actual quotation and shipment record.
+
+Save:
+
+* Selected shipping service.
+* Priority selection.
+* Priority fee.
+* Applicable estimated delivery window.
+* Service availability.
+
+If Priority Shipping is unavailable for a particular destination or shipment type, disable it and explain why.
+
+The selected service must remain visible throughout checkout and in the shipment receipt.
+
+STEP 5: INSURANCE / CARGO PROTECTION
+
+Allow the customer to choose whether to add available cargo protection.
+
+Show:
+
+* Protection option.
+* Declared value.
+* Applicable protection fee.
+* Brief summary of coverage.
+* Link to terms and conditions.
+
+The customer must explicitly select the option.
+
+Do not automatically add protection fees.
+
+Only show coverage and compensation limits that have been approved and configured in the system.
+
+If the protection arrangement is not backed by an authorized insurance or protection provider, do not falsely advertise it as regulated insurance.
+
+Save the selection and associated fee in the shipment record.
+
+STEP 6: INSPECTION AND WEIGHING
+
+The Desk Admin or authorized operational staff should:
+
+* Inspect the package.
+* Confirm the declaration.
+* Record actual weight.
+* Record dimensions if required.
+* Upload inspection photos where appropriate.
+* Confirm whether the package is accepted.
+* Record any exceptions.
+
+Allow the system to update the quotation after the actual weight and required measurements are confirmed.
+
+Maintain an inspection history.
+
+STEP 7: QUOTATION AND CHECKOUT
+
+Create a clean, professional checkout summary.
+
+The customer does not need to understand Swiftvero’s internal operational cost structure.
+
+Do not display confusing internal charge explanations such as:
+
+* Air cargo fuel surcharge.
+* Aviation fuel adjustments.
+* Internal handling allocation.
+* Carrier operating charges.
+* Internal logistics calculations.
+* Other internal cost components.
+
+These details should remain in authorized internal administrative records if required.
+
+The customer-facing checkout should display ONLY:
+
+SHIPMENT SUMMARY
+
+* Total chargeable weight.
+* Selected shipping service: Standard or Priority.
+* Insurance / cargo protection fee, if selected.
+* Priority fee, if selected.
+* Final total amount payable.
+
+Example:
+
+Shipment Weight: 5.0 kg
+
+Shipping Service: Priority
+
+Cargo Protection: ₦3,500
+
+Priority Fee: ₦5,000
+
+TOTAL AMOUNT: ₦XX,XXX
+
+The actual shipping price must come from the existing quotation engine.
+
+The example amounts above are illustrative only.
+
+IMPORTANT:
+
+* Do not invent shipping rates.
+* Do not invent insurance prices.
+* Do not invent priority fees.
+* Use existing approved pricing configurations.
+* Ensure all charges are calculated correctly.
+* Display only applicable optional fees.
+* Do not display an insurance fee when protection is not selected.
+* Do not display a priority fee when Standard Shipping is selected.
+* Show any legally required tax or mandatory charge clearly, if applicable.
+* Keep the final total accurate.
+
+The customer should be able to review the quotation before payment.
+
+Allow the customer to approve or reject the quotation.
+
+STEP 8: PAYMENT AND RECEIPT
+
+Preserve the existing payment architecture.
+
+Support the payment methods already configured.
+
+Show clear payment status:
+
+* Awaiting Payment.
+* Payment Processing.
+* Paid.
+* Failed.
+* Refunded.
+
+Do not mark a shipment as paid based only on a frontend success message.
+
+Verify payments through the existing trusted backend/payment gateway process.
+
+After successful payment:
+
+* Generate a shipment tracking number.
+* Generate a receipt.
+* Display shipment details.
+* Send the receipt through available notification channels.
+* Update the shipment status.
+* Add the shipment to the branch’s operational dashboard.
+
+⸻
+
+6. IMPROVE THE WALK-IN CUSTOMER EXPERIENCE
+
+A physical branch customer should be served quickly.
+
+Design the front-desk workflow around this principle:
+
+Find or register customer → Verify identity → Enter shipment → Inspect and weigh → Select shipping speed → Select protection → Generate quotation → Receive payment → Print receipt and waybill.
+
+The staff member should always know the next step.
+
+Use:
+
+* Clear progress indicators.
+* Large touch-friendly controls.
+* Smart defaults.
+* Automatically populated information.
+* Inline validation.
+* Save-and-resume functionality where appropriate.
+* Clear success and error messages.
+
+Do not make staff navigate back and forth unnecessarily.
+
+For multiple shipments from one walk-in customer, allow the staff member to reuse verified customer details without repeatedly registering the same person.
+
+Preserve separate shipment records, tracking numbers, and receipts where the shipments are distinct.
+
+⸻
+
+7. CUSTOMER-FACING CHECKOUT REDESIGN
+
+Apply the simplified pricing principle across the customer portal, online booking process, and physical branch workflow.
+
+The customer should understand the price immediately.
+
+Use this structure:
+
+Your Shipping Cost
+
+Item	Amount
+Chargeable Weight	5 kg
+Cargo Protection	₦X
+Priority Service	₦X
+Total Payable	₦X
+
+Only include fees that apply.
+
+The shipping charge itself should be included in the final total and explained in a simple way, without exposing the internal calculation of how Swiftvero arrived at its carrier or operational cost.
+
+Do not confuse customers with a long list of technical surcharges.
+
+Make the final checkout clean, premium, and easy to understand on mobile.
+
+⸻
+
+8. REDESIGN ALL OTHER DASHBOARDS
+
+Do not restrict the redesign to the Front Desk Admin.
+
+Apply the new design system and usability standards to every existing dashboard.
+
+Customer Dashboard
+
+Prioritize:
+
+* Active shipments.
+* Track Shipment.
+* Book a Shipment.
+* Pending quotations.
+* Payment status.
+* Shipment history.
+* Notifications.
+* Support.
+
+Pickup Agent Dashboard
+
+Prioritize:
+
+* Assigned pickups.
+* Today’s pickup schedule.
+* Customer contact information.
+* Pickup navigation/address.
+* Package inspection.
+* Weight and dimensions.
+* Pickup confirmation.
+* Handover status.
+
+Operations Admin Dashboard
+
+Prioritize:
+
+* Incoming shipments.
+* Shipment processing queue.
+* Priority shipments.
+* Dispatch preparation.
+* Branch-to-hub handovers.
+* Exceptions.
+* Delivery progress.
+* Operational alerts.
+
+Finance Lead Dashboard
+
+Prioritize:
+
+* Verified payments.
+* Pending payments.
+* Refund requests.
+* Revenue summaries.
+* Transactions.
+* Reconciliation.
+* Branch financial reports.
+
+Branch Manager Dashboard
+
+Prioritize:
+
+* Branch activity.
+* Staff performance.
+* Daily shipment totals.
+* Pending branch operations.
+* Customer service activity.
+* Branch handover reports.
+
+Central Head Office / Super Admin
+
+Prioritize:
+
+* Nationwide shipment overview.
+* All branches.
+* Branch performance.
+* Staff management.
+* Permission management.
+* Shipment monitoring.
+* Financial oversight.
+* KYC review.
+* System configuration.
+* Audit logs.
+
+Each dashboard must display information relevant to that user’s responsibilities.
+
+Do not give every role the same dashboard with different titles.
+
+⸻
+
+9. NAVIGATION AND INTERACTION IMPROVEMENTS
+
+Improve the overall navigation system.
+
+Requirements:
+
+* Clear navigation labels.
+* Consistent placement of primary actions.
+* Search where operationally useful.
+* Filters and sorting for shipment tables.
+* Clear empty states.
+* Loading states.
+* Confirmation dialogs for sensitive actions.
+* Error messages that explain how to fix the problem.
+* Responsive dropdowns and modals.
+* No horizontal overflow on mobile.
+
+Every visible button, menu item, card, tab, and action must work.
+
+Remove dead buttons and decorative controls that pretend to be functional.
+
+Do not introduce unnecessary animations.
+
+Use subtle interactions only where they improve usability.
+
+⸻
+
+10. SECURITY, DATA INTEGRITY AND PERMISSIONS
+
+Maintain the existing security architecture and improve it where necessary.
+
+Requirements:
+
+* Role-based access control.
+* Branch-level data restrictions.
+* Audit logs.
+* Secure identity verification.
+* Masked sensitive customer information.
+* Secure payment verification.
+* Server-side validation.
+* Protection against duplicate shipment creation.
+* Idempotent payment and shipment operations.
+* Proper error handling.
+* No exposure of confidential customer information.
+
+A Desk Admin must not be able to:
+
+* Access unrestricted financial records.
+* View full NIN/BVN values without authorization.
+* Approve their own exceptional refunds.
+* Change approved company-wide shipping rates.
+* Modify financial records without permission.
+* Mark an unverified customer as verified without authorized approval.
+
+Preserve existing branch and staff management permissions.
+
+⸻
+
+11. DEMO MODE AND TESTING
+
+This application must remain fully demonstrable.
+
+Do not remove existing demo accounts, sample customers, branches, shipment records, or demo workflows.
+
+Every new feature must be interactive in DEMO MODE.
+
+Create test scenarios for:
+
+1. Registering a new walk-in customer.
+2. Finding an existing customer.
+3. NIN verification success.
+4. BVN verification success.
+5. Passport verification pending manual review.
+6. KYC verification failure.
+7. Creating a Standard shipment.
+8. Creating a Priority shipment.
+9. Selecting cargo protection.
+10. Creating a shipment without cargo protection.
+11. Adding multiple packages.
+12. Updating the quotation after weighing.
+13. Payment pending.
+14. Successful payment.
+15. Failed payment.
+16. Generating a receipt.
+17. Printing a waybill.
+18. Preparing a dispatch manifest.
+19. Handing shipments over to operations.
+
+Clearly label simulated processes as DEMO.
+
+Do not present simulated payment or identity verification as real transactions.
+
+⸻
+
+12. TECHNICAL IMPLEMENTATION REQUIREMENTS
+
+Before making changes:
+
+1. Inspect the entire existing application.
+2. Identify the framework and component structure.
+3. Understand the existing database schema.
+4. Identify current authentication and permission systems.
+5. Identify the current quotation and payment logic.
+6. Identify existing shipment creation workflows.
+7. Identify all existing dashboards and routes.
+8. Identify reusable components.
+
+Then implement the redesign incrementally.
+
+Technical rules:
+
+* Reuse existing components where appropriate.
+* Refactor duplicated UI.
+* Keep business logic separate from presentation.
+* Maintain existing API contracts unless a change is necessary.
+* Do not break existing data relationships.
+* Do not replace working backend services with frontend mock data.
+* Do not hardcode production shipping prices.
+* Do not hardcode verification success.
+* Maintain backward compatibility with existing shipment records.
+* Use proper responsive CSS.
+* Optimize performance on mobile networks.
+* Avoid unnecessary dependencies.
+
+If a backend integration is missing, build the appropriate interface and clearly identify the required integration. Do not pretend that the feature is operational when it is not.
+
+⸻
+
+13. FINAL QUALITY ASSURANCE
+
+After implementation, test the entire application.
+
+Specifically verify:
+
+* Every dashboard works on mobile and desktop.
+* No dashboard has horizontal scrolling at mobile widths.
+* Important actions are visible without excessive scrolling.
+* The new colour system is consistent across all dashboards.
+* The Front Desk workflow is shorter and easier to operate.
+* Existing customer records can be found.
+* New customers can be registered.
+* KYC verification follows the correct permissions.
+* Standard and Priority shipping can be selected.
+* Priority pricing is correctly reflected in quotations.
+* Cargo protection is optional.
+* Checkout displays only relevant customer-facing charges.
+* Final totals are mathematically correct.
+* Payment statuses update correctly.
+* Receipts and tracking numbers are generated correctly.
+* Existing shipment tracking still works.
+* Existing branch management still works.
+* Staff permissions remain enforced.
+* DEMO MODE remains fully interactive.
+
+Fix any errors discovered during testing.
+
+FINAL DESIGN OBJECTIVE
+
+Swiftvero Express must look and feel like a premium international logistics technology company.
+
+The application should be:
+
+* Beautiful.
+* Clean.
+* Modern.
+* Mobile-first.
+* Easy to operate.
+* Operationally efficient.
+* Consistent across all dashboards.
+* Secure.
+* Fully responsive.
+
+The Front Desk Admin should be able to serve a walk-in customer without struggling through unnecessary screens.
+
+A customer should understand their shipping price without needing an explanation of aviation fuel charges or internal logistics calculations.
+
+A customer should be able to choose Standard or Priority shipping before checkout.
+
+Most importantly, improve the existing application without destroying the work already completed.
+
+Do not stop after presenting a design proposal. Implement the changes directly in the existing project, test them, fix issues, and provide a concise summary of what was changed and any external integrations still required.

@@ -1367,78 +1367,68 @@ export const BookingWizard: React.FC<BookingWizardProps> = ({ onComplete, onOpen
 
             {/* Itemized Table */}
             <div className="border border-[#DCE8DF] rounded-md overflow-hidden text-xs">
-              <div className="bg-[#EAF6EE] px-4 py-2 font-semibold text-[#174B35] border-b border-[#DCE8DF] flex justify-between">
-                <span>Fee Breakdown</span>
+              <div className="bg-[#CAF0F8]/50 px-4 py-2.5 font-bold text-[#253B45] border-b border-[#DDEEF2] flex justify-between">
+                <span>Shipping Cost Summary</span>
                 <span>Amount</span>
               </div>
-              <div className="divide-y divide-[#DCE8DF] px-4">
-                <div className="py-2.5 flex justify-between">
+              <div className="divide-y divide-[#DDEEF2] px-4 text-xs">
+                <div className="py-2.5 flex justify-between items-center">
                   <div>
-                    <div className="text-[#174B35] font-medium">International Air Carriage Linehaul</div>
-                    <div className="text-[11px] text-[#66736B]">
-                      Chargeable weight: {quote.chargeableWeightKg} kg ({quote.serviceName})
+                    <div className="text-[#253B45] font-semibold">Total Chargeable Weight</div>
+                    <div className="text-[11px] text-[#637984]">
+                      {quote.chargeableWeightKg} kg (International air linehaul)
                     </div>
                   </div>
-                  <span className="font-mono-num text-[#174B35]">{formatNaira(quote.freightCharge)}</span>
+                  <span className="font-mono-num font-bold text-[#253B45]">{formatNaira(quote.freightCharge + quote.jetFuelSurcharge + quote.handlingCharge + quote.vatAmount - (quote.serviceTier === 'priority' ? 8500 : 0) - (protectionPlan === 'premium' ? protectionCalc.premiumNgn : 0))}</span>
                 </div>
 
-                <div className="py-2.5 flex justify-between">
+                <div className="py-2.5 flex justify-between items-center">
                   <div>
-                    <div className="text-[#174B35] font-medium">Jet Fuel Surcharge (Index Rate)</div>
-                    <div className="text-[11px] text-[#66736B]">Aviation standard fuel indexing</div>
-                  </div>
-                  <span className="font-mono-num text-[#174B35]">{formatNaira(quote.jetFuelSurcharge)}</span>
-                </div>
-
-                <div className="py-2.5 flex justify-between">
-                  <div>
-                    <div className="text-[#174B35] font-medium">Terminal Documentation &amp; Security Screening</div>
-                    <div className="text-[11px] text-[#66736B]">NCAA export manifest lodging &amp; X-ray screening</div>
-                  </div>
-                  <span className="font-mono-num text-[#174B35]">{formatNaira(quote.handlingCharge)}</span>
-                </div>
-
-                <div className="py-2.5 flex justify-between">
-                  <div>
-                    <div className="text-[#174B35] font-medium">Doorstep Collection</div>
-                    <div className="text-[11px] text-[#66736B]">Certified scale collection at your address</div>
-                  </div>
-                  <span className="text-[#2F7D53] font-medium">Free (₦0)</span>
-                </div>
-
-                {/* Itemized Shipment Protection Fee Line */}
-                <div className="py-2.5 flex justify-between">
-                  <div>
-                    <div className="text-[#174B35] font-medium flex items-center gap-1.5">
-                      <span>Shipment Protection ({protectionPlan === 'premium' ? 'Premium Coverage' : 'Included Basic'})</span>
-                      {protectionPlan === 'premium' && (
-                        <span className="text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-300 px-1.5 py-0.2 rounded">
-                          {protectionCalc.ratePercentage}% of value
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-[11px] text-[#66736B]">
-                      Coverage limit: {formatNaira(protectionCalc.coverageNgn)} · Underwritten via {protectionConfig.providerName}
+                    <div className="text-[#253B45] font-semibold">Selected Shipping Service</div>
+                    <div className="text-[11px] text-[#637984]">
+                      {quote.serviceTier === 'priority' ? 'Priority Air Express (2 – 4 days)' : 'Standard Air Courier (5 – 8 days)'}
                     </div>
                   </div>
-                  <span className={`font-mono-num ${protectionPlan === 'premium' ? 'text-[#174B35] font-semibold' : 'text-[#2F7D53] font-medium'}`}>
-                    {protectionPlan === 'premium' ? formatNaira(protectionCalc.premiumNgn) : 'Free (₦0)'}
+                  <span className={`font-semibold ${quote.serviceTier === 'priority' ? 'text-amber-700' : 'text-emerald-700'}`}>
+                    {quote.serviceTier === 'priority' ? '+₦8,500' : 'Included (₦0)'}
                   </span>
                 </div>
 
-                <div className="py-2.5 flex justify-between">
-                  <div className="text-[#66736B]">Statutory VAT (7.5% Nigerian Sales Tax)</div>
-                  <span className="font-mono-num text-[#174B35]">{formatNaira(quote.vatAmount)}</span>
+                {protectionPlan === 'premium' && (
+                  <div className="py-2.5 flex justify-between items-center">
+                    <div>
+                      <div className="text-[#253B45] font-semibold flex items-center gap-1.5">
+                        <span>Cargo Protection (Premium)</span>
+                        <span className="text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-300 px-1.5 py-0.2 rounded">
+                          {protectionCalc.ratePercentage}% of value
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-[#637984]">
+                        Coverage limit: {formatNaira(protectionCalc.coverageNgn)} · Leadway Assurance Alliance
+                      </div>
+                    </div>
+                    <span className="font-mono-num font-bold text-amber-800">
+                      +{formatNaira(protectionCalc.premiumNgn)}
+                    </span>
+                  </div>
+                )}
+
+                <div className="py-2.5 flex justify-between items-center">
+                  <div>
+                    <div className="text-[#253B45] font-semibold">Doorstep Collection &amp; Weighing</div>
+                    <div className="text-[11px] text-[#637984]">Certified scale verification at pickup address</div>
+                  </div>
+                  <span className="text-emerald-700 font-bold">FREE (₦0)</span>
                 </div>
 
-                <div className="py-3 flex justify-between items-center text-sm font-bold bg-[#EAF6EE] -mx-4 px-4 border-t border-[#DCE8DF]">
+                <div className="py-3.5 flex justify-between items-center text-sm font-bold bg-[#CAF0F8]/30 -mx-4 px-4 border-t border-[#DDEEF2]">
                   <div>
-                    <span className="text-[#174B35]">Total Payable:</span>
-                    <p className="text-[11px] font-normal text-[#66736B]">
+                    <span className="text-[#253B45]">Total Payable:</span>
+                    <p className="text-[11px] font-normal text-[#637984]">
                       Estimated Delivery: {quote.estimatedDeliveryDisplay} (Estimate — not a guarantee)
                     </p>
                   </div>
-                  <span className="text-base text-[#2F7D53] font-mono-num">{formatNaira(quote.totalAmount)}</span>
+                  <span className="text-lg text-[#00B4D8] font-mono-num font-black">{formatNaira(quote.totalAmount)}</span>
                 </div>
               </div>
             </div>

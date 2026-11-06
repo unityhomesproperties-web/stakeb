@@ -173,10 +173,10 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({
 
           <button
             onClick={() => setProtectionSettingsOpen(true)}
-            className="px-3 py-2 text-xs font-semibold text-[#174B35] bg-[#EAF6EE] hover:bg-[#DCE8DF] border border-[#2F7D53]/30 rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
+            className="px-3 py-2 text-xs font-semibold text-[#008EA8] bg-[#CAF0F8]/50 hover:bg-[#CAF0F8] border border-[#90E0EF] rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
             title="Configure Underwriting & Protection Rules (Admin / Assessor)"
           >
-            <Shield className="w-3.5 h-3.5 text-[#2F7D53]" />
+            <Shield className="w-3.5 h-3.5 text-[#00B4D8]" />
             <span className="hidden sm:inline">Protection Rules</span>
           </button>
 
@@ -711,7 +711,7 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({
                       className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
                         s.protectionPlan === 'premium'
                           ? 'bg-amber-100 text-amber-900 border-amber-300'
-                          : 'bg-[#EAF6EE] text-[#2F7D53] border-[#2F7D53]/30'
+                          : 'bg-[#CAF0F8] text-[#008EA8] border-[#90E0EF]'
                       }`}
                     >
                       {s.protectionPlan === 'premium' ? 'Premium Coverage Active' : 'Basic Protection'}
@@ -721,10 +721,10 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => handleOpenCertificate(s)}
-                      className="px-3 py-1.5 border border-[#2F7D53]/40 bg-[#EAF6EE] rounded-lg text-xs font-semibold text-[#174B35] hover:bg-[#DCE8DF] flex items-center gap-1 transition-colors"
+                      className="px-3 py-1.5 border border-[#90E0EF] bg-[#CAF0F8]/50 rounded-lg text-xs font-semibold text-[#008EA8] hover:bg-[#CAF0F8] flex items-center gap-1 transition-colors"
                       title="View & Download Protection Certificate"
                     >
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#2F7D53]" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#00B4D8]" />
                       <span>Certificate</span>
                     </button>
                     <button
@@ -994,13 +994,75 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({
             </div>
           </div>
 
-          <div className="pt-2">
-            <button
-              onClick={onOpenKyc}
-              className="w-full py-2.5 bg-[#CAF0F8] text-[#008EA8] border border-[#90E0EF] hover:bg-[#90E0EF]/50 rounded-xl font-bold transition-colors"
-            >
-              Update Identity Verification (KYC)
-            </button>
+          {/* Statutory Verification & KYC Section */}
+          <div className="mt-4 p-4 rounded-xl border border-[#DCEFF3] bg-[#F5FAF6] space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#008EA8] flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-[#00B4D8]" />
+                <span>Statutory Identity Verification (KYC)</span>
+              </span>
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full capitalize ${
+                currentCustomer.kycStatus === 'verified'
+                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                  : currentCustomer.kycStatus === 'failed'
+                  ? 'bg-red-50 text-red-700 border border-red-200'
+                  : 'bg-[#CAF0F8] text-[#008EA8] border border-[#90E0EF]'
+              }`}>
+                {currentCustomer.kycStatus.replace(/_/g, ' ')}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700">
+              <div>
+                <span className="text-slate-500 block text-[11px]">Verification Method</span>
+                <span className="font-semibold text-slate-900">
+                  {currentCustomer.kycVerificationMethod
+                    ? currentCustomer.kycVerificationMethod.toUpperCase()
+                    : currentCustomer.kycIdType || 'Government ID'}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[11px]">Masked Identity Reference</span>
+                <span className="font-mono font-bold text-slate-900">
+                  {currentCustomer.kycMaskedId || '*******8492'}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[11px]">Verification Date</span>
+                <span className="text-slate-900">
+                  {currentCustomer.kycVerifiedAt?.slice(0, 10) || currentCustomer.kycSubmittedAt?.slice(0, 10) || '2026-09-14'}
+                </span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[11px]">Re-Verification Status</span>
+                <span className="text-emerald-700 font-semibold">Up-to-Date (Valid for NCAA Cargo)</span>
+              </div>
+            </div>
+
+            {currentCustomer.kycLastResult && (
+              <p className="text-[11px] text-slate-600 bg-white p-2 rounded border border-slate-200">
+                Note: {currentCustomer.kycLastResult}
+              </p>
+            )}
+
+            <div className="flex flex-wrap gap-2 pt-1 border-t border-[#DDEEF2]">
+              <button
+                type="button"
+                onClick={onOpenKyc}
+                className="flex-1 py-2 bg-[#00B4D8] hover:bg-[#009BB8] text-white rounded-lg text-xs font-bold transition-colors shadow-xs"
+              >
+                Update / Re-verify Identity
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  alert(`A secure data correction request ticket has been submitted to Swiftvero Compliance Bureau for account ${currentCustomer.id}. A verification officer will review your request.`);
+                }}
+                className="px-3 py-2 border border-slate-300 hover:bg-white text-slate-700 rounded-lg text-xs font-semibold transition-colors"
+              >
+                Request Profile Correction
+              </button>
+            </div>
           </div>
         </div>
       )}

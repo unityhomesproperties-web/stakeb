@@ -27,6 +27,7 @@ import {
   SupportClaim,
   ClaimStatus,
   ProtectionCertificateRecord,
+  HandoverManifestRecord,
 } from '../types';
 import { ProtectionConfig, DEFAULT_PROTECTION_CONFIG } from '../utils/protection-calculator';
 import {
@@ -142,7 +143,16 @@ interface DemoContextType {
   triggerLoading: (message?: string, durationMs?: number) => void;
   // Actions
   resetDemoData: () => void;
-  updateCustomerKyc: (status: KycStatus, idType?: string, docName?: string) => void;
+  updateCustomerKyc: (
+    status: KycStatus,
+    idType?: string,
+    docName?: string,
+    meta?: {
+      verificationMethod?: 'nin' | 'bvn' | 'passport';
+      maskedId?: string;
+      lastResult?: string;
+    }
+  ) => void;
   addShipment: (newShipment: ShipmentRecord) => void;
   updateShipmentStatus: (shipmentId: string, updates: Partial<ShipmentRecord>) => void;
   cancelShipment: (shipmentId: string) => { success: boolean; message: string };
@@ -202,6 +212,29 @@ interface DemoContextType {
   updateProtectionConfig: (updated: ProtectionConfig, reason: string) => void;
   protectionCertificates: ProtectionCertificateRecord[];
   addProtectionCertificate: (cert: ProtectionCertificateRecord) => void;
+  // Branch Desk Operations & Walk-in Counter
+  activeBranchId: string;
+  setActiveBranchId: (id: string) => void;
+  searchCustomers: (query: string) => CustomerProfile[];
+  registerWalkInCustomer: (data: {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email?: string;
+    address?: string;
+    country?: string;
+    kycStatus?: KycStatus;
+  }) => {
+    success: boolean;
+    customer: CustomerProfile;
+    isDuplicate: boolean;
+    message: string;
+    inviteLink: string;
+  };
+  handoverManifests: HandoverManifestRecord[];
+  createHandoverManifest: (
+    data: Omit<HandoverManifestRecord, 'id' | 'manifestNumber' | 'handedOverAt'>
+  ) => HandoverManifestRecord;
 }
 
 const DemoContext = createContext<DemoContextType | undefined>(undefined);
@@ -375,6 +408,29 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
       status: 'Standard Contractual Liability',
       deductibleText: 'None for contractual standard liability limit (terms apply)',
       isSimulated: false,
+    },
+  ]);
+
+  // Branch Desk Operations & Walk-in Counters
+  const [activeBranchId, setActiveBranchId] = useState<string>('branch_ikeja');
+  const [handoverManifests, setHandoverManifests] = useState<HandoverManifestRecord[]>([
+    {
+      id: 'mnf_01',
+      manifestNumber: 'MNF-2026-IKJ-0081',
+      branchId: 'branch_ikeja',
+      branchName: 'Ikeja Cargo Hub (Lagos Mainland)',
+      driverName: 'Ibrahim Danladi',
+      driverPhone: '+234 803 111 2233',
+      vehicleRegistration: 'KJA-482-XA (Toyota Hiace Van)',
+      destinationHub: 'Murtala Muhammed Int. Airport (MMIA Cargo Sorting Facility)',
+      shipmentIds: ['ship_01'],
+      totalPackages: 1,
+      totalWeightKg: 4.8,
+      tamperSealNumbers: ['SWV-SEAL-89421', 'SWV-SEAL-89422'],
+      handedOverByStaffName: 'Chioma Eze',
+      handedOverAt: '2026-10-24T15:30:00Z',
+      receivedByOpsSignature: 'T. Alabi (Airport Cargo Ops)',
+      status: 'in_transit_to_hub',
     },
   ]);
 
@@ -1006,7 +1062,16 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setActiveAdminTab('overview');
   };
 
-  const updateCustomerKyc = (status: KycStatus, idType?: string, docName?: string) => {
+  const updateCustomerKyc = (
+    status: KycStatus,
+    idType?: string,
+    docName?: string,
+    meta?: {
+      verificationMethod?: 'nin' | 'bvn' | 'passport';
+      maskedId?: string;
+      lastResult?: string;
+    }
+  ) => {
     setCustomers((prev) => {
       const current = prev[activeCustomerKey];
       return {
@@ -1016,9 +1081,22 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
           kycStatus: status,
           kycIdType: idType || current.kycIdType,
           kycDocName: docName || current.kycDocName,
+          kycVerificationMethod: meta?.verificationMethod || current.kycVerificationMethod,
+          kycMaskedId: meta?.maskedId || current.kycMaskedId,
+          kycLastResult: meta?.lastResult || current.kycLastResult,
+          kycVerifiedAt: status === 'verified' ? new Date().toISOString() : current.kycVerifiedAt,
           kycSubmittedAt: new Date().toISOString(),
         },
       };
+    });
+
+    addAuditLog({
+      actorName: currentCustomer?.name || 'Customer KYC System',
+      actorRole: 'customer',
+      action: 'KYC_STATUS_UPDATED',
+      targetType: 'kyc',
+      targetId: currentCustomer?.id || 'cust',
+      details: `Customer identity verification updated to "${status}". Method: ${meta?.verificationMethod?.toUpperCase() || idType || 'Unknown'}. Reference: ${meta?.maskedId || 'N/A'}.`,
     });
   };
 
@@ -1470,6 +1548,116 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  // Branch Desk Operations & Walk-in Customers
+  const searchCustomers = (query: string): CustomerProfile[] => {
+    const q = query.trim().toLowerCase();
+    const list = Object.values(customers);
+    if (!q) return list;
+    return list.filter(
+      (c) =>
+        c.name.toLowerCase().includes(q) ||
+        c.phone.replace(/\s+/g, '').includes(q.replace(/\s+/g, '')) ||
+        c.email.toLowerCase().includes(q) ||
+        c.id.toLowerCase().includes(q)
+    );
+  };
+
+  const registerWalkInCustomer = (data: {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email?: string;
+    address?: string;
+    country?: string;
+    kycStatus?: KycStatus;
+  }) => {
+    const fullName = `${data.firstName.trim()} ${data.lastName.trim()}`;
+    const cleanPhone = data.phone.trim();
+    const cleanEmail = data.email?.trim().toLowerCase() || '';
+
+    // Check duplicate by phone or email
+    const existing = Object.values(customers).find(
+      (c) =>
+        c.phone.replace(/\s+/g, '') === cleanPhone.replace(/\s+/g, '') ||
+        (cleanEmail && c.email.toLowerCase() === cleanEmail)
+    );
+
+    if (existing) {
+      return {
+        success: true,
+        customer: existing,
+        isDuplicate: true,
+        message: `Existing customer record located for ${existing.name} (${existing.phone}).`,
+        inviteLink: `https://swiftvero.express/account/activate?ref=${existing.id}&token=tok_${existing.id.slice(-6)}`,
+      };
+    }
+
+    const newId = `cust_walkin_${Date.now().toString().slice(-6)}`;
+    const newCustomer: CustomerProfile = {
+      id: newId,
+      name: fullName,
+      email: cleanEmail || `${data.firstName.toLowerCase()}.${Date.now().toString().slice(-4)}@customer.swiftvero.ng`,
+      phone: cleanPhone,
+      customerType: 'individual',
+      address: data.address || 'Walk-in Counter, Lagos Branch',
+      country: data.country || 'Nigeria',
+      kycStatus: data.kycStatus || 'not_started',
+      cashbackBalance: 0,
+      referralCode: `SWV-WALK${Date.now().toString().slice(-4)}`,
+      referralsCount: 0,
+      termsAcceptedAt: new Date().toISOString(),
+      isWalkIn: true,
+      createdByStaffId: currentStaffUser?.staffId || 'SWV-STAFF-002',
+      assignedBranchId: activeBranchId,
+    };
+
+    setCustomers((prev) => ({
+      ...prev,
+      [newId]: newCustomer,
+    }));
+
+    addAuditLog({
+      actorName: currentStaffUser?.name || 'Chioma Eze',
+      actorRole: 'front_desk',
+      action: 'CUSTOMER_CREATED',
+      targetType: 'staff',
+      targetId: newId,
+      details: `Desk Admin registered walk-in counter customer ${fullName} (${cleanPhone}).`,
+    });
+
+    return {
+      success: true,
+      customer: newCustomer,
+      isDuplicate: false,
+      message: `Walk-in customer account ${newCustomer.name} created successfully.`,
+      inviteLink: `https://swiftvero.express/account/activate?ref=${newId}&token=tok_${newId.slice(-6)}`,
+    };
+  };
+
+  const createHandoverManifest = (
+    data: Omit<HandoverManifestRecord, 'id' | 'manifestNumber' | 'handedOverAt'>
+  ): HandoverManifestRecord => {
+    const newManifest: HandoverManifestRecord = {
+      ...data,
+      id: `mnf_${Date.now()}`,
+      manifestNumber: `MNF-2026-${data.branchId.replace('branch_', '').toUpperCase()}-${Date.now().toString().slice(-4)}`,
+      handedOverAt: new Date().toISOString(),
+    };
+
+    setHandoverManifests((prev) => [newManifest, ...prev]);
+
+    addAuditLog({
+      actorName: currentStaffUser?.name || 'Chioma Eze',
+      actorRole: 'front_desk',
+      action: 'HANDOVER_MANIFEST_DISPATCHED',
+      targetType: 'branch',
+      targetId: newManifest.manifestNumber,
+      details: `Dispatched ${newManifest.totalPackages} packages (${newManifest.totalWeightKg}kg) via driver ${newManifest.driverName} to ${newManifest.destinationHub}.`,
+    });
+
+    return newManifest;
+  };
+
   return (
     <DemoContext.Provider
       value={{
@@ -1571,6 +1759,12 @@ export const DemoProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateProtectionConfig,
         protectionCertificates,
         addProtectionCertificate,
+        activeBranchId,
+        setActiveBranchId,
+        searchCustomers,
+        registerWalkInCustomer,
+        handoverManifests,
+        createHandoverManifest,
       }}
     >
       {children}

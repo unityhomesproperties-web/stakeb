@@ -11,12 +11,13 @@ import {
   ArrowRight,
   Shield,
   Plane,
+  Building2,
 } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialMode?: 'signin' | 'register';
+  initialMode?: 'signin' | 'register' | 'staff';
   onOpenPolicy: (key: PolicyKey) => void;
   onSuccessRedirect: () => void;
 }
@@ -28,9 +29,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onOpenPolicy,
   onSuccessRedirect,
 }) => {
-  const { setRole, setActiveCustomerKey } = useDemo();
+  const { setRole, setActiveCustomerKey, setCurrentStaffUser, setActiveBranchId, staffMembers, branches } = useDemo();
 
-  const [mode, setMode] = useState<'signin' | 'register' | 'forgot' | 'reset_sent'>(initialMode);
+  const [mode, setMode] = useState<'signin' | 'register' | 'forgot' | 'reset_sent' | 'staff'>(initialMode);
 
   // Customer Sign In State
   const [signInIdentifier, setSignInIdentifier] = useState('');
@@ -38,6 +39,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
+
+  // Desk Admin Staff Login State
+  const [staffIdentifier, setStaffIdentifier] = useState('chioma.eze@swiftvero.com');
+  const [staffPassword, setStaffPassword] = useState('StaffPass@2026');
+  const [selectedStaffBranch, setSelectedStaffBranch] = useState('branch_ikeja');
+  const [staffTwoFactor, setStaffTwoFactor] = useState('');
 
   // Register State
   const [regFullName, setRegFullName] = useState('');
@@ -54,6 +61,26 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [forgotEmail, setForgotEmail] = useState('');
 
   if (!isOpen) return null;
+
+  const handleStaffLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+
+    const targetStaff = staffMembers.find(
+      (s) =>
+        s.email.toLowerCase() === staffIdentifier.trim().toLowerCase() ||
+        s.staffId.toLowerCase() === staffIdentifier.trim().toLowerCase()
+    ) || staffMembers.find((s) => s.role === 'front_desk') || staffMembers[0];
+
+    setCurrentStaffUser(targetStaff);
+    if (selectedStaffBranch) {
+      setActiveBranchId(selectedStaffBranch);
+    }
+    // Set role according to staff account
+    setRole(targetStaff.role as any);
+    onClose();
+    onSuccessRedirect();
+  };
 
   const handleCustomerSignInSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -174,13 +201,27 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               setRegErrors({});
               setMode('register');
             }}
-            className={`flex-1 py-3 px-3 text-center border-b-2 transition-colors ${
+            className={`flex-1 py-3 px-2 text-center border-b-2 transition-colors ${
               mode === 'register'
                 ? 'border-[#00B4D8] text-[#00B4D8] font-bold bg-[#CAF0F8]/30'
                 : 'border-transparent text-[#6A808C] hover:text-[#354B55]'
             }`}
           >
             Create Account
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setAuthError('');
+              setMode('staff');
+            }}
+            className={`flex-1 py-3 px-2 text-center border-b-2 transition-colors ${
+              mode === 'staff'
+                ? 'border-[#00B4D8] text-[#00B4D8] font-bold bg-[#CAF0F8]/30'
+                : 'border-transparent text-[#6A808C] hover:text-[#354B55]'
+            }`}
+          >
+            Staff Login (/staff/login)
           </button>
         </div>
 
@@ -604,6 +645,175 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   Back to Sign In
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* Operations Staff Login */}
+          {mode === 'staff' && (
+            <div className="space-y-4">
+              <div className="mb-2 space-y-1">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#00B4D8] uppercase tracking-wider">
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span>Operations &amp; Counter Staff Portal</span>
+                </div>
+                <h3 className="text-xl font-serif-display font-bold text-[#253B45]">
+                  Staff Operations Sign-In
+                </h3>
+                <p className="text-xs text-[#637984]">
+                  Authorised personnel login for branch desk intakes, courier pickups, MMIA flight operations, finance, and central administration.
+                </p>
+              </div>
+
+              {authError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{authError}</span>
+                </div>
+              )}
+
+              {/* Demo 1-Click Role Switcher */}
+              <div className="p-3 bg-[#CAF0F8]/40 border border-[#90E0EF]/60 rounded-xl space-y-2 text-xs">
+                <span className="text-[11px] font-bold text-[#008EA8] block">
+                  Quick Select Staff Demo Role:
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStaffIdentifier('chioma.eze@swiftvero.com');
+                      setStaffPassword('StaffPass@2026');
+                      setSelectedStaffBranch('branch_ikeja');
+                    }}
+                    className="p-2 text-left bg-white hover:bg-[#F7FCFD] text-[#253B45] text-[11px] rounded-lg border border-[#DDEEF2] font-medium transition-colors shadow-2xs"
+                  >
+                    <div className="font-bold text-[#00B4D8]">Front Desk Admin</div>
+                    <div className="text-[10px] text-[#637984]">Chioma Eze (Ikeja Hub)</div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStaffIdentifier('emeka.nwosu@swiftvero.com');
+                      setStaffPassword('StaffPass@2026');
+                      setSelectedStaffBranch('branch_ikeja');
+                    }}
+                    className="p-2 text-left bg-white hover:bg-[#F7FCFD] text-[#253B45] text-[11px] rounded-lg border border-[#DDEEF2] font-medium transition-colors shadow-2xs"
+                  >
+                    <div className="font-bold text-[#00B4D8]">Pickup Courier Agent</div>
+                    <div className="text-[10px] text-[#637984]">Emeka Nwosu (Ikeja Dispatch)</div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStaffIdentifier('kemi.adeleke@swiftvero.com');
+                      setStaffPassword('StaffPass@2026');
+                      setSelectedStaffBranch('all');
+                    }}
+                    className="p-2 text-left bg-white hover:bg-[#F7FCFD] text-[#253B45] text-[11px] rounded-lg border border-[#DDEEF2] font-medium transition-colors shadow-2xs"
+                  >
+                    <div className="font-bold text-[#00B4D8]">MMIA Ops Tower</div>
+                    <div className="text-[10px] text-[#637984]">Kemi Adeleke (Airport Hub)</div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStaffIdentifier('haruna.aliyu@swiftvero.com');
+                      setStaffPassword('StaffPass@2026');
+                      setSelectedStaffBranch('all');
+                    }}
+                    className="p-2 text-left bg-white hover:bg-[#F7FCFD] text-[#253B45] text-[11px] rounded-lg border border-[#DDEEF2] font-medium transition-colors shadow-2xs"
+                  >
+                    <div className="font-bold text-[#00B4D8]">Finance Lead</div>
+                    <div className="text-[10px] text-[#637984]">Haruna Aliyu (VAT &amp; Refunds)</div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStaffIdentifier('balogunsophieah@gmail.com');
+                      setStaffPassword('StaffPass@2026');
+                      setSelectedStaffBranch('all');
+                    }}
+                    className="p-2 text-left bg-white hover:bg-[#F7FCFD] text-[#253B45] text-[11px] rounded-lg border border-[#DDEEF2] font-medium transition-colors shadow-2xs sm:col-span-2"
+                  >
+                    <div className="font-bold text-[#00B4D8]">Super Admin / Executive Owner</div>
+                    <div className="text-[10px] text-[#637984]">Sophie Balogun (Full Enterprise Scope)</div>
+                  </button>
+                </div>
+              </div>
+
+              <form onSubmit={handleStaffLoginSubmit} className="space-y-3.5">
+                <div>
+                  <label className="block text-xs font-semibold text-[#253B45] mb-1">
+                    Work Email or Staff ID *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={staffIdentifier}
+                    onChange={(e) => setStaffIdentifier(e.target.value)}
+                    placeholder="e.g. chioma.eze@swiftvero.com or SWV-STAFF-002"
+                    className="w-full px-3 py-2 text-xs border border-[#DDEEF2] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-white text-[#253B45]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#253B45] mb-1">
+                    Workplace Password *
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={staffPassword}
+                    onChange={(e) => setStaffPassword(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-[#DDEEF2] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-white text-[#253B45]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#253B45] mb-1">
+                    Assigned Hub / Branch *
+                  </label>
+                  <select
+                    value={selectedStaffBranch}
+                    onChange={(e) => setSelectedStaffBranch(e.target.value)}
+                    className="w-full px-3 py-2 text-xs border border-[#DDEEF2] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-white text-[#253B45]"
+                  >
+                    <option value="all">All Enterprise Hubs (Airport / Head Office)</option>
+                    {branches.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.name} ({b.code})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#253B45] mb-1">
+                    Two-Factor Token (2FA Demo)
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={6}
+                    value={staffTwoFactor}
+                    onChange={(e) => setStaffTwoFactor(e.target.value)}
+                    placeholder="e.g. 642891 (Optional in Demo)"
+                    className="w-full px-3 py-2 text-xs font-mono border border-[#DDEEF2] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-white text-[#253B45]"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="w-full py-2.5 bg-[#00B4D8] hover:bg-[#009BB8] text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                  >
+                    <span>Sign In to Staff Workspace</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </form>
             </div>
           )}
         </div>

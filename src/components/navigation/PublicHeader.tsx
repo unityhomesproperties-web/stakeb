@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDemo } from '../../context/DemoContext';
 import { Logo } from '../common/Logo';
-import { Menu, X, ArrowRight, User } from 'lucide-react';
+import { Menu, X, ArrowRight, User, Building2 } from 'lucide-react';
 
 interface PublicHeaderProps {
-  onOpenAuth: (mode?: 'signin' | 'register') => void;
+  onOpenAuth: (mode?: 'signin' | 'register' | 'staff') => void;
   onOpenQuote: () => void;
 }
 
@@ -94,6 +94,16 @@ export const PublicHeader: React.FC<PublicHeaderProps> = ({
               Customer Sign In
             </button>
           )}
+
+          <button
+            type="button"
+            onClick={() => onOpenAuth('staff')}
+            className="text-xs font-semibold text-[#008EA8] hover:text-[#00B4D8] bg-[#CAF0F8]/50 hover:bg-[#CAF0F8] border border-[#90E0EF] px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5 shadow-2xs"
+            title="Physical Branch Desk Admin Portal"
+          >
+            <Building2 className="w-3.5 h-3.5 text-[#00B4D8]" />
+            <span>Branch Desk</span>
+          </button>
 
           <button
             onClick={onOpenQuote}

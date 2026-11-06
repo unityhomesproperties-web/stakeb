@@ -133,7 +133,12 @@ export type KycStatus =
   | 'verified'
   | 'additional_info_required'
   | 'rejected'
-  | 'expired';
+  | 'expired'
+  | 'verification_in_progress'
+  | 'failed'
+  | 'manual_review'
+  | 'verification_service_unavailable'
+  | 'expired_or_reverification';
 
 export type SwiftShareCategory = 'clothing' | 'documents' | 'hair_wigs';
 export type TravelCarryCategory = SwiftShareCategory;
@@ -416,14 +421,58 @@ export interface CustomerProfile {
   phone: string;
   customerType: 'individual' | 'business';
   companyName?: string;
+  address?: string;
+  country?: string;
   kycStatus: KycStatus;
+  kycVerificationMethod?: 'nin' | 'bvn' | 'passport';
+  kycMaskedId?: string; // e.g. *******1234
   kycIdType?: string;
   kycDocName?: string;
   kycSubmittedAt?: string;
+  kycVerifiedAt?: string;
+  kycLastResult?: string;
+  kycReverificationRequired?: boolean;
+  kycReverificationReason?: string;
   cashbackBalance: number;
   referralCode: string;
   referralsCount: number;
   termsAcceptedAt: string;
+  isWalkIn?: boolean;
+  createdByStaffId?: string;
+  assignedBranchId?: string;
+}
+
+export interface WalkInPackage {
+  id: string;
+  description: string;
+  quantity: number;
+  actualWeightKg: number;
+  packageType: 'box' | 'carton' | 'envelope' | 'pallet' | 'crate' | 'sack';
+  declaredValueNgn: number;
+  currency: string;
+  isFragile: boolean;
+  requiresSpecialHandling?: boolean;
+  inspectionNotes?: string;
+  photoUrl?: string;
+}
+
+export interface HandoverManifestRecord {
+  id: string;
+  manifestNumber: string;
+  branchId: string;
+  branchName: string;
+  driverName: string;
+  driverPhone: string;
+  vehicleRegistration: string;
+  destinationHub: string;
+  shipmentIds: string[];
+  totalPackages: number;
+  totalWeightKg: number;
+  tamperSealNumbers: string[];
+  handedOverByStaffName: string;
+  handedOverAt: string;
+  receivedByOpsSignature?: string;
+  status: 'pending_dispatch' | 'in_transit_to_hub' | 'received_at_hub';
 }
 
 export interface CustomerReview {
