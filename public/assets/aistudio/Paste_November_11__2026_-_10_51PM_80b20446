@@ -1,0 +1,1222 @@
+SWIFTVERO EXPRESS: COMPLETE WEBSITE UI/UX AUDIT, REDESIGN AND PRODUCTION READINESS
+
+YOUR ROLE
+
+Act as a highly experienced:
+
+* Senior Product Designer.
+* Senior UI/UX Designer.
+* Senior Frontend Developer.
+* Senior Backend Developer.
+* Senior Full-Stack Engineer.
+* Logistics Technology Product Architect.
+* Accessibility and Quality Assurance Specialist.
+
+You have experience designing premium international logistics, shipping, courier and financial technology platforms.
+
+Your task is to professionally audit, simplify, redesign and improve the EXISTING Swiftvero Express website.
+
+I do not want a generic website redesign. I want a premium, realistic, trustworthy international shipping platform that looks like it was designed by an experienced product design team and built by experienced software engineers.
+
+The result must feel like a real logistics company with a clear business model, not an AI-generated collection of website sections.
+
+IMPORTANT: Work on the existing project. Do not start a new project or rebuild the entire application from scratch.
+
+⸻
+
+PART 1: AUDIT THE EXISTING PROJECT BEFORE EDITING
+
+Before making any changes, inspect the entire existing application.
+
+Examine:
+
+1. Existing website pages and navigation.
+2. Landing page and all homepage sections.
+3. Customer dashboard.
+4. Shipment booking flow.
+5. Shipping quotation estimator.
+6. Public tracking page.
+7. Customer profile and settings.
+8. Business account experience.
+9. Staff and administrative dashboards.
+10. Database tables and relationships.
+11. Existing APIs and third-party integrations.
+12. Payment gateway.
+13. Authentication and customer registration.
+14. Email and notification services.
+15. Current mobile and desktop layouts.
+16. Existing loading, empty, success and error states.
+17. Existing demo data and demo functionality.
+
+Identify:
+
+* Duplicate features.
+* Duplicate information.
+* Unnecessary sections.
+* Repeated calls to action.
+* Inconsistent design elements.
+* Fake or unsupported business claims.
+* Features that are visible but not functional.
+* Missing operational workflows.
+* Poor mobile layouts.
+* Unnecessarily large fonts.
+* Excessive cards, badges, icons and borders.
+* Inconsistent spacing.
+* Broken navigation.
+* Features that make the website feel automatically generated.
+
+Produce an internal audit before implementation.
+
+Do not remove important functionality merely because its interface needs improvement.
+
+Preserve existing customer accounts, shipment records, payment records, integrations, database relationships and working workflows.
+
+Do not delete existing data to make the redesign easier.
+
+Where a database change is required, use safe migrations and preserve existing records.
+
+⸻
+
+PART 2: ESTABLISH A PROFESSIONAL DESIGN DIRECTION
+
+Brand identity
+
+Use the official Swiftvero logo as the single source of truth.
+
+Official brand colours:
+
+* Primary cyan: #00B4D8
+* Secondary cyan: #90E0EF
+* Light cyan: #CAF0F8
+* White: #FFFFFF
+
+Use dark neutral colours for text and appropriate neutral colours for backgrounds, borders and surfaces.
+
+Do not introduce unrelated colours or create a new brand identity.
+
+Visual design principles
+
+The website must look:
+
+* Premium.
+* Professional.
+* Realistic.
+* Trustworthy.
+* Clean.
+* Modern.
+* Well organised.
+* Easy to understand.
+* Mobile-first.
+* Appropriate for an international logistics company.
+
+Use a restrained colour system.
+
+White and neutral backgrounds should dominate. Use the primary cyan for important actions, selected states and meaningful highlights.
+
+Do not fill every section with cyan backgrounds.
+
+Avoid excessive rounded cards, giant decorative icons, unnecessary floating shapes, gradient backgrounds and decorative pills.
+
+Use cards only when they genuinely improve the organisation of information.
+
+Prefer clean sections, clear headings, well-aligned content, meaningful whitespace and subtle borders.
+
+Do not put every sentence inside a separate card.
+
+Do not use excessive shadows.
+
+Use consistent corner radii instead of randomly mixing different shapes.
+
+The overall interface should resemble a carefully designed premium logistics platform, not a generic SaaS dashboard template.
+
+Typography
+
+The current typography feels too large and visually crowded on mobile.
+
+Review the entire typography system.
+
+Use a modern readable font such as Inter, provided it works consistently with the existing project.
+
+Recommended mobile typography:
+
+* Main hero heading: approximately 30–36px.
+* Section heading: approximately 22–27px.
+* Card heading: approximately 16–19px.
+* Body text: approximately 14–16px.
+* Secondary information: approximately 12–14px.
+* Small labels: approximately 11–12px.
+
+Use these as starting points, not fixed values for every element.
+
+Use responsive typography and appropriate line heights.
+
+Do not make every heading bold and oversized.
+
+Reduce unnecessary text weight and improve the balance between headings and body content.
+
+Use clear visual hierarchy so visitors immediately understand what matters.
+
+Do not make users zoom in or scroll excessively to understand simple information.
+
+⸻
+
+PART 3: REDESIGN THE LANDING PAGE FIRST
+
+The landing page is the most important part of this redesign.
+
+It must immediately explain what Swiftvero does and guide visitors towards booking or tracking a shipment.
+
+The existing landing page is too long, text-heavy and overloaded with information cards.
+
+Simplify it significantly.
+
+3.1 Header and navigation
+
+Create a compact, professional header.
+
+Desktop navigation should contain only the most useful destinations:
+
+* Home
+* Services
+* Business Shipping
+* Help Centre
+* Track Shipment
+* Get a Quote
+
+Use the Swiftvero logo at a balanced size.
+
+Keep the primary action visible without making the header crowded.
+
+For mobile:
+
+* Show the logo.
+* Show one clear primary CTA, such as Get a Quote.
+* Use a compact menu for the remaining links.
+* Keep the menu easy to open and close.
+* Avoid taking up too much vertical screen space.
+
+Do not repeat the same navigation links in several different places.
+
+Add the theme selector described later in this prompt.
+
+3.2 Hero section
+
+Replace the current oversized, text-heavy hero with a professionally balanced hero.
+
+Suggested content:
+
+Headline:
+
+“Ship internationally with more clarity.”
+
+Supporting text:
+
+“Book shipments, receive clear shipping quotations and track your packages through one simple platform.”
+
+Primary button:
+
+“Book a Shipment”
+
+Secondary button:
+
+“Track a Shipment”
+
+Use a real, professionally selected logistics photograph that communicates shipping, parcel handling or an authentic courier handover.
+
+The photograph must look natural and credible.
+
+Do not use obviously AI-generated people, distorted hands, fake logos, unrealistic aircraft, fictional shipping warehouses or exaggerated cargo scenes.
+
+Do not invent Swiftvero facilities, staff uniforms, vehicles or operational infrastructure.
+
+Use genuine Swiftvero photographs where available. Where genuine company photographs are not available, use properly licensed, realistic editorial stock photography that does not falsely suggest ownership or a Swiftvero facility.
+
+Every photograph must have a meaningful visual purpose.
+
+Add a brief caption where it helps explain what the photograph represents.
+
+Do not add a random image just to fill space.
+
+On desktop, use a balanced two-column layout with text and image.
+
+On mobile, stack the content naturally. The heading, short explanation and main CTA must appear early without forcing the visitor through a long block of text.
+
+3.3 Remove unnecessary promises from the hero
+
+Remove:
+
+* Long service promise boxes.
+* Repeated lists of service benefits.
+* Excessive security badges.
+* Repeated pickup promises.
+* Multiple paragraphs explaining the company’s entire operation.
+
+Keep only a small number of important, verifiable trust points.
+
+Never promise services, delivery times or coverage that have not been operationally confirmed.
+
+3.4 Add a simple tracking entry point
+
+Make tracking easy to find.
+
+Include a compact tracking section with:
+
+* Swiftvero shipment code input.
+* Track button.
+* Clear input instructions.
+* Helpful validation messages.
+
+A customer should not need to navigate through several pages just to track a shipment.
+
+Do not expose personal shipment information through public tracking.
+
+3.5 How shipping works
+
+Replace the repeated long feature sections with a simple three-step explanation.
+
+Step 1: Book
+
+“Enter your shipment details and select an available collection or drop-off option.”
+
+Step 2: We inspect and quote
+
+“We receive your package, confirm its measurements and provide the final shipping quotation.”
+
+Step 3: Approve, pay and track
+
+“Approve your quotation, complete payment and follow your shipment until delivery.”
+
+Use small, consistent icons or a simple numbered layout.
+
+Do not create large decorative icon cards.
+
+3.6 Services section
+
+Keep the public service section focused.
+
+Show only services Swiftvero currently offers or has confirmed arrangements to provide.
+
+Possible sections:
+
+* Personal International Shipping.
+* Business Shipping.
+* Collection and Drop-off Options.
+
+Each service should have:
+
+* A clear name.
+* One short explanation.
+* A relevant genuine photograph or simple visual.
+* A clear action.
+
+Do not create unnecessary service categories.
+
+Do not advertise services that are still under development as though they are available.
+
+3.7 Business shipping section
+
+Keep one professional business shipping section.
+
+Explain that businesses can enquire about regular shipments and suitable account arrangements.
+
+Include:
+
+“Explore Business Shipping”
+
+Do not advertise dedicated account managers, scheduled warehouse collections, commercial flight arrangements, special rates or enterprise features unless those services are genuinely available.
+
+Remove exaggerated business partnership language.
+
+3.8 Customer reviews
+
+Remove all fabricated names, ratings, customer comments and verified shipment badges.
+
+Do not invent testimonials.
+
+Only display genuine reviews submitted by actual customers after completed shipments and approved for publication.
+
+If there are not enough genuine reviews, remove the testimonial section completely.
+
+Do not fill empty space with fictional social proof.
+
+3.9 Frequently asked questions
+
+Simplify the FAQ section.
+
+Display approximately five to seven important questions on the homepage, with a link to the complete Help Centre.
+
+Prioritise:
+
+* How does international shipping work?
+* How is my shipping cost calculated?
+* Is pickup available in my area?
+* How do I track my shipment?
+* What items are prohibited?
+* Who pays customs duties and taxes?
+* What happens if my shipment is delayed?
+
+Use expandable accordion rows.
+
+Do not repeat explanations already clearly presented elsewhere.
+
+3.10 Footer
+
+Create a clean, compact footer.
+
+Include:
+
+* Swiftvero logo.
+* Short company description.
+* Services.
+* Track Shipment.
+* Get a Quote.
+* Business Shipping.
+* Help Centre.
+* Contact Information.
+* Terms and Conditions.
+* Privacy Policy.
+* Shipping and Prohibited Items Policy.
+* Cancellation and Refund Policy.
+
+On mobile, use expandable link groups if necessary.
+
+Remove unnecessary paragraphs and excessive columns.
+
+Do not display addresses, warehouses, offices, phone numbers or operational locations that have not been verified.
+
+⸻
+
+PART 4: REMOVE THE FIXED EXPORT/IMPORT TAB SYSTEM
+
+The existing quotation interface has:
+
+* Export (Out of Nigeria).
+* Import (Into Nigeria).
+
+Remove this fixed-direction tab system.
+
+Replace it with a professional route-selection model.
+
+Use:
+
+1. Origin Country.
+2. Origin City or Collection Location, where required.
+3. Destination Country.
+4. Destination City or Delivery Location, where required.
+
+The system should understand a shipment through its origin and destination, rather than forcing the customer to select an export or import category.
+
+However, do not confuse a globally flexible interface with globally available operations.
+
+Only routes that have confirmed carrier coverage, collection arrangements, documentation support and operational handling should be available for instant booking.
+
+For unsupported routes, display:
+
+“Route availability needs to be confirmed.”
+
+Provide a Request Route Availability option.
+
+Do not falsely suggest Swiftvero can currently collect from every country.
+
+Keep the route data model flexible enough to support additional origin countries and international shipping corridors as the business expands.
+
+Do not hardcode Nigeria as the only possible origin in the permanent database architecture.
+
+Do not activate unsupported origin locations simply to make the website look international.
+
+⸻
+
+PART 5: IMPROVE THE SHIPPING QUOTATION ESTIMATOR
+
+The quotation estimator is an important part of Swiftvero. Keep it, but make it much easier to use.
+
+The estimator should collect only the information required at each stage.
+
+Initial information
+
+* Origin.
+* Destination.
+* Package category.
+* Estimated actual weight.
+* Dimensions, where known.
+* Service option.
+* Collection or drop-off preference.
+* Package photo, where required.
+* Contents declaration.
+
+Do not make every field mandatory when an estimate can reasonably be requested without it.
+
+Use helpful descriptions and appropriate placeholders.
+
+Keep the form compact and mobile-friendly.
+
+Pricing calculations
+
+The quotation engine must support:
+
+* Actual weight.
+* Volumetric weight.
+* Billable weight.
+* Destination-based pricing.
+* Available carrier services.
+* Fuel or other applicable surcharges.
+* Taxes.
+* Approved additional fees.
+* Currency handling.
+* Rate expiry and quote validity.
+
+Use the actual carrier pricing rules and verified account rate information where available.
+
+Never invent live carrier rates.
+
+Never use hardcoded sample prices as real customer quotations.
+
+When accurate carrier pricing is unavailable, label the result as an estimate rather than a confirmed final rate.
+
+Clearly explain that final shipping costs may change after the package is inspected, weighed and measured.
+
+Show a clear breakdown of charges.
+
+Do not add arbitrary line items such as jet fuel, airport security or screening fees unless they genuinely apply to that shipment and are supported by the pricing configuration.
+
+Do not confuse estimated weight with the verified facility weight.
+
+⸻
+
+PART 6: PICKUP AND DROP-OFF EXPERIENCE
+
+Retain the existing collection options but present them clearly.
+
+Standard pickup
+
+Standard doorstep pickup is free within eligible service areas, subject to availability.
+
+The target is collection within 24 hours after confirmation, subject to operating hours and operational capacity.
+
+Do not promise universal collection coverage.
+
+Priority pickup
+
+Priority pickup is a paid option.
+
+The target window may be approximately 1–6 hours, depending on location, traffic, demand and driver availability.
+
+It is not a guaranteed one-hour service.
+
+The fee should be calculated according to approved pricing rules.
+
+Show the option only when it is genuinely available.
+
+Drop-off
+
+Show verified active drop-off locations only.
+
+Clearly display the address, operating hours and any applicable instructions.
+
+Do not display fictional branches or collection centres.
+
+Collection confirmation
+
+After collection:
+
+* Record the pickup agent.
+* Record the collection time.
+* Capture proof of collection.
+* Update the shipment timeline.
+* Notify the customer.
+
+Agents should not falsely record the package as weighed at the customer’s doorstep.
+
+The package is weighed and measured after arrival at the appropriate Swiftvero facility.
+
+⸻
+
+PART 7: CUSTOMER EXPERIENCE AND DASHBOARD
+
+Improve the customer dashboard without making it unnecessarily complicated.
+
+The primary dashboard should make it easy to:
+
+* Book a Shipment.
+* Track a Shipment.
+* View Active Shipments.
+* View Shipment History.
+* Approve a Quotation.
+* Make a Payment.
+* View Receipts.
+* Contact Support.
+* Manage Profile and Settings.
+
+Use a clear arrangement of information.
+
+Do not overwhelm customers with analytics that are not useful to them.
+
+Each shipment should show:
+
+* Swiftvero shipment code.
+* Origin and destination.
+* Current status.
+* Booking date.
+* Latest update.
+* Available action.
+
+Allow customers to open a shipment to view its detailed timeline.
+
+Provide clear states for:
+
+* Booking confirmed.
+* Awaiting pickup.
+* Collected.
+* Received at facility.
+* Under inspection.
+* Quotation ready.
+* Awaiting customer approval.
+* Awaiting payment.
+* Payment confirmed.
+* Carrier shipment created.
+* Accepted by carrier.
+* In transit.
+* Customs processing, where applicable.
+* Out for delivery.
+* Delivered.
+* Delayed or exception.
+
+Only display milestones that actually apply to that shipment.
+
+⸻
+
+PART 8: TRACKING EXPERIENCE
+
+Create a professional, easy-to-understand tracking page.
+
+Customers should track using their Swiftvero shipment code.
+
+The page should display:
+
+* Shipment status.
+* Origin.
+* Destination.
+* Booking date.
+* Last update.
+* Expected delivery date, only when reliable.
+* Shipment progress timeline.
+* Customer support option.
+
+Keep public tracking information limited.
+
+Do not expose:
+
+* Customer home addresses.
+* Personal phone numbers.
+* Payment details.
+* Private package photos.
+* Internal inspection notes.
+* Sensitive customs documentation.
+
+Use OTP or authenticated access for private shipment information.
+
+Carrier integration
+
+Maintain separate references for:
+
+1. Swiftvero shipment code.
+2. Internal database shipment ID.
+3. Carrier tracking number or numbers.
+
+The Swiftvero shipment code must remain the customer’s primary reference throughout the process.
+
+Do not replace the Swiftvero code with the carrier number.
+
+Carrier events must be accurately mapped into plain English.
+
+Show the source of important shipment updates where useful.
+
+Do not display “In Transit” just because a carrier shipment was created.
+
+Show carrier acceptance or collection only when supported by a real carrier event.
+
+If carrier tracking information is unavailable, show a clear waiting message.
+
+Do not invent tracking updates.
+
+Keep carrier API credentials on the backend. Never expose API secrets in frontend code.
+
+Keep the existing DHL integration work intact, but do not publicly claim a formal partnership unless the relationship and permissions are confirmed.
+
+⸻
+
+PART 9: STAFF AND OPERATIONS FUNCTIONALITY
+
+A premium customer website is not enough. Swiftvero must also have reliable internal operations.
+
+Audit the existing staff dashboards and improve them without unnecessarily creating additional dashboards.
+
+Maintain the existing main workspaces:
+
+1. Pickup and Shipping Management.
+2. Customer Service.
+3. Operations and Administration.
+
+The operational system should support:
+
+* Booking review.
+* Pickup assignment.
+* Pickup confirmation.
+* Proof of collection.
+* Facility receipt.
+* Package inspection.
+* Package weighing.
+* Package measurements.
+* Package photographs.
+* Quotation preparation.
+* Quote review and approval.
+* Customer approval.
+* Payment verification.
+* Carrier shipment creation.
+* Label and tracking reference storage.
+* Shipment dispatch.
+* Tracking updates.
+* Delivery confirmation.
+* Exception management.
+* Customer support escalation.
+
+Use role-based permissions.
+
+Do not allow unauthorised staff to alter pricing, payment records, shipment status or carrier references.
+
+Maintain audit logs for important operational changes.
+
+⸻
+
+PART 10: FEATURES MISSING OR IMPORTANT FOR PRODUCTION READINESS
+
+Audit the project against the following requirements.
+
+Implement missing high-priority features where appropriate. Preserve existing working versions.
+
+A. Shipment management
+
+* Unique Swiftvero shipment code.
+* Shipment history.
+* Multiple packages under one shipment where supported.
+* Package dimensions and weight records.
+* Evidence of collection and facility receipt.
+* Quote approval and expiry.
+* Payment status.
+* Carrier reference mapping.
+* Shipment exceptions.
+
+B. Payment security
+
+* Server-side payment verification.
+* Webhook verification.
+* Duplicate payment protection.
+* Receipts.
+* Payment history.
+* Refund and cancellation workflows.
+* Clear payment success and failure messages.
+
+Never trust a frontend success message or payment screenshot as evidence of payment.
+
+C. Customer support
+
+* Support request creation.
+* Shipment-linked support tickets.
+* Customer communication history.
+* Ticket status.
+* Assigned staff member.
+* Escalation handling.
+* Resolution records.
+
+Do not create a fake WhatsApp support integration. If WhatsApp Business is not configured, show the available real support channels.
+
+D. Notifications
+
+Notify customers about important events:
+
+* Booking confirmation.
+* Pickup assignment.
+* Collection.
+* Facility receipt.
+* Quotation ready.
+* Quote approval.
+* Payment confirmation.
+* Carrier acceptance.
+* Major transit updates.
+* Customs exceptions.
+* Delivery.
+* Failed or cancelled shipments.
+
+Avoid sending a notification for every minor scan.
+
+Allow customers to manage notification preferences under Profile and Settings.
+
+E. Legal and shipping information
+
+Create a properly organised policy centre covering:
+
+* Terms and Conditions.
+* Privacy Policy.
+* Prohibited Items.
+* Shipping Rules.
+* Customs Duties and Taxes.
+* Cancellation and Refunds.
+* Packaging Requirements.
+* Delivery Exceptions.
+* Insurance, only where actual coverage exists.
+* Claims and Liability.
+
+Do not invent legal approval or insurance coverage.
+
+Provide the content for professional legal review before launch.
+
+F. Business accounts
+
+Make the business account option easy to find without overwhelming the personal customer experience.
+
+Where operationally supported, business accounts should include:
+
+* Business profile.
+* Multiple authorised users.
+* Shipment management.
+* Bulk shipment entry.
+* Shipment history.
+* Business invoices.
+* Payment and account statements.
+* Business support.
+
+Do not display unfinished business features as operational.
+
+G. Route and service availability
+
+Create a reliable way for the admin team to manage:
+
+* Supported origin countries.
+* Supported destination countries.
+* Supported cities.
+* Collection availability.
+* Delivery services.
+* Available carrier services.
+* Restrictions.
+* Rate availability.
+* Temporary route suspensions.
+
+The customer interface must depend on this configuration.
+
+Do not hardcode unsupported routes or make inactive routes appear bookable.
+
+⸻
+
+PART 11: ADD LIGHT MODE AND DARK MODE
+
+This is a required feature.
+
+Users must be able to switch between:
+
+* Light Mode.
+* Dark Mode.
+* System Default.
+
+Place the theme control in a suitable location.
+
+On desktop, it can appear in the header or account menu.
+
+On mobile, make it accessible through the main menu or Profile > Settings.
+
+Use clear sun and moon icons with an appropriate label.
+
+The theme must work throughout the entire website, including:
+
+* Homepage.
+* Quote estimator.
+* Customer dashboard.
+* Tracking pages.
+* Login and registration.
+* Business accounts.
+* Staff dashboards.
+* Settings.
+* Forms.
+* Notifications.
+* Modals.
+* Tables.
+* Empty states.
+* Dropdowns.
+
+Do not merely change the page background.
+
+Create a complete design token system for both themes.
+
+Light Mode
+
+Use white and light neutral surfaces with dark readable text and the approved Swiftvero cyan accents.
+
+Dark Mode
+
+Use deep neutral backgrounds and suitable elevated surfaces.
+
+Use readable light text.
+
+Adapt the cyan accents to remain accessible and avoid excessive brightness.
+
+Do not use pure black backgrounds everywhere.
+
+Ensure borders, buttons, inputs, disabled states, alerts and text remain readable.
+
+Theme persistence
+
+Remember the user’s selected preference.
+
+Support System Default.
+
+Use the operating system preference when System Default is selected.
+
+Avoid theme flashing when the page loads.
+
+Do not create separate duplicate pages for light and dark themes.
+
+Use shared theme variables or an equivalent maintainable design-token architecture.
+
+⸻
+
+PART 12: MOBILE-FIRST REDESIGN
+
+Mobile usability is a major priority.
+
+The existing mobile experience has too much large text, long stacked content and oversized sections.
+
+Redesign with common phone screen sizes in mind.
+
+Test at approximately:
+
+* 320px.
+* 360px.
+* 375px.
+* 390px.
+* 430px.
+* Tablet.
+* Desktop.
+
+Ensure:
+
+* No horizontal overflow.
+* No clipped content.
+* No overlapping buttons.
+* No text extending beyond cards.
+* No unnecessary full-screen sections.
+* No oversized navigation.
+* No forms that require excessive scrolling.
+* No floating elements covering important content.
+* No unreadable tables.
+* No tiny touch targets.
+
+Use consistent mobile page gutters, sensible section spacing and a clear content width.
+
+Buttons should be easy to tap, ideally at least 44px high.
+
+Forms should have clear labels, appropriate keyboard types and simple validation.
+
+Keep important actions visible without covering the actual page content.
+
+Where information is secondary, use expandable sections rather than displaying everything at once.
+
+On mobile, content should feel properly arranged for the screen, not like a desktop website squeezed into a phone.
+
+⸻
+
+PART 13: PHOTOGRAPHY AND VISUAL CONTENT
+
+The current website relies too heavily on text and generic cards.
+
+Introduce a small, carefully selected set of genuine logistics photographs.
+
+Suggested photographic subjects:
+
+1. A professional courier handing a parcel to a customer.
+2. A carefully packed parcel being inspected.
+3. A package being weighed on an actual shipping scale.
+4. A warehouse worker organising properly labelled packages.
+5. A business owner preparing shipments.
+
+Use natural lighting and realistic photography.
+
+Images must be relevant to the section beside them.
+
+Use short, informative captions where necessary.
+
+Do not use generic stock images of aircraft or containers simply because the subject is logistics.
+
+Do not create fictional Swiftvero branded vehicles, branches, uniforms, warehouses or employees.
+
+Do not generate AI photos of fake customer reviews or fake company operations.
+
+Do not place images in every section.
+
+A small number of authentic, high-quality images is better than a gallery of meaningless pictures.
+
+Optimise image file sizes, dimensions and loading performance.
+
+Provide descriptive alternative text for accessibility.
+
+⸻
+
+PART 14: REMOVE AI-GENERATED DESIGN PATTERNS
+
+Review every page for the following patterns.
+
+Remove unnecessary:
+
+* Decorative gradient backgrounds.
+* Giant hero typography.
+* Excessive cyan pill labels.
+* Cards inside other cards.
+* Repeated icon bubbles.
+* Random icons beside ordinary paragraphs.
+* Long marketing paragraphs.
+* Repeated feature descriptions.
+* Fake statistics.
+* Fake ratings.
+* Fake customer names.
+* Fake shipping records.
+* Fake operational locations.
+* Unsupported certifications.
+* Unsupported claims of partnerships.
+* Repeated headings with slightly different wording.
+* Unnecessary badges.
+* Excessive border-radius variations.
+* Decorative separators that add no information.
+* Placeholder text visible to real customers.
+* Overly enthusiastic marketing language.
+
+Do not replace one set of unnecessary cards with another set of unnecessary cards.
+
+Every visual element must have a purpose.
+
+Every section must answer a real customer question or help the customer complete an action.
+
+If a section adds no meaningful value, remove it.
+
+⸻
+
+PART 15: TECHNICAL QUALITY, PERFORMANCE AND ACCESSIBILITY
+
+Maintain the existing technology stack unless there is a clear technical reason to change it.
+
+Do not introduce unnecessary libraries or dependencies.
+
+Keep components reusable and maintainable.
+
+Use clean architecture and consistent naming.
+
+Optimise:
+
+* Page loading.
+* Image loading.
+* API calls.
+* Database queries.
+* Mobile rendering.
+* Form validation.
+* Error handling.
+* Authentication.
+* Route protection.
+* Accessibility.
+
+Use semantic HTML.
+
+Support keyboard navigation.
+
+Provide accessible form labels.
+
+Maintain sufficient colour contrast in both themes.
+
+Use loading indicators where real operations take time.
+
+Display helpful error messages instead of raw technical errors.
+
+Handle empty states properly.
+
+Do not show a blank dashboard when a customer has no shipments. Explain what they can do next and provide a Book a Shipment action.
+
+⸻
+
+PART 16: PROTECT EXISTING DATA AND INTEGRATIONS
+
+This instruction is critical.
+
+Do not:
+
+* Rebuild the application from scratch.
+* Replace the database without necessity.
+* Delete existing customer accounts.
+* Delete shipment records.
+* Remove working authentication.
+* Replace existing payment integrations without justification.
+* Break carrier API integration.
+* Remove existing admin controls.
+* Disable working dashboards.
+* Replace functional pages with static mockups.
+
+Inspect the existing implementation first.
+
+Make incremental improvements.
+
+Where changes are needed, preserve compatibility with existing data and functionality.
+
+Do not invent new API endpoints or integrations.
+
+Check existing project configuration and use the actual services already connected.
+
+⸻
+
+PART 17: DEMO MODE AND TESTING
+
+Every important feature must be clickable and testable in DEMO MODE.
+
+Include:
+
+* Demo customer accounts.
+* Demo business accounts.
+* Demo shipment records.
+* Demo booking flow.
+* Demo quotation generation.
+* Demo quote approval.
+* Demo payment flow.
+* Demo tracking events.
+* Demo support tickets.
+* Demo staff workflows.
+* Demo light/dark theme switching.
+
+All demo records must be clearly identified as simulated data.
+
+Demo payment must never collect real money.
+
+Demo carrier events must never be presented as genuine carrier events.
+
+Do not allow demo activity to contaminate production records.
+
+Provide a clear way for an authorised administrator or developer to enter demo mode.
+
+Do not expose sensitive demo or production credentials.
+
+⸻
+
+PART 18: IMPLEMENTATION ORDER
+
+Do not attempt to change every screen randomly.
+
+Implement in the following order:
+
+Phase 1: Audit and cleanup
+
+* Inspect the existing project.
+* Identify duplicate sections and unsupported claims.
+* Remove unnecessary homepage content.
+* Remove the fixed export/import selector.
+* Establish the design system.
+
+Phase 2: Landing page redesign
+
+* Header.
+* Hero.
+* Authentic photography.
+* Tracking entry point.
+* How it works.
+* Services.
+* Business shipping.
+* FAQ.
+* Footer.
+
+Phase 3: Mobile and typography
+
+* Refine typography.
+* Fix mobile spacing.
+* Improve forms.
+* Check buttons and navigation.
+* Test responsive layouts.
+
+Phase 4: Light and dark themes
+
+* Build the shared theme system.
+* Add the theme selector.
+* Apply themes consistently to every page.
+* Persist user preference.
+
+Phase 5: Shipping and customer experience
+
+* Route selection.
+* Quote estimator.
+* Pickup and drop-off.
+* Customer dashboard.
+* Tracking experience.
+* Customer notifications.
+
+Phase 6: Operations and missing functionality
+
+* Staff workflows.
+* Support.
+* Payment verification.
+* Carrier integration checks.
+* Business accounts.
+* Exception handling.
+
+Phase 7: Production readiness testing
+
+* Verify every important button.
+* Test forms.
+* Test authentication.
+* Test mobile screens.
+* Test both themes.
+* Test supported and unsupported routes.
+* Test pricing calculations.
+* Test demo and real environments separately.
+* Check for regressions.
+
+⸻
+
+PART 19: ACCEPTANCE CRITERIA
+
+Do not consider the task complete until these conditions are satisfied.
+
+1. The homepage is significantly simpler and more professional.
+2. The main headline and supporting copy are easy to read on mobile.
+3. Genuine relevant photographs are used responsibly.
+4. The fixed Export/Import selector has been removed.
+5. Origin and Destination are used instead.
+6. Unsupported routes cannot be booked as though they are available.
+7. Unverified company locations, certifications and claims are removed.
+8. Fabricated testimonials and tracking records are removed from production.
+9. The quotation estimator remains functional.
+10. Customer booking and tracking still work.
+11. Existing accounts and records remain intact.
+12. Light Mode and Dark Mode work throughout the platform.
+13. System Default theme works.
+14. User theme preferences persist.
+15. Mobile layouts have no horizontal overflow.
+16. Navigation and important buttons work.
+17. Demo functionality works independently of real operations.
+18. API secrets remain on the backend.
+19. Payment and carrier statuses are not fabricated.
+20. Existing working features have not been broken.
+
+FINAL DESIGN INSTRUCTION
+
+Think like a senior product designer responsible for a real international shipping company.
+
+Do not design to impress another AI.
+
+Design for an ordinary customer who wants to send a parcel, understand the price, pay securely and know where the shipment is.
+
+A visitor should understand the Swiftvero homepage within a few seconds.
+
+A customer should be able to book or track a shipment without confusion.
+
+A business customer should quickly understand how to enquire about business shipping.
+
+A staff member should be able to manage operational work without unnecessary screens.
+
+The website must feel premium through its layout, typography, spacing, photography, consistency, accuracy and usability.
+
+Less unnecessary content. Better organisation. Clearer actions. Real operational information. Professional execution.
+
+Inspect the existing project, make the improvements directly, test the implementation and provide a summary of what changed, what was removed, what was preserved and what still requires actual business or carrier configuration.
+
+Do not stop after producing a design recommendation. Implement the approved improvements in the existing application.

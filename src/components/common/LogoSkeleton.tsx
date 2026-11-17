@@ -16,10 +16,10 @@ export const LogoSkeleton: React.FC<LogoSkeletonProps> = ({
   className = '',
 }) => {
   const logoDimensions = {
-    sm: 'h-8 sm:h-9',
-    md: 'h-11 sm:h-13',
-    lg: 'h-15 sm:h-18',
-    fullscreen: 'h-16 sm:h-20',
+    sm: 'h-6 sm:h-7',
+    md: 'h-8 sm:h-9',
+    lg: 'h-10 sm:h-11',
+    fullscreen: 'h-11 sm:h-12',
   };
 
   const containerPadding = {
@@ -47,7 +47,7 @@ export const LogoSkeleton: React.FC<LogoSkeletonProps> = ({
 
         {/* The Animated Logo Image */}
         <img
-          src="/assets/aistudio/IMG_1946_38f6a078.jpeg"
+          src="/assets/aistudio/swiftvero_logo_transparent.png"
           alt="Swiftvero Express Loading"
           className={`${logoDimensions[size]} w-auto object-contain shrink-0 animate-logo-pulse relative z-10`}
           referrerPolicy="no-referrer"

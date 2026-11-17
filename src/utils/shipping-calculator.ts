@@ -1,4 +1,4 @@
-import { QuoteBreakdown, ServiceTier, ShippingDirection } from '../types';
+import { CarrierDivisorRule, PackageMeasurement, QuoteBreakdown, ServiceTier, ShippingDirection } from '../types';
 
 export interface RoutePricing {
   country: string;
@@ -84,6 +84,114 @@ export const SUPPORTED_DESTINATIONS: Record<string, RoutePricing> = {
     transitPriority: 'Not available for this destination',
   },
 };
+
+export interface RouteOrigin {
+  country: string;
+  code: string;
+  defaultCity: string;
+  hubs: string[];
+}
+
+export const SUPPORTED_ORIGINS: RouteOrigin[] = [
+  {
+    country: 'Nigeria',
+    code: 'NG',
+    defaultCity: 'Lagos',
+    hubs: ['Ikeja Hub (Mainland)', 'Victoria Island Center', 'Abuja Central Cargo Hub', 'Port Harcourt Gateway'],
+  },
+  {
+    country: 'United Kingdom',
+    code: 'GB',
+    defaultCity: 'London',
+    hubs: ['London Heathrow Cargo Terminal (LHR)'],
+  },
+  {
+    country: 'United States',
+    code: 'US',
+    defaultCity: 'New York',
+    hubs: ['New York JFK Airfreight Terminal', 'Atlanta Hartsfield-Jackson (ATL)'],
+  },
+  {
+    country: 'Canada',
+    code: 'CA',
+    defaultCity: 'Toronto',
+    hubs: ['Toronto Pearson Cargo Terminal (YYZ)'],
+  },
+  {
+    country: 'Germany',
+    code: 'DE',
+    defaultCity: 'Frankfurt',
+    hubs: ['Frankfurt Air Cargo Center (FRA)'],
+  },
+  {
+    country: 'South Africa',
+    code: 'ZA',
+    defaultCity: 'Johannesburg',
+    hubs: ['OR Tambo Cargo Terminal (JNB)'],
+  },
+  {
+    country: 'Ghana',
+    code: 'GH',
+    defaultCity: 'Accra',
+    hubs: ['Kotoka International Gateway (ACC)'],
+  },
+  {
+    country: 'United Arab Emirates',
+    code: 'AE',
+    defaultCity: 'Dubai',
+    hubs: ['Dubai DWC Air Logistics Hub'],
+  },
+];
+
+export interface RouteEvaluation {
+  isSupported: boolean;
+  isConfirmed: boolean;
+  message?: string;
+}
+
+export function evaluateRouteAvailability(originCountry: string, destinationCountry: string): RouteEvaluation {
+  if (!originCountry || !destinationCountry) {
+    return {
+      isSupported: false,
+      isConfirmed: false,
+      message: 'Please choose both origin and destination countries.',
+    };
+  }
+
+  if (originCountry.trim().toLowerCase() === destinationCountry.trim().toLowerCase()) {
+    return {
+      isSupported: false,
+      isConfirmed: false,
+      message: 'Origin and destination must be different countries for international air shipping.',
+    };
+  }
+
+  // Confirmed bilateral routes from or to Nigeria
+  const activeCorridors = [
+    'United Kingdom',
+    'United States',
+    'Canada',
+    'Germany',
+    'South Africa',
+    'Ghana',
+    'United Arab Emirates',
+  ];
+
+  if (originCountry === 'Nigeria' && activeCorridors.includes(destinationCountry)) {
+    return { isSupported: true, isConfirmed: true };
+  }
+
+  if (destinationCountry === 'Nigeria' && activeCorridors.includes(originCountry)) {
+    return { isSupported: true, isConfirmed: true };
+  }
+
+  // Special/Remote or unconfirmed corridors
+  return {
+    isSupported: false,
+    isConfirmed: false,
+    message: 'Route availability needs to be confirmed.',
+  };
+}
 
 export const PROHIBITED_KEYWORDS = [
   'firearm',
@@ -309,9 +417,11 @@ export function recalculateVerifiedQuote(
     isDiscrepancyRevised: Math.abs(diff) > 50,
     previousTotal: originalQuote.totalAmount,
     discrepancyReason:
-      diff > 0
+      diff > 50
         ? `Verified chargeable weight increased from ${originalQuote.chargeableWeightKg}kg to ${newBreakdown.chargeableWeightKg}kg upon physical intake measurement.`
-        : undefined,
+        : diff < -50
+          ? `Verified chargeable weight decreased from ${originalQuote.chargeableWeightKg}kg to ${newBreakdown.chargeableWeightKg}kg upon physical intake measurement. Eligible for refund or wallet credit.`
+          : undefined,
   };
 }
 
@@ -391,6 +501,195 @@ export function isProhibitedItem(text: string): { prohibited: boolean; reason?: 
     reason: result.isProhibited
       ? `Prohibited item detected: Contains "${result.matchedKeyword}". Aviation safety regulations strictly prohibit this item.`
       : undefined,
+  };
+}
+
+export const DEFAULT_CARRIER_DIVISOR_RULES: CarrierDivisorRule[] = [
+  {
+    id: 'div_dhl_express_5000',
+    carrierName: 'DHL Express International',
+    routeScope: 'All International Air Corridors',
+    serviceTier: 'priority',
+    divisor: 5000,
+    minChargeableKg: 0.5,
+    roundingStepKg: 0.5,
+    label: 'DHL Express (÷5000, 0.5kg step)',
+    isActive: true,
+    updatedAt: '2026-11-01T09:00:00Z',
+  },
+  {
+    id: 'div_std_consolidated_6000',
+    carrierName: 'Swiftvero Consolidated Air',
+    routeScope: 'Standard Air Economy Lanes',
+    serviceTier: 'standard',
+    divisor: 6000,
+    minChargeableKg: 0.5,
+    roundingStepKg: 0.5,
+    label: 'Consolidated Air (÷6000, 0.5kg step)',
+    isActive: true,
+    updatedAt: '2026-11-01T09:00:00Z',
+  },
+  {
+    id: 'div_heavy_air_4000',
+    carrierName: 'Heavy Cargo Air Freight',
+    routeScope: 'Oversized / Palletized Air',
+    serviceTier: 'all',
+    divisor: 4000,
+    minChargeableKg: 1.0,
+    roundingStepKg: 1.0,
+    label: 'Heavy Cargo Air (÷4000, 1.0kg step)',
+    isActive: true,
+    updatedAt: '2026-11-01T09:00:00Z',
+  },
+];
+
+export function roundToStepKg(weightKg: number, stepKg = 0.5, minKg = 0.5): number {
+  const safeWeight = Math.max(0, Number(weightKg) || 0);
+  const safeStep = stepKg > 0 ? stepKg : 0.5;
+  const rounded = Math.ceil(safeWeight / safeStep) * safeStep;
+  const clamped = Math.max(minKg, rounded);
+  return Math.round(clamped * 100) / 100;
+}
+
+export interface RawPackageInput {
+  id?: string;
+  description?: string;
+  actualWeightKg: number;
+  lengthCm: number;
+  widthCm: number;
+  heightCm: number;
+  photoUrl?: string;
+  notes?: string;
+}
+
+export function calculateMultiPackageMeasurements(params: {
+  packages: RawPackageInput[];
+  divisorRule: CarrierDivisorRule;
+  measuredBy: string;
+  now?: Date;
+}): {
+  packages: PackageMeasurement[];
+  totalActualWeightKg: number;
+  totalVolumetricWeightKg: number;
+  totalBillableWeightKg: number;
+  divisorUsed: number;
+} {
+  const timestamp = (params.now || new Date()).toISOString();
+  const divisor = params.divisorRule.divisor > 0 ? params.divisorRule.divisor : 5000;
+  const stepKg = params.divisorRule.roundingStepKg > 0 ? params.divisorRule.roundingStepKg : 0.5;
+  const minKg = params.divisorRule.minChargeableKg > 0 ? params.divisorRule.minChargeableKg : 0.5;
+
+  const measuredBoxes: PackageMeasurement[] = params.packages.map((pkg, idx) => {
+    const actual = Math.max(0.1, Number(pkg.actualWeightKg) || 0.5);
+    const l = Math.max(1, Number(pkg.lengthCm) || 1);
+    const w = Math.max(1, Number(pkg.widthCm) || 1);
+    const h = Math.max(1, Number(pkg.heightCm) || 1);
+    const rawVol = (l * w * h) / divisor;
+    const volumetricWeightKg = Math.round(rawVol * 100) / 100;
+    const rawMax = Math.max(actual, rawVol);
+    const billableWeightKg = roundToStepKg(rawMax, stepKg, minKg);
+
+    return {
+      id: pkg.id || `box_${Date.now()}_${idx + 1}`,
+      boxNumber: idx + 1,
+      description: pkg.description?.trim() || `Package #${idx + 1}`,
+      actualWeightKg: Math.round(actual * 100) / 100,
+      lengthCm: l,
+      widthCm: w,
+      heightCm: h,
+      volumetricWeightKg,
+      billableWeightKg,
+      measuredAt: timestamp,
+      measuredBy: params.measuredBy,
+      photoUrl: pkg.photoUrl,
+      notes: pkg.notes,
+    };
+  });
+
+  const totalActualWeightKg =
+    Math.round(measuredBoxes.reduce((sum, b) => sum + b.actualWeightKg, 0) * 100) / 100;
+  const totalVolumetricWeightKg =
+    Math.round(measuredBoxes.reduce((sum, b) => sum + b.volumetricWeightKg, 0) * 100) / 100;
+  const totalBillableWeightKg = roundToStepKg(
+    measuredBoxes.reduce((sum, b) => sum + b.billableWeightKg, 0),
+    stepKg,
+    minKg
+  );
+
+  return {
+    packages: measuredBoxes,
+    totalActualWeightKg,
+    totalVolumetricWeightKg,
+    totalBillableWeightKg,
+    divisorUsed: divisor,
+  };
+}
+
+export function recalculateVerifiedQuoteFromPackages(params: {
+  originalQuote: QuoteBreakdown;
+  destinationCountry: string;
+  packages: RawPackageInput[];
+  divisorRule: CarrierDivisorRule;
+  measuredBy: string;
+  tierOverride?: ServiceTier;
+  now?: Date;
+}): {
+  measurementSummary: ReturnType<typeof calculateMultiPackageMeasurements>;
+  revisedQuote: QuoteBreakdown;
+  availableOptions: QuoteBreakdown[];
+} {
+  const measurementSummary = calculateMultiPackageMeasurements({
+    packages: params.packages,
+    divisorRule: params.divisorRule,
+    measuredBy: params.measuredBy,
+    now: params.now,
+  });
+
+  const dest = SUPPORTED_DESTINATIONS[params.destinationCountry];
+  const buildForTier = (tier: ServiceTier): QuoteBreakdown => {
+    const base = generateQuoteBreakdown({
+      destinationCountry: params.destinationCountry,
+      actualWeightKg: measurementSummary.totalBillableWeightKg,
+      tier,
+      protectionCharge: params.originalQuote.protectionCharge,
+      protectionPlan: params.originalQuote.protectionPlan,
+      protectionCoverageNgn: params.originalQuote.protectionCoverageNgn,
+      protectionRatePercentage: params.originalQuote.protectionRatePercentage,
+      protectionDeductibleText: params.originalQuote.protectionDeductibleText,
+      baseDate: params.now,
+    });
+
+    const diff = base.totalAmount - params.originalQuote.totalAmount;
+    return {
+      ...base,
+      actualWeightKg: measurementSummary.totalActualWeightKg,
+      volumetricWeightKg: measurementSummary.totalVolumetricWeightKg,
+      chargeableWeightKg: measurementSummary.totalBillableWeightKg,
+      isDiscrepancyRevised: Math.abs(diff) > 50,
+      previousTotal: params.originalQuote.totalAmount,
+      discrepancyReason:
+        diff > 50
+          ? `Verified billable weight across ${measurementSummary.packages.length} box(es) (${measurementSummary.totalBillableWeightKg}kg via divisor /${measurementSummary.divisorUsed}) increased total from ₦${params.originalQuote.totalAmount.toLocaleString()} to ₦${base.totalAmount.toLocaleString()}.`
+          : diff < -50
+            ? `Verified billable weight across ${measurementSummary.packages.length} box(es) (${measurementSummary.totalBillableWeightKg}kg via divisor /${measurementSummary.divisorUsed}) reduced total from ₦${params.originalQuote.totalAmount.toLocaleString()} to ₦${base.totalAmount.toLocaleString()}.`
+            : undefined,
+    };
+  };
+
+  const selectedTier = params.tierOverride || params.originalQuote.serviceTier;
+  const standardQuote = buildForTier('standard');
+  const availableOptions: QuoteBreakdown[] = [standardQuote];
+  if (!dest || dest.prioritySupported) {
+    availableOptions.push(buildForTier('priority'));
+  }
+
+  const revisedQuote =
+    availableOptions.find((opt) => opt.serviceTier === selectedTier) || standardQuote;
+
+  return {
+    measurementSummary,
+    revisedQuote,
+    availableOptions,
   };
 }
 

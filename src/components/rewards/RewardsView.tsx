@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDemo } from '../../context/DemoContext';
 import { formatNaira } from '../../utils/shipping-calculator';
+import { computeCustomerRewardBreakdown } from '../../utils/rewards-engine';
 import { PolicyKey } from '../common/LegalModal';
 import {
   Coins,
@@ -9,13 +10,11 @@ import {
   Check,
   Clock,
   CheckCircle2,
-  AlertCircle,
   ArrowRight,
   ShieldCheck,
   Sparkles,
-  Info,
-  TrendingUp,
-  Tag,
+  Wallet,
+  Users,
 } from 'lucide-react';
 
 interface RewardsViewProps {
@@ -23,9 +22,32 @@ interface RewardsViewProps {
 }
 
 export const RewardsView: React.FC<RewardsViewProps> = ({ onOpenPolicy }) => {
-  const { currentCustomer, cashbackLedger, referrals, setActiveCustomerTab } = useDemo();
-
+  const {
+    currentCustomer,
+    cashbackLedger,
+    referrals,
+    setActiveCustomerTab,
+    getCustomerBalancesSnapshot,
+    shipmentCredits,
+    bonusGrants,
+  } = useDemo();
   const [copiedCode, setCopiedCode] = useState(false);
+
+  const myLedger = cashbackLedger.filter((c) => c.customerId === currentCustomer.id);
+  const myCredits = shipmentCredits.filter((c) => c.customerId === currentCustomer.id);
+  const myGrants = bonusGrants.filter((g) => g.customerId === currentCustomer.id);
+  const myReferrals = referrals.filter(
+    (ref) =>
+      ref.referrerId === currentCustomer.id ||
+      ref.referrerCode.toUpperCase() === currentCustomer.referralCode.toUpperCase()
+  );
+
+  const breakdown = computeCustomerRewardBreakdown({
+    customer: currentCustomer,
+    ledger: cashbackLedger,
+    referrals,
+  });
+  const separated = getCustomerBalancesSnapshot(currentCustomer.id);
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(currentCustomer.referralCode);
@@ -33,281 +55,335 @@ export const RewardsView: React.FC<RewardsViewProps> = ({ onOpenPolicy }) => {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  // Calculate totals
-  const totalEarned = cashbackLedger
-    .filter((c) => c.status === 'released' || c.status === 'eligible')
-    .reduce((sum, c) => sum + Math.max(0, c.amountNgn), 0);
-
-  const totalPending = cashbackLedger
-    .filter((c) => c.status === 'pending')
-    .reduce((sum, c) => sum + c.amountNgn, 0);
-
-  const totalRedeemed = cashbackLedger
-    .filter((c) => c.amountNgn < 0)
-    .reduce((sum, c) => sum + Math.abs(c.amountNgn), 0);
-
   return (
-    <div className="space-y-6">
-      {/* Top Banner */}
-      <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 shadow-xs flex flex-wrap items-center justify-between gap-4">
+    <div className="space-y-6 text-slate-800 dark:text-slate-100">
+      {/* Header Banner */}
+      <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#00B4D8] bg-[#CAF0F8] px-2.5 py-0.5 rounded-full">
-              Non-Withdrawable Shipping Credits
-            </span>
-          </div>
-          <h2 className="text-xl sm:text-2xl font-serif-display font-bold text-[#354B55] mt-1.5">
-            My Rewards &amp; Shipping Credits
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#008EA8] dark:text-[#90E0EF]">
+            Non-Withdrawable Shipping Credits
+          </span>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">
+            Rewards, Cashback &amp; Referrals
           </h2>
-          <p className="text-xs text-[#6A808C] mt-0.5 max-w-xl">
-            Promotional shipping balance earned on delivered consignments and successful SME referrals. Apply credits in checkout to discount your future international shipments.
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 max-w-xl">
+            Shipping credits release only after confirmed delivery closure and eligibility reconciliation. Wallet cash funds are kept strictly separate.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            onClick={() => setActiveCustomerTab('book')}
-            className="px-4 py-2 bg-[#00B4D8] hover:bg-[#009BB8] text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center gap-1.5"
+            type="button"
+            onClick={() => setActiveCustomerTab('wallet')}
+            className="min-h-[40px] px-3.5 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-white text-xs font-semibold rounded-xl transition-colors flex items-center gap-1.5"
           >
-            <span>Apply Credits on New Shipment</span>
+            <Wallet className="w-3.5 h-3.5 text-[#00B4D8]" />
+            <span>Wallet Cash: {formatNaira(breakdown.depositedWalletBalance)}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveCustomerTab('retrieve_quote')}
+            className="min-h-[40px] px-4 py-2 bg-[#00B4D8] hover:bg-[#009BB8] text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5"
+          >
+            <span>Redeem on Quote</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* MANDATORY LEGAL & COMPLIANCE NON-WITHDRAWAL NOTICE */}
-      <div className="p-4 bg-[#CAF0F8]/60 border border-[#90E0EF] rounded-2xl text-xs space-y-1.5 text-[#354B55]">
-        <div className="flex items-center gap-2 font-bold text-[#008EA8]">
+      {/* Compliance Notice */}
+      <div className="p-4 bg-[#CAF0F8]/50 dark:bg-sky-950/40 border border-[#90E0EF] dark:border-sky-800 rounded-2xl text-xs space-y-1.5">
+        <div className="flex items-center gap-2 font-bold text-[#008EA8] dark:text-[#90E0EF]">
           <ShieldCheck className="w-4 h-4 text-[#00B4D8] shrink-0" />
-          <span>Important Notice: Promotional Shipping Credits Terms</span>
+          <span>Clear Separation Between Deposited Cash &amp; Shipping Credits</span>
         </div>
-        <p className="text-[11px] text-[#354B55] leading-relaxed">
-          Your rewards are <strong>non-withdrawable promotional shipping credits</strong>. They can be applied automatically to reduce the cost of your future international shipments with Swiftvero Express. <strong>Shipping credits have no cash withdrawal value and cannot be transferred, exchanged for currency, or refunded to a bank account.</strong>
-        </p>
-        <div className="pt-1 flex items-center gap-4 text-[11px]">
+        <p className="text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed">
+          Earned cashback, referral bonuses, and promotional credits are <strong>non-withdrawable shipping discounts</strong> applied at shipment checkout. Deposited wallet funds remain separate in your cash wallet.{' '}
           <button
+            type="button"
             onClick={() => onOpenPolicy('cashback')}
-            className="text-[#00B4D8] font-bold underline hover:text-[#0096B4]"
+            className="text-[#008EA8] dark:text-[#90E0EF] font-bold underline"
           >
-            Review Full Rewards &amp; Shipping Credits Policy
+            View Cashback &amp; Referral Terms
           </button>
-        </div>
+        </p>
       </div>
 
-      {/* KPI Cards Grid - 4 Clear Credit Balances */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Available Unlocked Shipping Credits */}
-        <div className="bg-white rounded-2xl border-2 border-[#00B4D8] p-5 shadow-xs space-y-1 bg-gradient-to-br from-white to-[#F5FBFD]">
+      {/* Separated Metrics Grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="col-span-2 lg:col-span-1 bg-white dark:bg-slate-800/90 rounded-2xl border-2 border-[#00B4D8] p-4 sm:p-5 shadow-xs space-y-1">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-[#008EA8]">Available Shipping Credits</span>
+            <span className="text-xs font-bold text-[#008EA8] dark:text-[#90E0EF]">Available Account Credit</span>
             <Coins className="w-4 h-4 text-[#00B4D8]" />
           </div>
-          <div className="text-2xl font-bold text-[#008EA8] font-mono">
-            {formatNaira(currentCustomer.cashbackBalance)}
+          <div className="text-xl sm:text-2xl font-bold text-[#008EA8] dark:text-[#90E0EF] tabular-nums">
+            {formatNaira(separated.availableAccountCreditNgn)}
           </div>
-          <p className="text-[11px] text-[#6A808C] pt-1">
-            Ready to apply instantly at checkout
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            Overpayment credits ({separated.availableCreditRecords.length} active)
           </p>
         </div>
 
-        {/* Pending Delivery Accruals */}
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs space-y-1">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#6A808C]">Pending Delivery Closure</span>
-            <Clock className="w-4 h-4 text-[#956B16]" />
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xs space-y-1">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block">Cashback Balance</span>
+          <div className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">
+            {formatNaira(separated.cashbackBalanceNgn)}
           </div>
-          <div className="text-2xl font-bold text-[#354B55] font-mono">
-            {formatNaira(totalPending)}
-          </div>
-          <p className="text-[11px] text-[#6A808C] pt-1">
-            Releases upon verified delivery closure
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            Earned post-delivery ({formatNaira(breakdown.cashbackEarnedNgn)} lifetime)
           </p>
         </div>
 
-        {/* Total Lifetime Credits Earned */}
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs space-y-1">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#6A808C]">Total Credits Earned</span>
-            <Gift className="w-4 h-4 text-[#00B4D8]" />
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xs space-y-1">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block">Bonus Balance (Active)</span>
+          <div className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">
+            {formatNaira(separated.activeBonusBalanceNgn)}
           </div>
-          <div className="text-2xl font-bold text-[#354B55] font-mono">
-            {formatNaira(totalEarned)}
-          </div>
-          <p className="text-[11px] text-[#6A808C] pt-1">
-            3% delivery rewards &amp; referral bonuses
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            {separated.activeBonusGrants.length} active grant{separated.activeBonusGrants.length === 1 ? '' : 's'}
+            {separated.expiredBonusBalanceNgn > 0
+              ? ` · ${formatNaira(separated.expiredBonusBalanceNgn)} expired`
+              : ''}
           </p>
         </div>
 
-        {/* Total Credits Redeemed in Checkout */}
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs space-y-1">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#6A808C]">Total Credits Redeemed</span>
-            <Tag className="w-4 h-4 text-[#008EA8]" />
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xs space-y-1">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block">Referral Invites</span>
+          <div className="text-xl font-bold text-slate-900 dark:text-white tabular-nums">
+            {breakdown.qualifiedReferralCount} / {breakdown.totalReferralInvites}
           </div>
-          <div className="text-2xl font-bold text-[#354B55] font-mono">
-            {formatNaira(totalRedeemed)}
-          </div>
-          <p className="text-[11px] text-[#6A808C] pt-1">
-            Deducted at checkout against shipments
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            {formatNaira(breakdown.referralBonusEarnedNgn)} earned from invites
           </p>
+        </div>
+
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xs space-y-1">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 block">Pending Delivery</span>
+          <div className="text-xl font-bold text-amber-700 dark:text-amber-400 tabular-nums">
+            {formatNaira(breakdown.pendingCreditsNgn)}
+          </div>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">Locked until delivery</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left: Referral Code & Sharing Card */}
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 shadow-xs space-y-4">
+      {/* Active & Expired Bonus Grants + Shipment Overpayment Credits */}
+      {(myCredits.length > 0 || myGrants.length > 0) && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Overpayment Account Credits ({myCredits.length})
+            </h3>
+            {myCredits.length === 0 ? (
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                No overpayment credits issued on your account.
+              </p>
+            ) : (
+              <div className="divide-y divide-slate-200 dark:divide-slate-700 text-xs">
+                {myCredits.map((c) => (
+                  <div key={c.id} className="py-2.5 flex items-center justify-between gap-2">
+                    <div>
+                      <span className="font-mono font-bold text-slate-900 dark:text-white">
+                        {c.creditRef}
+                      </span>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                        Source: <span className="font-mono">{c.sourceTrackingNumber}</span> &bull; {c.status.replace('_', ' ')}
+                      </div>
+                    </div>
+                    <div className="text-right tabular-nums">
+                      <div className="font-bold text-[#008EA8] dark:text-[#90E0EF]">
+                        {formatNaira(c.remainingCreditNgn)}
+                      </div>
+                      <div className="text-[10px] text-slate-400">
+                        Orig: {formatNaira(c.originalCreditNgn)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Promotional &amp; Referral Bonus Grants ({myGrants.length})
+            </h3>
+            {myGrants.length === 0 ? (
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                No active or expired bonus grants on your account.
+              </p>
+            ) : (
+              <div className="divide-y divide-slate-200 dark:divide-slate-700 text-xs">
+                {myGrants.map((g) => {
+                  const isExpired =
+                    g.status === 'expired' || new Date(g.expiresAt).getTime() < Date.now();
+                  return (
+                    <div
+                      key={g.id}
+                      className={`py-2.5 flex items-center justify-between gap-2 ${
+                        isExpired ? 'opacity-70' : ''
+                      }`}
+                    >
+                      <div>
+                        <div className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                          <span>{g.title}</span>
+                          <span
+                            className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                              isExpired
+                                ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300'
+                                : g.status === 'exhausted'
+                                ? 'bg-slate-100 text-slate-600'
+                                : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'
+                            }`}
+                          >
+                            {isExpired ? 'Expired' : g.status}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                          {g.grantRef} &bull; Tiers: {g.eligibleServices.join(', ')} &bull; Routes: {g.eligibleDestinations.join(', ')} &bull; Expires {g.expiresAt.slice(0, 10)}
+                        </div>
+                      </div>
+                      <div className="text-right tabular-nums shrink-0">
+                        <div className={`font-bold ${isExpired ? 'line-through text-slate-400' : 'text-[#008EA8] dark:text-[#90E0EF]'}`}>
+                          {formatNaira(g.remainingAmountNgn)}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Referral Section & How It Works */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs space-y-4">
           <div className="flex items-center gap-2">
             <Gift className="w-5 h-5 text-[#00B4D8]" />
-            <h3 className="text-sm font-bold text-[#354B55]">Refer Exporters &amp; Traders</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Refer &amp; Earn Credits</h3>
           </div>
-          <p className="text-xs text-[#6A808C] leading-relaxed">
-            Invite fellow exporters, artisans, or SME traders. When they register with your link and complete their first verified international delivery, both accounts receive a <strong>₦5,000 promotional shipping credit</strong>.
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            Share your unique referral code. Bonuses release only after your referred contact completes their first qualifying delivered shipment (self-referrals and refunded orders are excluded).
           </p>
 
-          <div className="p-4 bg-[#F5FBFD] rounded-xl border border-[#DCEFF3] space-y-2">
-            <span className="text-[11px] font-semibold text-[#6A808C] uppercase">Your Unique Referral Code:</span>
+          <div className="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
+              Your Unique Referral Code
+            </span>
             <div className="flex items-center gap-2">
               <input
                 type="text"
                 readOnly
                 value={currentCustomer.referralCode}
-                className="w-full font-mono text-sm font-bold text-[#008EA8] bg-white border border-[#DCEFF3] rounded-lg px-3 py-2"
+                aria-label="Your unique referral code"
+                className="w-full font-mono text-sm font-bold text-[#008EA8] dark:text-[#90E0EF] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2"
               />
               <button
+                type="button"
                 onClick={handleCopyCode}
-                className="px-4 py-2 bg-[#00B4D8] hover:bg-[#0096B4] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors whitespace-nowrap shadow-xs"
+                className="min-h-[40px] px-4 py-2 bg-[#00B4D8] hover:bg-[#009BB8] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap"
               >
                 {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                <span>{copiedCode ? 'Copied!' : 'Copy Code'}</span>
+                <span>{copiedCode ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
-            <div className="text-[11px] text-[#6A808C] pt-1">
-              Share link: <span className="font-mono text-[#354B55]">https://swiftvero.ng/join/{currentCustomer.referralCode}</span>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400 break-all">
+              Link: <span className="font-mono text-slate-800 dark:text-slate-200">https://swiftvero.ng/join/{currentCustomer.referralCode}</span>
             </div>
           </div>
 
-          {/* Referral Status Table */}
-          <div className="space-y-2 pt-1">
-            <h4 className="text-xs font-bold text-[#354B55]">Referral History ({referrals.length})</h4>
-            <div className="border border-[#DCEFF3] rounded-xl overflow-hidden text-xs">
-              <div className="bg-[#F5FBFD] px-3.5 py-2 font-bold text-[#354B55] border-b border-[#DCEFF3] flex justify-between">
-                <span>Referee</span>
-                <span>Qualification Status</span>
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white">
+              Your Referral History ({myReferrals.length})
+            </h4>
+            {myReferrals.length === 0 ? (
+              <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1.5">
+                <Users className="w-6 h-6 text-slate-400 mx-auto" />
+                <p>No referrals yet. Share your code above to earn ₦5,000 per qualified delivery.</p>
               </div>
-              <div className="divide-y divide-[#DCEFF3]">
-                {referrals.map((ref) => (
-                  <div key={ref.id} className="p-3 flex items-center justify-between">
+            ) : (
+              <div className="border border-slate-200 dark:border-slate-700 rounded-xl divide-y divide-slate-200 dark:divide-slate-700 overflow-hidden text-xs">
+                {myReferrals.map((ref) => (
+                  <div key={ref.id} className="p-3 flex items-center justify-between gap-2 bg-white dark:bg-slate-900/40">
                     <div>
-                      <div className="font-semibold text-[#354B55]">{ref.refereeName}</div>
-                      <div className="text-[11px] text-[#6A808C]">{ref.refereeEmail}</div>
+                      <div className="font-semibold text-slate-900 dark:text-white">{ref.refereeName}</div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400">{ref.refereeEmail}</div>
                     </div>
                     <div className="text-right">
-                      {ref.status === 'qualifying_shipment_completed' ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#008EA8] bg-[#CAF0F8] px-2 py-0.5 rounded">
+                      {ref.status === 'qualifying_shipment_completed' || ref.status === 'bonus_released' ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded">
                           <CheckCircle2 className="w-3 h-3" />
-                          Delivery Completed (+₦5,000 Credit)
+                          Qualified (+{formatNaira(ref.bonusNgn)})
                         </span>
                       ) : ref.status === 'registered' ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#956B16] bg-amber-50 px-2 py-0.5 rounded">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded">
                           <Clock className="w-3 h-3" />
-                          Awaiting First Shipment
+                          Awaiting Delivery
                         </span>
                       ) : (
-                        <span className="text-[11px] text-slate-400">Ineligible / Self-Referral</span>
+                        <span className="text-[11px] text-slate-400">Ineligible</span>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Right: How Shipping Credits Work & Rules */}
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 shadow-xs space-y-4">
+        {/* Rules Panel */}
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs space-y-3 text-xs">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#00B4D8]" />
-            <h3 className="text-sm font-bold text-[#354B55]">How Shipping Credits Work</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Eligibility &amp; Release Rules</h3>
           </div>
-          <p className="text-xs text-[#6A808C] leading-relaxed">
-            Swiftvero’s credits system is designed to reward frequent Nigerian businesses, artisans, and individuals who rely on consistent global carriage.
-          </p>
-
-          <div className="space-y-3 text-xs">
-            <div className="p-3 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                1
-              </div>
-              <div>
-                <div className="font-bold text-[#354B55]">Earn 3% Freight Rewards</div>
-                <p className="text-[11px] text-[#6A808C] mt-0.5">
-                  Every eligible international consignment earns 3% of the base air freight component as promotional credits upon confirmed delivery.
-                </p>
-              </div>
+          <div className="space-y-2.5">
+            <div className="p-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl">
+              <div className="font-bold text-slate-900 dark:text-white">1. Delivery-Gated Release</div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
+                Cashback (3% of air freight charge, capped at ₦15,000) stays pending while in transit and releases once delivery is confirmed.
+              </p>
             </div>
-
-            <div className="p-3 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                2
-              </div>
-              <div>
-                <div className="font-bold text-[#354B55]">Delivery Confirmation Hold</div>
-                <p className="text-[11px] text-[#6A808C] mt-0.5">
-                  Credits remain in "Pending Delivery Closure" while the consignment is in transit, becoming fully available 48 hours after recipient delivery closure.
-                </p>
-              </div>
+            <div className="p-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl">
+              <div className="font-bold text-slate-900 dark:text-white">2. Exclusions</div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
+                Taxes (VAT), customs duties, terminal handling fees, and refunded shipments do not accrue cashback or referral payouts.
+              </p>
             </div>
-
-            <div className="p-3 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                3
-              </div>
-              <div>
-                <div className="font-bold text-[#354B55]">Redeem Directly in Checkout</div>
-                <p className="text-[11px] text-[#6A808C] mt-0.5">
-                  During checkout (Step 6), slide or enter the credits you wish to apply. Credits can be combined with promotional codes (like SWIFT10) to reduce your total.
-                </p>
-              </div>
-            </div>
-
-            <div className="p-3 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                4
-              </div>
-              <div>
-                <div className="font-bold text-[#354B55]">Zero Cash Value Guarantee</div>
-                <p className="text-[11px] text-[#6A808C] mt-0.5">
-                  In compliance with CBN guidelines, credits are strictly non-withdrawable promotional offsets. Any credits used during a failed payment are instantly reversed back to your balance.
-                </p>
-              </div>
+            <div className="p-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl">
+              <div className="font-bold text-slate-900 dark:text-white">3. Anti-Abuse &amp; Idempotency</div>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">
+                Each completed shipment can trigger at most one cashback entry. Self-referrals and duplicate accounts are automatically blocked.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Auditable Credit Transaction Ledger */}
-      <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 shadow-xs space-y-3">
+      {/* Auditable Ledger */}
+      <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 className="text-sm font-bold text-[#354B55]">Auditable Shipping Credit Ledger</h3>
-            <span className="text-[11px] text-[#6A808C]">Historical credit accruals, checkout redemptions &amp; balance reversals</span>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Your Shipping Credit Ledger</h3>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
+              Showing records strictly belonging to {currentCustomer.name}
+            </span>
           </div>
-          <div className="text-xs font-semibold text-[#008EA8] bg-[#CAF0F8] px-3 py-1 rounded-full">
-            Current Credit Balance: {formatNaira(currentCustomer.cashbackBalance)}
-          </div>
+          <span className="text-xs font-mono font-bold text-[#008EA8] dark:text-[#90E0EF] bg-[#CAF0F8]/60 dark:bg-sky-950 px-3 py-1 rounded-full">
+            Redeemable: {formatNaira(breakdown.availableRedeemableCredits)}
+          </span>
         </div>
 
-        <div className="border border-[#DCEFF3] rounded-xl overflow-hidden text-xs">
-          <div className="bg-[#F5FBFD] px-4 py-2.5 font-bold text-[#354B55] border-b border-[#DCEFF3] grid grid-cols-12 gap-2">
-            <span className="col-span-3">Date &amp; Reference</span>
-            <span className="col-span-2">Transaction Type</span>
-            <span className="col-span-3">Description</span>
-            <span className="col-span-2 text-right">Amount (NGN)</span>
-            <span className="col-span-2 text-right">Running Balance</span>
+        {myLedger.length === 0 ? (
+          <div className="p-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
+            <Coins className="w-7 h-7 text-slate-400 mx-auto" />
+            <p className="font-semibold text-slate-700 dark:text-slate-300">No credit ledger entries yet (₦0)</p>
+            <p>Complete your first international delivery to earn shipping credits.</p>
           </div>
-
-          <div className="divide-y divide-[#DCEFF3]">
-            {cashbackLedger.map((item) => {
-              const isCredit = item.amountNgn > 0;
+        ) : (
+          <div className="border border-slate-200 dark:border-slate-700 rounded-xl divide-y divide-slate-200 dark:divide-slate-700 overflow-hidden text-xs">
+            {myLedger.map((item) => {
               const typeLabel =
                 item.type === 'credits_redeemed'
                   ? 'Credit Applied'
@@ -318,58 +394,52 @@ export const RewardsView: React.FC<RewardsViewProps> = ({ onOpenPolicy }) => {
                   : 'Freight Cashback';
 
               return (
-                <div key={item.id} className="px-4 py-3 grid grid-cols-12 gap-2 items-center hover:bg-slate-50 transition-colors">
-                  <div className="col-span-3">
-                    <div className="font-semibold text-[#354B55] font-mono">{item.trackingNumber}</div>
-                    <div className="text-[11px] text-[#6A808C]">
-                      {new Date(item.createdAt).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                      })}
+                <div key={item.id} className="p-3.5 flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900/40">
+                  <div className="space-y-0.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-mono font-bold text-slate-900 dark:text-white">
+                        {item.trackingNumber}
+                      </span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                        {typeLabel}
+                      </span>
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                          item.status === 'pending'
+                            ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300'
+                            : 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400'
+                        }`}
+                      >
+                        {item.status}
+                      </span>
                     </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400">{item.description}</p>
+                    <p className="text-[10px] font-mono text-slate-400">{item.createdAt.slice(0, 10)}</p>
                   </div>
 
-                  <div className="col-span-2">
-                    <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                        item.type === 'credits_redeemed'
-                          ? 'bg-rose-50 text-rose-700 border border-rose-200'
-                          : item.type === 'credit_reversal'
-                          ? 'bg-amber-50 text-amber-800 border border-amber-200'
-                          : 'bg-[#CAF0F8] text-[#008EA8] border border-[#90E0EF]'
+                  <div className="text-right font-mono">
+                    <div
+                      className={`text-sm font-bold ${
+                        item.amountNgn < 0
+                          ? 'text-rose-600 dark:text-rose-400'
+                          : 'text-[#008EA8] dark:text-[#90E0EF]'
                       }`}
                     >
-                      {typeLabel}
-                    </span>
-                  </div>
-
-                  <div className="col-span-3 text-[#354B55] text-xs leading-tight">
-                    {item.description}
-                  </div>
-
-                  <div
-                    className={`col-span-2 text-right font-mono font-bold ${
-                      item.amountNgn < 0 ? 'text-[#B42318]' : 'text-[#008EA8]'
-                    }`}
-                  >
-                    {item.amountNgn < 0
-                      ? `-${formatNaira(Math.abs(item.amountNgn))}`
-                      : `+${formatNaira(item.amountNgn)}`}
-                  </div>
-
-                  <div className="col-span-2 text-right font-mono text-[#354B55] font-medium text-xs">
-                    {item.balanceAfterNgn !== undefined
-                      ? formatNaira(item.balanceAfterNgn)
-                      : item.status === 'pending'
-                      ? <span className="text-[11px] text-amber-700 italic">Pending</span>
-                      : formatNaira(currentCustomer.cashbackBalance)}
+                      {item.amountNgn < 0
+                        ? `-${formatNaira(Math.abs(item.amountNgn))}`
+                        : `+${formatNaira(item.amountNgn)}`}
+                    </div>
+                    {item.balanceAfterNgn !== undefined && (
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                        Bal: {formatNaira(item.balanceAfterNgn)}
+                      </div>
+                    )}
                   </div>
                 </div>
               );
             })}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

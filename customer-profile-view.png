@@ -1,0 +1,85 @@
+- generic [ref=e4]:
+  - generic [ref=e747]:
+    - button [ref=e749]:
+      - img "Swiftvero Express" [ref=e751]
+    - generic [ref=e752]:
+      - combobox [ref=e754] [cursor=pointer]:
+        - option "Consignor Portal" [selected]
+        - option "Corporate Shipper"
+        - 'option "Workspace A: Pickup & Shipping"'
+        - 'option "Workspace B: Customer Service"'
+        - 'option "Workspace C: Operations & Admin"'
+      - button "Sign out of portal" [ref=e755]
+  - main [ref=e33]:
+    - generic [ref=e760]:
+      - generic [ref=e761]:
+        - generic [ref=e762]:
+          - heading "Amara Okafor" [level=1] [ref=e764]
+          - paragraph [ref=e765]: Global consignments, certified scale verifications & international tracking
+        - generic [ref=e766]:
+          - generic [ref=e767]: Verified Shipper
+          - button "Configure Underwriting & Protection Rules (Admin / Assessor)" [ref=e772]
+          - button "New Shipment" [ref=e775]
+      - generic [ref=e778]:
+        - button "Overview" [ref=e779]
+        - button "My Shipments 2" [ref=e785]:
+          - generic [ref=e790]: My Shipments
+          - generic [ref=e791]: "2"
+        - button "My Pickups 1" [ref=e792]:
+          - generic [ref=e798]: My Pickups
+          - generic [ref=e799]: "1"
+        - button "Book & Quote" [ref=e800]
+        - button "My Wallet ₦75k" [ref=e803]:
+          - generic [ref=e807]: My Wallet
+          - generic [ref=e808]: ₦75k
+        - button "Cashback & Promo" [ref=e809]
+        - button "Support Tickets" [ref=e816]
+        - button "Tracking" [ref=e820]
+        - button "Notifications" [ref=e825]
+        - button "Profile & KYC" [active] [ref=e830]
+      - generic [ref=e1103]:
+        - button "← Back to Dashboard Overview" [ref=e1104]
+        - generic [ref=e1105]: profile
+      - generic [ref=e1214]:
+        - generic [ref=e1215]:
+          - heading "Account Profile & Verification" [level=2] [ref=e1216]
+          - paragraph [ref=e1217]: Consignor details for international export manifests and documentation.
+        - generic [ref=e1218]:
+          - generic [ref=e1219]:
+            - generic [ref=e1220]: "Legal Name:"
+            - generic [ref=e1221]: Amara Okafor
+          - generic [ref=e1222]:
+            - generic [ref=e1223]: "Email Address:"
+            - generic [ref=e1224]: amara.okafor@crafts.ng
+          - generic [ref=e1225]:
+            - generic [ref=e1226]: "Phone Number:"
+            - generic [ref=e1227]: +234 803 555 0192
+          - generic [ref=e1228]:
+            - generic [ref=e1229]: "Account Type:"
+            - generic [ref=e1230]: individual Account
+          - generic [ref=e1231]:
+            - generic [ref=e1232]: "KYC Verification:"
+            - generic [ref=e1233]: verified
+          - generic [ref=e1234]:
+            - generic [ref=e1235]: "Referral Code:"
+            - generic [ref=e1236]: SWV-AMARA26
+        - generic [ref=e1237]:
+          - generic [ref=e1238]:
+            - generic [ref=e1239]: Statutory Identity Verification (KYC)
+            - generic [ref=e1244]: verified
+          - generic [ref=e1245]:
+            - generic [ref=e1246]:
+              - generic [ref=e1247]: Verification Method
+              - text: Nigerian International Passport
+            - generic [ref=e1248]:
+              - generic [ref=e1249]: Masked Identity Reference
+              - text: "*******8492"
+            - generic [ref=e1250]:
+              - generic [ref=e1251]: Verification Date
+              - text: 2026-09-14
+            - generic [ref=e1252]:
+              - generic [ref=e1253]: Re-Verification Status
+              - text: Up-to-Date (Valid for NCAA Cargo)
+          - generic [ref=e1254]:
+            - button "Update / Re-verify Identity" [ref=e1255]
+            - button "Request Profile Correction" [ref=e1256]

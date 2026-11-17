@@ -2,52 +2,90 @@ import React, { useState } from 'react';
 import { useDemo } from '../../context/DemoContext';
 import { StatusPill } from '../common/StatusPill';
 import { BookingWizard } from '../booking/BookingWizard';
+import { QuoteRetrievalView } from '../booking/QuoteRetrievalView';
 import { TrackingView } from '../tracking/TrackingView';
-import { CustomerReviewsView } from '../reviews/CustomerReviewsView';
-import { RewardsView } from '../rewards/RewardsView';
-import { SupportView } from '../support/SupportView';
-import { BusinessPortal } from '../business/BusinessPortal';
+import { MyWalletView } from './MyWalletView';
+import { CustomerProfileView } from './CustomerProfileView';
+import { CustomerTicketsView } from './CustomerTicketsView';
+import { CustomerNotificationsView } from './CustomerNotificationsView';
 import { AddressBookView } from './AddressBookView';
 import { ShipmentTemplatesView } from './ShipmentTemplatesView';
 import { SupportClaimsView } from './SupportClaimsView';
 import { BusinessTeamView } from './BusinessTeamView';
-import { CustomerNotificationsView } from './CustomerNotificationsView';
-import { ShipmentProtectionSettingsModal } from '../admin/ShipmentProtectionSettingsModal';
-import { ProtectionCertificateModal } from '../booking/ProtectionCertificateModal';
-import { ShipmentRecord, ProtectionCertificateRecord } from '../../types';
+import { RewardsView } from '../rewards/RewardsView';
+import { CustomerReviewsView } from '../reviews/CustomerReviewsView';
+import { MyQuotesView, MyPickupsView, PaymentsReceiptsView } from './CustomerHistoryViews';
+import { BookPickupModal } from './BookPickupModal';
 import { formatNaira } from '../../utils/shipping-calculator';
+import { computeCustomerRewardBreakdown } from '../../utils/rewards-engine';
+import { buildCustomerRecentActivity } from '../../utils/review-rules';
+import { getCustomerFriendlyStatusLabel } from '../../utils/quote-lifecycle';
 import {
+  Home,
+  User,
   Package,
   Plus,
-  Plane,
-  Clock,
-  Coins,
+  Wallet,
   ChevronRight,
-  ShieldCheck,
-  Shield,
-  Truck,
-  MapPin,
-  Calendar,
   AlertTriangle,
-  Star,
-  MessageSquare,
-  UserCheck,
-  CheckCircle2,
-  Building2,
-  BookUser,
-  Layers,
-  Bell,
-  RotateCcw,
-  X,
-  ArrowRight,
-  ArrowUpRight,
   Search,
+  RotateCcw,
+  Coins,
+  Gift,
+  Copy,
+  Check,
+  FileText,
+  Star,
+  HelpCircle,
+  ShieldAlert,
+  MapPin,
+  Bookmark,
+  Bell,
+  Users,
+  Layers,
+  Clock,
+  Truck,
+  Receipt,
+  Archive,
+  XCircle,
 } from 'lucide-react';
 
 interface CustomerPortalProps {
   onOpenKyc: () => void;
   onOpenPolicy: (key: any) => void;
 }
+
+const getProgressPercent = (status: string): number => {
+  switch (status) {
+    case 'booked':
+    case 'pickup_assigned':
+      return 18;
+    case 'picked_up':
+    case 'pickup_completed':
+    case 'received_at_hub':
+      return 32;
+    case 'under_inspection':
+    case 'quote_ready':
+    case 'awaiting_approval':
+      return 45;
+    case 'payment_confirmed':
+    case 'carrier_received':
+      return 60;
+    case 'in_transit':
+    case 'departed_origin':
+    case 'arrived_transit_hub':
+      return 74;
+    case 'customs_processing':
+    case 'customs_cleared':
+      return 86;
+    case 'out_for_delivery':
+      return 94;
+    case 'delivered':
+      return 100;
+    default:
+      return 15;
+  }
+};
 
 export const CustomerPortal: React.FC<CustomerPortalProps> = ({
   onOpenKyc,
@@ -56,30 +94,95 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({
   const {
     currentCustomer,
     shipments,
+    bookingGroups,
+    cashbackLedger,
+    referrals,
+    walletTransactions,
+    supportClaims,
     activeCustomerTab,
     setActiveCustomerTab,
     setSelectedShipmentForTracking,
-    setRole,
-    travelCarryRequests,
-    setActivePublicNav,
-    setRepeatShipmentData,
-    protectionConfig,
-    updateProtectionConfig,
-    protectionCertificates,
+    resetDemoData,
+    paymentAdjustments,
+    cancelShipment,
+    archiveShipment,
+    getCustomerBalancesSnapshot,
+    shipmentCredits,
+    customerNotifications,
   } = useDemo();
 
   const [initialReviewShipmentId, setInitialReviewShipmentId] = useState<string>('');
-  const [initialSupportTracking, setInitialSupportTracking] = useState<string>('');
-  const [repeatModalShipment, setRepeatModalShipment] = useState<ShipmentRecord | null>(null);
-  const [protectionSettingsOpen, setProtectionSettingsOpen] = useState<boolean>(false);
-  const [certificateModalOpen, setCertificateModalOpen] = useState<boolean>(false);
-  const [selectedCert, setSelectedCert] = useState<ProtectionCertificateRecord | null>(null);
+  const [initialQuoteCode, setInitialQuoteCode] = useState<string>('');
+  const [bookingSourceQuoteRef, setBookingSourceQuoteRef] = useState<string>('');
+  const [shipmentSearch, setShipmentSearch] = useState<string>('');
+  const [shipmentHistoryFilter, setShipmentHistoryFilter] = useState<
+    'all' | 'active' | 'delivered' | 'archived'
+  >('all');
+  const [shipmentActionNotice, setShipmentActionNotice] = useState<string | null>(null);
+  const [bookPickupModalOpen, setBookPickupModalOpen] = useState<boolean>(false);
+  const [dashboardTrackingInput, setDashboardTrackingInput] = useState<string>('');
+  const [copiedReferral, setCopiedReferral] = useState(false);
 
-  // Customer's shipments
   const myShipments = shipments.filter((s) => s.customerId === currentCustomer.id);
-  const activeShipments = myShipments.filter((s) => s.status !== 'delivered' && s.status !== 'cancelled');
-  const deliveredShipments = myShipments.filter((s) => s.status === 'delivered');
-  const upcomingPickups = myShipments.filter((s) => s.pickupScheduledDate && s.status !== 'delivered' && s.status !== 'cancelled');
+  const filteredHistoryShipments = myShipments.filter((s) => {
+    const isArchived = Boolean(s.isArchived);
+    if (shipmentHistoryFilter === 'archived') {
+      if (!isArchived) return false;
+    } else {
+      if (isArchived) return false;
+      if (shipmentHistoryFilter === 'active' && (s.status === 'delivered' || s.status === 'cancelled')) {
+        return false;
+      }
+      if (shipmentHistoryFilter === 'delivered' && s.status !== 'delivered') {
+        return false;
+      }
+    }
+    if (!shipmentSearch.trim()) return true;
+    const q = shipmentSearch.toLowerCase();
+    return (
+      s.trackingNumber.toLowerCase().includes(q) ||
+      s.destinationCountry.toLowerCase().includes(q) ||
+      s.destinationCity.toLowerCase().includes(q) ||
+      s.recipientName.toLowerCase().includes(q)
+    );
+  });
+  const activeShipments = myShipments.filter(
+    (s) => s.status !== 'delivered' && s.status !== 'cancelled'
+  );
+
+  // Real "Needs Attention" items
+  const pendingApprovals = myShipments.filter(
+    (s) => s.status === 'quote_ready' || s.status === 'draft'
+  );
+  const overdueAlerts = myShipments.filter((s) => s.isUpdateOverdue);
+  const kycRequired =
+    currentCustomer.kycStatus !== 'verified' &&
+    myShipments.some((s) => (s.declaredValueNgn || s.quote.totalAmount) >= 100000);
+
+  const attentionCount =
+    pendingApprovals.length + overdueAlerts.length + (kycRequired ? 1 : 0);
+  const hasNeedsAttention = attentionCount > 0;
+
+  // Separated Wallet, Account Credit, Cashback, Bonus & Outstanding Balances
+  const rewardBreakdown = computeCustomerRewardBreakdown({
+    customer: currentCustomer,
+    ledger: cashbackLedger,
+    referrals,
+  });
+  const separatedBalances = getCustomerBalancesSnapshot(currentCustomer.id);
+  const unreadNotifCount = customerNotifications.filter(
+    (n) => n.customerId === currentCustomer.id && !n.isRead
+  ).length;
+
+  // Recent Activity Feed
+  const recentActivity = buildCustomerRecentActivity({
+    customerId: currentCustomer.id,
+    shipments,
+    walletTransactions,
+    cashbackLedger,
+    supportClaims,
+    limit: 5,
+  });
 
   const handleTrackShipment = (trackingNumber: string) => {
     setSelectedShipmentForTracking(trackingNumber);
@@ -87,1117 +190,1049 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleOpenCertificate = (shipment: ShipmentRecord) => {
-    const existing = protectionCertificates.find((c) => c.shipmentTrackingNumber === shipment.trackingNumber);
-    if (existing) {
-      setSelectedCert(existing);
-    } else {
-      const cert: ProtectionCertificateRecord = {
-        id: 'cert_' + shipment.id,
-        certificateNumber: shipment.protectionReference || `PROT-2026-${shipment.trackingNumber.slice(-4)}`,
-        shipmentTrackingNumber: shipment.trackingNumber,
-        customerName: shipment.customerName || currentCustomer.name,
-        customerEmail: shipment.customerEmail || currentCustomer.email,
-        customerPhone: shipment.customerPhone || currentCustomer.phone,
-        declaredValueNgn: shipment.declaredValueNgn || shipment.items?.[0]?.declaredValue || shipment.quote.totalAmount,
-        protectionPlan: shipment.protectionPlan || 'basic',
-        coverageAmountNgn: shipment.protectionCoverageNgn || (shipment.protectionPlan === 'premium' ? 200000 : 50000),
-        premiumPaidNgn: shipment.protectionFeeNgn || 0,
-        ratePercentage: 1.5,
-        deductibleText: '5% of loss or ₦10,000 minimum',
-        termsVersion: 'v2.1 (2026)',
-        providerName: shipment.protectionProvider || 'Leadway Assurance Underwriting Alliance',
-        bookingDate: shipment.createdAt.slice(0, 10),
-        status: 'active',
-        itemsCovered: shipment.items || [],
-        excludedItems: [],
-      };
-      setSelectedCert(cert);
-    }
-    setCertificateModalOpen(true);
-  };
-
-  const handleOpenReview = (shipmentId: string) => {
-    setInitialReviewShipmentId(shipmentId);
-    setActiveCustomerTab('reviews');
+  const handleOpenQuoteRetrieval = (trackingNumber: string = '') => {
+    setInitialQuoteCode(trackingNumber);
+    setActiveCustomerTab('retrieve_quote');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleOpenSupport = (trackingNumber: string) => {
-    setInitialSupportTracking(trackingNumber);
-    setActiveCustomerTab('support');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleQuickTrackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!dashboardTrackingInput.trim()) return;
+    handleTrackShipment(dashboardTrackingInput.trim().toUpperCase());
+  };
+
+  const handleCopyReferral = () => {
+    navigator.clipboard.writeText(currentCustomer.referralCode);
+    setCopiedReferral(true);
+    setTimeout(() => setCopiedReferral(false), 2000);
+  };
+
+  const getGreeting = () => {
+    const hr = new Date().getHours();
+    if (hr < 12) return 'Good morning';
+    if (hr < 17) return 'Good afternoon';
+    return 'Good evening';
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 pb-16 px-4 sm:px-6">
-      {/* Top Greeting & Verification Ribbon */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-b border-[#DCEFF3] pb-4">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <h1 className="text-2xl sm:text-3xl font-serif-display font-bold text-[#354B55]">
-              {currentCustomer.name}
-            </h1>
-            {currentCustomer.customerType === 'business' && (
-              <span className="text-[11px] font-bold text-[#008EA8] bg-[#CAF0F8] px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
-                {currentCustomer.companyName || 'Business Shipper'}
-              </span>
-            )}
-          </div>
-          <p className="text-xs text-[#6A808C] mt-1">
-            Global consignments, certified scale verifications &amp; international tracking
-          </p>
-        </div>
-
-        {/* Verification Status Pill & Primary Quick Action */}
-        <div className="flex items-center gap-3">
-          {currentCustomer.kycStatus === 'verified' ? (
-            <span className="inline-flex items-center gap-1.5 text-xs text-[#008EA8] bg-[#CAF0F8]/60 px-3 py-1.5 rounded-full border border-[#90E0EF] font-bold shadow-2xs">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#00B4D8]" />
-              <span>Verified Shipper</span>
-            </span>
-          ) : currentCustomer.kycStatus === 'submitted' ? (
-            <span className="inline-flex items-center gap-1.5 text-xs text-amber-800 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200 font-medium">
-              <Clock className="w-3.5 h-3.5" />
-              <span>Verification Pending</span>
-            </span>
-          ) : (
+    <div className="max-w-5xl mx-auto space-y-6 pb-28 md:pb-16 px-4 sm:px-6 text-[#1F2937] dark:text-slate-100 transition-colors duration-200">
+      {/* Desktop Portal Navigation */}
+      <nav
+        aria-label="Customer Portal Navigation"
+        className="hidden md:flex flex-wrap items-center gap-1.5 border-b border-[#E2E8F0] dark:border-slate-800 pb-3"
+      >
+        {[
+          { id: 'overview', label: 'Home', icon: Home },
+          { id: 'my_shipments', label: 'Shipments', icon: Package },
+          { id: 'my_quotes', label: 'My Quotes', icon: FileText },
+          { id: 'my_pickups', label: 'My Pickups', icon: Truck },
+          { id: 'payments_receipts', label: 'Payments & Receipts', icon: Receipt },
+          { id: 'retrieve_quote', label: 'Retrieve Quote', icon: Search },
+          { id: 'wallet', label: 'Wallet', icon: Wallet },
+          { id: 'cashback', label: 'Rewards', icon: Coins },
+          { id: 'profile', label: 'Profile & Settings', icon: User },
+        ].map((item) => {
+          const Icon = item.icon;
+          const isActive =
+            activeCustomerTab === item.id ||
+            (item.id === 'my_shipments' && activeCustomerTab === 'tracking');
+          return (
             <button
-              onClick={onOpenKyc}
-              className="inline-flex items-center gap-1.5 text-xs text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 font-semibold transition-colors"
+              key={item.id}
+              type="button"
+              onClick={() => setActiveCustomerTab(item.id)}
+              className={`px-3.5 py-1.5 rounded-full text-[13px] flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                isActive
+                  ? 'bg-[#CAF0F8] dark:bg-sky-950/70 text-[#0F172A] dark:text-[#90E0EF] border border-[#90E0EF] dark:border-sky-800 font-bold'
+                  : 'text-[#4B5563] dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 border border-transparent font-semibold'
+              }`}
             >
-              <AlertTriangle className="w-3.5 h-3.5" />
-              <span>Verify Identity (KYC)</span>
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#00B4D8]' : 'text-[#4B5563] dark:text-slate-400'}`} />
+              <span>{item.label}</span>
             </button>
-          )}
+          );
+        })}
+      </nav>
 
-          <button
-            onClick={() => setProtectionSettingsOpen(true)}
-            className="px-3 py-2 text-xs font-semibold text-[#008EA8] bg-[#CAF0F8]/50 hover:bg-[#CAF0F8] border border-[#90E0EF] rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
-            title="Configure Underwriting & Protection Rules (Admin / Assessor)"
-          >
-            <Shield className="w-3.5 h-3.5 text-[#00B4D8]" />
-            <span className="hidden sm:inline">Protection Rules</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCustomerTab('book')}
-            className="px-4 py-2 text-xs font-bold text-white bg-[#00B4D8] hover:bg-[#009BB8] rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>New Shipment</span>
-          </button>
-        </div>
-      </div>
-
-      {/* DASHBOARD OVERVIEW VIEW */}
+      {/* OVERVIEW DASHBOARD VIEW */}
       {activeCustomerTab === 'overview' && (
-        <>
-          {/* Welcome Area: Soft ice-blue atmospheric treatment */}
-          <div className="bg-gradient-to-r from-[#CAF0F8]/50 via-white to-[#F5FBFD] rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-1.5 max-w-xl">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#00B4D8] block">
-                Swiftvero Logistics Operations
+        <div className="space-y-5">
+          {/* Honest Demo Mode Bar */}
+          <div className="px-4 py-2.5 rounded-[12px] bg-[#F1F5F9] dark:bg-slate-900/90 border border-[#E2E8F0] dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[13px]">
+            <span className="text-[#4B5563] dark:text-slate-400">
+              <strong className="text-[#111827] dark:text-white">Demo Mode:</strong> Simulated shipments, balances, and carrier events. No live charges or external dispatch.
+            </span>
+            <button
+              type="button"
+              onClick={resetDemoData}
+              className="px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-[#CBD5E1] dark:border-slate-700 text-[#1F2937] dark:text-slate-200 hover:border-[#00B4D8] font-semibold flex items-center gap-1.5 whitespace-nowrap cursor-pointer text-[12px]"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-[#00B4D8]" />
+              <span>Reset Demo</span>
+            </button>
+          </div>
+
+          {/* 1. Compact Greeting + Single Primary CTA */}
+          <div className="sv-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <span className="inline-flex items-center px-3 py-0.5 rounded-full text-[12px] font-medium bg-[#CAF0F8] text-[#0F172A] border border-[#90E0EF] dark:bg-sky-950 dark:text-[#90E0EF] dark:border-sky-800">
+                {currentCustomer.customerType === 'business'
+                  ? 'Business Account'
+                  : 'Customer Account'}
               </span>
-              <h2 className="text-xl sm:text-2xl font-serif-display font-bold text-[#354B55]">
+              <h1 className="sv-h1 mt-1">
+                {getGreeting()},{' '}
+                {currentCustomer.customerType === 'business'
+                  ? currentCustomer.companyName || currentCustomer.name
+                  : currentCustomer.name.split(' ')[0]}
+              </h1>
+              <p className="sv-body text-[#4B5563] dark:text-slate-400">
                 {activeShipments.length > 0
-                  ? `You have ${activeShipments.length} active international consignment${activeShipments.length > 1 ? 's' : ''} in transit.`
-                  : 'Ready to arrange international parcel or cargo carriage?'}
-              </h2>
-              <p className="text-xs text-[#6A808C] leading-relaxed">
-                Free doorstep collection anywhere in Lagos with calibrated scale verification, itemized quotations, and milestone tracking to 180+ global destinations.
+                  ? `You have ${activeShipments.length} active shipment${activeShipments.length > 1 ? 's' : ''} in progress.`
+                  : 'Send a single parcel or multi-destination shipment group from Nigeria.'}
               </p>
             </div>
 
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
-                onClick={() => setActiveCustomerTab('pickups')}
-                className="px-4 py-2.5 rounded-xl border border-[#DCEFF3] bg-white hover:bg-[#F5FBFD] text-xs font-semibold text-[#354B55] flex items-center gap-2 transition-colors shadow-2xs"
+                type="button"
+                onClick={() => setBookPickupModalOpen(true)}
+                className="sv-btn-primary min-h-[44px] px-5 py-2 rounded-full flex items-center gap-2 whitespace-nowrap cursor-pointer"
               >
-                <Truck className="w-3.5 h-3.5 text-[#00B4D8]" />
-                <span>Doorstep Collection ({upcomingPickups.length})</span>
+                <Truck className="w-4 h-4 stroke-[2.2]" />
+                <span>Book a Pickup</span>
               </button>
               <button
+                type="button"
                 onClick={() => setActiveCustomerTab('book')}
-                className="px-4 py-2.5 rounded-xl bg-[#00B4D8] hover:bg-[#009BB8] text-white text-xs font-bold flex items-center gap-2 transition-all shadow-sm"
+                className="min-h-[44px] px-4 py-2 rounded-full text-[13px] font-bold bg-[#CAF0F8] dark:bg-sky-950/70 text-[#0F172A] dark:text-[#90E0EF] border border-[#90E0EF] dark:border-sky-800 hover:bg-[#90E0EF]/50 flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors"
               >
-                <span>Book Shipment</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <Plus className="w-4 h-4 stroke-[2.5]" />
+                <span>Get a Quote</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveCustomerTab('tracking')}
+                className="min-h-[44px] px-4 py-2 rounded-full text-[13px] font-bold bg-white dark:bg-slate-800 text-[#1F2937] dark:text-slate-200 border border-[#CBD5E1] dark:border-slate-700 hover:border-[#00B4D8] flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors"
+              >
+                <Search className="w-4 h-4 text-[#00B4D8]" />
+                <span>Track a Shipment</span>
               </button>
             </div>
           </div>
 
-          {/* KPI Overview Cards: 4 Clean, restrained white cards with subtle borders */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div
-              onClick={() => setActiveCustomerTab('my_shipments')}
-              className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs hover:border-[#00B4D8] transition-all cursor-pointer group"
-            >
-              <div className="flex items-center justify-between text-[#6A808C] mb-2">
-                <span className="text-xs font-semibold">Active In Transit</span>
-                <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Plane className="w-4 h-4" />
+          {/* 2. Track & Retrieve Quote Shortcuts + Useful-Only Stats */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div className="lg:col-span-8 sv-card p-4 sm:p-5 flex flex-col justify-center gap-2.5">
+              <form
+                onSubmit={handleQuickTrackSubmit}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5"
+              >
+                <div className="relative flex-1 min-w-[200px]">
+                  <Search className="w-4 h-4 text-[#4B5563] dark:text-slate-400 absolute left-3.5 top-3.5" />
+                  <input
+                    type="text"
+                    value={dashboardTrackingInput}
+                    onChange={(e) => setDashboardTrackingInput(e.target.value)}
+                    placeholder="Code (e.g. SWV-2026-NG8491)"
+                    className="sv-input w-full min-h-[44px] pl-10 pr-3 py-2 text-[14px] rounded-[10px] border border-[#CBD5E1] dark:border-slate-700 bg-white dark:bg-slate-900 text-[#111827] dark:text-white placeholder-[#4B5563]/65 uppercase tabular-nums"
+                  />
                 </div>
-              </div>
-              <div className="text-3xl font-serif-display font-bold text-[#354B55]">
-                {activeShipments.length}
-              </div>
-              <span className="text-[11px] text-[#00B4D8] font-medium mt-1 flex items-center gap-1">
-                <span>View active air freight</span>
-                <ChevronRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-              </span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="submit"
+                    className="min-h-[44px] flex-1 sm:flex-none px-4 py-2 text-[13px] font-bold text-[#111827] dark:text-white bg-[#F1F5F9] dark:bg-slate-700 hover:bg-[#E2E8F0] dark:hover:bg-slate-600 rounded-full transition-colors whitespace-nowrap cursor-pointer"
+                  >
+                    Track Shipment
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleOpenQuoteRetrieval(dashboardTrackingInput.trim().toUpperCase())}
+                    className="min-h-[44px] flex-1 sm:flex-none px-4 py-2 text-[13px] font-bold text-[#0F172A] dark:text-[#90E0EF] bg-[#CAF0F8] dark:bg-sky-950/60 border border-[#90E0EF] dark:border-sky-800 hover:bg-[#90E0EF]/50 rounded-full transition-colors whitespace-nowrap cursor-pointer"
+                  >
+                    Retrieve Quote
+                  </button>
+                </div>
+              </form>
             </div>
 
-            <div
-              onClick={() => setActiveCustomerTab('pickups')}
-              className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs hover:border-[#00B4D8] transition-all cursor-pointer group"
-            >
-              <div className="flex items-center justify-between text-[#6A808C] mb-2">
-                <span className="text-xs font-semibold">Doorstep Pickups</span>
-                <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Truck className="w-4 h-4" />
-                </div>
-              </div>
-              <div className="text-3xl font-serif-display font-bold text-[#354B55]">
-                {upcomingPickups.length}
-              </div>
-              <span className="text-[11px] text-[#6A808C] font-medium mt-1 block">
-                Free scale collection
-              </span>
-            </div>
+            <div className="lg:col-span-4 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setActiveCustomerTab('my_shipments')}
+                className="sv-card p-4 text-left hover:border-[#00B4D8] transition-colors cursor-pointer"
+              >
+                <span className="sv-label block">
+                  Active Shipments
+                </span>
+                <span className="sv-price-lg tabular-nums block mt-0.5">
+                  {activeShipments.length}
+                </span>
+              </button>
 
-            <div
-              onClick={() => setActiveCustomerTab('cashback')}
-              className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs hover:border-[#00B4D8] transition-all cursor-pointer group"
-            >
-              <div className="flex items-center justify-between text-[#6A808C] mb-2">
-                <span className="text-xs font-semibold">Shipping Credits</span>
-                <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Coins className="w-4 h-4" />
-                </div>
+              <div
+                className={`rounded-[12px] border p-4 shadow-[0_2px_8px_rgba(15,23,42,0.04)] ${
+                  hasNeedsAttention
+                    ? 'bg-amber-50/80 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800'
+                    : 'bg-white dark:bg-slate-800/90 border-[#E2E8F0] dark:border-slate-800'
+                }`}
+              >
+                <span className="sv-label block">
+                  Needs Attention
+                </span>
+                <span
+                  className={`sv-price-lg tabular-nums block mt-0.5 ${
+                    hasNeedsAttention
+                      ? 'text-[#986B16] dark:text-amber-400'
+                      : 'text-[#111827] dark:text-white'
+                  }`}
+                >
+                  {attentionCount}
+                </span>
               </div>
-              <div className="text-2xl font-serif-display font-bold text-[#008EA8]">
-                {formatNaira(currentCustomer.cashbackBalance)}
-              </div>
-              <span className="text-[11px] text-[#6A808C] font-medium mt-1 block">
-                Non-withdrawable shipping credits
-              </span>
-            </div>
-
-            <div
-              onClick={() => setActiveCustomerTab('my_shipments')}
-              className="bg-white rounded-2xl border border-[#DCEFF3] p-5 shadow-xs hover:border-[#00B4D8] transition-all cursor-pointer group"
-            >
-              <div className="flex items-center justify-between text-[#6A808C] mb-2">
-                <span className="text-xs font-semibold">Total Consignments</span>
-                <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Package className="w-4 h-4" />
-                </div>
-              </div>
-              <div className="text-3xl font-serif-display font-bold text-[#354B55]">
-                {myShipments.length}
-              </div>
-              <span className="text-[11px] text-[#6A808C] font-medium mt-1 block">
-                {deliveredShipments.length} delivered closure
-              </span>
             </div>
           </div>
 
-          {/* Section: Recent Consignments Activity */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between px-1">
+          {/* 3. Needs Your Attention (Conditional) */}
+          {hasNeedsAttention && (
+            <div className="bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 rounded-[12px] p-4 sm:p-5 space-y-3">
+              <div className="flex items-center gap-2 text-amber-900 dark:text-amber-400 font-bold text-[12px] uppercase tracking-wider">
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>Needs Your Attention</span>
+              </div>
+
+              <div className="space-y-2.5">
+                {pendingApprovals.map((s) => (
+                  <div
+                    key={s.id}
+                    className="p-3.5 bg-white dark:bg-slate-900 rounded-[12px] border border-amber-200 dark:border-amber-800 flex flex-wrap items-center justify-between gap-3"
+                  >
+                    <div className="space-y-0.5">
+                      <span className="text-[13px] font-bold text-[#111827] dark:text-white tabular-nums">
+                        {s.trackingNumber}
+                      </span>
+                      <p className="text-[13px] text-amber-900 dark:text-amber-300">
+                        Verified quotation ready ({formatNaira(s.quote.totalAmount)}) — approval required before dispatch.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenQuoteRetrieval(s.trackingNumber)}
+                      className="sv-btn-primary min-h-[40px] px-4 py-1.5 rounded-full text-[13px] shrink-0 cursor-pointer"
+                    >
+                      Review &amp; Approve Quote
+                    </button>
+                  </div>
+                ))}
+
+                {overdueAlerts.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => handleTrackShipment(s.trackingNumber)}
+                    className="w-full text-left p-3.5 bg-white dark:bg-slate-900 rounded-[12px] border border-amber-200 dark:border-amber-800 flex items-center justify-between gap-3 hover:border-[#00B4D8] transition-colors cursor-pointer"
+                  >
+                    <div className="space-y-0.5">
+                      <span className="text-[13px] font-bold text-[#111827] dark:text-white tabular-nums">
+                        {s.trackingNumber}
+                      </span>
+                      <p className="text-[13px] text-[#4B5563] dark:text-slate-400">
+                        Tracking update overdue — our operations desk has logged a proactive check.
+                      </p>
+                    </div>
+                    <span className="text-[13px] font-semibold text-[#0F172A] dark:text-[#90E0EF] flex items-center gap-1 shrink-0">
+                      <span>View Update</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </span>
+                  </button>
+                ))}
+
+                {kycRequired && (
+                  <div className="p-3.5 bg-white dark:bg-slate-900 rounded-[12px] border border-amber-200 dark:border-amber-800 flex flex-wrap items-center justify-between gap-3">
+                    <div className="space-y-0.5">
+                      <span className="text-[13px] font-bold text-[#111827] dark:text-white">
+                        Identity Verification Recommended
+                      </span>
+                      <p className="text-[13px] text-[#4B5563] dark:text-slate-400">
+                        Complete NIN/BVN verification to prevent customs hold on high-value consignments.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={onOpenKyc}
+                      className="min-h-[40px] px-4 py-1.5 bg-amber-600 text-white rounded-full text-[13px] font-bold hover:bg-amber-700 shrink-0 cursor-pointer"
+                    >
+                      Verify ID
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 4. Separated Wallet & Rewards Summary Card */}
+          <div className="sv-card p-5 sm:p-6 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E2E8F0] dark:border-slate-800">
               <div>
-                <h3 className="text-base font-serif-display font-bold text-[#354B55]">
-                  Recent Consignments
-                </h3>
-                <p className="text-xs text-[#6A808C]">
-                  Live status, verified measurements, and repeat booking options
+                <h2 className="sv-h3">
+                  Wallet &amp; Rewards Overview
+                </h2>
+                <p className="sv-label">
+                  Deposited cash wallet funds are kept separate from non-withdrawable shipping credits.
                 </p>
               </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveCustomerTab('wallet')}
+                  className="px-4 py-1.5 rounded-full text-[13px] font-semibold text-[#1F2937] dark:text-slate-200 bg-[#F1F5F9] dark:bg-slate-700 hover:bg-[#E2E8F0] dark:hover:bg-slate-600 cursor-pointer"
+                >
+                  Open Wallet
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveCustomerTab('cashback')}
+                  className="px-4 py-1.5 rounded-full text-[13px] font-semibold text-[#0F172A] dark:text-[#90E0EF] bg-[#CAF0F8] dark:bg-sky-950/50 border border-[#90E0EF] dark:border-sky-800 cursor-pointer"
+                >
+                  Rewards Ledger
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              <div className="p-3.5 rounded-[10px] bg-[#F8FAFC] dark:bg-slate-900/60 border border-[#E2E8F0] dark:border-slate-800">
+                <span className="sv-label block">
+                  Deposited Wallet
+                </span>
+                <span className="text-[17px] font-extrabold text-[#111827] dark:text-white tabular-nums">
+                  {formatNaira(separatedBalances.depositedWalletBalanceNgn)}
+                </span>
+                <span className="text-[11px] text-[#4B5563] dark:text-slate-400 block mt-0.5">
+                  Withdrawable cash balance
+                </span>
+              </div>
+
+              {separatedBalances.availableAccountCreditNgn > 0 && (
+                <div className="p-3.5 rounded-[10px] bg-[#CAF0F8]/70 dark:bg-sky-950/50 border border-[#90E0EF] dark:border-sky-800">
+                  <span className="text-[12px] text-[#0F172A] dark:text-[#90E0EF] font-semibold block">
+                    Available Account Credit
+                  </span>
+                  <span className="text-[17px] font-extrabold text-[#0F172A] dark:text-[#90E0EF] tabular-nums">
+                    {formatNaira(separatedBalances.availableAccountCreditNgn)}
+                  </span>
+                  <span className="text-[11px] text-[#0F172A]/80 dark:text-sky-300 block mt-0.5">
+                    {separatedBalances.availableCreditRecords.length} overpayment credit
+                    {separatedBalances.availableCreditRecords.length === 1 ? '' : 's'}
+                  </span>
+                </div>
+              )}
+
+              {separatedBalances.cashbackBalanceNgn > 0 && (
+                <div className="p-3.5 rounded-[10px] bg-[#F8FAFC] dark:bg-slate-900/60 border border-[#E2E8F0] dark:border-slate-800">
+                  <span className="sv-label block">
+                    Cashback Balance
+                  </span>
+                  <span className="text-[17px] font-extrabold text-[#007791] dark:text-[#90E0EF] tabular-nums">
+                    {formatNaira(separatedBalances.cashbackBalanceNgn)}
+                  </span>
+                  <span className="text-[11px] text-[#4B5563] dark:text-slate-400 block mt-0.5">
+                    Non-withdrawable shipping reward
+                  </span>
+                </div>
+              )}
+
+              {(separatedBalances.activeBonusBalanceNgn > 0 || separatedBalances.expiredBonusBalanceNgn > 0) && (
+                <div className="p-3.5 rounded-[10px] bg-[#F8FAFC] dark:bg-slate-900/60 border border-[#E2E8F0] dark:border-slate-800">
+                  <span className="sv-label block">
+                    Bonus Balance
+                  </span>
+                  <span className="text-[17px] font-extrabold text-[#111827] dark:text-white tabular-nums">
+                    {formatNaira(separatedBalances.activeBonusBalanceNgn)}
+                  </span>
+                  <span className="text-[11px] text-[#4B5563] dark:text-slate-400 block mt-0.5">
+                    {separatedBalances.activeBonusGrants.length} active grant
+                    {separatedBalances.activeBonusGrants.length === 1 ? '' : 's'}
+                    {separatedBalances.expiredBonusBalanceNgn > 0
+                      ? ` · ${formatNaira(separatedBalances.expiredBonusBalanceNgn)} expired`
+                      : ''}
+                  </span>
+                </div>
+              )}
+
+              {separatedBalances.outstandingAmountNgn > 0 && (
+                <div className="p-3.5 rounded-[10px] bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+                  <span className="text-[12px] text-amber-900 dark:text-amber-300 font-semibold block">
+                    Outstanding Amount
+                  </span>
+                  <span className="text-[17px] font-extrabold text-amber-900 dark:text-amber-300 tabular-nums">
+                    {formatNaira(separatedBalances.outstandingAmountNgn)}
+                  </span>
+                  <span className="text-[11px] text-amber-800 dark:text-amber-400 block mt-0.5">
+                    Requires approval or settlement
+                  </span>
+                </div>
+              )}
+
+              {separatedBalances.availableAccountCreditNgn === 0 &&
+                separatedBalances.cashbackBalanceNgn === 0 &&
+                separatedBalances.activeBonusBalanceNgn === 0 &&
+                separatedBalances.outstandingAmountNgn === 0 && (
+                  <div className="sm:col-span-1 lg:col-span-4 p-3.5 rounded-[10px] bg-[#F8FAFC] dark:bg-slate-900/40 border border-[#E2E8F0] dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[13px] text-[#4B5563] dark:text-slate-400">
+                    <span>
+                      No active Account Credits, Cashback, or Bonus Balances yet. Complete a delivery or refer a customer to unlock non-withdrawable shipping rewards.
+                    </span>
+                    <span className="font-semibold text-[#111827] dark:text-slate-200 tabular-nums">
+                      Pending Delivery Rewards: {formatNaira(rewardBreakdown.pendingCreditsNgn)}
+                    </span>
+                  </div>
+                )}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#E2E8F0] dark:border-slate-800 text-[13px]">
+              <div className="flex items-center gap-2 text-[#4B5563] dark:text-slate-400">
+                <Gift className="w-4 h-4 text-[#00B4D8] shrink-0" />
+                <span>
+                  Referral Code:{' '}
+                  <strong className="text-[#111827] dark:text-white tabular-nums">
+                    {currentCustomer.referralCode}
+                  </strong>
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleCopyReferral}
+                className="px-3.5 py-1.5 rounded-full border border-[#CBD5E1] dark:border-slate-700 text-[12px] font-semibold text-[#1F2937] dark:text-slate-200 hover:border-[#00B4D8] flex items-center gap-1.5 cursor-pointer"
+              >
+                {copiedReferral ? <Check className="w-3.5 h-3.5 text-[#247347]" /> : <Copy className="w-3.5 h-3.5 text-[#00B4D8]" />}
+                <span>{copiedReferral ? 'Copied Code' : 'Copy Referral Link'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* 5. Active Shipments */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between px-1">
+              <h2 className="sv-h2">
+                Active Shipments
+              </h2>
               {myShipments.length > 0 && (
                 <button
                   type="button"
                   onClick={() => setActiveCustomerTab('my_shipments')}
-                  className="text-xs font-bold text-[#00B4D8] hover:underline flex items-center gap-1"
+                  className="text-[13px] font-semibold text-[#0F172A] dark:text-[#90E0EF] underline underline-offset-4 hover:text-[#00B4D8] flex items-center gap-1 cursor-pointer"
                 >
-                  <span>View All Shipments ({myShipments.length})</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>All Shipments ({myShipments.length})</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-[#DCEFF3] divide-y divide-[#DCEFF3] overflow-hidden shadow-xs">
-              {myShipments.map((s) => (
-                <div
-                  key={s.id}
-                  className="p-4 sm:p-5 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 hover:bg-[#F5FBFD] transition-colors group"
-                >
-                  {/* Left: Icon + Reference + Destination */}
-                  <div
-                    onClick={() => handleTrackShipment(s.trackingNumber)}
-                    className="flex items-center gap-3.5 min-w-0 cursor-pointer flex-1"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0 border border-[#90E0EF]/60">
-                      <Plane className="w-4 h-4" />
-                    </div>
+            <div className="sv-card divide-y divide-[#E2E8F0] dark:divide-slate-800 overflow-hidden">
+              {activeShipments.map((s) => {
+                const groupObj = s.bookingGroupId
+                  ? bookingGroups.find((bg) => bg.id === s.bookingGroupId)
+                  : undefined;
+                const progress = getProgressPercent(s.status);
+                const latestEvt = s.trackingEvents[s.trackingEvents.length - 1];
 
-                    <div className="min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs font-bold text-[#354B55] group-hover:text-[#00B4D8] transition-colors">
-                          {s.trackingNumber}
-                        </span>
-                        <span className="text-[11px] text-[#6A808C] hidden sm:inline font-medium">
-                          · {s.quote.serviceTier === 'priority' ? 'Priority Express' : 'Standard Air'}
-                        </span>
-                      </div>
-                      <p className="text-xs text-[#6A808C] truncate">
-                        {s.originCity || 'Lagos'} → {s.destinationCity}, {s.destinationCountry}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right: Semantic Status Pill + Amount + Repeat + View */}
-                  <div className="flex items-center gap-3 shrink-0">
-                    <div className="text-right">
-                      <div className="mb-1">
-                        <StatusPill status={s.status} isOverdue={s.isUpdateOverdue} />
-                      </div>
-                      <div className="text-xs font-mono font-bold text-[#354B55]">
-                        {formatNaira(s.quote.totalAmount)}
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setRepeatModalShipment(s);
-                      }}
-                      className="px-2.5 py-1.5 bg-[#CAF0F8]/50 border border-[#90E0EF] text-[#008EA8] rounded-lg text-xs font-bold hover:bg-[#CAF0F8] flex items-center gap-1 transition-colors"
-                      title="Repeat this consignment with current pricing checks"
-                    >
-                      <RotateCcw className="w-3 h-3 text-[#00B4D8]" />
-                      <span className="hidden sm:inline">Repeat</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleTrackShipment(s.trackingNumber)}
-                      className="text-[#6A808C] group-hover:text-[#00B4D8] p-1.5 rounded-lg hover:bg-white"
-                      title="View live milestone tracking"
-                    >
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-all" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-
-              {myShipments.length === 0 && (
-                <div className="p-8 text-center text-xs text-[#6A808C] space-y-3">
-                  <p>You have no international shipments on record yet.</p>
+                return (
                   <button
-                    onClick={() => setActiveCustomerTab('book')}
-                    className="px-4 py-2 text-xs font-bold text-white bg-[#00B4D8] rounded-xl hover:bg-[#009BB8]"
+                    key={s.id}
+                    type="button"
+                    onClick={() => handleTrackShipment(s.trackingNumber)}
+                    className="w-full text-left p-4 sm:p-5 flex flex-col gap-3 hover:bg-[#F8FAFC] dark:hover:bg-slate-700/40 transition-colors cursor-pointer group"
                   >
-                    Start a New Shipment
+                    <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-10 h-10 rounded-[10px] bg-[#CAF0F8] dark:bg-sky-950 text-[#0F172A] dark:text-[#90E0EF] flex items-center justify-center shrink-0 border border-[#90E0EF] dark:border-sky-800">
+                          <Package className="w-5 h-5 text-[#00B4D8]" />
+                        </div>
+
+                        <div className="min-w-0 space-y-0.5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-[15px] font-bold text-[#111827] dark:text-white group-hover:text-[#00B4D8] transition-colors tabular-nums">
+                              {s.trackingNumber}
+                            </span>
+                            {groupObj && (
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#F1F5F9] dark:bg-slate-700 text-[#1F2937] dark:text-slate-200">
+                                <Layers className="w-3 h-3 text-[#00B4D8]" />
+                                {groupObj.groupCode}
+                              </span>
+                            )}
+                            {s.collectionMethod === 'priority_pickup' && (
+                              <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-[#986B16] dark:text-amber-300">
+                                Priority Pickup
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[13px] text-[#4B5563] dark:text-slate-400 truncate">
+                            {s.originCity || 'Lagos'} → {s.destinationCity}, {s.destinationCountry}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="text-right">
+                          <div className="mb-0.5">
+                            <StatusPill status={s.status} isOverdue={s.isUpdateOverdue} />
+                          </div>
+                          <div className="text-[14px] font-bold text-[#111827] dark:text-slate-200 tabular-nums">
+                            {formatNaira(s.quote.totalAmount)}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-[#4B5563] group-hover:text-[#00B4D8]" />
+                      </div>
+                    </div>
+
+                    {/* Simple Progress Bar + Last Update */}
+                    <div className="space-y-1">
+                      <div className="w-full h-1.5 bg-[#F1F5F9] dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all ${
+                            s.isUpdateOverdue ? 'bg-amber-500' : 'bg-[#00B4D8]'
+                          }`}
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between text-[12px] font-medium text-[#4B5563] dark:text-slate-400">
+                        <span className="truncate">
+                          {getCustomerFriendlyStatusLabel(s.status)} &bull; {latestEvt?.stage || 'Booked'}
+                        </span>
+                        <span className="tabular-nums shrink-0">{latestEvt?.timestamp}</span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+
+              {activeShipments.length === 0 && (
+                <div className="p-8 text-center text-[14px] text-[#4B5563] dark:text-slate-400 space-y-3">
+                  <Package className="w-8 h-8 text-[#4B5563] mx-auto" />
+                  <p>You have no active shipments in transit right now.</p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCustomerTab('book')}
+                    className="sv-btn-primary px-5 py-2 rounded-full cursor-pointer"
+                  >
+                    Book a Shipment
                   </button>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Section: Operational Quick Actions (Clean, structured list) */}
-          <div className="space-y-3 pt-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#6A808C] px-1">
-              Account Operations &amp; Tools
-            </h3>
-
-            <div className="bg-white rounded-2xl border border-[#DCEFF3] divide-y divide-[#DCEFF3] overflow-hidden shadow-xs">
-              <button
-                onClick={() => setActiveCustomerTab('tracking')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Clock className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Track Consignment</span>
-                    <span className="text-[11px] text-[#6A808C]">Live milestone tracking and flight status</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('pickups')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Truck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Doorstep Collections</span>
-                    <span className="text-[11px] text-[#6A808C]">Free doorstep digital scale verification schedule</span>
-                  </div>
-                </div>
-                <span className="text-xs text-[#6A808C] flex items-center gap-1.5">
-                  <span className="font-semibold text-[#354B55]">{upcomingPickups.length} scheduled</span>
-                  <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('travel_carry')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Plane className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">
-                      SwiftShare Pilot Consignments
+          {/* 6. Recent Activity & Secondary Tools */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div className="lg:col-span-7 bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-[#00B4D8]" />
+                  <span>Recent Activity</span>
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setActiveCustomerTab('notifications')}
+                  className="text-xs font-semibold text-[#008EA8] dark:text-[#90E0EF] hover:underline flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Notifications</span>
+                  {unreadNotifCount > 0 && (
+                    <span className="px-1.5 py-0.5 rounded-full bg-[#00B4D8] text-white text-[10px] font-bold tabular-nums">
+                      {unreadNotifCount}
                     </span>
-                    <span className="text-[11px] text-[#6A808C]">
-                      Traveller-assisted express delivery with tamper seals &amp; delivery escrow
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] bg-[#CAF0F8] text-[#008EA8] font-bold px-2 py-0.5 rounded-full border border-[#90E0EF]">
-                    Pilot
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-                </div>
-              </button>
+                  )}
+                </button>
+              </div>
 
-              <button
-                onClick={() => setActiveCustomerTab('batch')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Building2 className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">
-                      Multi-Recipient Batch Consignments
-                    </span>
-                    <span className="text-[11px] text-[#6A808C]">
-                      Enter sender once and dispatch multiple international consignments
-                    </span>
-                  </div>
+              {recentActivity.length > 0 ? (
+                <div className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                  {recentActivity.map((act) => (
+                    <div key={act.id} className="py-2.5 flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="font-semibold text-slate-900 dark:text-white truncate">
+                          {act.title}
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                          {act.subtitle}
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-400 shrink-0">
+                        {act.timestamp.slice(0, 10)}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
+              ) : (
+                <p className="text-xs text-slate-500 dark:text-slate-400 py-4 text-center">
+                  No recent shipment or wallet activity yet.
+                </p>
+              )}
+            </div>
 
-              <button
-                onClick={() => setActiveCustomerTab('cashback')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Coins className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">My Rewards &amp; Shipping Credits</span>
-                    <span className="text-[11px] text-[#6A808C]">Promotional credits to discount future consignments (non-withdrawable)</span>
-                  </div>
-                </div>
-                <span className="text-xs text-[#008EA8] font-bold flex items-center gap-1.5 font-mono">
-                  <span>{formatNaira(currentCustomer.cashbackBalance)}</span>
-                  <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-                </span>
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('reviews')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Star className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Verified Customer Reviews</span>
-                    <span className="text-[11px] text-[#6A808C]">Rate delivered shipments and read company feedback</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('address_book')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <BookUser className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Saved Address Book</span>
-                    <span className="text-[11px] text-[#6A808C]">Manage repeat recipients in the UK, US, Canada, and Europe</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('templates')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Layers className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Package Shipment Templates</span>
-                    <span className="text-[11px] text-[#6A808C]">Save standard carton sizes, items, and weights for 1-click rebooking</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('claims')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Claims &amp; Delivery Disputes</span>
-                    <span className="text-[11px] text-[#6A808C]">File structured claims for transit delays or package investigations</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('team')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Building2 className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Business Team &amp; Permissions</span>
-                    <span className="text-[11px] text-[#6A808C]">Manage organization staff roles, booking rights, and finance viewing</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('notifications')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <Bell className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Notifications &amp; Proactive Alert Center</span>
-                    <span className="text-[11px] text-[#6A808C]">View milestone logs and manage communication channels</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('support')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <MessageSquare className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Customer Support &amp; Enquiries</span>
-                    <span className="text-[11px] text-[#6A808C]">Open a ticket or contact official WhatsApp desk</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
-
-              <button
-                onClick={() => setActiveCustomerTab('profile')}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F5FBFD] transition-colors group"
-              >
-                <div className="flex items-center gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0">
-                    <UserCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#354B55] block">Account Profile &amp; Identity</span>
-                    <span className="text-[11px] text-[#6A808C]">Manage consignor details and verification documents</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-[#6A808C] group-hover:text-[#00B4D8] transition-colors" />
-              </button>
+            <div className="lg:col-span-5 bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-xs space-y-3">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white pb-2 border-b border-slate-100 dark:border-slate-800">
+                Account &amp; Support Tools
+              </h2>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                {[
+                  { id: 'my_quotes', label: 'My Quotes', icon: FileText },
+                  { id: 'my_pickups', label: 'My Pickups', icon: Truck },
+                  { id: 'payments_receipts', label: 'Payments & Receipts', icon: Receipt },
+                  { id: 'reviews', label: 'Delivery Reviews', icon: Star },
+                  { id: 'tickets', label: 'Support Tickets', icon: HelpCircle },
+                  { id: 'claims', label: 'Claims Desk', icon: ShieldAlert },
+                  { id: 'address_book', label: 'Address Book', icon: MapPin },
+                  { id: 'templates', label: 'Templates', icon: Bookmark },
+                  { id: 'notifications', label: unreadNotifCount > 0 ? `Notifications (${unreadNotifCount})` : 'Notifications', icon: Bell },
+                  ...(currentCustomer.customerType === 'business'
+                    ? [{ id: 'team', label: 'Business Team', icon: Users }]
+                    : []),
+                ].map((tool) => {
+                  const Icon = tool.icon;
+                  return (
+                    <button
+                      key={tool.id}
+                      type="button"
+                      onClick={() => setActiveCustomerTab(tool.id)}
+                      className="min-h-[44px] px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:border-[#00B4D8] text-left font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-2 transition-colors"
+                    >
+                      <Icon className="w-3.5 h-3.5 text-[#00B4D8] shrink-0" />
+                      <span className="truncate">{tool.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </>
+        </div>
       )}
 
-      {/* Sub-view Header if not on Overview */}
+      {/* SUB-VIEW HEADER */}
       {activeCustomerTab !== 'overview' && (
-        <div className="flex items-center justify-between pb-3 border-b border-[#DCEFF3]">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
           <button
+            type="button"
             onClick={() => setActiveCustomerTab('overview')}
             className="text-xs font-bold text-[#00B4D8] hover:underline flex items-center gap-1.5"
           >
-            ← Back to Dashboard Overview
+            ← Back to Dashboard
           </button>
-          <span className="text-xs font-semibold text-[#6A808C] capitalize">
-            {activeCustomerTab.replace('_', ' ')}
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 capitalize">
+            {activeCustomerTab.replace(/_/g, ' ')}
           </span>
         </div>
       )}
 
-      {/* 2. My Shipments (Detailed List) */}
+      {/* My Shipments View */}
       {activeCustomerTab === 'my_shipments' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#DCEFF3]">
+        <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <h2 className="text-base font-serif-display font-bold text-[#354B55]">
-                All Shipments ({myShipments.length})
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">
+                All Shipments ({filteredHistoryShipments.length})
               </h2>
-              <p className="text-xs text-[#6A808C] mt-0.5">
-                Full history of international consignments booked with Swiftvero.
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Search shipments, filter by active/delivered/archived, cancel uncollected shipments, or review quotes.
               </p>
             </div>
             <button
-              onClick={() => setActiveCustomerTab('book')}
-              className="px-4 py-2 bg-[#00B4D8] text-white rounded-xl text-xs font-bold hover:bg-[#009BB8] transition-all shadow-sm"
+              type="button"
+              onClick={() => {
+                setBookingSourceQuoteRef('');
+                setActiveCustomerTab('book');
+              }}
+              className="min-h-[40px] px-4 py-2 bg-[#00B4D8] text-white rounded-xl text-xs font-bold hover:bg-[#009BB8] transition-all flex items-center gap-1.5"
             >
-              New Shipment
+              <Plus className="w-3.5 h-3.5" />
+              <span>New Shipment</span>
             </button>
           </div>
 
-          <div className="divide-y divide-[#DCEFF3] text-xs">
-            {myShipments.map((s) => (
-              <div key={s.id} className="py-4 space-y-2">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-sm text-[#354B55]">{s.trackingNumber}</span>
-                    <StatusPill status={s.status} isOverdue={s.isUpdateOverdue} />
-                  </div>
-                  <span className="text-[11px] text-[#6A808C]">Booked: {s.createdAt.slice(0, 10)}</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs pt-1">
-                  <div>
-                    <span className="text-[#6A808C] text-[11px]">Destination:</span>
-                    <div className="font-semibold text-[#354B55]">{s.destinationCountry} ({s.destinationCity})</div>
-                  </div>
-                  <div>
-                    <span className="text-[#6A808C] text-[11px]">Chargeable Weight:</span>
-                    <div className="font-semibold text-[#354B55] font-mono">{s.quote.chargeableWeightKg} kg</div>
-                  </div>
-                  <div>
-                    <span className="text-[#6A808C] text-[11px]">Freight Total:</span>
-                    <div className="font-bold text-[#00B4D8] font-mono">{formatNaira(s.quote.totalAmount)}</div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#DCEFF3]/70">
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
-                        s.protectionPlan === 'premium'
-                          ? 'bg-amber-100 text-amber-900 border-amber-300'
-                          : 'bg-[#CAF0F8] text-[#008EA8] border-[#90E0EF]'
-                      }`}
-                    >
-                      {s.protectionPlan === 'premium' ? 'Premium Coverage Active' : 'Basic Protection'}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      onClick={() => handleOpenCertificate(s)}
-                      className="px-3 py-1.5 border border-[#90E0EF] bg-[#CAF0F8]/50 rounded-lg text-xs font-semibold text-[#008EA8] hover:bg-[#CAF0F8] flex items-center gap-1 transition-colors"
-                      title="View & Download Protection Certificate"
-                    >
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#00B4D8]" />
-                      <span>Certificate</span>
-                    </button>
-                    <button
-                      onClick={() => handleTrackShipment(s.trackingNumber)}
-                      className="px-3 py-1.5 border border-[#DCEFF3] rounded-lg text-xs font-semibold text-[#354B55] hover:bg-[#F5FBFD]"
-                    >
-                      View Tracking
-                    </button>
-                    <button
-                      onClick={() => handleOpenSupport(s.trackingNumber)}
-                      className="px-3 py-1.5 border border-[#DCEFF3] rounded-lg text-xs font-semibold text-[#6A808C] hover:bg-[#F5FBFD]"
-                    >
-                      Support
-                    </button>
-                    <button
-                      onClick={() => setRepeatModalShipment(s)}
-                      className="px-3 py-1.5 bg-[#CAF0F8]/50 border border-[#90E0EF] rounded-lg text-xs font-bold text-[#008EA8] hover:bg-[#CAF0F8] flex items-center gap-1 transition-colors"
-                    >
-                      <RotateCcw className="w-3 h-3 text-[#00B4D8]" />
-                      <span>Repeat Shipment</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 3. Pickups Tab */}
-      {activeCustomerTab === 'pickups' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 shadow-xs space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-[#DCEFF3]">
-            <div>
-              <h2 className="text-base font-serif-display font-bold text-[#354B55]">
-                Doorstep Pickups
-              </h2>
-              <p className="text-xs text-[#6A808C] mt-0.5">
-                Always free collection (₦0) with calibrated digital scale weighing at your address.
-              </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="relative flex-1 max-w-xs">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+              <input
+                type="text"
+                value={shipmentSearch}
+                onChange={(e) => setShipmentSearch(e.target.value)}
+                placeholder="Search SWV code, recipient, city..."
+                className="w-full pl-8 pr-3 py-1.5 rounded-full border border-[#CBD5E1] dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+              />
             </div>
-            <span className="text-xs font-bold text-[#008EA8] bg-[#CAF0F8] px-3 py-1 rounded-full border border-[#90E0EF]">
-              Free Doorstep Collection
-            </span>
+            <div className="flex flex-wrap items-center gap-1.5 text-xs">
+              {(
+                [
+                  { id: 'all', label: 'All' },
+                  { id: 'active', label: 'Active' },
+                  { id: 'delivered', label: 'Delivered' },
+                  { id: 'archived', label: 'Archived' },
+                ] as const
+              ).map((flt) => (
+                <button
+                  key={flt.id}
+                  type="button"
+                  onClick={() => setShipmentHistoryFilter(flt.id)}
+                  className={`px-3 py-1.5 rounded-full font-semibold border transition-colors ${
+                    shipmentHistoryFilter === flt.id
+                      ? 'bg-[#CAF0F8] text-[#0F172A] border-[#90E0EF] dark:bg-sky-950 dark:text-[#90E0EF] dark:border-sky-800'
+                      : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                  }`}
+                >
+                  {flt.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-4">
-            {upcomingPickups.map((s) => (
-              <div key={s.id} className="p-4 border border-[#DCEFF3] rounded-xl space-y-3">
+          {shipmentActionNotice && (
+            <div className="p-3 rounded-xl bg-[#CAF0F8]/70 dark:bg-sky-950/60 border border-[#90E0EF] dark:border-sky-800 text-xs text-[#0F172A] dark:text-[#90E0EF] flex items-center justify-between">
+              <span>{shipmentActionNotice}</span>
+              <button
+                type="button"
+                onClick={() => setShipmentActionNotice(null)}
+                className="font-bold underline text-[11px]"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
+
+          <div className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+            {filteredHistoryShipments.map((s) => {
+              const pendingAdj = paymentAdjustments.find(
+                (adj) =>
+                  (adj.shipmentId === s.id || adj.trackingNumber === s.trackingNumber) &&
+                  adj.status === 'pending_customer_approval' &&
+                  adj.differenceNgn > 0
+              );
+              const canCancel =
+                s.status === 'booked' ||
+                s.status === 'pickup_scheduled' ||
+                s.status === 'quote_ready' ||
+                s.status === 'draft';
+              const canArchive = (s.status === 'delivered' || s.status === 'cancelled') && !s.isArchived;
+
+              return (
+              <div
+                key={s.id}
+                className="py-4 space-y-2.5"
+              >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-mono font-bold text-xs text-[#354B55]">{s.trackingNumber}</span>
-                  <span className="text-xs text-[#6A808C] flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5 text-[#00B4D8]" />
-                    <span>{s.pickupScheduledDate} ({s.pickupScheduledSlot || 'Morning'})</span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-mono font-bold text-sm text-slate-900 dark:text-white">
+                      {s.trackingNumber}
+                    </span>
+                    <StatusPill status={s.status} isOverdue={s.isUpdateOverdue} />
+                    {s.paymentStatus === 'paid' ? (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+                        Paid
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">
+                        Unpaid
+                      </span>
+                    )}
+                    {s.isFragile && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">
+                        Fragile
+                      </span>
+                    )}
+                    {pendingAdj && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">
+                        Weight Adj Due (+{formatNaira(pendingAdj.differenceNgn)})
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    Booked: {s.createdAt.slice(0, 10)}
                   </span>
                 </div>
 
-                {/* 4-step visible pickup tracker */}
-                <div className="grid grid-cols-4 gap-2 text-center text-xs">
-                  <div className="p-2 rounded-lg bg-[#CAF0F8] border border-[#90E0EF] font-bold text-[#008EA8]">
-                    1. Requested
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                  <div>
+                    <span className="text-slate-500 text-[11px]">Destination:</span>
+                    <div className="font-semibold text-slate-900 dark:text-white">
+                      {s.destinationCountry} ({s.destinationCity})
+                    </div>
                   </div>
-                  <div className="p-2 rounded-lg bg-[#CAF0F8] border border-[#90E0EF] font-bold text-[#008EA8]">
-                    2. Assigned
+                  <div>
+                    <span className="text-slate-500 text-[11px]">Billable Weight:</span>
+                    <div className="font-semibold text-slate-900 dark:text-white font-mono">
+                      {s.quote.chargeableWeightKg} kg
+                      {s.carrierDivisorUsed ? ` (÷${s.carrierDivisorUsed})` : ''}
+                    </div>
                   </div>
-                  <div className="p-2 rounded-lg bg-[#F5FBFD] border border-[#DCEFF3] text-[#6A808C]">
-                    3. En Route
-                  </div>
-                  <div className="p-2 rounded-lg bg-[#F5FBFD] border border-[#DCEFF3] text-[#6A808C]">
-                    4. Picked Up
+                  <div>
+                    <span className="text-slate-500 text-[11px]">Final / Quoted Charge:</span>
+                    <div className="font-bold text-[#008EA8] dark:text-[#90E0EF] font-mono">
+                      {formatNaira(s.quote.totalAmount)}
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-[#6A808C] pt-2 border-t border-[#DCEFF3]">
-                  <div className="flex items-center gap-1.5 truncate">
-                    <MapPin className="w-3.5 h-3.5 text-[#00B4D8] shrink-0" />
-                    <span className="truncate">{s.pickupAddress || s.senderAddress}</span>
+                {(s.dhlTrackingNumber ||
+                  shipmentCredits.some((c) => c.sourceShipmentId === s.id)) && (
+                  <div className="flex flex-wrap items-center gap-3 text-[11px] bg-[#F8FAFC] dark:bg-slate-900/50 border border-[#E2E8F0] dark:border-slate-700 rounded-lg px-3 py-1.5">
+                    {s.dhlTrackingNumber && (
+                      <span className="font-semibold text-[#111827] dark:text-slate-200 tabular-nums">
+                        DHL Waybill: <span className="font-mono text-[#008EA8] dark:text-[#90E0EF]">{s.dhlTrackingNumber}</span>
+                      </span>
+                    )}
+                    {shipmentCredits
+                      .filter((c) => c.sourceShipmentId === s.id)
+                      .map((crd) => (
+                        <span key={crd.id} className="font-semibold text-emerald-700 dark:text-emerald-400 tabular-nums">
+                          Overpayment Credit Issued: {formatNaira(crd.originalCreditNgn)} ({crd.creditRef})
+                        </span>
+                      ))}
                   </div>
-                  <button
-                    onClick={() => handleTrackShipment(s.trackingNumber)}
-                    className="text-[#00B4D8] font-bold hover:underline shrink-0 ml-2"
-                  >
-                    Track Progress
-                  </button>
+                )}
+
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                  <span className="text-slate-500 dark:text-slate-400 text-[11px]">
+                    {s.quote.serviceName} &bull; {getCustomerFriendlyStatusLabel(s.status)}
+                  </span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    {(s.paymentStatus !== 'paid' || pendingAdj) && (
+                      <button
+                        type="button"
+                        onClick={() => handleOpenQuoteRetrieval(s.trackingNumber)}
+                        className="text-xs font-bold text-amber-700 dark:text-amber-400 hover:underline"
+                      >
+                        {pendingAdj ? 'Pay Weight Adjustment' : 'Review Quote & Pay'}
+                      </button>
+                    )}
+                    {canCancel && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const res = cancelShipment(s.id);
+                          setShipmentActionNotice(res.message);
+                        }}
+                        className="text-rose-700 dark:text-rose-400 font-semibold flex items-center gap-1 hover:underline"
+                      >
+                        <XCircle className="w-3.5 h-3.5" />
+                        <span>Cancel Shipment</span>
+                      </button>
+                    )}
+                    {canArchive && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const res = archiveShipment(s.id);
+                          setShipmentActionNotice(res.message);
+                        }}
+                        className="text-slate-600 dark:text-slate-300 font-semibold flex items-center gap-1 hover:underline"
+                      >
+                        <Archive className="w-3.5 h-3.5" />
+                        <span>Archive</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleTrackShipment(s.trackingNumber)}
+                      className="text-[#008EA8] dark:text-[#90E0EF] font-semibold flex items-center gap-1 hover:underline"
+                    >
+                      <span>View Tracking Timeline</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
 
-            {upcomingPickups.length === 0 && (
-              <div className="text-center py-8 text-xs text-[#6A808C]">
-                No pending doorstep pickups scheduled.
+            {filteredHistoryShipments.length === 0 && (
+              <div className="py-8 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                <p>No shipment records match this filter.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setBookingSourceQuoteRef('');
+                    setActiveCustomerTab('book');
+                  }}
+                  className="px-4 py-2 bg-[#00B4D8] text-white rounded-xl font-bold"
+                >
+                  Book Your First Shipment
+                </button>
               </div>
             )}
           </div>
         </div>
       )}
 
-      {/* 4. Book Shipment Wizard */}
+      {/* History Hub: My Quotes, My Pickups, Payments & Receipts */}
+      {activeCustomerTab === 'my_quotes' && (
+        <MyQuotesView
+          onContinueQuoteToBooking={(quoteRef) => {
+            setBookingSourceQuoteRef(quoteRef);
+            setActiveCustomerTab('book');
+          }}
+          onReviewShipmentQuote={(trackingNumber) => handleOpenQuoteRetrieval(trackingNumber)}
+        />
+      )}
+      {activeCustomerTab === 'my_pickups' && (
+        <MyPickupsView onBookPickup={() => setBookPickupModalOpen(true)} />
+      )}
+      {activeCustomerTab === 'payments_receipts' && (
+        <PaymentsReceiptsView
+          onOpenWeightAdjustment={(trackingNumber) => handleOpenQuoteRetrieval(trackingNumber)}
+        />
+      )}
+
+      {/* Quote Retrieval View */}
+      {activeCustomerTab === 'retrieve_quote' && (
+        <QuoteRetrievalView
+          initialCode={initialQuoteCode}
+          onOpenSupportWithShipment={() => setActiveCustomerTab('tickets')}
+          onTrackShipment={(tracking) => handleTrackShipment(tracking)}
+          onConvertQuoteToBooking={(quoteRef) => {
+            setBookingSourceQuoteRef(quoteRef);
+            setActiveCustomerTab('book');
+          }}
+        />
+      )}
+
+      {/* Booking Wizard */}
       {activeCustomerTab === 'book' && (
         <BookingWizard
+          initialQuoteRef={bookingSourceQuoteRef || undefined}
           onComplete={(trackingNum) => {
-            setSelectedShipmentForTracking(trackingNum);
-            setActiveCustomerTab('tracking');
+            setBookingSourceQuoteRef('');
+            handleTrackShipment(trackingNum);
           }}
           onOpenPolicy={onOpenPolicy}
           onOpenKyc={onOpenKyc}
         />
       )}
 
-      {/* 5. Tracking View */}
+      {/* Tracking View */}
       {activeCustomerTab === 'tracking' && (
         <TrackingView
-          onOpenSupportWithShipment={handleOpenSupport}
-          onOpenReviewForShipment={handleOpenReview}
+          onOpenSupportWithShipment={() => setActiveCustomerTab('tickets')}
+          onOpenReviewForShipment={(shipmentId) => {
+            setInitialReviewShipmentId(shipmentId);
+            setActiveCustomerTab('reviews');
+          }}
+          onOpenQuoteRetrieval={(code) => handleOpenQuoteRetrieval(code)}
         />
       )}
 
-      {/* 5b. Multi-Recipient Batch Consignments View */}
-      {(activeCustomerTab === 'batch' || activeCustomerTab === 'commercial') && (
-        <div className="space-y-6">
-          <BusinessPortal />
-        </div>
+      {/* Wallet */}
+      {activeCustomerTab === 'wallet' && <MyWalletView />}
+
+      {/* Profile & Settings */}
+      {activeCustomerTab === 'profile' && (
+        <CustomerProfileView
+          onOpenKyc={onOpenKyc}
+          onOpenAddressBook={() => setActiveCustomerTab('address_book')}
+        />
       )}
 
-      {/* 6. Reviews View */}
+      {/* Tickets & Support */}
+      {activeCustomerTab === 'tickets' && <CustomerTicketsView />}
+
+      {/* Address Book */}
+      {activeCustomerTab === 'address_book' && (
+        <AddressBookView onSelectAddressForBooking={() => setActiveCustomerTab('book')} />
+      )}
+
+      {/* Templates */}
+      {activeCustomerTab === 'templates' && (
+        <ShipmentTemplatesView onUseTemplate={() => setActiveCustomerTab('book')} />
+      )}
+
+      {/* Reviews & Rewards */}
       {activeCustomerTab === 'reviews' && (
         <CustomerReviewsView initialShipmentId={initialReviewShipmentId} />
       )}
-
-      {/* 7. Cashback View */}
       {activeCustomerTab === 'cashback' && <RewardsView onOpenPolicy={onOpenPolicy} />}
 
-      {/* 8. Referrals View */}
-      {activeCustomerTab === 'referrals' && <RewardsView onOpenPolicy={onOpenPolicy} />}
-
-      {/* 9. Support View */}
-      {activeCustomerTab === 'support' && (
-        <SupportView initialShipmentTracking={initialSupportTracking} />
-      )}
-
-      {/* SwiftShare Pilot Consignments Tab */}
-      {activeCustomerTab === 'travel_carry' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DCEFF3]">
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-base font-serif-display font-bold text-[#354B55]">
-                  SwiftShare Pilot Consignments
-                </h2>
-                <span className="text-[10px] bg-[#CAF0F8] text-[#008EA8] font-bold px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
-                  Pilot Feature
-                </span>
-              </div>
-              <p className="text-xs text-[#6A808C] mt-0.5">
-                Peer traveller-assisted delivery with mandatory tamper seals, physical inspection, and delivery escrow payout.
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                setRole('visitor');
-                setActivePublicNav('swift-share');
-              }}
-              className="px-4 py-2 bg-[#00B4D8] text-white rounded-xl text-xs font-bold hover:bg-[#009BB8] transition-all flex items-center justify-center gap-1.5 shadow-sm shrink-0"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Book SwiftShare Request</span>
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {travelCarryRequests.length === 0 ? (
-              <div className="text-center py-10 space-y-2">
-                <Plane className="w-8 h-8 text-[#6A808C] mx-auto opacity-50" />
-                <p className="text-xs text-[#6A808C]">No SwiftShare requests booked yet.</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-[#DCEFF3]">
-                {travelCarryRequests.map((req) => (
-                  <div key={req.id} className="py-4 space-y-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-xs text-[#354B55]">
-                          {req.requestReference}
-                        </span>
-                        <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-[#CAF0F8] text-[#008EA8] border border-[#90E0EF]">
-                          {req.category}
-                        </span>
-                        <span className="text-[11px] font-medium text-[#6A808C]">
-                          {req.status.replace(/_/g, ' ')}
-                        </span>
-                      </div>
-                      <span className="text-xs font-mono font-bold text-[#00B4D8]">
-                        Escrow: {formatNaira(req.travellerPayoutNgn)}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs bg-[#F5FBFD] p-3 rounded-xl border border-[#DCEFF3]">
-                      <div>
-                        <span className="text-[#6A808C] text-[11px] block">Route:</span>
-                        <span className="font-semibold text-[#354B55]">{req.originCity} → {req.destinationCity}, {req.destinationCountry}</span>
-                      </div>
-                      <div>
-                        <span className="text-[#6A808C] text-[11px] block">Tamper Seal Ref:</span>
-                        <span className="font-mono font-bold text-[#354B55]">{req.sealReferenceNumber || 'Pending counter intake'}</span>
-                      </div>
-                      <div>
-                        <span className="text-[#6A808C] text-[11px] block">Traveller Payout Escrow:</span>
-                        <span className="font-semibold text-[#354B55]">{formatNaira(req.travellerPayoutNgn)} (held until recipient confirms)</span>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end gap-2 pt-1">
-                      <button
-                        onClick={() => {
-                          setRole('visitor');
-                          setActivePublicNav('swift-share');
-                        }}
-                        className="px-3 py-1.5 border border-[#DCEFF3] rounded-lg text-xs font-semibold text-[#354B55] hover:bg-[#CAF0F8]/50 transition-colors"
-                      >
-                        Open Pilot Operations Portal
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 10. Profile & Compliance View */}
-      {activeCustomerTab === 'profile' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 shadow-xs max-w-xl mx-auto space-y-5 text-xs">
-          <div className="border-b border-[#DCEFF3] pb-3">
-            <h2 className="text-base font-serif-display font-bold text-[#354B55]">
-              Account Profile &amp; Verification
-            </h2>
-            <p className="text-[#6A808C] mt-0.5">
-              Consignor details for international export manifests and documentation.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex justify-between py-2 border-b border-[#DCEFF3]">
-              <span className="text-[#6A808C]">Legal Name:</span>
-              <span className="font-semibold text-[#354B55]">{currentCustomer.name}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-[#DCEFF3]">
-              <span className="text-[#6A808C]">Email Address:</span>
-              <span className="font-semibold text-[#354B55]">{currentCustomer.email}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-[#DCEFF3]">
-              <span className="text-[#6A808C]">Phone Number:</span>
-              <span className="font-semibold text-[#354B55]">{currentCustomer.phone}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-[#DCEFF3]">
-              <span className="text-[#6A808C]">Account Type:</span>
-              <span className="font-bold text-[#008EA8] capitalize">{currentCustomer.customerType} Account</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-[#DCEFF3]">
-              <span className="text-[#6A808C]">KYC Verification:</span>
-              <span className="font-bold capitalize text-[#008EA8]">{currentCustomer.kycStatus}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-[#DCEFF3]">
-              <span className="text-[#6A808C]">Referral Code:</span>
-              <span className="font-mono font-bold text-[#00B4D8]">{currentCustomer.referralCode}</span>
-            </div>
-          </div>
-
-          {/* Statutory Verification & KYC Section */}
-          <div className="mt-4 p-4 rounded-xl border border-[#DCEFF3] bg-[#F5FAF6] space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#008EA8] flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-[#00B4D8]" />
-                <span>Statutory Identity Verification (KYC)</span>
-              </span>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full capitalize ${
-                currentCustomer.kycStatus === 'verified'
-                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                  : currentCustomer.kycStatus === 'failed'
-                  ? 'bg-red-50 text-red-700 border border-red-200'
-                  : 'bg-[#CAF0F8] text-[#008EA8] border border-[#90E0EF]'
-              }`}>
-                {currentCustomer.kycStatus.replace(/_/g, ' ')}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700">
-              <div>
-                <span className="text-slate-500 block text-[11px]">Verification Method</span>
-                <span className="font-semibold text-slate-900">
-                  {currentCustomer.kycVerificationMethod
-                    ? currentCustomer.kycVerificationMethod.toUpperCase()
-                    : currentCustomer.kycIdType || 'Government ID'}
-                </span>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-[11px]">Masked Identity Reference</span>
-                <span className="font-mono font-bold text-slate-900">
-                  {currentCustomer.kycMaskedId || '*******8492'}
-                </span>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-[11px]">Verification Date</span>
-                <span className="text-slate-900">
-                  {currentCustomer.kycVerifiedAt?.slice(0, 10) || currentCustomer.kycSubmittedAt?.slice(0, 10) || '2026-09-14'}
-                </span>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-[11px]">Re-Verification Status</span>
-                <span className="text-emerald-700 font-semibold">Up-to-Date (Valid for NCAA Cargo)</span>
-              </div>
-            </div>
-
-            {currentCustomer.kycLastResult && (
-              <p className="text-[11px] text-slate-600 bg-white p-2 rounded border border-slate-200">
-                Note: {currentCustomer.kycLastResult}
-              </p>
-            )}
-
-            <div className="flex flex-wrap gap-2 pt-1 border-t border-[#DDEEF2]">
-              <button
-                type="button"
-                onClick={onOpenKyc}
-                className="flex-1 py-2 bg-[#00B4D8] hover:bg-[#009BB8] text-white rounded-lg text-xs font-bold transition-colors shadow-xs"
-              >
-                Update / Re-verify Identity
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  alert(`A secure data correction request ticket has been submitted to Swiftvero Compliance Bureau for account ${currentCustomer.id}. A verification officer will review your request.`);
-                }}
-                className="px-3 py-2 border border-slate-300 hover:bg-white text-slate-700 rounded-lg text-xs font-semibold transition-colors"
-              >
-                Request Profile Correction
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 11. Address Book Tab */}
-      {activeCustomerTab === 'address_book' && (
-        <AddressBookView
-          onSelectAddressForBooking={() => {
-            setActiveCustomerTab('book');
-          }}
-        />
-      )}
-
-      {/* 12. Templates Tab */}
-      {activeCustomerTab === 'templates' && (
-        <ShipmentTemplatesView
-          onUseTemplate={() => {
-            setActiveCustomerTab('book');
-          }}
-        />
-      )}
-
-      {/* 13. Claims Tab */}
+      {/* Claims, Team & Notifications */}
       {activeCustomerTab === 'claims' && <SupportClaimsView />}
-
-      {/* 14. Business Team & Roles Tab */}
       {activeCustomerTab === 'team' && <BusinessTeamView />}
-
-      {/* 15. Notifications Center Tab */}
       {activeCustomerTab === 'notifications' && <CustomerNotificationsView />}
 
-      {/* Repeat Shipment Confirmation Modal */}
-      {repeatModalShipment && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 space-y-5 border border-[#DCEFF3] shadow-2xl text-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-[#DCEFF3]">
-              <div className="flex items-center gap-2">
-                <RotateCcw className="w-4 h-4 text-[#00B4D8]" />
-                <h3 className="text-sm font-bold text-[#354B55]">Confirm Repeat Shipment Details</h3>
-              </div>
-              <button
-                onClick={() => setRepeatModalShipment(null)}
-                className="p-1 rounded-md text-[#6A808C] hover:text-[#354B55]"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-3 bg-[#CAF0F8]/50 border border-[#90E0EF] rounded-xl text-[#354B55] text-[11px] leading-relaxed">
-              <strong className="text-[#008EA8]">Repeat Booking Safeguard:</strong> Carrier customs regulations require you to verify that recipient contact details, package contents, and declared value remain current before booking.
-            </div>
-
-            <div className="bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl p-4 space-y-2.5">
-              <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                <span className="text-[#6A808C]">Original Consignment:</span>
-                <span className="font-mono font-bold text-[#354B55]">{repeatModalShipment.trackingNumber}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                <span className="text-[#6A808C]">Destination:</span>
-                <span className="font-semibold text-[#354B55]">
-                  {repeatModalShipment.destinationCity}, {repeatModalShipment.destinationCountry}
-                </span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                <span className="text-[#6A808C]">Recipient Name:</span>
-                <span className="font-medium text-[#354B55]">{repeatModalShipment.recipientName}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                <span className="text-[#6A808C]">Package Category:</span>
-                <span className="font-medium capitalize text-[#354B55]">
-                  {repeatModalShipment.category || repeatModalShipment.contentsDescription || 'Export Goods'}
-                </span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                <span className="text-[#6A808C]">Chargeable Weight:</span>
-                <span className="font-mono font-bold text-[#354B55]">{repeatModalShipment.quote.chargeableWeightKg} kg</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                <span className="text-[#6A808C]">Declared Value:</span>
-                <span className="font-mono font-bold text-[#00B4D8]">
-                  {formatNaira(
-                    repeatModalShipment.declaredValueNgn ||
-                    repeatModalShipment.items?.[0]?.declaredValue ||
-                    repeatModalShipment.quote.totalAmount
-                  )}
-                </span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-[#6A808C]">Service Speed:</span>
-                <span className="font-semibold text-[#354B55]">
-                  {repeatModalShipment.quote.serviceTier === 'priority' ? 'Priority Air Express (2–3 Days)' : 'Standard Air Courier (4–6 Days)'}
-                </span>
-              </div>
-            </div>
-
-            <div className="pt-2 border-t border-[#DCEFF3] flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setRepeatModalShipment(null)}
-                className="px-4 py-2 border border-[#DCEFF3] rounded-xl text-[#6A808C] hover:bg-[#F5FBFD]"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setRepeatShipmentData(repeatModalShipment);
-                  setRepeatModalShipment(null);
-                  setActiveCustomerTab('book');
-                }}
-                className="px-5 py-2 bg-[#00B4D8] text-white rounded-xl font-bold hover:bg-[#009BB8] shadow-sm flex items-center gap-1.5"
-              >
-                <span>Confirm &amp; Populate Booking</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* Shipment Protection Settings Modal (Admin / Assessor) */}
-      <ShipmentProtectionSettingsModal
-        isOpen={protectionSettingsOpen}
-        onClose={() => setProtectionSettingsOpen(false)}
-        config={protectionConfig}
-        onSaveConfig={(updated, reason) => {
-          updateProtectionConfig(updated, reason || 'Adjusted protection underwriting configuration via portal');
+      <BookPickupModal
+        isOpen={bookPickupModalOpen}
+        onClose={() => setBookPickupModalOpen(false)}
+        onOpenPolicy={onOpenPolicy}
+        onSuccess={(trackingNum) => {
+          if (trackingNum) handleTrackShipment(trackingNum);
         }}
       />
 
-      {/* Shipment Protection Certificate Modal */}
-      <ProtectionCertificateModal
-        isOpen={certificateModalOpen}
-        onClose={() => setCertificateModalOpen(false)}
-        certificate={selectedCert}
-      />
+      {/* Mobile Bottom Navigation Bar (5 Destinations: Home, Shipments, New, Wallet, Profile) */}
+      <nav
+        aria-label="Mobile Navigation"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-lg px-3 py-1.5 flex items-center justify-around"
+      >
+        <button
+          type="button"
+          onClick={() => setActiveCustomerTab('overview')}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all ${
+            activeCustomerTab === 'overview'
+              ? 'text-[#00B4D8] font-bold'
+              : 'text-slate-500 dark:text-slate-400'
+          }`}
+        >
+          <Home className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">Home</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveCustomerTab('my_shipments')}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all ${
+            activeCustomerTab === 'my_shipments' || activeCustomerTab === 'tracking'
+              ? 'text-[#00B4D8] font-bold'
+              : 'text-slate-500 dark:text-slate-400'
+          }`}
+        >
+          <Package className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">Shipments</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveCustomerTab('book')}
+          className="flex flex-col items-center -mt-5 focus:outline-hidden"
+          aria-label="New Shipment"
+        >
+          <div className="w-12 h-12 rounded-full bg-[#00B4D8] text-white flex items-center justify-center shadow-md shadow-[#00B4D8]/30 hover:bg-[#009BB8] active:scale-95 transition-all">
+            <Plus className="w-6 h-6 stroke-[2.5]" />
+          </div>
+          <span className="text-[10px] font-bold text-[#008EA8] dark:text-[#90E0EF] mt-0.5">
+            New
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveCustomerTab('wallet')}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all ${
+            activeCustomerTab === 'wallet'
+              ? 'text-[#00B4D8] font-bold'
+              : 'text-slate-500 dark:text-slate-400'
+          }`}
+        >
+          <Wallet className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">Wallet</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveCustomerTab('profile')}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all ${
+            activeCustomerTab === 'profile'
+              ? 'text-[#00B4D8] font-bold'
+              : 'text-slate-500 dark:text-slate-400'
+          }`}
+        >
+          <User className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">Profile</span>
+        </button>
+      </nav>
     </div>
   );
 };

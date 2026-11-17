@@ -204,18 +204,18 @@ export const FaqPage: React.FC<FaqPageProps> = ({
   }).filter(Boolean) as FaqCategory[];
 
   return (
-    <div className="bg-[#F5FBFD] min-h-screen py-10 sm:py-14">
+    <div className="bg-[#F8FAFC] min-h-screen py-10 sm:py-14 text-[#1F2937]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-10">
         {/* Header Hero */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CAF0F8] border border-[#90E0EF] text-xs font-semibold text-[#00B4D8]">
-            <HelpCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CAF0F8] border border-[#90E0EF] text-[12px] font-medium text-[#0F172A]">
+            <HelpCircle className="w-3.5 h-3.5 text-[#00B4D8]" />
             <span>Help Center &amp; Frequently Asked Questions</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif-display font-medium text-[#354B55] tracking-tight">
+          <h1 className="sv-h1">
             Transparent Answers, Zero Guesswork
           </h1>
-          <p className="text-sm text-[#6A808C] max-w-xl mx-auto leading-relaxed">
+          <p className="sv-body text-[#4B5563] max-w-xl mx-auto">
             Everything you need to know about international air shipping from Nigeria, free doorstep
             pickups, itemized quotes, and our SwiftShare pilot.
           </p>
@@ -223,18 +223,19 @@ export const FaqPage: React.FC<FaqPageProps> = ({
           {/* Search Bar */}
           <div className="pt-4 max-w-lg mx-auto">
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6A808C]" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4B5563]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search questions (e.g. pickup, volumetric weight, SwiftShare, escrow)..."
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] placeholder:text-[#6A808C] focus:outline-hidden focus:border-[#00B4D8] focus:ring-1 focus:ring-[#00B4D8] shadow-xs"
+                className="sv-input w-full min-h-[46px] pl-10 pr-16 py-2.5 bg-white border border-[#CBD5E1] rounded-[10px] text-[14px] text-[#111827] placeholder:text-slate-400 shadow-xs"
               />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#6A808C] hover:text-[#354B55]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[12px] font-semibold text-[#4B5563] hover:text-[#111827] cursor-pointer"
                 >
                   Clear
                 </button>
@@ -244,13 +245,14 @@ export const FaqPage: React.FC<FaqPageProps> = ({
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           <button
+            type="button"
             onClick={() => setActiveTab('all')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all shrink-0 ${
+            className={`min-h-[38px] px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all shrink-0 cursor-pointer ${
               activeTab === 'all'
                 ? 'bg-[#00B4D8] text-white shadow-xs'
-                : 'bg-white border border-[#DCEFF3] text-[#6A808C] hover:border-[#90E0EF] hover:text-[#354B55]'
+                : 'bg-white border border-[#CBD5E1] text-[#1F2937] hover:border-[#00B4D8]'
             }`}
           >
             All Questions
@@ -260,12 +262,13 @@ export const FaqPage: React.FC<FaqPageProps> = ({
             const isActive = activeTab === cat.id;
             return (
               <button
+                type="button"
                 key={cat.id}
                 onClick={() => setActiveTab(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all shrink-0 flex items-center gap-1.5 ${
+                className={`min-h-[38px] px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
                   isActive
                     ? 'bg-[#00B4D8] text-white shadow-xs'
-                    : 'bg-white border border-[#DCEFF3] text-[#6A808C] hover:border-[#90E0EF] hover:text-[#354B55]'
+                    : 'bg-white border border-[#CBD5E1] text-[#1F2937] hover:border-[#00B4D8]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -277,18 +280,19 @@ export const FaqPage: React.FC<FaqPageProps> = ({
 
         {/* Categories & Accordions */}
         {filteredCategories.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#DCEFF3] p-10 text-center space-y-3">
-            <HelpCircle className="w-8 h-8 text-[#6A808C] mx-auto opacity-50" />
-            <h3 className="text-sm font-semibold text-[#354B55]">No matching questions found</h3>
-            <p className="text-xs text-[#6A808C]">
+          <div className="sv-card p-10 text-center space-y-3">
+            <HelpCircle className="w-8 h-8 text-[#4B5563] mx-auto opacity-60" />
+            <h3 className="sv-h3">No matching questions found</h3>
+            <p className="sv-body text-[#4B5563]">
               Try searching with different terms, or reach out directly to our customer support team.
             </p>
             <button
+              type="button"
               onClick={() => {
                 setSearchQuery('');
                 setActiveTab('all');
               }}
-              className="text-xs text-[#00B4D8] font-semibold hover:underline"
+              className="text-[14px] text-[#0096C7] font-bold underline underline-offset-4 cursor-pointer"
             >
               Reset filters
             </button>
@@ -299,48 +303,47 @@ export const FaqPage: React.FC<FaqPageProps> = ({
               const Icon = category.icon;
               return (
                 <div key={category.id} className="space-y-3">
-                  <div className="flex items-center gap-2.5 px-1">
-                    <div className="w-7 h-7 rounded-lg bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center">
+                  <div className="flex items-center gap-3 px-1">
+                    <div className="w-8 h-8 rounded-[10px] bg-[#CAF0F8] border border-[#90E0EF] text-[#00B4D8] flex items-center justify-center shrink-0">
                       <Icon className="w-4 h-4" />
                     </div>
                     <div>
-                      <h2 className="text-base font-serif-display font-medium text-[#354B55]">
-                        {category.name}
-                      </h2>
-                      <p className="text-[11px] text-[#6A808C]">{category.description}</p>
+                      <h2 className="sv-h3">{category.name}</h2>
+                      <p className="sv-label">{category.description}</p>
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-2xl border border-[#DCEFF3] divide-y divide-[#DCEFF3] overflow-hidden shadow-xs">
+                  <div className="sv-card divide-y divide-[#E2E8F0] overflow-hidden">
                     {category.items.map((item) => {
                       const isOpen = !!openItems[item.q];
                       return (
                         <div key={item.q} className="transition-colors">
                           <button
+                            type="button"
                             onClick={() => toggleItem(item.q)}
-                            className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-4 hover:bg-[#F5FBFD] transition-colors focus:outline-hidden"
+                            className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-4 hover:bg-[#F8FAFC] transition-colors focus:outline-none cursor-pointer"
                             aria-expanded={isOpen}
                           >
-                            <div className="space-y-1 pr-2">
-                              <span className="text-xs sm:text-sm font-semibold text-[#354B55] block leading-snug">
+                            <div className="space-y-1.5 pr-2">
+                              <span className="text-[14px] sm:text-[15px] font-bold text-[#111827] block leading-snug">
                                 {item.q}
                               </span>
                               {item.tag && (
-                                <span className="inline-block text-[10px] font-medium text-[#00B4D8] bg-[#CAF0F8] px-2 py-0.5 rounded-full border border-[#90E0EF]">
+                                <span className="inline-block text-[12px] font-medium text-[#0F172A] bg-[#CAF0F8] px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
                                   {item.tag}
                                 </span>
                               )}
                             </div>
-                            <div className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center shrink-0 mt-0.5">
+                            <div className="w-8 h-8 rounded-full bg-[#CAF0F8] text-[#0F172A] flex items-center justify-center shrink-0 mt-0.5">
                               {isOpen ? (
-                                <ChevronUp className="w-3.5 h-3.5" />
+                                <ChevronUp className="w-4 h-4 text-[#00B4D8]" />
                               ) : (
-                                <ChevronDown className="w-3.5 h-3.5" />
+                                <ChevronDown className="w-4 h-4 text-[#00B4D8]" />
                               )}
                             </div>
                           </button>
                           {isOpen && (
-                            <div className="px-4 sm:px-5 pb-5 pt-1 text-xs text-[#6A808C] leading-relaxed border-t border-[#DCEFF3]/40 bg-[#F5FBFD]/40">
+                            <div className="px-4 sm:px-5 pb-5 pt-3 text-[14px] text-[#1F2937] leading-[1.5] border-t border-[#E2E8F0] bg-[#F8FAFC]">
                               <p>{item.a}</p>
                             </div>
                           )}
@@ -355,56 +358,59 @@ export const FaqPage: React.FC<FaqPageProps> = ({
         )}
 
         {/* SwiftShare Banner Callout */}
-        <div className="bg-[#CAF0F8] rounded-2xl border border-[#90E0EF] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="bg-[#CAF0F8] rounded-[12px] border border-[#90E0EF] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 text-[#0F172A]">
           <div className="space-y-1.5 max-w-lg">
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#00B4D8] uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 text-[12px] font-bold text-[#0F172A] uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-[#00B4D8]" />
               <span>Pilot Program</span>
             </div>
-            <h3 className="text-base sm:text-lg font-serif-display font-medium text-[#354B55]">
+            <h3 className="sv-h2 text-[#0F172A]">
               Curious about SwiftShare traveller-assisted delivery?
             </h3>
-            <p className="text-xs text-[#6A808C] leading-relaxed">
+            <p className="sv-body text-[#0F172A]/85">
               Explore how tamper-evident seal serials, KYC verification, and delivery escrow payout
               keep peer delivery structured, secure, and compliant.
             </p>
           </div>
           <button
+            type="button"
             onClick={navigateToShare}
-            className="px-4 py-2.5 bg-[#00B4D8] hover:opacity-95 text-white text-xs font-semibold rounded-xl transition-opacity whitespace-nowrap shrink-0 flex items-center justify-center gap-2 shadow-xs"
+            className="sv-btn-primary min-h-[44px] px-6 py-2.5 rounded-full whitespace-nowrap shrink-0 flex items-center justify-center gap-2 shadow-xs cursor-pointer"
           >
             <span>Explore SwiftShare</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Still have questions? Help card */}
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 text-center space-y-4 shadow-xs">
-          <div className="w-10 h-10 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center mx-auto">
+        <div className="sv-card p-6 sm:p-8 text-center space-y-4">
+          <div className="w-11 h-11 rounded-full bg-[#CAF0F8] border border-[#90E0EF] text-[#00B4D8] flex items-center justify-center mx-auto">
             <MessageSquare className="w-5 h-5" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-base font-serif-display font-medium text-[#354B55]">
+            <h3 className="sv-h2">
               Still have questions about shipping with Swiftvero?
             </h3>
-            <p className="text-xs text-[#6A808C] max-w-md mx-auto">
+            <p className="sv-body text-[#4B5563] max-w-md mx-auto">
               Our Nigerian logistics support specialists are ready to help via official WhatsApp,
               phone, or direct support ticket.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
+              type="button"
               onClick={onOpenContact}
-              className="px-4 py-2 bg-white border border-[#DCEFF3] text-[#354B55] hover:bg-[#F5FBFD] text-xs font-semibold rounded-xl transition-colors"
+              className="min-h-[44px] px-6 py-2.5 bg-white border border-[#CBD5E1] text-[#111827] hover:border-[#00B4D8] text-[14px] font-bold rounded-full transition-colors cursor-pointer"
             >
               Contact Support Desk
             </button>
             <button
+              type="button"
               onClick={onOpenQuote}
-              className="px-4 py-2 bg-[#00B4D8] hover:opacity-95 text-white text-xs font-semibold rounded-xl transition-opacity flex items-center gap-1.5 shadow-xs"
+              className="sv-btn-primary min-h-[44px] px-6 py-2.5 rounded-full flex items-center gap-2 shadow-xs cursor-pointer"
             >
               <span>Calculate Shipping Quote</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>

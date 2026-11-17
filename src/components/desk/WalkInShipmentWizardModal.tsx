@@ -254,9 +254,9 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
         {
           id: 'evt_1',
           timestamp: new Date().toISOString().replace('T', ' ').slice(0, 16),
-          stage: 'Walk-In Consignment Received at Branch Counter',
+          stage: 'Walk-In Shipment Received at Branch Counter',
           location: currentBranch.name,
-          description: `Consignment accepted, physically inspected, and sealed by Desk Admin ${currentStaffUser?.name || 'Chioma Eze'}.`,
+          description: `Shipment accepted, physically inspected, and sealed by Desk Admin ${currentStaffUser?.name || 'Chioma Eze'}.`,
         },
       ],
       createdAt: new Date().toISOString(),
@@ -317,7 +317,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
               <Package className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#253B45]">Create Walk-in Consignment</h3>
+              <h3 className="text-base font-bold text-[#253B45]">Create Walk-in Shipment</h3>
               <p className="text-[11px] text-[#637984]">
                 Counter intake at {currentBranch.name} · Step {step} of 8
               </p>
@@ -366,7 +366,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
               <div>
                 <h4 className="text-sm font-bold text-[#253B45]">Step 1: Customer Identification</h4>
                 <p className="text-xs text-[#637984]">
-                  Select an existing registered customer or enter quick details for a walk-in consignor.
+                  Select an existing registered customer or enter quick details for a walk-in sender.
                 </p>
               </div>
 
@@ -450,7 +450,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
                   {selectedCustomer && (
                     <div className="p-3.5 border border-[#DDEEF2] rounded-xl bg-white flex items-center justify-between">
                       <div>
-                        <span className="text-[10px] text-[#637984] block font-semibold">Selected Consignor:</span>
+                        <span className="text-[10px] text-[#637984] block font-semibold">Selected Sender:</span>
                         <span className="font-bold text-sm text-[#253B45]">{selectedCustomer.name}</span>
                         <span className="block text-xs text-[#637984] font-mono">{selectedCustomer.phone} · ID: {selectedCustomer.id}</span>
                       </div>
@@ -546,7 +546,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
               {/* Sender Details */}
               <div className="p-4 border border-[#DDEEF2] rounded-xl bg-[#F7FCFD] space-y-3">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#00B4D8] block">
-                  Sender (Consignor)
+                  Sender (Sender)
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
@@ -573,7 +573,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
               {/* Receiver Details */}
               <div className="p-4 border border-[#DDEEF2] rounded-xl bg-white space-y-3 shadow-2xs">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#00B4D8] block">
-                  Recipient (Consignee)
+                  Recipient (Receiver)
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
@@ -908,7 +908,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
                     className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
                   />
                   <span>
-                    Consignor has accepted the Swiftvero Protection Terms &amp; Conditions (v2.1).
+                    Sender has accepted the Swiftvero Protection Terms &amp; Conditions (v2.1).
                   </span>
                 </label>
               </div>
@@ -951,7 +951,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
 
                   <div className="space-y-1.5 text-xs text-[#637984]">
                     <div className="font-bold text-[#253B45]">
-                      Consignment Package Contents Verified
+                      Shipment Package Contents Verified
                     </div>
                     <p className="text-[11px] leading-relaxed">
                       Provisions (Indomie, Peak Milk, Titus Mackerel), native clothing, electronics &amp; accessories inspected.
@@ -982,7 +982,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
                       onChange={(e) => setProhibitedGoodsChecked(e.target.checked)}
                       className="rounded text-[#00B4D8] focus:ring-[#00B4D8]"
                     />
-                    <span>Consignor has confirmed goods contain zero prohibited dangerous chemicals</span>
+                    <span>Sender has confirmed goods contain zero prohibited dangerous chemicals</span>
                   </label>
                 </div>
               </div>
@@ -1151,7 +1151,7 @@ export const WalkInShipmentWizardModal: React.FC<WalkInShipmentWizardModalProps>
               className="px-6 py-2 bg-[#00B4D8] hover:bg-[#009BB8] text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 hover:scale-102"
             >
               <Printer className="w-4 h-4" />
-              <span>Issue Consignment &amp; Print Waybill</span>
+              <span>Issue Shipment &amp; Print Waybill</span>
             </button>
           )}
         </div>

@@ -233,26 +233,26 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12">
       {/* Pilot Concept & Demo Mode Ribbon */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-[#CAF0F8] border border-[#90E0EF] rounded-xl text-xs text-[#354B55]">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#CAF0F8] border border-[#90E0EF] rounded-[12px] text-[13px] text-[#0F172A]">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#00B4D8] animate-pulse" />
-          <span className="font-semibold text-[#00B4D8]">Pilot concept · Availability depends on route approval</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-[#00B4D8] animate-pulse" />
+          <span className="font-semibold">Pilot concept · Availability depends on route approval</span>
         </div>
-        <div className="font-mono text-[11px] font-semibold text-[#00B4D8] bg-white px-2.5 py-0.5 rounded border border-[#90E0EF]">
+        <div className="text-[12px] font-semibold text-[#0F172A] bg-white px-3 py-1 rounded-full border border-[#90E0EF] tabular-nums">
           DEMO MODE · No real shipment, payment, or verification is performed
         </div>
       </div>
 
       {/* Hero Header */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-[#00B4D8] bg-[#CAF0F8] border border-[#90E0EF]">
-          <Luggage className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold text-[#0F172A] bg-[#CAF0F8] border border-[#90E0EF]">
+          <Luggage className="w-3.5 h-3.5 text-[#00B4D8]" />
           <span>Traveller-Assisted Logistics</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-serif-display font-medium text-[#354B55] tracking-tight">
+        <h1 className="sv-h1">
           SwiftShare.
         </h1>
-        <p className="text-base text-[#6A808C] leading-relaxed">
+        <p className="sv-body text-[#4B5563] text-[15px] leading-relaxed">
           A simpler way to arrange delivery for eligible items through verified, traveller-assisted routes.
           Inspected at our counter, sealed with tamper-evident serials, and carried by vetted international passengers.
         </p>
@@ -265,23 +265,23 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
               const el = document.getElementById('swiftshare-workflow');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-5 py-2.5 bg-[#00B4D8] text-white rounded-lg text-xs font-semibold hover:opacity-95 transition-opacity flex items-center gap-2 shadow-xs"
+            className="sv-btn-primary px-6 py-2.5 rounded-full flex items-center gap-2 shadow-xs cursor-pointer"
           >
             <span>Start a Delivery Request</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
           <button
             onClick={() => {
               const el = document.getElementById('how-swiftshare-works');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-4 py-2.5 bg-white border border-[#DCEFF3] text-[#354B55] hover:bg-[#F5FBFD] rounded-lg text-xs font-medium transition-colors"
+            className="px-5 py-2.5 bg-white border border-[#CBD5E1] text-[#111827] hover:bg-[#F8FAFC] rounded-full text-[14px] font-semibold transition-colors cursor-pointer"
           >
             How It Works
           </button>
           <button
             onClick={() => setActiveTab('carrier_interest')}
-            className="px-4 py-2.5 bg-white border border-[#DCEFF3] text-[#00B4D8] hover:bg-[#CAF0F8] rounded-lg text-xs font-medium transition-colors"
+            className="px-5 py-2.5 bg-white border border-[#90E0EF] text-[#0F172A] hover:bg-[#CAF0F8] rounded-full text-[14px] font-semibold transition-colors cursor-pointer"
           >
             Carry Items as a Traveller
           </button>
@@ -291,10 +291,10 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
       {/* Three Categories Showcase */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-serif-display font-medium text-[#354B55]">
+          <h2 className="sv-h2">
             Permitted Item Categories
           </h2>
-          <span className="text-xs text-[#6A808C]">2 active · 1 under review</span>
+          <span className="sv-label">2 active · 1 under review</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -307,29 +307,29 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                 el?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className={`p-6 bg-white rounded-2xl border transition-all cursor-pointer space-y-3 ${
+            className={`sv-card p-6 transition-all cursor-pointer space-y-3 ${
               category === 'clothing'
-                ? 'border-[#00B4D8] shadow-sm ring-1 ring-[#00B4D8]'
-                : 'border-[#DCEFF3] hover:border-[#90E0EF]'
+                ? 'border-[#00B4D8] shadow-sm ring-2 ring-[#90E0EF]/60'
+                : 'hover:border-[#00B4D8]/60'
             }`}
           >
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-xl bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-[10px] bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center">
                 <Shirt className="w-5 h-5" />
               </div>
-              <span className="text-[11px] font-semibold text-[#00B4D8] bg-[#CAF0F8] px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
+              <span className="text-[12px] font-semibold text-[#0F172A] bg-[#CAF0F8] px-3 py-0.5 rounded-full border border-[#90E0EF]">
                 Open for Requests
               </span>
             </div>
-            <h3 className="text-base font-serif-display font-medium text-[#354B55]">
+            <h3 className="sv-h3">
               Clothing &amp; Outfits
             </h3>
-            <p className="text-xs text-[#6A808C] leading-relaxed">
+            <p className="sv-body text-[#4B5563]">
               Dresses, shirts, trousers, suits, traditional outfits (Aso-Oke, Agbada), and tailored uniforms.
             </p>
-            <div className="pt-2 border-t border-[#DCEFF3] text-[11px] text-[#6A808C] space-y-1">
+            <div className="pt-2 border-t border-[#E2E8F0] sv-label space-y-1">
               <p>
-                <strong className="text-[#354B55]">Inspection Requirement:</strong> Items must be accurately described and available for full inspection before sealing.
+                <strong className="text-[#111827]">Inspection Requirement:</strong> Items must be accurately described and available for full inspection before sealing.
               </p>
             </div>
           </div>
@@ -343,52 +343,52 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                 el?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className={`p-6 bg-white rounded-2xl border transition-all cursor-pointer space-y-3 ${
+            className={`sv-card p-6 transition-all cursor-pointer space-y-3 ${
               category === 'documents'
-                ? 'border-[#00B4D8] shadow-sm ring-1 ring-[#00B4D8]'
-                : 'border-[#DCEFF3] hover:border-[#90E0EF]'
+                ? 'border-[#00B4D8] shadow-sm ring-2 ring-[#90E0EF]/60'
+                : 'hover:border-[#00B4D8]/60'
             }`}
           >
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-xl bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-[10px] bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center">
                 <FileText className="w-5 h-5" />
               </div>
-              <span className="text-[11px] font-semibold text-[#00B4D8] bg-[#CAF0F8] px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
+              <span className="text-[12px] font-semibold text-[#0F172A] bg-[#CAF0F8] px-3 py-0.5 rounded-full border border-[#90E0EF]">
                 Open for Requests
               </span>
             </div>
-            <h3 className="text-base font-serif-display font-medium text-[#354B55]">
+            <h3 className="sv-h3">
               Business Documents
             </h3>
-            <p className="text-xs text-[#6A808C] leading-relaxed">
+            <p className="sv-body text-[#4B5563]">
               Commercial paperwork, transcripts, certificates, contracts, and company agreements.
             </p>
-            <div className="pt-2 border-t border-[#DCEFF3] text-[11px] text-[#6A808C] space-y-1">
+            <div className="pt-2 border-t border-[#E2E8F0] sv-label space-y-1">
               <p>
-                <strong className="text-[#354B55]">Exclusion Notice:</strong> Passports, identity documents, and confidential legal or medical records require separate, explicit approval and are not accepted through this flow yet.
+                <strong className="text-[#111827]">Exclusion Notice:</strong> Passports, identity documents, and confidential legal or medical records require separate, explicit approval and are not accepted through this flow yet.
               </p>
             </div>
           </div>
 
           {/* 3. Hair & Wigs (Strictly Under Review / Non-Bookable) */}
-          <div className="p-6 bg-[#F5FBFD] rounded-2xl border border-dashed border-[#90E0EF] space-y-3 opacity-90 relative">
+          <div className="p-6 bg-[#F8FAFC] rounded-[12px] border border-dashed border-[#90E0EF] space-y-3 opacity-90 relative">
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-xl bg-[#CAF0F8] text-[#6A808C] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-[#6A808C]" />
+              <div className="w-10 h-10 rounded-[10px] bg-[#CAF0F8] text-[#4B5563] flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-[#4B5563]" />
               </div>
-              <span className="text-[11px] font-semibold text-[#6A808C] bg-white px-2.5 py-0.5 rounded-full border border-[#DCEFF3]">
+              <span className="text-[12px] font-semibold text-[#4B5563] bg-white px-3 py-0.5 rounded-full border border-[#E2E8F0]">
                 Under Review
               </span>
             </div>
-            <h3 className="text-base font-serif-display font-medium text-[#354B55]">
+            <h3 className="sv-h3">
               Hair &amp; Wigs
             </h3>
-            <p className="text-xs text-[#6A808C] leading-relaxed">
+            <p className="sv-body text-[#4B5563]">
               Raw hair bundles, human hair extensions, wigs, and braided custom hairpieces.
             </p>
-            <div className="pt-2 border-t border-[#DCEFF3] text-[11px] text-[#6A808C] space-y-1">
+            <div className="pt-2 border-t border-[#E2E8F0] sv-label space-y-1">
               <p>
-                <strong className="text-[#354B55]">Not Available:</strong> Under review · Not yet available for booking. (Requires separate airline customs handling pilot clearance).
+                <strong className="text-[#111827]">Not Available:</strong> Under review · Not yet available for booking. (Requires separate airline customs handling pilot clearance).
               </p>
             </div>
           </div>
@@ -396,40 +396,40 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
       </div>
 
       {/* Navigation Tabs between Request, Lifecycle Tracker, and Carrier Interest */}
-      <div id="swiftshare-workflow" className="border-b border-[#DCEFF3] flex gap-4 text-xs font-semibold">
+      <div id="swiftshare-workflow" className="border-b border-[#E2E8F0] flex flex-wrap gap-5 text-[14px] font-semibold">
         <button
           onClick={() => setActiveTab('request')}
-          className={`pb-3 px-1 border-b-2 transition-colors ${
+          className={`pb-3 px-1 border-b-2 transition-colors cursor-pointer ${
             activeTab === 'request'
               ? 'border-[#00B4D8] text-[#00B4D8]'
-              : 'border-transparent text-[#6A808C] hover:text-[#354B55]'
+              : 'border-transparent text-[#4B5563] hover:text-[#111827]'
           }`}
         >
-          1. Consignment Request Wizard
+          1. Shipment Request Wizard
         </button>
         <button
           onClick={() => setActiveTab('tracking')}
-          className={`pb-3 px-1 border-b-2 transition-colors flex items-center gap-1.5 ${
+          className={`pb-3 px-1 border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
             activeTab === 'tracking'
               ? 'border-[#00B4D8] text-[#00B4D8]'
-              : 'border-transparent text-[#6A808C] hover:text-[#354B55]'
+              : 'border-transparent text-[#4B5563] hover:text-[#111827]'
           }`}
         >
           <span>2. Inspection &amp; Escrow Tracker</span>
-          <span className="text-[10px] bg-[#CAF0F8] text-[#00B4D8] px-1.5 py-0.2 rounded-full">
+          <span className="text-[11px] bg-[#CAF0F8] text-[#0F172A] px-2 py-0.5 rounded-full tabular-nums">
             {swiftShareRequests.length}
           </span>
         </button>
         <button
           onClick={() => setActiveTab('carrier_interest')}
-          className={`pb-3 px-1 border-b-2 transition-colors flex items-center gap-1.5 ${
+          className={`pb-3 px-1 border-b-2 transition-colors flex items-center gap-1.5 cursor-pointer ${
             activeTab === 'carrier_interest'
               ? 'border-[#00B4D8] text-[#00B4D8]'
-              : 'border-transparent text-[#6A808C] hover:text-[#354B55]'
+              : 'border-transparent text-[#4B5563] hover:text-[#111827]'
           }`}
         >
           <span>3. Interested in Carrying Items?</span>
-          <span className="text-[10px] bg-slate-100 text-[#6A808C] px-1.5 py-0.2 rounded-full">
+          <span className="text-[11px] bg-[#F1F5F9] text-[#4B5563] px-2 py-0.5 rounded-full">
             Traveller Form
           </span>
         </button>
@@ -437,21 +437,21 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
       {/* VIEW 1: THE THREE-STEP REQUEST FLOW */}
       {activeTab === 'request' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 shadow-xs space-y-8">
+        <div className="sv-card p-6 sm:p-8 space-y-8">
           {/* Flow Stepper Indicator */}
-          <div className="flex items-center justify-between border-b border-[#DCEFF3] pb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E2E8F0] pb-4">
             <div>
-              <span className="text-xs font-semibold text-[#00B4D8] uppercase tracking-wider">
+              <span className="text-[12px] font-bold text-[#00B4D8] uppercase tracking-wider tabular-nums">
                 Step 0{step} of 03
               </span>
-              <h2 className="text-xl font-serif-display font-medium text-[#354B55] mt-0.5">
+              <h2 className="sv-h2 mt-0.5">
                 {step === 1 && 'Delivery Details & Item Specifics'}
                 {step === 2 && 'Review Summary & Declarations'}
                 {step === 3 && 'Request Recorded in Pilot Preview'}
               </h2>
             </div>
-            <div className="text-xs text-[#6A808C]">
-              Category: <strong className="text-[#354B55] capitalize">{category}</strong>
+            <div className="sv-label">
+              Category: <strong className="text-[#111827] capitalize">{category}</strong>
             </div>
           </div>
 
@@ -460,19 +460,19 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
             <form onSubmit={handleStep1Submit} className="space-y-6">
               {/* Route Selector */}
               <div className="space-y-3">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
+                <h3 className="sv-h3">
                   Origin &amp; Destination Route
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-[#354B55] mb-1">
+                    <label className="sv-label block mb-1.5">
                       Origin Country &amp; City (Nigeria)
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       <select
                         value={originCountry}
                         onChange={(e) => setOriginCountry(e.target.value)}
-                        className="px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white text-[#354B55]"
+                        className="sv-input px-3 py-2 text-[13px] font-medium"
                       >
                         <option value="Nigeria">Nigeria</option>
                         <option value="Ghana">Ghana (Unapproved)</option>
@@ -480,7 +480,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                       <select
                         value={originCity}
                         onChange={(e) => setOriginCity(e.target.value)}
-                        className="px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white text-[#354B55]"
+                        className="sv-input px-3 py-2 text-[13px] font-medium"
                       >
                         <option value="Lagos">Lagos</option>
                         <option value="Abuja">Abuja</option>
@@ -490,14 +490,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#354B55] mb-1">
+                    <label className="sv-label block mb-1.5">
                       Destination Country &amp; City
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       <select
                         value={destinationCountry}
                         onChange={(e) => setDestinationCountry(e.target.value)}
-                        className="px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white text-[#354B55]"
+                        className="sv-input px-3 py-2 text-[13px] font-medium"
                       >
                         <option value="United Kingdom">United Kingdom</option>
                         <option value="United States">United States</option>
@@ -508,7 +508,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                       <select
                         value={destinationCity}
                         onChange={(e) => setDestinationCity(e.target.value)}
-                        className="px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white text-[#354B55]"
+                        className="sv-input px-3 py-2 text-[13px] font-medium"
                       >
                         {destinationCountry === 'United Kingdom' && (
                           <>
@@ -545,7 +545,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
                 {/* Route Approval Status Notice */}
                 {!routeIsApproved ? (
-                  <div className="p-4 bg-[#FEE2E2] border border-[#FECACA] rounded-xl text-xs text-[#991B1B] space-y-1">
+                  <div className="p-4 bg-[#FEE2E2] border border-[#FECACA] rounded-[12px] text-[13px] text-[#991B1B] space-y-1">
                     <div className="flex items-center gap-2 font-bold">
                       <AlertTriangle className="w-4 h-4 shrink-0" />
                       <span>This route is not currently available for booking.</span>
@@ -557,14 +557,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     <button
                       type="button"
                       onClick={() => setActiveTab('carrier_interest')}
-                      className="mt-2 text-xs font-semibold underline text-[#991B1B]"
+                      className="mt-2 text-[13px] font-semibold underline text-[#991B1B] cursor-pointer"
                     >
                       Register Route Interest →
                     </button>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-2 text-xs text-[#00B4D8] bg-[#CAF0F8] p-2.5 rounded-lg border border-[#90E0EF]">
-                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <div className="flex items-center gap-2 text-[13px] font-medium text-[#0F172A] bg-[#CAF0F8] p-3 rounded-[8px] border border-[#90E0EF]">
+                    <CheckCircle2 className="w-4 h-4 text-[#00B4D8] shrink-0" />
                     <span>Approved Pilot Corridor: {originCity}, Nigeria → {destinationCity}, {destinationCountry}</span>
                   </div>
                 )}
@@ -572,26 +572,26 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
               {/* Preferred Date */}
               <div>
-                <label className="block text-xs font-medium text-[#354B55] mb-1">
+                <label className="sv-label block mb-1.5">
                   Preferred Handover / Dispatch Date
                 </label>
                 <input
                   type="date"
                   value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
-                  className="px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white text-[#354B55]"
+                  className="sv-input px-3 py-2 text-[14px] tabular-nums"
                   required
                 />
               </div>
 
               {/* Category-Specific Fields */}
               {category === 'clothing' && (
-                <div className="space-y-4 pt-2 border-t border-[#DCEFF3]">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
-                    Clothing Consignment Details
+                <div className="space-y-4 pt-3 border-t border-[#E2E8F0]">
+                  <h3 className="sv-h3">
+                    Clothing Shipment Details
                   </h3>
                   <div>
-                    <label className="block text-xs font-medium text-[#354B55] mb-1">
+                    <label className="sv-label block mb-1.5">
                       Item Description
                     </label>
                     <input
@@ -599,14 +599,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                       value={itemDescription}
                       onChange={(e) => setItemDescription(e.target.value)}
                       placeholder="Describe items in full detail..."
-                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                      className="sv-input w-full px-3 py-2 text-[14px]"
                       required
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-[#354B55] mb-1">
+                      <label className="sv-label block mb-1.5">
                         Piece Count
                       </label>
                       <input
@@ -615,12 +615,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                         max={10}
                         value={pieceCount}
                         onChange={(e) => setPieceCount(Number(e.target.value))}
-                        className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                        className="sv-input w-full px-3 py-2 text-[14px] tabular-nums"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#354B55] mb-1">
+                      <label className="sv-label block mb-1.5">
                         Estimated Weight (kg)
                       </label>
                       <input
@@ -630,12 +630,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                         max="10"
                         value={weightKg}
                         onChange={(e) => setWeightKg(Number(e.target.value))}
-                        className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                        className="sv-input w-full px-3 py-2 text-[14px] tabular-nums"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#354B55] mb-1">
+                      <label className="sv-label block mb-1.5">
                         Declared Value (₦ NGN)
                       </label>
                       <input
@@ -643,26 +643,26 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                         min={1000}
                         value={declaredValueNgn}
                         onChange={(e) => setDeclaredValueNgn(Number(e.target.value))}
-                        className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                        className="sv-input w-full px-3 py-2 text-[14px] tabular-nums"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 p-3 bg-[#F5FBFD] border border-[#90E0EF] rounded-lg text-xs text-[#354B55]">
+                  <div className="flex items-center gap-2 p-3 bg-[#F8FAFC] border border-[#90E0EF] rounded-[8px] text-[13px] text-[#0F172A]">
                     <Camera className="w-4 h-4 text-[#00B4D8] shrink-0" />
-                    <span>Photo provided for pre-inspection audit: <strong>Verified by consignor</strong></span>
+                    <span>Photo provided for pre-inspection audit: <strong>Verified by sender</strong></span>
                   </div>
                 </div>
               )}
 
               {category === 'documents' && (
-                <div className="space-y-4 pt-2 border-t border-[#DCEFF3]">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
-                    Document Consignment Details
+                <div className="space-y-4 pt-3 border-t border-[#E2E8F0]">
+                  <h3 className="sv-h3">
+                    Document Shipment Details
                   </h3>
                   <div>
-                    <label className="block text-xs font-medium text-[#354B55] mb-1">
+                    <label className="sv-label block mb-1.5">
                       Document Type
                     </label>
                     <input
@@ -670,14 +670,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                       value={documentType}
                       onChange={(e) => setDocumentType(e.target.value)}
                       placeholder="e.g. Commercial Contracts, Academic Transcripts..."
-                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                      className="sv-input w-full px-3 py-2 text-[14px]"
                       required
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-[#354B55] mb-1">
+                      <label className="sv-label block mb-1.5">
                         Pack / Envelope Count
                       </label>
                       <input
@@ -686,12 +686,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                         max={3}
                         value={packCount}
                         onChange={(e) => setPackCount(Number(e.target.value))}
-                        className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                        className="sv-input w-full px-3 py-2 text-[14px] tabular-nums"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-[#354B55] mb-1">
+                      <label className="sv-label block mb-1.5">
                         Declared Value (₦ NGN)
                       </label>
                       <input
@@ -699,14 +699,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                         min={1000}
                         value={declaredValueNgn}
                         onChange={(e) => setDeclaredValueNgn(Number(e.target.value))}
-                        className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                        className="sv-input w-full px-3 py-2 text-[14px] tabular-nums"
                         required
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#354B55] mb-1">
+                    <label className="sv-label block mb-1.5">
                       Handling Notes (Optional)
                     </label>
                     <input
@@ -714,71 +714,71 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                       value={handlingNotes}
                       onChange={(e) => setHandlingNotes(e.target.value)}
                       placeholder="e.g. Keep flat, water-resistant pouch requested"
-                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs"
+                      className="sv-input w-full px-3 py-2 text-[14px]"
                     />
                   </div>
                 </div>
               )}
 
               {/* Sender & Recipient Contacts */}
-              <div className="space-y-4 pt-2 border-t border-[#DCEFF3]">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
+              <div className="space-y-4 pt-3 border-t border-[#E2E8F0]">
+                <h3 className="sv-h3">
                   Contact Information
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-4 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl space-y-3">
-                    <span className="text-xs font-semibold text-[#00B4D8] block">Sender (Consignor)</span>
+                  <div className="p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] space-y-3">
+                    <span className="text-[13px] font-bold text-[#0F172A] block">Sender Details</span>
                     <div>
-                      <label className="block text-[11px] text-[#6A808C] mb-1">Full Legal Name</label>
+                      <label className="sv-label block mb-1">Full Legal Name</label>
                       <input
                         type="text"
                         value={senderName}
                         onChange={(e) => setSenderName(e.target.value)}
-                        className="w-full px-3 py-1.5 border border-[#DCEFF3] rounded text-xs bg-white"
+                        className="sv-input w-full px-3 py-2 text-[13px] bg-white"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] text-[#6A808C] mb-1">Phone Number</label>
+                      <label className="sv-label block mb-1">Phone Number</label>
                       <input
                         type="text"
                         value={senderPhone}
                         onChange={(e) => setSenderPhone(e.target.value)}
-                        className="w-full px-3 py-1.5 border border-[#DCEFF3] rounded text-xs bg-white"
+                        className="sv-input w-full px-3 py-2 text-[13px] bg-white tabular-nums"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] text-[#6A808C] mb-1">Email Address</label>
+                      <label className="sv-label block mb-1">Email Address</label>
                       <input
                         type="email"
                         value={senderEmail}
                         onChange={(e) => setSenderEmail(e.target.value)}
-                        className="w-full px-3 py-1.5 border border-[#DCEFF3] rounded text-xs bg-white"
+                        className="sv-input w-full px-3 py-2 text-[13px] bg-white"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="p-4 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl space-y-3">
-                    <span className="text-xs font-semibold text-[#00B4D8] block">Recipient (Handover Contact)</span>
+                  <div className="p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] space-y-3">
+                    <span className="text-[13px] font-bold text-[#0F172A] block">Recipient (Handover Contact)</span>
                     <div>
-                      <label className="block text-[11px] text-[#6A808C] mb-1">Full Recipient Name</label>
+                      <label className="sv-label block mb-1">Full Recipient Name</label>
                       <input
                         type="text"
                         value={recipientName}
                         onChange={(e) => setRecipientName(e.target.value)}
-                        className="w-full px-3 py-1.5 border border-[#DCEFF3] rounded text-xs bg-white"
+                        className="sv-input w-full px-3 py-2 text-[13px] bg-white"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] text-[#6A808C] mb-1">Recipient Phone</label>
+                      <label className="sv-label block mb-1">Recipient Phone</label>
                       <input
                         type="text"
                         value={recipientPhone}
                         onChange={(e) => setRecipientPhone(e.target.value)}
-                        className="w-full px-3 py-1.5 border border-[#DCEFF3] rounded text-xs bg-white"
+                        className="sv-input w-full px-3 py-2 text-[13px] bg-white tabular-nums"
                         required
                       />
                     </div>
@@ -787,14 +787,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-end pt-4 border-t border-[#DCEFF3]">
+              <div className="flex items-center justify-end pt-4 border-t border-[#E2E8F0]">
                 <button
                   type="submit"
                   disabled={!routeIsApproved}
-                  className="px-6 py-2.5 bg-[#00B4D8] text-white rounded-lg text-xs font-semibold hover:opacity-95 disabled:opacity-40 disabled:cursor-not-allowed transition-opacity flex items-center gap-2 shadow-xs"
+                  className="sv-btn-primary px-6 py-2.5 rounded-full disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 shadow-xs cursor-pointer"
                 >
                   <span>Proceed to Review &amp; Declarations</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </form>
@@ -805,43 +805,43 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
             <form onSubmit={handleStep2Submit} className="space-y-6">
               {/* Review Summary */}
               <div className="space-y-4">
-                <div className="p-4 bg-[#F5FBFD] border border-[#90E0EF] rounded-xl space-y-3 text-xs">
+                <div className="p-4 bg-[#F8FAFC] border border-[#90E0EF] rounded-[12px] space-y-3 text-[13px]">
                   <div className="flex items-center justify-between border-b border-[#90E0EF] pb-2">
-                    <strong className="text-xs text-[#00B4D8] uppercase tracking-wider">
+                    <strong className="text-[12px] text-[#0F172A] uppercase tracking-wider">
                       Request Summary
                     </strong>
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="text-xs font-semibold text-[#00B4D8] hover:underline"
+                      className="text-[13px] font-semibold text-[#0F172A] underline underline-offset-4 hover:text-[#00B4D8] cursor-pointer"
                     >
                       Edit Details
                     </button>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <span className="text-[#6A808C] block">Route:</span>
-                      <strong className="text-[#354B55]">{originCity}, Nigeria → {destinationCity}, {destinationCountry}</strong>
+                      <span className="sv-label block">Route</span>
+                      <strong className="text-[#111827]">{originCity}, Nigeria → {destinationCity}, {destinationCountry}</strong>
                     </div>
                     <div>
-                      <span className="text-[#6A808C] block">Category:</span>
-                      <strong className="text-[#354B55] capitalize">{category}</strong>
+                      <span className="sv-label block">Category</span>
+                      <strong className="text-[#111827] capitalize">{category}</strong>
                     </div>
                     <div>
-                      <span className="text-[#6A808C] block">Preferred Date:</span>
-                      <strong className="text-[#354B55]">{preferredDate}</strong>
+                      <span className="sv-label block">Preferred Date</span>
+                      <strong className="text-[#111827] tabular-nums">{preferredDate}</strong>
                     </div>
                     <div>
-                      <span className="text-[#6A808C] block">Sender:</span>
-                      <strong className="text-[#354B55]">{senderName} ({senderPhone})</strong>
+                      <span className="sv-label block">Sender</span>
+                      <strong className="text-[#111827]">{senderName} ({senderPhone})</strong>
                     </div>
                     <div>
-                      <span className="text-[#6A808C] block">Recipient:</span>
-                      <strong className="text-[#354B55]">{recipientName} ({recipientPhone})</strong>
+                      <span className="sv-label block">Recipient</span>
+                      <strong className="text-[#111827]">{recipientName} ({recipientPhone})</strong>
                     </div>
                     <div>
-                      <span className="text-[#6A808C] block">Declared Value:</span>
-                      <strong className="text-[#00B4D8] font-mono">{formatNaira(declaredValueNgn)}</strong>
+                      <span className="sv-label block">Declared Value</span>
+                      <strong className="text-[#0F172A] tabular-nums">{formatNaira(declaredValueNgn)}</strong>
                     </div>
                   </div>
                 </div>
@@ -849,92 +849,92 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
               {/* Separate Unchecked Confirmations (Mandatory) */}
               <div className="space-y-3 pt-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
+                <h3 className="sv-h3">
                   Required Customer Declarations
                 </h3>
-                <p className="text-[11px] text-[#6A808C]">
+                <p className="sv-label">
                   Every confirmation must be reviewed and affirmatively agreed individually. No boxes are pre-checked.
                 </p>
 
                 {/* 1. Accurate Description */}
-                <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD] transition-colors">
+                <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[8px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC] transition-colors">
                   <input
                     type="checkbox"
                     checked={decAccurateDescription}
                     onChange={(e) => setDecAccurateDescription(e.target.checked)}
-                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
+                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#90E0EF]"
                   />
                   <span>
-                    <strong>Accurate Description &amp; Valuation:</strong> I declare that all item descriptions, quantities, and declared values are truthful and complete. I understand that misdeclaration carries strict legal and regulatory consequences.
+                    <strong className="text-[#111827]">Accurate Description &amp; Valuation:</strong> I declare that all item descriptions, quantities, and declared values are truthful and complete. I understand that misdeclaration carries strict legal and regulatory consequences.
                   </span>
                 </label>
 
                 {/* 2. Ownership / Permission */}
-                <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD] transition-colors">
+                <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[8px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC] transition-colors">
                   <input
                     type="checkbox"
                     checked={decOwnership}
                     onChange={(e) => setDecOwnership(e.target.checked)}
-                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
+                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#90E0EF]"
                   />
                   <span>
-                    <strong>Ownership &amp; Authorization:</strong> I confirm that I legally own the items being dispatched or have documented authorization to send them.
+                    <strong className="text-[#111827]">Ownership &amp; Authorization:</strong> I confirm that I legally own the items being dispatched or have documented authorization to send them.
                   </span>
                 </label>
 
                 {/* 3. 100% Unpacking Inspection Consent */}
-                <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD] transition-colors">
+                <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[8px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC] transition-colors">
                   <input
                     type="checkbox"
                     checked={decInspectionConsent}
                     onChange={(e) => setDecInspectionConsent(e.target.checked)}
-                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
+                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#90E0EF]"
                   />
                   <span>
-                    <strong>Physical Counter Inspection Consent:</strong> I agree that all items will be physically unpacked out of retail packaging, examined, and weighed on calibrated scales at the counter before sealing. Any prohibited or suspicious items will be refused.
+                    <strong className="text-[#111827]">Physical Counter Inspection Consent:</strong> I agree that all items will be physically unpacked out of retail packaging, examined, and weighed on calibrated scales at the counter before sealing. Any prohibited or suspicious items will be refused.
                   </span>
                 </label>
 
                 {/* 4. Customs & Duties */}
-                <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD] transition-colors">
+                <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[8px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC] transition-colors">
                   <input
                     type="checkbox"
                     checked={decCustomsDuties}
                     onChange={(e) => setDecCustomsDuties(e.target.checked)}
-                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
+                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#90E0EF]"
                   />
                   <span>
-                    <strong>Customs &amp; Duties Liability:</strong> I understand that customs, taxes, or destination statutory duties may apply and that duty-free passage is never guaranteed.
+                    <strong className="text-[#111827]">Customs &amp; Duties Liability:</strong> I understand that customs, taxes, or destination statutory duties may apply and that duty-free passage is never guaranteed.
                   </span>
                 </label>
 
                 {/* 5. Non-Confirmation Notice */}
-                <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD] transition-colors">
+                <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[8px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC] transition-colors">
                   <input
                     type="checkbox"
                     checked={decNoGuaranteedConfirmation}
                     onChange={(e) => setDecNoGuaranteedConfirmation(e.target.checked)}
-                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
+                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#90E0EF]"
                   />
                   <span>
-                    <strong>Understanding of Request Stage:</strong> I understand that submitting this request does not yet confirm carrier acceptance, a matched traveller, an exact flight date, or a finalized price.
+                    <strong className="text-[#111827]">Understanding of Request Stage:</strong> I understand that submitting this request does not yet confirm carrier acceptance, a matched traveller, an exact flight date, or a finalized price.
                   </span>
                 </label>
 
                 {/* 6. Terms Agreement */}
-                <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD] transition-colors">
+                <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[8px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC] transition-colors">
                   <input
                     type="checkbox"
                     checked={decTermsAgreement}
                     onChange={(e) => setDecTermsAgreement(e.target.checked)}
-                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#00B4D8]"
+                    className="mt-0.5 rounded text-[#00B4D8] focus:ring-[#90E0EF]"
                   />
                   <span>
                     I agree to the{' '}
                     <button
                       type="button"
                       onClick={() => onOpenPolicy('terms')}
-                      className="text-[#00B4D8] underline font-semibold"
+                      className="text-[#0F172A] underline font-semibold hover:text-[#00B4D8] cursor-pointer"
                     >
                       SwiftShare Operating Terms
                     </button>{' '}
@@ -942,7 +942,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     <button
                       type="button"
                       onClick={() => onOpenPolicy('privacy')}
-                      className="text-[#00B4D8] underline font-semibold"
+                      className="text-[#0F172A] underline font-semibold hover:text-[#00B4D8] cursor-pointer"
                     >
                       Privacy Notice
                     </button>
@@ -951,11 +951,11 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                 </label>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-[#DCEFF3]">
+              <div className="flex items-center justify-between pt-4 border-t border-[#E2E8F0]">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-4 py-2 border border-[#DCEFF3] rounded-lg text-xs font-medium text-[#6A808C] hover:bg-[#F5FBFD]"
+                  className="px-5 py-2.5 border border-[#CBD5E1] rounded-full text-[13px] font-semibold text-[#4B5563] hover:bg-[#F8FAFC] cursor-pointer"
                 >
                   ← Back to Details
                 </button>
@@ -970,9 +970,9 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     !decNoGuaranteedConfirmation ||
                     !decTermsAgreement
                   }
-                  className="px-6 py-2.5 bg-[#00B4D8] text-white rounded-lg text-xs font-semibold hover:opacity-95 disabled:opacity-40 disabled:cursor-not-allowed transition-opacity flex items-center gap-1.5"
+                  className="sv-btn-primary px-6 py-2.5 rounded-full disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 cursor-pointer"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-4 h-4" />
                   <span>Submit Delivery Request</span>
                 </button>
               </div>
@@ -987,23 +987,23 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
               </div>
 
               <div>
-                <h3 className="text-2xl font-serif-display font-medium text-[#354B55]">
+                <h3 className="sv-h2">
                   Request Recorded
                 </h3>
-                <p className="font-mono text-sm font-bold text-[#00B4D8] mt-1">
+                <p className="text-[14px] font-bold text-[#0F172A] mt-1 tabular-nums">
                   Reference: {submittedRef}
                 </p>
               </div>
 
               {/* Required Disclaimers */}
-              <div className="p-4 bg-[#F5FBFD] border border-[#90E0EF] rounded-xl text-left text-xs text-[#354B55] space-y-2">
+              <div className="p-4 bg-[#F8FAFC] border border-[#90E0EF] rounded-[12px] text-left text-[13px] text-[#1F2937] space-y-2">
                 <div className="flex items-start gap-2">
                   <Info className="w-4 h-4 text-[#00B4D8] shrink-0 mt-0.5" />
                   <p className="leading-relaxed">
-                    <strong>Notice:</strong> Your request has been recorded in this preview. This is not a confirmed booking — Swiftvero reviews route eligibility, item acceptance, and availability before a real shipment can proceed.
+                    <strong className="text-[#111827]">Notice:</strong> Your request has been recorded in this preview. This is not a confirmed booking — Swiftvero reviews route eligibility, item acceptance, and availability before a real shipment can proceed.
                   </p>
                 </div>
-                <div className="text-[11px] text-[#6A808C] pt-2 border-t border-[#DCEFF3]">
+                <div className="sv-label pt-2 border-t border-[#E2E8F0]">
                   SwiftShare is a prototype here. Route approval, traveller matching, verification, payment, inspection, and delivery are not live yet. Don't submit sensitive personal information or rely on this demo for a real shipment.
                 </div>
               </div>
@@ -1013,9 +1013,9 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                   onClick={() => {
                     setActiveTab('tracking');
                   }}
-                  className="w-full sm:w-auto px-5 py-2.5 bg-[#00B4D8] text-white rounded-lg text-xs font-semibold hover:opacity-95 transition-opacity flex items-center justify-center gap-1.5"
+                  className="sv-btn-primary w-full sm:w-auto px-6 py-2.5 rounded-full flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-4 h-4" />
                   <span>Inspect Lifecycle &amp; Escrow Tracker</span>
                 </button>
                 <button
@@ -1028,7 +1028,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     setDecNoGuaranteedConfirmation(false);
                     setDecTermsAgreement(false);
                   }}
-                  className="w-full sm:w-auto px-4 py-2.5 border border-[#DCEFF3] rounded-lg text-xs font-medium text-[#6A808C] hover:bg-[#F5FBFD]"
+                  className="w-full sm:w-auto px-5 py-2.5 border border-[#CBD5E1] rounded-full text-[13px] font-semibold text-[#111827] hover:bg-[#F8FAFC] cursor-pointer"
                 >
                   Submit Another Request
                 </button>
@@ -1040,24 +1040,24 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
       {/* VIEW 2: INSPECTION, CUSTODY & ESCROW LIFECYCLE */}
       {activeTab === 'tracking' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 shadow-xs space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DCEFF3] pb-4">
+        <div className="sv-card p-6 sm:p-8 space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E8F0] pb-4">
             <div>
-              <h2 className="text-xl font-serif-display font-medium text-[#354B55]">
+              <h2 className="sv-h2">
                 Inspection, Custody &amp; Escrow Tracker
               </h2>
-              <p className="text-xs text-[#6A808C] mt-0.5">
+              <p className="sv-label mt-0.5">
                 Full unpacking inspection at counter, tamper-evident barcode seal, and held traveller escrow.
               </p>
             </div>
 
             {/* Selector of requests */}
             <div className="flex items-center gap-2">
-              <span className="text-xs text-[#6A808C]">Consignment:</span>
+              <span className="sv-label">Shipment:</span>
               <select
                 value={activeSelectedRequest.id}
                 onChange={(e) => setSelectedRequestId(e.target.value)}
-                className="px-3 py-1.5 border border-[#DCEFF3] rounded-lg text-xs font-mono font-medium bg-white"
+                className="sv-input px-3 py-2 border border-[#CBD5E1] rounded-[8px] text-[13px] font-semibold bg-white text-[#111827] tabular-nums"
               >
                 {swiftShareRequests.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -1070,10 +1070,10 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
           {/* 5-Step Customer Visible Status Line */}
           <div className="space-y-3">
-            <span className="text-xs font-medium uppercase tracking-wider text-[#6A808C] block">
+            <span className="sv-label block uppercase tracking-wider">
               Customer Status Line
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-center text-[13px]">
               {[
                 { stage: 1, label: 'Submitted', key: 'submitted' },
                 { stage: 2, label: 'Reviewed', key: 'reviewed' },
@@ -1087,18 +1087,18 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                 return (
                   <div
                     key={s.key}
-                    className={`p-3 rounded-xl border transition-all ${
+                    className={`p-3 rounded-[12px] border transition-all ${
                       activeSelectedRequest.status === 'on_hold_safety_review' && s.stage === 2
                         ? 'bg-[#FEE2E2] border-[#FECACA] text-[#991B1B] font-semibold'
                         : isCurrent
-                        ? 'bg-[#CAF0F8] border-[#00B4D8] text-[#00B4D8] font-semibold shadow-xs'
+                        ? 'bg-[#CAF0F8] border-[#00B4D8] text-[#0F172A] font-bold shadow-xs'
                         : isPassed
-                        ? 'bg-[#F5FBFD] border-[#90E0EF] text-[#00B4D8]'
-                        : 'bg-white border-[#DCEFF3] text-[#6A808C]'
+                        ? 'bg-[#F8FAFC] border-[#90E0EF] text-[#0F172A] font-semibold'
+                        : 'bg-white border-[#E2E8F0] text-[#4B5563]'
                     }`}
                   >
-                    <div className="text-[10px] font-mono mb-0.5">Stage 0{s.stage}</div>
-                    <div className="font-medium truncate">{s.label}</div>
+                    <div className="text-[11px] font-semibold opacity-75 mb-0.5 tabular-nums">Stage 0{s.stage}</div>
+                    <div className="truncate">{s.label}</div>
                   </div>
                 );
               })}
@@ -1107,7 +1107,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
           {/* Safety Review Hold Banner if flagged */}
           {activeSelectedRequest.isSafetyHold && (
-            <div className="p-4 bg-[#FEE2E2] border border-[#FECACA] rounded-xl text-xs text-[#991B1B] space-y-2">
+            <div className="p-4 bg-[#FEE2E2] border border-[#FECACA] rounded-[12px] text-[13px] text-[#991B1B] space-y-2">
               <div className="flex items-center gap-2 font-bold">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>On Hold — Safety Review</span>
@@ -1122,112 +1122,112 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
           {/* Behind "Inspected & Sealed" Detailed Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
             {/* Box 1: Physical Inspection & Barcode Seal */}
-            <div className="p-5 bg-white rounded-2xl border border-[#DCEFF3] space-y-4 shadow-xs">
-              <div className="flex items-center justify-between border-b border-[#DCEFF3] pb-2">
+            <div className="sv-card p-5 space-y-4">
+              <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2.5">
                 <div className="flex items-center gap-2">
                   <Scale className="w-4 h-4 text-[#00B4D8]" />
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
+                  <h3 className="sv-h3">
                     Walk-In Counter Inspection
                   </h3>
                 </div>
                 {activeSelectedRequest.inspectedAt ? (
-                  <span className="text-[11px] text-[#00B4D8] bg-[#CAF0F8] px-2 py-0.5 rounded-full border border-[#90E0EF] font-medium">
+                  <span className="text-[12px] font-medium text-[#0F172A] bg-[#CAF0F8] px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
                     Inspection Complete
                   </span>
                 ) : (
-                  <span className="text-[11px] text-[#991B1B] bg-red-50 px-2 py-0.5 rounded-full border border-red-200 font-medium">
+                  <span className="text-[12px] font-medium text-[#991B1B] bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200">
                     Pending Counter Intake
                   </span>
                 )}
               </div>
 
-              <div className="p-4 rounded-xl border border-[#DCEFF3] bg-[#F5FBFD] space-y-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#CAF0F8] border border-[#90E0EF] flex items-center justify-center text-[#00B4D8]">
+              <div className="p-4 rounded-[12px] border border-[#E2E8F0] bg-[#F8FAFC] space-y-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-[8px] bg-[#CAF0F8] border border-[#90E0EF] flex items-center justify-center text-[#00B4D8]">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <h5 className="text-xs font-bold text-[#354B55]">Victoria Island Intake Hub</h5>
-                    <p className="text-[10px] text-[#6A808C]">100% Physical Unpack &amp; Scale Check</p>
+                    <h5 className="text-[13px] font-bold text-[#111827]">Victoria Island Intake Hub</h5>
+                    <p className="sv-label">100% Physical Unpack &amp; Scale Check</p>
                   </div>
                 </div>
-                <p className="text-[11px] text-[#354B55] leading-relaxed">
-                  Both consignor and traveller inspect every article before application of tamper-evident serialized seal.
+                <p className="text-[13px] text-[#1F2937] leading-relaxed">
+                  Both sender and traveller inspect every article before application of tamper-evident serialized seal.
                 </p>
               </div>
 
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Category:</span>
-                  <span className="font-semibold text-[#354B55] capitalize">{activeSelectedRequest.category}</span>
+              <div className="space-y-2 text-[14px]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Category</span>
+                  <span className="font-normal text-[#111827] capitalize">{activeSelectedRequest.category}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Declared Weight:</span>
-                  <span className="font-mono text-[#354B55]">{activeSelectedRequest.weightKg || '0.6'} kg</span>
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Declared Weight</span>
+                  <span className="font-normal text-[#111827] tabular-nums">{activeSelectedRequest.weightKg || '0.6'} kg</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Measured Scale Weight:</span>
-                  <span className="font-mono font-bold text-[#00B4D8]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Measured Scale Weight</span>
+                  <span className="font-bold text-[#0F172A] tabular-nums">
                     {activeSelectedRequest.measuredWeightKg ? `${activeSelectedRequest.measuredWeightKg} kg` : 'Pending intake'}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Tamper-Evident Seal Ref:</span>
-                  <span className="font-mono font-bold text-[#354B55]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Tamper-Evident Seal Ref</span>
+                  <span className="font-semibold text-[#111827] tabular-nums">
                     {activeSelectedRequest.sealReferenceNumber || 'Not sealed yet'}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Unpacked Inspection:</span>
-                  <span className="font-semibold text-[#00B4D8]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Unpacked Inspection</span>
+                  <span className="font-semibold text-[#0F172A]">
                     {activeSelectedRequest.unpackedForInspection ? 'Confirmed (100% Unpacked)' : 'Pending'}
                   </span>
                 </div>
               </div>
 
-              <p className="text-[11px] text-[#6A808C] bg-[#F5FBFD] p-3 rounded-xl border border-[#DCEFF3] italic">
-                “{activeSelectedRequest.inspectionNotes || 'Consignment awaiting in-person counter arrival at Ikeja Hub or Lekki Intake Branch.'}”
+              <p className="sv-label bg-[#F8FAFC] p-3 rounded-[8px] border border-[#E2E8F0] italic">
+                “{activeSelectedRequest.inspectionNotes || 'Shipment awaiting in-person counter arrival at Ikeja Hub or Lekki Intake Branch.'}”
               </p>
             </div>
 
             {/* Box 2: Traveller Custody & Escrow Payment */}
-            <div className="p-5 bg-white rounded-2xl border border-[#DCEFF3] space-y-4 shadow-xs">
-              <div className="flex items-center justify-between border-b border-[#DCEFF3] pb-2">
+            <div className="sv-card p-5 space-y-4">
+              <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2.5">
                 <div className="flex items-center gap-2">
                   <Lock className="w-4 h-4 text-[#00B4D8]" />
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#354B55]">
+                  <h3 className="sv-h3">
                     Custody &amp; Escrow Release
                   </h3>
                 </div>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full border font-medium ${
+                <span className={`text-[12px] px-2.5 py-0.5 rounded-full border font-medium ${
                   activeSelectedRequest.payoutStatus === 'released'
-                    ? 'text-[#00B4D8] bg-[#CAF0F8] border-[#90E0EF]'
+                    ? 'text-[#0F172A] bg-[#CAF0F8] border-[#90E0EF]'
                     : 'text-[#854D0E] bg-amber-50 border-amber-200'
                 }`}>
                   {activeSelectedRequest.payoutStatus === 'released' ? 'Payout Released' : 'Held in Escrow'}
                 </span>
               </div>
 
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Assigned Passenger:</span>
-                  <span className="font-medium text-[#354B55]">
+              <div className="space-y-2 text-[14px]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Assigned Passenger</span>
+                  <span className="font-normal text-[#111827] text-right">
                     {activeSelectedRequest.assignedTravellerName || 'Matching verified passenger in progress'}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Handover Precondition:</span>
-                  <span className="text-[#00B4D8] font-medium">Sealed barcode parcel only</span>
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Handover Precondition</span>
+                  <span className="text-[#0F172A] font-medium">Sealed barcode parcel only</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Held Compensation:</span>
-                  <span className="font-mono font-bold text-[#00B4D8]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Held Compensation</span>
+                  <span className="font-bold text-[#0F172A] tabular-nums">
                     {formatNaira(activeSelectedRequest.travellerPayoutNgn)}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#DCEFF3]">
-                  <span className="text-[#6A808C]">Recipient Confirmation:</span>
-                  <span className="font-medium text-[#354B55]">
+                <div className="flex justify-between py-1.5 border-b border-[#E2E8F0]">
+                  <span className="font-semibold text-[#4B5563]">Recipient Confirmation</span>
+                  <span className="font-normal text-[#111827]">
                     {activeSelectedRequest.deliveryConfirmedByRecipient
                       ? 'Confirmed by Dr. Dayo Adeleke'
                       : 'Pending physical handover'}
@@ -1236,7 +1236,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
               </div>
 
               {/* Escrow Rule Explicit Note */}
-              <div className="p-3 bg-[#CAF0F8] border border-[#90E0EF] rounded-xl text-[11px] text-[#354B55] space-y-1">
+              <div className="p-3 bg-[#CAF0F8] border border-[#90E0EF] rounded-[8px] text-[13px] text-[#0F172A] space-y-1">
                 <strong>Firm Payout Rule:</strong> Payment to the traveller is held and released only once delivery is confirmed by the recipient — never automatically because a status was clicked.
               </div>
 
@@ -1245,9 +1245,9 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                 <div className="pt-2">
                   <button
                     onClick={() => confirmSwiftShareDeliveryAndReleasePayout(activeSelectedRequest.id)}
-                    className="w-full py-2 bg-[#00B4D8] text-white rounded-lg text-xs font-semibold hover:opacity-95 transition-opacity flex items-center justify-center gap-1.5"
+                    className="sv-btn-primary w-full py-2.5 rounded-full flex items-center justify-center gap-1.5 cursor-pointer"
                   >
-                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <CheckCircle2 className="w-4 h-4" />
                     <span>Recipient Confirms Delivery (Release Escrow Payout)</span>
                   </button>
                 </div>
@@ -1256,12 +1256,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
           </div>
 
           {/* Interactive Simulation Controls (For Demo Verification) */}
-          <div className="p-5 bg-[#F5FBFD] border border-[#DCEFF3] rounded-2xl space-y-4 text-xs">
-            <div className="flex items-center justify-between border-b border-[#DCEFF3] pb-2">
-              <span className="font-bold text-[#354B55] uppercase tracking-wider">
+          <div className="p-5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] space-y-4 text-[13px]">
+            <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2">
+              <span className="font-bold text-[#111827] uppercase tracking-wider text-[12px]">
                 SwiftShare Pilot Operations Simulation
               </span>
-              <span className="font-mono text-[10px] text-[#6A808C]">
+              <span className="sv-label">
                 Interactive lifecycle transitions
               </span>
             </div>
@@ -1279,7 +1279,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     isSafetyHold: false,
                   });
                 }}
-                className="px-3 py-1.5 bg-white border border-[#DCEFF3] rounded-lg font-medium text-[#354B55] hover:bg-[#CAF0F8] hover:text-[#00B4D8] transition-colors"
+                className="px-4 py-2 bg-white border border-[#CBD5E1] rounded-full font-semibold text-[#111827] hover:bg-[#CAF0F8] hover:border-[#00B4D8] transition-colors cursor-pointer"
               >
                 Simulate: Counter Inspection &amp; Seal ({intakeSealRef})
               </button>
@@ -1292,7 +1292,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     'If anything looks suspicious, stop and don’t investigate it yourself — this is handled through review, not by the person at the counter or the traveller.'
                   );
                 }}
-                className="px-3 py-1.5 bg-white border border-red-200 text-[#991B1B] rounded-lg font-medium hover:bg-red-50 transition-colors"
+                className="px-4 py-2 bg-white border border-red-200 text-[#991B1B] rounded-full font-semibold hover:bg-red-50 transition-colors cursor-pointer"
               >
                 Simulate: Flag Safety Hold
               </button>
@@ -1305,7 +1305,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     isSafetyHold: false,
                   });
                 }}
-                className="px-3 py-1.5 bg-white border border-[#DCEFF3] rounded-lg font-medium text-[#354B55] hover:bg-[#CAF0F8] transition-colors"
+                className="px-4 py-2 bg-white border border-[#CBD5E1] rounded-full font-semibold text-[#111827] hover:bg-[#CAF0F8] hover:border-[#00B4D8] transition-colors cursor-pointer"
               >
                 Simulate: Sealed Handover to Passenger (In Transit)
               </button>
@@ -1318,7 +1318,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     'Missed Handover Detected: Passenger delayed or flight re-routed. Package remains securely locked at Swiftvero Airport Intake Depot. No accusation of theft — case escalated to operational supervisor.'
                   );
                 }}
-                className="px-3 py-1.5 bg-white border border-amber-300 text-[#854D0E] rounded-lg font-medium hover:bg-amber-50 transition-colors"
+                className="px-4 py-2 bg-white border border-amber-300 text-[#854D0E] rounded-full font-semibold hover:bg-amber-50 transition-colors cursor-pointer"
               >
                 Simulate: Missed Handover Escalation
               </button>
@@ -1329,20 +1329,20 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
       {/* VIEW 3: TRAVELLER INTEREST SECTION */}
       {activeTab === 'carrier_interest' && (
-        <div className="bg-white rounded-2xl border border-[#DCEFF3] p-6 sm:p-8 shadow-xs space-y-6 max-w-2xl mx-auto">
+        <div className="sv-card p-6 sm:p-8 space-y-6 max-w-2xl mx-auto">
           <div>
-            <h2 className="text-2xl font-serif-display font-medium text-[#354B55]">
+            <h2 className="sv-h2">
               Interested in carrying eligible items?
             </h2>
-            <p className="text-xs text-[#6A808C] mt-1 leading-relaxed">
+            <p className="sv-body text-[#4B5563] mt-1">
               Vetted international travellers with spare baggage allowance can offset travel expenses by carrying pre-inspected, tamper-sealed parcels.
             </p>
           </div>
 
           {/* Privacy & Safe Handling Banner */}
-          <div className="p-4 bg-[#F5FBFD] border border-[#90E0EF] rounded-xl text-xs text-[#354B55] space-y-1.5">
-            <strong className="text-[#00B4D8] block">Vetting &amp; Safety Rules for Travellers:</strong>
-            <ul className="list-disc list-inside space-y-1 text-[#6A808C] text-[11px]">
+          <div className="p-4 bg-[#CAF0F8]/70 border border-[#90E0EF] rounded-[12px] text-[13px] text-[#0F172A] space-y-1.5">
+            <strong className="block">Vetting &amp; Safety Rules for Travellers:</strong>
+            <ul className="list-disc list-inside space-y-1 text-[#0F172A]/85 text-[12px]">
               <li>You only ever receive pre-inspected, sealed packages with official Swiftvero tamper-evident serials.</li>
               <li>Never collect passport scans, biometric credentials, or airline login passwords in this prototype.</li>
               <li>Participation requires identity verification through Swiftvero's existing KYC framework and route approval.</li>
@@ -1351,27 +1351,27 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
           </div>
 
           {trSubmitted ? (
-            <div className="p-6 bg-[#CAF0F8] border border-[#90E0EF] rounded-xl text-center space-y-3">
+            <div className="p-6 bg-[#CAF0F8] border border-[#90E0EF] rounded-[12px] text-center space-y-3">
               <CheckCircle2 className="w-10 h-10 text-[#00B4D8] mx-auto" />
-              <h3 className="text-base font-serif-display font-medium text-[#354B55]">
+              <h3 className="sv-h3 text-[#0F172A]">
                 Traveller Interest Registered (Demo Record)
               </h3>
-              <p className="text-xs text-[#6A808C] max-w-md mx-auto">
+              <p className="text-[13px] text-[#0F172A]/85 max-w-md mx-auto">
                 Thank you, {trName}. Your travel route ({trDepCity} → {trDestCity} on {trDate}) has been recorded in this preview. Swiftvero operations reviews route eligibility and KYC clearance before matching.
               </p>
               <button
                 type="button"
                 onClick={() => setTrSubmitted(false)}
-                className="mt-2 text-xs font-semibold text-[#00B4D8] underline"
+                className="mt-2 text-[13px] font-semibold text-[#0F172A] underline underline-offset-4 hover:text-[#00B4D8] cursor-pointer"
               >
                 Register another flight
               </button>
             </div>
           ) : (
-            <form onSubmit={handleTravellerInterestSubmit} className="space-y-4 text-xs">
+            <form onSubmit={handleTravellerInterestSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Your Full Name
                   </label>
                   <input
@@ -1379,12 +1379,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     value={trName}
                     onChange={(e) => setTrName(e.target.value)}
                     placeholder="e.g. Dr. Kelechi Obi"
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Contact Phone / Email
                   </label>
                   <input
@@ -1392,7 +1392,7 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     value={trContact}
                     onChange={(e) => setTrContact(e.target.value)}
                     placeholder="+234 803 ... or email"
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white"
                     required
                   />
                 </div>
@@ -1400,26 +1400,26 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Departure City &amp; Country
                   </label>
                   <input
                     type="text"
                     value={`${trDepCity}, ${trDepCountry}`}
                     onChange={(e) => setTrDepCity(e.target.value)}
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Destination City &amp; Country
                   </label>
                   <input
                     type="text"
                     value={`${trDestCity}, ${trDestCountry}`}
                     onChange={(e) => setTrDestCity(e.target.value)}
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white"
                     required
                   />
                 </div>
@@ -1427,19 +1427,19 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Expected Flight Date
                   </label>
                   <input
                     type="date"
                     value={trDate}
                     onChange={(e) => setTrDate(e.target.value)}
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white tabular-nums"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Spare Capacity (kg)
                   </label>
                   <input
@@ -1448,12 +1448,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     max={15}
                     value={trCapacity}
                     onChange={(e) => setTrCapacity(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white tabular-nums"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-[#354B55] mb-1">
+                  <label className="sv-label block text-[#111827] font-semibold mb-1.5">
                     Flight Booking Ref (Optional)
                   </label>
                   <input
@@ -1461,12 +1461,12 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                     value={trBookingRef}
                     onChange={(e) => setTrBookingRef(e.target.value)}
                     placeholder="e.g. BA-7890 (optional)"
-                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg"
+                    className="sv-input w-full px-3.5 py-2.5 border border-[#CBD5E1] rounded-[8px] text-[14px] text-[#111827] bg-white"
                   />
                 </div>
               </div>
 
-              <label className="flex items-start gap-3 p-3 bg-white border border-[#DCEFF3] rounded-xl text-xs text-[#354B55] cursor-pointer hover:bg-[#F5FBFD]">
+              <label className="flex items-start gap-3 p-3.5 bg-white border border-[#E2E8F0] rounded-[12px] text-[13px] text-[#1F2937] cursor-pointer hover:bg-[#F8FAFC]">
                 <input
                   type="checkbox"
                   checked={trAgreed}
@@ -1475,14 +1475,14 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
                   required
                 />
                 <span>
-                  I understand that participation requires identity verification (KYC), route authorization, and strictly accepting sealed, pre-inspected consignments at the airport hub.
+                  I understand that participation requires identity verification (KYC), route authorization, and strictly accepting sealed, pre-inspected shipments at the airport hub.
                 </span>
               </label>
 
               <button
                 type="submit"
                 disabled={!trAgreed}
-                className="w-full py-2.5 bg-[#00B4D8] text-white rounded-lg text-xs font-semibold hover:opacity-95 disabled:opacity-40 transition-opacity"
+                className="sv-btn-primary w-full py-3 rounded-full disabled:opacity-40 cursor-pointer"
               >
                 Submit Traveller Availability
               </button>
@@ -1490,20 +1490,20 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
           )}
 
           {/* Existing Registered Interests Demo List */}
-          <div className="pt-4 border-t border-[#DCEFF3] space-y-3">
-            <span className="text-xs font-semibold text-[#354B55] block">
+          <div className="pt-4 border-t border-[#E2E8F0] space-y-3">
+            <span className="text-[13px] font-bold text-[#111827] block">
               Sample Traveller Interest Registrations ({travellerInterests.length})
             </span>
             <div className="space-y-2">
               {travellerInterests.map((tint) => (
-                <div key={tint.id} className="p-3 bg-[#F5FBFD] border border-[#DCEFF3] rounded-xl flex items-center justify-between text-xs">
+                <div key={tint.id} className="p-3.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] flex items-center justify-between text-[13px]">
                   <div>
-                    <strong className="text-[#354B55]">{tint.name}</strong>
-                    <p className="text-[11px] text-[#6A808C]">
+                    <strong className="text-[#111827]">{tint.name}</strong>
+                    <p className="sv-label tabular-nums">
                       {tint.departureCity} → {tint.destinationCity} · Flight Date: {tint.expectedTravelDate}
                     </p>
                   </div>
-                  <span className="font-mono text-xs text-[#00B4D8] bg-[#CAF0F8] px-2 py-0.5 rounded border border-[#90E0EF]">
+                  <span className="font-semibold text-[12px] text-[#0F172A] bg-[#CAF0F8] px-3 py-1 rounded-full border border-[#90E0EF] tabular-nums">
                     {tint.approximateSpareCapacityKg} kg spare
                   </span>
                 </div>
@@ -1514,62 +1514,62 @@ export const SwiftSharePage: React.FC<SwiftSharePageProps> = ({ onOpenPolicy, on
       )}
 
       {/* HOW IT WORKS / RULES SECTION */}
-      <div id="how-swiftshare-works" className="bg-[#CAF0F8] border border-[#90E0EF] rounded-2xl p-6 sm:p-8 space-y-6">
+      <div id="how-swiftshare-works" className="bg-[#CAF0F8] border border-[#90E0EF] rounded-[12px] p-6 sm:p-8 space-y-6">
         <div>
-          <h2 className="text-2xl font-serif-display font-medium text-[#354B55]">
+          <h2 className="sv-h2 text-[#0F172A]">
             How SwiftShare Works: 4 Simple Principles
           </h2>
-          <p className="text-xs text-[#6A808C] mt-1">
+          <p className="text-[13px] text-[#0F172A]/80 mt-1">
             Built on Swiftvero’s verified identity, physical counter inspection, and escrow rules.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-          <div className="p-4 bg-white rounded-xl border border-[#90E0EF] space-y-2">
-            <span className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-[13px]">
+          <div className="p-4 bg-white rounded-[12px] border border-[#90E0EF] space-y-2">
+            <span className="w-7 h-7 rounded-full bg-[#CAF0F8] text-[#0F172A] flex items-center justify-center font-bold text-[13px] tabular-nums">
               1
             </span>
-            <strong className="block text-[#354B55]">Accurate Declaration</strong>
-            <p className="text-[#6A808C] leading-relaxed">
-              Consignors declare clothing or documents truthfully. Misdeclaration or concealment results in refusal.
+            <strong className="block text-[#111827]">Accurate Declaration</strong>
+            <p className="sv-label leading-relaxed">
+              Senders declare clothing or documents truthfully. Misdeclaration or concealment results in refusal.
             </p>
           </div>
 
-          <div className="p-4 bg-white rounded-xl border border-[#90E0EF] space-y-2">
-            <span className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs">
+          <div className="p-4 bg-white rounded-[12px] border border-[#90E0EF] space-y-2">
+            <span className="w-7 h-7 rounded-full bg-[#CAF0F8] text-[#0F172A] flex items-center justify-center font-bold text-[13px] tabular-nums">
               2
             </span>
-            <strong className="block text-[#354B55]">100% Unpacked Inspection</strong>
-            <p className="text-[#6A808C] leading-relaxed">
+            <strong className="block text-[#111827]">100% Unpacked Inspection</strong>
+            <p className="sv-label leading-relaxed">
               Items are removed completely from retail boxes and weighed on calibrated scales before a tamper-evident seal is applied.
             </p>
           </div>
 
-          <div className="p-4 bg-white rounded-xl border border-[#90E0EF] space-y-2">
-            <span className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs">
+          <div className="p-4 bg-white rounded-[12px] border border-[#90E0EF] space-y-2">
+            <span className="w-7 h-7 rounded-full bg-[#CAF0F8] text-[#0F172A] flex items-center justify-center font-bold text-[13px] tabular-nums">
               3
             </span>
-            <strong className="block text-[#354B55]">Sealed Handover Only</strong>
-            <p className="text-[#6A808C] leading-relaxed">
+            <strong className="block text-[#111827]">Sealed Handover Only</strong>
+            <p className="sv-label leading-relaxed">
               A vetted passenger only carries pre-sealed barcode parcels with documented certificates. Never open packages.
             </p>
           </div>
 
-          <div className="p-4 bg-white rounded-xl border border-[#90E0EF] space-y-2">
-            <span className="w-6 h-6 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center font-bold text-xs">
+          <div className="p-4 bg-white rounded-[12px] border border-[#90E0EF] space-y-2">
+            <span className="w-7 h-7 rounded-full bg-[#CAF0F8] text-[#0F172A] flex items-center justify-center font-bold text-[13px] tabular-nums">
               4
             </span>
-            <strong className="block text-[#354B55]">Escrow Protection</strong>
-            <p className="text-[#6A808C] leading-relaxed">
+            <strong className="block text-[#111827]">Escrow Protection</strong>
+            <p className="sv-label leading-relaxed">
               Delivery payouts are held in escrow and released strictly after recipient confirmation.
             </p>
           </div>
         </div>
 
         {/* Prototype Legal Disclaimer Box */}
-        <div className="pt-4 border-t border-[#90E0EF] text-[11px] text-[#6A808C] space-y-2">
+        <div className="pt-4 border-t border-[#90E0EF] text-[12px] text-[#0F172A]/85 space-y-2">
           <p>
-            <strong className="text-[#354B55]">Prototype Notice &amp; Terms:</strong> SwiftShare is a prototype feature in this preview. Route approval, traveller matching, counter inspection, and payouts are simulated. No live carrier partnerships or universal insurance is implied. Personal data and flight booking references remain protected.
+            <strong className="text-[#0F172A]">Prototype Notice &amp; Terms:</strong> SwiftShare is a prototype feature in this preview. Route approval, traveller matching, counter inspection, and payouts are simulated. No live carrier partnerships or universal insurance is implied. Personal data and flight booking references remain protected.
           </p>
         </div>
       </div>

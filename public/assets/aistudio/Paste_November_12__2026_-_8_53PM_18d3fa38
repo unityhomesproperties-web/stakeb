@@ -1,0 +1,939 @@
+SWIFTVERO EXPRESS: RESTORE MISSING FEATURES, IMPROVE CUSTOMER DASHBOARD AND COMPLETE THE PREMIUM UI REDESIGN
+
+ROLE
+
+Act as a senior product designer, senior UI/UX designer, principal frontend developer, principal backend developer, database architect, logistics technology specialist and QA engineer.
+
+You are working on an existing international shipping platform called Swiftvero Express.
+
+Your task is to audit the current application, restore missing business features, improve existing workflows and redesign the customer experience to look premium, realistic, professional and easy to operate.
+
+You must think like a senior professional responsible for a real logistics business.
+
+Do not create a generic AI-generated website.
+
+Do not rebuild the application from scratch.
+
+Do not remove working features to make the interface look simpler.
+
+The objective is to improve the presentation and usability while protecting every important business capability.
+
+⸻
+
+PHASE 1: CRITICAL FEATURE PRESERVATION AUDIT
+
+Before changing anything, inspect the complete existing project.
+
+Check the frontend, backend, database, API integrations, customer dashboard, booking process, tracking experience, wallet, reward system, customer reviews, staff dashboards and existing settings.
+
+Create a feature inventory showing:
+
+1. Features that currently work.
+2. Features that are present but hidden or inaccessible.
+3. Features that have disappeared from the interface.
+4. Features whose backend functionality still exists.
+5. Features that are broken.
+6. Features that have not yet been implemented.
+7. Features that are currently available only in DEMO MODE.
+
+Pay particular attention to these previously planned Swiftvero features:
+
+* Customer cashback.
+* Referral bonuses.
+* Customer wallet.
+* Multiple shipments in one booking.
+* Multiple destinations in one booking.
+* Shared sender and collection address.
+* Standard pickup.
+* Priority pickup.
+* Customer drop-off.
+* Pickup scheduling.
+* Quote retrieval using a Swiftvero shipment code.
+* Customer quotation approval and payment.
+* Customer reviews.
+* Review submission from delivered shipment tracking.
+* Customer shipment history.
+* Theme selection.
+* Existing carrier integration.
+
+Some of these features disappeared after the previous UI redesign.
+
+Find their original implementation before creating replacements.
+
+Search existing components, routes, database records, API functions, feature flags and project history where available.
+
+If an existing feature is merely hidden, restore its interface and connection to the existing functionality.
+
+If its implementation was deleted, recover it from available project history or backups before considering a replacement.
+
+If the previous implementation cannot be recovered, explain what is missing and implement a compatible version using the existing architecture.
+
+NON-DESTRUCTIVE DEVELOPMENT RULES
+
+These instructions are mandatory.
+
+* Do not delete existing database tables because the UI no longer displays them.
+* Do not delete customer accounts.
+* Do not delete wallet records.
+* Do not remove cashback or referral ledgers.
+* Do not delete existing shipments or quotations.
+* Do not remove existing booking functions.
+* Do not remove carrier integration code.
+* Do not remove existing payment integrations.
+* Do not remove customer review data.
+* Do not replace working API connections with mock functionality.
+* Do not overwrite working components unnecessarily.
+* Do not change business rules without authorisation.
+* Do not invent successful integration statuses.
+* Do not replace real functionality with decorative buttons.
+
+A UI simplification must never be treated as a feature deprecation.
+
+Where a feature is duplicated, consolidate its presentation while retaining its underlying functionality.
+
+Use safe database migrations.
+
+Preserve backward compatibility.
+
+If a feature is not ready for production, keep its implementation clearly separated from live operations rather than deleting it.
+
+⸻
+
+PHASE 2: RESTORE CUSTOMER REWARDS AND CASHBACK
+
+The customer cashback and referral bonus features must be restored.
+
+Every customer should be able to access their rewards information through the customer dashboard.
+
+Create a visually attractive but compact section titled:
+
+“Rewards & Bonuses”
+
+Include separate information for:
+
+* Cashback earned.
+* Referral bonus earned.
+* Promotional rewards, if supported by existing rules.
+* Available rewards that can currently be used.
+
+Provide a link to the complete rewards history.
+
+Do not combine different wallet categories into one misleading balance.
+
+Preserve the existing business rules for:
+
+* Deposited wallet balance.
+* Cashback.
+* Referral rewards.
+* Promotional credits.
+* Withdrawals.
+* Refunds.
+* Redemption.
+
+Do not invent new withdrawal permissions.
+
+Do not change existing reward calculations.
+
+If a customer has no rewards yet, retain a clean empty state explaining how the rewards system works.
+
+Do not show fabricated reward balances.
+
+Referral functionality
+
+Restore the existing referral feature.
+
+Allow customers to access their referral code or referral link.
+
+Where currently supported, display:
+
+* Number of successful referrals.
+* Referral bonuses earned.
+* Referral history.
+* Referral programme rules.
+
+Do not reward an unverified registration if the existing referral rules require a qualifying transaction.
+
+Track referral credits correctly and prevent duplicate rewards.
+
+Cashback integrity
+
+Preserve the existing cashback calculation and transaction history.
+
+Ensure the same booking or payment cannot generate multiple cashback credits through repeated requests or webhook events.
+
+Maintain an auditable record of earned, redeemed, reversed and expired rewards where applicable.
+
+Do not allow staff or customers to arbitrarily edit balances through the frontend.
+
+⸻
+
+PHASE 3: RESTORE MULTIPLE SHIPMENTS TO DIFFERENT DESTINATIONS
+
+This is a major Swiftvero feature and must be implemented properly.
+
+Customers should be able to create several separate shipments in one booking session without repeatedly entering the same sender and collection address.
+
+Create a feature called:
+
+“Send Multiple Shipments”
+
+Example scenario
+
+A customer in Lagos wants to send:
+
+* One package to London.
+* One package to Toronto.
+* One package to New York.
+
+The customer should enter their own sender details and collection address once.
+
+They should then add the individual shipments and enter each recipient’s details separately.
+
+Recommended booking structure
+
+Create a parent booking group with separate child shipment records.
+
+Parent booking group
+
+The group should contain:
+
+* Unique booking group ID.
+* Customer ID.
+* Sender details.
+* Shared collection address, where applicable.
+* Pickup method.
+* Scheduled pickup information.
+* Group status.
+* Total payable amount.
+* Creation date.
+
+Individual shipment records
+
+Each child shipment must contain:
+
+* Unique internal shipment ID.
+* Unique Swiftvero shipment code.
+* Recipient name.
+* Recipient phone number.
+* Destination country.
+* Destination city.
+* Full delivery address.
+* Package description.
+* Declared contents.
+* Package quantity or package count.
+* Estimated weight.
+* Verified actual weight.
+* Dimensions.
+* Individual quotation.
+* Payment allocation.
+* Carrier reference or references.
+* Individual tracking history.
+* Individual shipment status.
+
+Each destination must be a separate shipment.
+
+Do not place several different destinations inside one ordinary shipment record.
+
+Customer interface
+
+The booking process should work as follows:
+
+Step 1: Sender details.
+
+Ask for sender information and the collection address once.
+
+Allow customers to select an existing saved address.
+
+Step 2: Add shipments.
+
+Show an individual shipment section.
+
+Each shipment should collect the correct recipient and package information.
+
+Provide a clear:
+
+“Add another shipment”
+
+action.
+
+Allow customers to edit or remove an individual shipment before confirmation.
+
+Step 3: Collection arrangement.
+
+If all packages share the same collection address, allow one collection arrangement for the entire group.
+
+If destinations are different, preserve separate shipment records.
+
+Where packages have different collection addresses, group them into separate collection jobs and explain any resulting scheduling or pricing differences.
+
+Step 4: Review.
+
+Show a clear group summary.
+
+Display:
+
+* Number of shipments.
+* Sender information.
+* Each destination.
+* Each recipient.
+* Package descriptions.
+* Selected collection method.
+* Available quotations.
+* Total payable amount when all quotations are ready.
+
+Pricing and payment
+
+Each shipment must have its own quotation.
+
+Show individual costs clearly.
+
+Where the existing payment architecture supports it, allow the customer to pay for several approved quotations in one checkout.
+
+The combined checkout must retain a separate payment allocation for each shipment.
+
+Do not merge several shipments into one vague total with no breakdown.
+
+Do not mark all shipments paid when payment has only been successfully allocated to some of them.
+
+If combined payment is unsupported, allow the customer to pay approved shipment quotations individually without losing the parent booking group.
+
+Tracking
+
+Each shipment should have its own Swiftvero shipment code and tracking history.
+
+The parent booking group should allow the customer to view all its child shipments in one place.
+
+Do not use one tracking timeline for packages travelling to different destinations.
+
+⸻
+
+PHASE 4: RESTORE ALL THREE COLLECTION OPTIONS
+
+Customers must be able to select their preferred package collection arrangement during booking.
+
+Show three clearly differentiated options:
+
+1. Standard Pickup.
+2. Priority Pickup.
+3. Drop-off.
+
+Do not hide these options in a secondary settings page.
+
+They must be available during shipment booking and before final confirmation.
+
+Standard Pickup
+
+Display:
+
+“Standard pickup”
+
+“Free collection within eligible service areas, with a target of within 24 hours after confirmation.”
+
+Rules:
+
+* Free to the customer where the service is available.
+* Subject to approved service coverage.
+* Subject to operating hours and available collection capacity.
+* Allow customers to select a suitable available pickup date or time window.
+* Clearly explain when the next available collection is scheduled.
+* Do not promise collection everywhere in Nigeria.
+
+Priority Pickup
+
+Display:
+
+“Priority pickup”
+
+“Request faster collection, with an estimated 1–6-hour window depending on your location and availability.”
+
+Rules:
+
+* Paid service.
+* Fee must be calculated using approved business pricing rules.
+* Consider collection location, distance, traffic, demand and available collection agents.
+* Display the calculated fee before the customer confirms.
+* Display the estimated collection window.
+* If priority service is unavailable, show it as unavailable rather than allowing a failed booking.
+* Do not promise that every priority booking will happen within one hour.
+* Create a clear operations priority flag for these bookings.
+
+Drop-off
+
+Display:
+
+“Drop-off”
+
+“Take your package to an approved Swiftvero location.”
+
+Rules:
+
+* Only show active, verified locations.
+* Show address and operating hours.
+* Allow the customer to select a location.
+* Provide clear drop-off instructions.
+* Do not show fictional branches or inactive locations.
+
+Scheduling and staff operations
+
+Once the customer selects an option, save the selection against the correct collection job.
+
+The staff operations system must clearly identify:
+
+* Standard pickup.
+* Priority pickup.
+* Drop-off.
+
+Priority pickups should be easy for authorised staff to identify.
+
+Display booking time, scheduled time, estimated collection window, assigned agent and collection status.
+
+The system should help operations manage the target collection times.
+
+Do not confuse Swiftvero collection with international carrier collection from the Swiftvero facility.
+
+⸻
+
+PHASE 5: RESTORE SECURE QUOTATION RETRIEVAL BY CODE
+
+Customers should be able to return to an outstanding shipment quotation without starting the booking process again.
+
+Use the Swiftvero shipment code as the primary reference.
+
+Do not create several unnecessary customer-facing codes.
+
+Where a guest-access quotation retrieval feature already exists, restore it.
+
+Required process
+
+1. Customer creates a shipment booking.
+2. Swiftvero generates the shipment code.
+3. Package reaches the facility.
+4. Staff verifies actual weight and dimensions.
+5. Final quotation is created.
+6. Customer receives an in-app and email notification.
+7. Customer accesses the quotation through the dashboard or a secure quotation retrieval page.
+8. Customer enters the Swiftvero shipment code.
+9. Guest customers complete OTP verification using their registered phone or email.
+10. The system displays the saved quotation.
+11. Customer reviews and approves the quotation.
+12. Customer proceeds to payment.
+
+Quotation page
+
+Display:
+
+* Swiftvero shipment code.
+* Booking date.
+* Origin.
+* Destination.
+* Original customer estimate.
+* Verified package weight.
+* Verified dimensions.
+* Billable weight.
+* Shipping service.
+* Itemised shipping charges.
+* Applicable surcharges and taxes.
+* Final amount due.
+* Quotation validity.
+* Payment status.
+
+Clearly distinguish the original estimate from the final quotation.
+
+Measurement correction
+
+Customers must be able to report a discrepancy in verified package measurements.
+
+Provide a controlled action:
+
+“Request measurement review”
+
+Allow the customer to explain the discrepancy.
+
+Where appropriate, authorised staff can reweigh or remeasure the shipment.
+
+If the measurement changes:
+
+* Record the previous measurement.
+* Record the new measurement.
+* Record who changed it.
+* Record the reason.
+* Generate a new quotation version.
+* Notify the customer.
+* Request approval of the revised amount.
+
+Customers must not be allowed to silently overwrite verified facility measurements.
+
+Payment
+
+Show:
+
+“Approve and Pay”
+
+only when the quotation is valid and payable.
+
+The server must verify payment.
+
+Prevent duplicate payment submissions.
+
+Do not permit payment against an expired or replaced quotation.
+
+The payment receipt must remain linked to the individual shipment.
+
+For grouped bookings, preserve the payment allocation of every child shipment.
+
+⸻
+
+PHASE 6: RESTORE CUSTOMER REVIEWS
+
+Customer reviews must be restored as part of the Swiftvero experience.
+
+There should be two connected review features.
+
+A. Review after delivery
+
+When a shipment reaches a genuine Delivered status, show a review action.
+
+Suggested wording:
+
+“How was your shipping experience?”
+
+Provide:
+
+* Star rating.
+* Written review.
+* Optional photograph upload.
+* Review submission.
+* Confirmation after successful submission.
+
+Allow one review per completed shipment, subject to the existing review policy.
+
+For customers who booked without an account, require secure verification before accepting a review.
+
+Prevent duplicate reviews.
+
+B. Public website reviews
+
+Where genuine approved reviews exist, display a compact customer review section on the public website.
+
+Only show reviews from real completed shipments.
+
+Provide appropriate moderation and consent before publishing.
+
+Do not invent customer names, photographs, comments, ratings or verified shipment labels.
+
+If no approved reviews exist, show a suitable empty state or temporarily hide the public reviews section.
+
+Review management
+
+Provide the authorised administrator with the ability to:
+
+* View submitted reviews.
+* Moderate reviews.
+* Approve publication.
+* Reject inappropriate submissions.
+* Handle customer review disputes.
+* Maintain the linked completed shipment record.
+
+Do not allow employees to fabricate customer reviews.
+
+⸻
+
+PHASE 7: REDESIGN THE CUSTOMER DASHBOARD
+
+The dashboard currently feels too empty.
+
+I do not want to return to the previous overcrowded design, but I want a visually attractive and structured experience.
+
+Premium does not mean removing all visual elements.
+
+Create a well-composed dashboard with purposeful sections, balanced cards, useful shortcuts and good visual hierarchy.
+
+Recommended dashboard structure
+
+1. Personal greeting
+
+Show:
+
+* Customer’s first name.
+* A short contextual greeting.
+* A compact profile/settings entry point.
+
+Do not repeat long generic company descriptions.
+
+2. Primary shortcuts
+
+Show a small action area:
+
+* New Shipment.
+* Track Shipment.
+
+The New Shipment action should lead to the booking workflow where the customer can request a shipping estimate, select pickup or drop-off and complete the booking.
+
+Do not create several buttons that all perform the same task.
+
+Do not create unnecessary promotional cards.
+
+3. Shipment overview
+
+Display only a few useful statistics:
+
+* Active shipments.
+* Shipments requiring customer action, where any exist.
+
+Do not display meaningless or duplicated statistics.
+
+4. Wallet and rewards overview
+
+Show a balanced section containing:
+
+* Available wallet funds.
+* Cashback earned.
+* Referral bonus.
+
+Keep these categories separate.
+
+Provide a link to Wallet and Rewards.
+
+Do not make the rewards information disappear because the customer currently has no rewards.
+
+5. Active shipments
+
+Show a compact, visually attractive list of the customer’s active shipments.
+
+Each shipment item should display:
+
+* Swiftvero shipment code.
+* Origin and destination.
+* Current status.
+* Last update.
+* A clear View Shipment action.
+
+Use a subtle progress indicator or status marker.
+
+Do not show unnecessary technical carrier data.
+
+6. Recent activity
+
+Where there is useful recent activity, show a short list.
+
+Examples:
+
+* New booking.
+* Package collected.
+* Quotation available.
+* Payment confirmed.
+* Package delivered.
+
+Do not display every internal database update.
+
+Do not fill the dashboard with empty statistic cards when there is no relevant data.
+
+Dashboard visual design
+
+Use:
+
+* Strong visual hierarchy.
+* Well-spaced sections.
+* Carefully sized headings.
+* Subtle borders.
+* Balanced background surfaces.
+* Consistent icon sizes.
+* Limited but useful cards.
+* Professional status indicators.
+* Responsive layouts.
+
+On desktop, use a balanced two-column design where appropriate.
+
+On mobile, arrange the important sections naturally without excessive vertical scrolling.
+
+Do not make the dashboard look like an empty white page.
+
+Do not add random charts, fake statistics, giant illustrations or decorative elements.
+
+The design must look like a professional international shipping product.
+
+⸻
+
+PHASE 8: TRACKING PAGE AND REVIEW CONNECTION
+
+Preserve the previously agreed simplified tracking experience.
+
+The customer should be able to:
+
+* Enter a Swiftvero shipment code.
+* View the shipment’s current status.
+* View its origin and destination.
+* See the latest verified update.
+* View the relevant tracking timeline.
+* Request shipment support.
+* Copy the shipment code.
+* Leave a review after delivery.
+
+Use a recognisable, sufficiently bold tracking symbol.
+
+Use an appropriate package-search or package-tracking icon with a stronger visual weight.
+
+Avoid weak or decorative tracking symbols.
+
+Do not display sample tracking codes in production.
+
+Do not show fake ETA information.
+
+Do not show internal investigation messages or technical API errors to customers.
+
+Do not expose private customer information.
+
+Carrier branding
+
+Do not display DHL branding or logos on the public Swiftvero landing page.
+
+Do not create marketing content that makes Swiftvero appear to be a DHL website.
+
+Preserve the actual DHL backend integration.
+
+Do not hardcode DHL as the only carrier in the user interface.
+
+Where a carrier has genuinely been assigned and accepted the package, provide accurate carrier information in the relevant shipment details.
+
+Keep Swiftvero as the primary brand and the Swiftvero shipment code as the primary customer reference.
+
+Carrier details should be secondary and should not dominate the tracking page.
+
+Do not fabricate carrier acceptance, collection or movement events.
+
+⸻
+
+PHASE 9: VISUAL AND DESIGN SYSTEM
+
+Maintain the official Swiftvero colour identity:
+
+* Primary Cyan: #00B4D8.
+* Secondary Cyan: #90E0EF.
+* Light Cyan: #CAF0F8.
+* White: #FFFFFF.
+
+Use neutral backgrounds and dark readable text.
+
+Use Inter or the existing established project font.
+
+Use sensible font sizes and line heights.
+
+Avoid:
+
+* Oversized headings.
+* Excessive whitespace.
+* Empty dashboards.
+* Excessive cards.
+* Cards inside cards.
+* Repeated CTA buttons.
+* Random decorative badges.
+* Unnecessary gradients.
+* Generic AI-generated layouts.
+* Repeated marketing descriptions.
+* Excessive icon bubbles.
+
+Do not remove cards that serve a genuine purpose.
+
+Use a consistent visual system throughout the website.
+
+Maintain light mode, dark mode and system default.
+
+Ensure the restored features look consistent in both themes.
+
+⸻
+
+PHASE 10: STAFF OPERATIONS CONNECTION
+
+Restoring customer-facing features is not enough.
+
+Connect each feature to its actual operational workflow.
+
+Operations staff must be able to see:
+
+* Single shipment bookings.
+* Grouped multi-shipment bookings.
+* Individual child shipments.
+* Shared sender details.
+* Separate recipient details.
+* Standard pickup requests.
+* Priority pickup requests.
+* Drop-off selections.
+* Scheduled collection times.
+* Priority collection targets.
+* Shipment inspection and measurement.
+* Quote creation and revisions.
+* Customer quote approval.
+* Verified payments.
+* Carrier booking and tracking.
+* Customer reviews.
+* Shipment exceptions.
+
+The parent booking group and each individual shipment must be searchable.
+
+Staff must be able to update an individual shipment without accidentally changing the others.
+
+Ensure role-based permissions and audit logs.
+
+Do not create unnecessary extra dashboards.
+
+Integrate these features into the existing Pickup and Shipping Management, Customer Service, and Operations/Admin workspaces.
+
+⸻
+
+PHASE 11: DEMO MODE
+
+Every restored feature must be testable in DEMO MODE.
+
+Provide realistic simulated records for:
+
+* Cashback.
+* Referral bonuses.
+* Multiple destinations.
+* Shared sender address.
+* Standard pickup.
+* Priority pickup.
+* Drop-off.
+* Scheduled pickup.
+* Quotation retrieval.
+* Measurement correction request.
+* Quote revision.
+* Payment.
+* Delivery.
+* Customer review.
+
+Clearly label all simulated records.
+
+Do not send simulated payments through the real payment gateway.
+
+Do not create simulated carrier events in real shipment records.
+
+Do not show demo balances as real customer wallet balances.
+
+Keep demo and production environments separated.
+
+⸻
+
+PHASE 12: TESTING AND ACCEPTANCE REQUIREMENTS
+
+Before reporting completion, test the following scenarios.
+
+Scenario 1: Normal single shipment
+
+* Customer books one shipment.
+* Customer selects standard pickup.
+* Swiftvero creates a shipment code.
+* Pickup appears in operations.
+* Package is received and measured.
+* Customer receives a quotation.
+* Customer retrieves the quotation.
+* Customer approves and pays.
+* Carrier booking is created.
+* Customer tracks the package.
+* Customer leaves a review after delivery.
+
+Scenario 2: Priority pickup
+
+* Customer enters an eligible collection address.
+* System checks priority availability.
+* Customer sees an estimated collection window and fee.
+* Customer selects priority pickup.
+* Booking is confirmed.
+* Operations displays the request as priority.
+* Staff can assign the collection.
+* Collection events are recorded and the customer is notified.
+
+Test an unavailable priority route too.
+
+Scenario 3: Drop-off
+
+* Customer selects an available drop-off location.
+* Location details are shown.
+* Customer confirms booking.
+* Staff records the package as received.
+* The shipment proceeds through inspection and quotation.
+
+Scenario 4: Three destinations
+
+* Customer enters sender information once.
+* Customer creates three separate shipments.
+* Each shipment has a different destination and recipient.
+* Customer selects a shared collection arrangement.
+* The system creates one parent booking group and three separate shipment records.
+* Each shipment receives its own unique Swiftvero code.
+* The customer can see individual quotations.
+* Combined payment works only where supported.
+* Each shipment can be tracked independently.
+
+Scenario 5: Quote retrieval
+
+* Customer retrieves an outstanding quotation using the shipment code.
+* Secure OTP or login is completed.
+* Original estimated measurements are visible.
+* Verified measurements are visible.
+* Customer can approve and pay.
+* Customer can request a measurement review.
+* Staff can issue a revised quotation.
+* Previous quotation versions remain auditable.
+
+Scenario 6: Rewards
+
+* Customer can view cashback.
+* Customer can view referral rewards.
+* Wallet funds remain separate.
+* Balances match the actual ledger.
+* Duplicate bonus credit is prevented.
+
+Scenario 7: Customer reviews
+
+* Customer cannot review an undelivered shipment.
+* Delivered shipment exposes the review action.
+* Customer can submit one review.
+* Duplicate submission is prevented.
+* Admin can moderate the review.
+* Only approved genuine reviews appear publicly.
+
+Test all workflows on mobile and desktop, with light mode and dark mode enabled.
+
+Do not report a test as passed unless it was actually executed.
+
+⸻
+
+FINAL IMPLEMENTATION INSTRUCTIONS
+
+Work on the existing Swiftvero Express project.
+
+Restore missing functionality before polishing the redesigned screens.
+
+Do not delete important features to make the site look minimal.
+
+Do not add meaningless information to make the site look full.
+
+The objective is to create a premium, balanced and realistic customer experience supported by genuine operational functionality.
+
+Prioritise:
+
+1. Feature preservation.
+2. Multi-shipment booking.
+3. Standard, priority and drop-off options.
+4. Secure quotation retrieval and payment.
+5. Cashback and referral bonuses.
+6. Customer reviews.
+7. Dashboard redesign.
+8. Tracking integration.
+9. Mobile responsiveness.
+10. Functional and regression testing.
+
+At completion, provide a clear report showing:
+
+* Features restored.
+* Features redesigned.
+* Features preserved.
+* Features that could not be recovered.
+* Database changes.
+* API changes.
+* Tests completed.
+* Outstanding production requirements.
+
+Do not simply generate a design preview.
+
+Implement the changes in the existing application while preserving the project’s working functionality.

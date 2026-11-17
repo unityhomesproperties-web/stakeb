@@ -75,11 +75,11 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl max-w-3xl w-full border border-[#DCE8DF] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="bg-white rounded-2xl max-w-3xl w-full border border-[#DCEFF3] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header */}
-        <div className="px-6 py-4 bg-[#EAF6EE] border-b border-[#DCE8DF] flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#CAF0F8] border-b border-[#DCEFF3] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-white border border-[#2F7D53]/20 text-[#2F7D53] flex items-center justify-center shadow-2xs">
+            <div className="w-9 h-9 rounded-xl bg-white border border-[#00B4D8]/20 text-[#00B4D8] flex items-center justify-center shadow-2xs">
               <Sliders className="w-5 h-5" />
             </div>
             <div>
@@ -100,13 +100,13 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
         </div>
 
         {/* Tab switcher: Settings vs Audit Trail */}
-        <div className="px-6 py-2.5 bg-[#F5FAF6] border-b border-[#DCE8DF] flex items-center justify-between text-xs">
+        <div className="px-6 py-2.5 bg-[#F7FCFD] border-b border-[#DCEFF3] flex items-center justify-between text-xs">
           <div className="flex gap-2">
             <button
               type="button"
               onClick={() => setShowHistory(false)}
               className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
-                !showHistory ? 'bg-[#2F7D53] text-white' : 'text-[#66736B] hover:text-[#1D2922]'
+                !showHistory ? 'bg-[#00B4D8] text-white' : 'text-[#66736B] hover:text-[#1D2922]'
               }`}
             >
               Active Underwriting Configuration
@@ -115,7 +115,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
               type="button"
               onClick={() => setShowHistory(true)}
               className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-colors ${
-                showHistory ? 'bg-[#2F7D53] text-white' : 'text-[#66736B] hover:text-[#1D2922]'
+                showHistory ? 'bg-[#00B4D8] text-white' : 'text-[#66736B] hover:text-[#1D2922]'
               }`}
             >
               <History className="w-3.5 h-3.5" />
@@ -126,7 +126,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
           <button
             type="button"
             onClick={handleResetToDefault}
-            className="text-[#66736B] hover:text-[#2F7D53] text-[11px] font-semibold flex items-center gap-1"
+            className="text-[#66736B] hover:text-[#00B4D8] text-[11px] font-semibold flex items-center gap-1"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Reset Defaults</span>
@@ -143,8 +143,8 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
           )}
 
           {saveSuccess && (
-            <div className="p-3 bg-[#EAF6EE] border border-[#2F7D53] rounded-xl text-[#247347] flex items-center gap-2 font-bold">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-[#2F7D53]" />
+            <div className="p-3 bg-[#CAF0F8] border border-[#00B4D8] rounded-xl text-[#247347] flex items-center gap-2 font-bold">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-[#00B4D8]" />
               <span>Protection Settings successfully updated and logged to audit trail!</span>
             </div>
           )}
@@ -152,9 +152,9 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
           {!showHistory ? (
             <form id="protection-settings-form" onSubmit={handleSubmit} className="space-y-6">
               {/* Section 1: Basic Protection Limits */}
-              <div className="space-y-3 p-4 bg-white rounded-xl border border-[#DCE8DF]">
+              <div className="space-y-3 p-4 bg-white rounded-xl border border-[#DCEFF3]">
                 <h4 className="font-bold text-sm text-[#1D2922] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#2F7D53]" />
+                  <span className="w-2 h-2 rounded-full bg-[#00B4D8]" />
                   <span>1. Included Basic Protection Parameters</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -168,7 +168,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       onChange={(e) =>
                         setFormData({ ...formData, basicLiabilityLimitNgn: Number(e.target.value) || 0 })
                       }
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                     <span className="text-[10px] text-[#66736B] mt-0.5 block">
                       Contractual liability cap for non-premium consignments
@@ -182,7 +182,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       type="text"
                       value={formData.termsVersion}
                       onChange={(e) => setFormData({ ...formData, termsVersion: e.target.value })}
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
                 </div>
@@ -194,13 +194,13 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                     rows={2}
                     value={formData.basicLiabilityDescription}
                     onChange={(e) => setFormData({ ...formData, basicLiabilityDescription: e.target.value })}
-                    className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg text-xs focus:outline-none focus:border-[#2F7D53]"
+                    className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs focus:outline-none focus:border-[#00B4D8]"
                   />
                 </div>
               </div>
 
               {/* Section 2: Premium Coverage Rates & Thresholds */}
-              <div className="space-y-3 p-4 bg-white rounded-xl border border-[#DCE8DF]">
+              <div className="space-y-3 p-4 bg-white rounded-xl border border-[#DCEFF3]">
                 <h4 className="font-bold text-sm text-[#1D2922] flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#EA580C]" />
                   <span>2. Premium Coverage Rates &amp; Thresholds</span>
@@ -220,7 +220,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                         onChange={(e) =>
                           setFormData({ ...formData, premiumRatePercentage: parseFloat(e.target.value) || 1.5 })
                         }
-                        className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                        className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                       />
                       <span className="absolute right-3 top-2 font-bold text-[#66736B]">%</span>
                     </div>
@@ -237,7 +237,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       type="number"
                       value={formData.minPremiumNgn}
                       onChange={(e) => setFormData({ ...formData, minPremiumNgn: Number(e.target.value) || 0 })}
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
 
@@ -249,7 +249,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       type="number"
                       value={formData.maxPremiumNgn}
                       onChange={(e) => setFormData({ ...formData, maxPremiumNgn: Number(e.target.value) || 0 })}
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
                 </div>
@@ -265,7 +265,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       onChange={(e) =>
                         setFormData({ ...formData, minEligibleDeclaredValueNgn: Number(e.target.value) || 0 })
                       }
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
 
@@ -279,7 +279,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       onChange={(e) =>
                         setFormData({ ...formData, maxEligibleDeclaredValueNgn: Number(e.target.value) || 0 })
                       }
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
 
@@ -294,7 +294,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                         onChange={(e) =>
                           setFormData({ ...formData, deductiblePercentage: Number(e.target.value) || 0 })
                         }
-                        className="w-16 px-2 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs text-center"
+                        className="w-16 px-2 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs text-center"
                         title="Deductible %"
                       />
                       <input
@@ -303,7 +303,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                         onChange={(e) =>
                           setFormData({ ...formData, deductibleMinNgn: Number(e.target.value) || 0 })
                         }
-                        className="flex-1 px-2 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs"
+                        className="flex-1 px-2 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs"
                         title="Deductible Min NGN"
                       />
                     </div>
@@ -312,9 +312,9 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
               </div>
 
               {/* Section 3: Underwriter Partner & Operational Procedures */}
-              <div className="space-y-3 p-4 bg-white rounded-xl border border-[#DCE8DF]">
+              <div className="space-y-3 p-4 bg-white rounded-xl border border-[#DCEFF3]">
                 <h4 className="font-bold text-sm text-[#1D2922] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#2F7D53]" />
+                  <span className="w-2 h-2 rounded-full bg-[#00B4D8]" />
                   <span>3. Insurance Provider Integration &amp; Claims SLA</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -326,7 +326,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       type="text"
                       value={formData.providerName}
                       onChange={(e) => setFormData({ ...formData, providerName: e.target.value })}
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
 
@@ -342,7 +342,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                           providerStatus: e.target.value as ProtectionConfig['providerStatus'],
                         })
                       }
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg text-xs bg-white"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white"
                     >
                       <option value="demo_simulated">Demo Simulated (Active)</option>
                       <option value="sandbox_active">Sandbox API Connected</option>
@@ -360,14 +360,14 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                       onChange={(e) =>
                         setFormData({ ...formData, claimsDeadlineDays: Number(e.target.value) || 14 })
                       }
-                      className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg font-mono text-xs focus:outline-none focus:border-[#2F7D53]"
+                      className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg font-mono text-xs focus:outline-none focus:border-[#00B4D8]"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Mandatory Operational Audit Justification */}
-              <div className="p-4 bg-[#F5FAF6] rounded-xl border border-[#DCE8DF] space-y-2">
+              <div className="p-4 bg-[#F7FCFD] rounded-xl border border-[#DCEFF3] space-y-2">
                 <label className="block text-xs font-bold text-[#1D2922]">
                   Audit Justification for Modification <span className="text-red-500">*</span>
                 </label>
@@ -380,7 +380,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
                     if (errorMsg) setErrorMsg('');
                   }}
                   placeholder="e.g. Updated premium rate per Q4 Leadway underwriting agreement review."
-                  className="w-full px-3 py-2 border border-[#DCE8DF] rounded-lg text-xs bg-white focus:outline-none focus:border-[#2F7D53]"
+                  className="w-full px-3 py-2 border border-[#DCEFF3] rounded-lg text-xs bg-white focus:outline-none focus:border-[#00B4D8]"
                 />
                 <span className="text-[11px] text-[#66736B]">
                   Required by Swiftvero dual-control policy: all pricing and liability adjustments are permanently recorded.
@@ -390,15 +390,15 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
           ) : (
             /* Audit Trail View */
             <div className="space-y-4">
-              <div className="border border-[#DCE8DF] rounded-xl overflow-hidden divide-y divide-[#DCE8DF]">
+              <div className="border border-[#DCEFF3] rounded-xl overflow-hidden divide-y divide-[#DCEFF3]">
                 {auditHistory.map((item, idx) => (
-                  <div key={idx} className="p-4 hover:bg-[#F5FAF6] transition-colors space-y-1.5">
+                  <div key={idx} className="p-4 hover:bg-[#F7FCFD] transition-colors space-y-1.5">
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-xs text-[#1D2922]">{item.updatedBy}</span>
                       <span className="font-mono text-[11px] text-[#66736B]">{item.date}</span>
                     </div>
                     <p className="text-xs text-[#66736B]">{item.reason}</p>
-                    <div className="flex gap-4 text-[11px] pt-1 font-mono text-[#2F7D53]">
+                    <div className="flex gap-4 text-[11px] pt-1 font-mono text-[#00B4D8]">
                       <span>Rate: {item.rate}%</span>
                       <span>Standard Liability: {formatNaira(item.basicLimit)}</span>
                     </div>
@@ -410,7 +410,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-gray-50 border-t border-[#DCE8DF] flex items-center justify-between">
+        <div className="px-6 py-4 bg-gray-50 border-t border-[#DCEFF3] flex items-center justify-between">
           <span className="text-[11px] text-[#66736B]">
             Effective: {config.lastUpdatedAt.slice(0, 10)} by {config.lastUpdatedBy}
           </span>
@@ -418,7 +418,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-[#DCE8DF] rounded-xl text-xs font-semibold text-[#66736B] hover:bg-white"
+              className="px-4 py-2 border border-[#DCEFF3] rounded-xl text-xs font-semibold text-[#66736B] hover:bg-white"
             >
               Cancel
             </button>
@@ -426,7 +426,7 @@ export const ShipmentProtectionSettingsModal: React.FC<ShipmentProtectionSetting
               <button
                 type="submit"
                 form="protection-settings-form"
-                className="px-5 py-2 bg-[#2F7D53] hover:bg-[#174B35] text-white font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-sm transition-colors"
+                className="px-5 py-2 bg-[#00B4D8] hover:bg-[#008EA8] text-white font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-sm transition-colors"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>Save &amp; Log Changes</span>

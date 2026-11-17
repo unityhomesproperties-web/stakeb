@@ -19,7 +19,7 @@ export function getStatusMeta(status: string, isOverdue?: boolean): StatusMeta {
     case 'in_transit':
       return {
         label: 'In Transit',
-        className: 'bg-[#CAF0F8] text-[#008EA8] border border-[#90E0EF]',
+        className: 'bg-[#CAF0F8] text-[#0F172A] border border-[#90E0EF]',
         dotColor: 'bg-[#00B4D8]',
       };
     case 'payment_pending':
@@ -31,7 +31,7 @@ export function getStatusMeta(status: string, isOverdue?: boolean): StatusMeta {
     case 'pickup_scheduled':
       return {
         label: 'Pickup Scheduled',
-        className: 'bg-[#F0FAFD] text-[#008EA8] border border-[#DCEFF3]',
+        className: 'bg-[#F8FAFC] text-[#0F172A] border border-[#90E0EF]',
         dotColor: 'bg-[#00B4D8]',
       };
     case 'pickup_completed':
@@ -49,25 +49,25 @@ export function getStatusMeta(status: string, isOverdue?: boolean): StatusMeta {
     case 'quote_ready':
       return {
         label: 'Quote Ready',
-        className: 'bg-[#CAF0F8]/50 text-[#008EA8] border border-[#90E0EF]',
+        className: 'bg-[#CAF0F8] text-[#0F172A] border border-[#90E0EF]',
         dotColor: 'bg-[#00B4D8]',
       };
     case 'booked':
       return {
         label: 'Confirmed',
-        className: 'bg-[#F5FBFD] text-[#354B55] border border-[#DCEFF3]',
+        className: 'bg-[#F8FAFC] text-[#111827] border border-[#E2E8F0]',
         dotColor: 'bg-[#00B4D8]',
       };
     case 'cancelled':
       return {
         label: 'Cancelled',
-        className: 'bg-slate-50 text-slate-500 border border-slate-200',
+        className: 'bg-slate-50 text-slate-600 border border-[#E2E8F0]',
         dotColor: 'bg-slate-400',
       };
     default:
       return {
         label: status.replace(/_/g, ' '),
-        className: 'bg-[#F5FBFD] text-[#6A808C] border border-[#DCEFF3]',
+        className: 'bg-[#F8FAFC] text-[#4B5563] border border-[#E2E8F0]',
         dotColor: 'bg-[#00B4D8]',
       };
   }
@@ -83,7 +83,7 @@ export const StatusPill: React.FC<StatusPillProps> = ({ status, isOverdue, class
   const meta = getStatusMeta(status, isOverdue);
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium capitalize tracking-wide transition-colors ${meta.className} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[12px] font-medium capitalize tracking-wide transition-colors ${meta.className} ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${meta.dotColor}`} />
       <span>{meta.label}</span>

@@ -1,0 +1,115 @@
+- generic [ref=e4]:
+  - generic [ref=e747]:
+    - button [ref=e749]:
+      - img "Swiftvero Express" [ref=e751]
+    - generic [ref=e752]:
+      - combobox [ref=e754] [cursor=pointer]:
+        - option "Consignor Portal" [selected]
+        - option "Corporate Shipper"
+        - 'option "Workspace A: Pickup & Shipping"'
+        - 'option "Workspace B: Customer Service"'
+        - 'option "Workspace C: Operations & Admin"'
+      - button "Sign out of portal" [ref=e755]
+  - main [ref=e33]:
+    - generic [ref=e760]:
+      - generic [ref=e761]:
+        - generic [ref=e762]:
+          - heading "Amara Okafor" [level=1] [ref=e764]
+          - paragraph [ref=e765]: Global consignments, certified scale verifications & international tracking
+        - generic [ref=e766]:
+          - generic [ref=e767]: Verified Shipper
+          - button "Configure Underwriting & Protection Rules (Admin / Assessor)" [ref=e772]
+          - button "New Shipment" [ref=e775]
+      - generic [ref=e778]:
+        - button "Overview" [ref=e779]
+        - button "My Shipments 2" [ref=e785]:
+          - generic [ref=e790]: My Shipments
+          - generic [ref=e791]: "2"
+        - button "My Pickups 1" [ref=e792]:
+          - generic [ref=e798]: My Pickups
+          - generic [ref=e799]: "1"
+        - button "Book & Quote" [ref=e800]
+        - button "My Wallet ₦75k" [active] [ref=e803]:
+          - generic [ref=e807]: My Wallet
+          - generic [ref=e808]: ₦75k
+        - button "Cashback & Promo" [ref=e809]
+        - button "Support Tickets" [ref=e816]
+        - button "Tracking" [ref=e820]
+        - button "Notifications" [ref=e825]
+        - button "Profile & KYC" [ref=e830]
+      - generic [ref=e1103]:
+        - button "← Back to Dashboard Overview" [ref=e1104]
+        - generic [ref=e1105]: wallet
+      - generic [ref=e1106]:
+        - generic [ref=e1107]:
+          - generic [ref=e1108]:
+            - generic [ref=e1109]:
+              - generic [ref=e1110]:
+                - generic [ref=e1111]: Wallet Balance (Deposited Funds)
+                - generic [ref=e1115]: SWV-WAL-8491
+              - generic [ref=e1116]: ₦75,000
+              - paragraph [ref=e1117]: Available immediately for booking checkouts and one-click shipping payments.
+            - generic [ref=e1118]:
+              - generic [ref=e1119]: Virtual NUBAN Ready
+              - button "Top Up Wallet" [ref=e1120]
+          - generic [ref=e1124]:
+            - generic [ref=e1125]:
+              - generic [ref=e1126]:
+                - generic [ref=e1127]: Cashback Balance (Non-Withdrawable)
+                - generic [ref=e1133]: Reward Credits
+              - generic [ref=e1134]: ₦24,500
+              - paragraph [ref=e1135]: Unlocked rewards earned from delivered consignments. Apply at checkout to discount freight.
+            - generic [ref=e1136]:
+              - generic [ref=e1137]: Automatically credited upon delivery
+              - generic [ref=e1138]: 100% Usable at Checkout
+          - generic [ref=e1139]:
+            - generic [ref=e1140]:
+              - generic [ref=e1141]:
+                - generic [ref=e1142]: Promo Code Privileges
+                - generic [ref=e1146]: Available Now
+              - generic [ref=e1147]: 3 Active Campaigns
+              - paragraph [ref=e1148]: Use promotional coupons during checkout to discount your international parcel bookings.
+            - generic [ref=e1149]:
+              - generic [ref=e1150]:
+                - generic [ref=e1151]:
+                  - text: SWIFTWELCOME
+                  - generic [ref=e1152]: 10% off • Min ₦20,000
+                - button "Copy" [ref=e1153]
+              - generic [ref=e1158]:
+                - generic [ref=e1159]:
+                  - text: LONDONEXPRESS
+                  - generic [ref=e1160]: ₦5,000 off • Min ₦40,000
+                - button "Copy" [ref=e1161]
+        - generic [ref=e1166]:
+          - generic [ref=e1167]:
+            - generic [ref=e1168]:
+              - heading "Immutable Wallet Transaction Ledger" [level=3] [ref=e1169]
+              - paragraph [ref=e1174]: Auditable record of wallet top-ups, checkout deductions, and operational refunds.
+            - combobox [ref=e1178]:
+              - option "All Entries" [selected]
+              - option "Credits (Top-ups & Refunds)"
+              - option "Debits (Shipment Payments)"
+          - table [ref=e1180]:
+            - rowgroup [ref=e1181]:
+              - row [ref=e1182]:
+                - columnheader "Transaction Reference" [ref=e1183]
+                - columnheader "Description" [ref=e1184]
+                - columnheader "Type" [ref=e1185]
+                - columnheader "Amount" [ref=e1186]
+                - columnheader "Balance After" [ref=e1187]
+                - columnheader "Date & Time" [ref=e1188]
+            - rowgroup [ref=e1189]:
+              - row [ref=e1190]:
+                - cell "SWV-TXN-2026-000101" [ref=e1191]
+                - cell "Wallet top-up via Monnify Virtual Transfer" [ref=e1193]
+                - cell "CREDIT" [ref=e1194]
+                - cell "+₦50,000" [ref=e1199]
+                - cell "₦50,000" [ref=e1200]
+                - cell "Oct 15, 10:00 AM" [ref=e1201]
+              - row [ref=e1202]:
+                - cell "SWV-TXN-2026-000102" [ref=e1203]
+                - cell "Wallet top-up via Paystack Debit Card" [ref=e1205]
+                - cell "CREDIT" [ref=e1206]
+                - cell "+₦25,000" [ref=e1211]
+                - cell "₦75,000" [ref=e1212]
+                - cell "Oct 21, 02:30 PM" [ref=e1213]

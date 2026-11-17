@@ -1,0 +1,1130 @@
+MASTER DEVELOPMENT PROMPT: SWIFTVERO EXPRESS
+
+Premium Website Redesign, Customer Experience, Pickup Management, Shipping Workflow, Customer Consent and Dashboard Optimization
+
+1. YOUR ROLE
+
+Act as a senior full-stack software engineer, senior UI/UX designer, logistics technology architect, product manager, database architect and quality assurance engineer.
+
+Your responsibility is to professionally redesign and improve the existing Swiftvero Express website and application.
+
+You must approach this project as someone building a serious international logistics technology company, not a simple delivery website.
+
+You are expected to:
+
+* Understand the existing application before changing anything.
+* Identify poor user experiences and inefficient workflows.
+* Improve the website’s visual design.
+* Simplify customer registration and shipment booking.
+* Improve pickup management.
+* Implement transparent shipping policies and customer consent.
+* Improve every dashboard.
+* Ensure all existing features continue working.
+* Implement and test the changes directly.
+
+IMPORTANT: DO NOT REBUILD THE ENTIRE APPLICATION FROM SCRATCH.
+
+Work on the existing project.
+
+Preserve existing functionality, authentication, customer accounts, staff roles, shipment records, database connections, payment architecture, tracking functionality, branch management, notifications, and operational workflows.
+
+Do not remove working features simply because their existing implementation needs improvement.
+
+Do not replace real backend functionality with frontend simulations.
+
+Where the existing architecture requires improvement, refactor it carefully and maintain compatibility with existing records.
+
+⸻
+
+2. SWIFTVERO BRAND IDENTITY AND DESIGN SYSTEM
+
+Redesign the entire Swiftvero website and all dashboards using one consistent premium visual identity.
+
+Official brand colours
+
+Use these colours consistently throughout the application:
+
+Colour	Hex Code	Purpose
+Primary Cyan	#00B4D8	Primary buttons, important actions, active states
+Secondary Cyan	#90E0EF	Secondary highlights and subtle UI elements
+Light Cyan	#CAF0F8	Selected cards, backgrounds and visual accents
+White	#FFFFFF	Main surfaces and dominant background
+
+Supporting neutral colours:
+
+* Main background: #F7FCFD
+* Main text: #263B45
+* Secondary text: #657A84
+* Borders: #DCECF0
+* Muted background: #EFF8FA
+
+Design direction
+
+Swiftvero must look like a premium international logistics technology company.
+
+The design should be:
+
+* Modern.
+* Minimal.
+* Elegant.
+* Professional.
+* Clean.
+* Trustworthy.
+* Easy to navigate.
+* Mobile-first.
+
+White should remain the dominant colour.
+
+Use cyan strategically rather than flooding every section with colour.
+
+Avoid:
+
+* Large dark-green dashboard backgrounds.
+* The previous green-heavy dashboard design.
+* Unnecessary colour combinations.
+* Excessive gradients.
+* Neon colours.
+* Overly decorative interfaces.
+* Excessive shadows.
+* Oversized headings.
+* Crowded cards.
+* Poorly spaced forms.
+
+Use:
+
+* Inter or another professional readable font.
+* Subtle shadows.
+* Rounded cards.
+* Soft borders.
+* Clear typography.
+* Consistent spacing.
+* Elegant icons.
+* Consistent button styles.
+* Beautiful responsive components.
+
+Every page must look like part of the same company.
+
+The public website, customer portal, branch dashboard, Operations Admin, Finance Lead and central administration must all use the same design system.
+
+⸻
+
+3. COMPLETE PUBLIC WEBSITE REDESIGN
+
+Redesign the customer-facing website and visitor experience.
+
+The website should explain Swiftvero’s services clearly and help customers understand how to ship internationally from Nigeria.
+
+Public website navigation
+
+Include:
+
+* Home.
+* Our Services.
+* How It Works.
+* Shipping Rates / Get a Quote.
+* Track Shipment.
+* Shipping Guidelines.
+* FAQs.
+* Contact Us.
+* Sign In.
+* Get Started / Book a Shipment.
+
+Use a clean navigation structure on desktop and a mobile-friendly navigation menu on phones.
+
+Homepage
+
+Create a premium homepage with a clear headline explaining what Swiftvero does.
+
+Suggested headline:
+
+Your Goods. Our Global Reach.
+
+Supporting text:
+
+“Ship parcels, documents and commercial goods from Nigeria to international destinations with convenient pickup, transparent quotations and reliable shipment tracking.”
+
+Primary actions:
+
+* Book a Shipment.
+* Track a Shipment.
+
+Secondary action:
+
+* Explore Our Services.
+
+Display the key customer benefits:
+
+1. Free pickup.
+2. Collection within 24 hours of a successful booking.
+3. Professional package inspection and weighing at our facility.
+4. Transparent shipping quotations.
+5. Standard and priority shipping options where available.
+6. Shipment tracking.
+7. Customer support.
+
+Do not advertise free delivery.
+
+Do not claim Swiftvero owns aircraft, ships, warehouses or a delivery fleet.
+
+Do not publish unsupported delivery guarantees.
+
+How Swiftvero works
+
+Create an attractive visual process explaining the customer journey:
+
+1. Book your pickup online.
+2. Swiftvero collects your package within 24 hours.
+3. Your package arrives at our facility.
+4. Your package is inspected, properly packed where necessary and weighed.
+5. You receive your final shipping quotation.
+6. Approve the quotation and complete payment.
+7. Your shipment is processed and dispatched.
+8. Track your shipment until delivery.
+
+Make the distinction between pickup and international delivery very clear.
+
+FREE PICKUP DOES NOT MEAN FREE SHIPPING OR FREE DELIVERY.
+
+International shipping charges are quoted separately after the package has been received and assessed.
+
+⸻
+
+4. CUSTOMER PICKUP POLICY: FREE PICKUP WITHIN 24 HOURS
+
+This is a core Swiftvero service promise and must be implemented consistently across the website, customer portal, booking process, policies and notifications.
+
+Official pickup promise
+
+Swiftvero offers free pickup for eligible shipment bookings.
+
+Once a customer successfully submits a pickup booking, Swiftvero will arrange to collect the package within 24 hours of the booking confirmation.
+
+The customer must understand that:
+
+* Pickup is free.
+* International shipping is not free.
+* The 24-hour promise relates to collecting the package from the customer’s pickup address.
+* It does not mean the package will be delivered internationally within 24 hours.
+* The final shipping cost is determined after the package reaches the appropriate Swiftvero facility and is assessed.
+* The customer must make the package available at the confirmed address.
+* The customer must provide accurate contact information and pickup instructions.
+
+Do not describe the pickup service as free delivery.
+
+Pickup booking requirements
+
+Collect:
+
+* Customer full name.
+* Phone number.
+* Email address where available.
+* Pickup address.
+* State and city.
+* Landmark.
+* Preferred pickup date.
+* Preferred collection time window, if supported.
+* Package description.
+* Number of packages.
+* Special handling instructions.
+* Sender confirmation.
+
+Allow customers to add more than one package to a pickup request.
+
+Do not require customers to know the exact final package weight.
+
+Allow an optional estimated weight where the customer knows it.
+
+Explain that the final weight is determined at Swiftvero’s facility after the package is properly prepared.
+
+24-hour scheduling logic
+
+The system must:
+
+1. Record the exact time the successful pickup booking is confirmed.
+2. Calculate the 24-hour collection deadline.
+3. Automatically create a pickup request for Operations Admin.
+4. Display the deadline prominently.
+5. Send the customer a booking confirmation.
+6. Notify Operations Admin of the new booking.
+7. Highlight requests approaching their collection deadline.
+8. Alert Operations Admin when a pickup is overdue.
+9. Record the actual collection time.
+
+Use a reliable server-side timestamp and timezone-aware calculations.
+
+A booking should not be considered successfully confirmed if required information is incomplete.
+
+If a customer cancels or changes the pickup address, record the change and apply the appropriate revised scheduling process.
+
+If collection is prevented by circumstances such as customer unavailability, an inaccessible address, incorrect contact details or another documented issue, Operations Admin must record the reason and communicate the next arrangement to the customer.
+
+Do not silently mark overdue bookings as completed.
+
+⸻
+
+5. PACKAGE WEIGHING AND PACKING POLICY
+
+This is a critical operational distinction.
+
+Swiftvero does NOT send a weighing scale with the pickup collection person.
+
+The collection process and weighing process must be separate.
+
+Correct workflow
+
+At the customer’s address:
+
+The collection handler collects the package.
+
+The collection handler must not be required to weigh the package.
+
+The handler records:
+
+* Package count.
+* Visible package condition.
+* Collection time.
+* Customer or authorized person’s confirmation.
+* Collection photographs where appropriate.
+* Any visible damage or discrepancies.
+* Collection notes.
+
+The handler must not invent or confirm a final chargeable weight.
+
+At the Swiftvero facility:
+
+After the package arrives:
+
+1. Branch staff confirm physical receipt.
+2. The package is registered against its pickup reference.
+3. Staff inspect the package and customer declaration.
+4. The package is properly packed or repacked where necessary and where the service includes it.
+5. Staff record the final package dimensions where required.
+6. Staff weigh the package using the facility’s weighing equipment.
+7. The system calculates actual weight and applicable volumetric weight.
+8. The system determines the chargeable weight using the existing approved pricing rules.
+9. Staff generate the final shipping quotation.
+
+Do not charge customers based on an unverified estimated weight.
+
+Customer-facing explanation
+
+Display this message during pickup booking:
+
+“Your package will be collected free of charge and transported to the appropriate Swiftvero facility. Our team will inspect, prepare where necessary, measure and weigh your package at the facility before generating your final shipping quotation. You do not need to provide a weighing scale during pickup.”
+
+Make this explanation visible before the customer confirms their booking.
+
+⸻
+
+6. CUSTOMER CONSENT AND POLICY ACKNOWLEDGEMENT SYSTEM
+
+Build a professional customer consent system across registration, pickup booking, shipment creation, quotation approval, payment and optional services.
+
+The objective is to ensure customers understand the service they are requesting and the responsibilities of both parties.
+
+Do not create meaningless consent buttons.
+
+Each acknowledgement must explain the relevant policy in simple language.
+
+Store an auditable record of each customer’s consent.
+
+A. Account registration consent
+
+During account creation, include:
+
+Mandatory checkbox:
+
+“I have read and agree to Swiftvero Express’s Terms and Conditions and Privacy Policy.”
+
+Provide clickable links to both policies.
+
+Do not preselect the checkbox.
+
+The customer must actively select it before account creation.
+
+Record:
+
+* Customer ID.
+* Policy version.
+* Date and time.
+* Consent status.
+* Relevant registration event.
+
+B. Pickup booking consent
+
+Before submitting a pickup request, display the following clearly separated acknowledgements.
+
+Mandatory acknowledgement 1: Free pickup and paid shipping
+
+“I understand that Swiftvero provides free pickup for eligible bookings, but international shipping and delivery are charged separately. Free pickup does not mean free delivery.”
+
+Mandatory acknowledgement 2: 24-hour pickup commitment
+
+“I understand that Swiftvero will arrange to collect my package within 24 hours after my successful pickup booking is confirmed. This commitment relates to collection, not international delivery.”
+
+Mandatory acknowledgement 3: Facility weighing
+
+“I understand that my package will not be weighed at my pickup address. Final inspection, preparation where necessary, measurements and weighing will take place at the appropriate Swiftvero facility.”
+
+Mandatory acknowledgement 4: Accurate declaration
+
+“I confirm that the information I provide about my package, its contents, quantity and declared value is accurate and complete.”
+
+Mandatory acknowledgement 5: Restricted and prohibited goods
+
+“I confirm that my package does not contain prohibited or restricted items unless they have been properly declared and expressly accepted by Swiftvero in accordance with applicable laws and shipping requirements.”
+
+Provide a link to the Prohibited and Restricted Items Policy.
+
+Mandatory acknowledgement 6: Package availability
+
+“I agree to make my package available at the confirmed pickup address and provide accurate contact details and collection instructions.”
+
+Mandatory acknowledgement 7: Contact and collection confirmation
+
+“I authorize Swiftvero and its designated collection representatives to contact me about the pickup and coordinate collection of my package.”
+
+Mandatory acknowledgement 8: Inspection and quotation
+
+“I understand that Swiftvero will inspect and weigh my package at its facility and provide a final shipping quotation based on the confirmed shipment details before payment.”
+
+Do not charge the final shipping amount before the quotation is approved.
+
+Mandatory acknowledgement 9: Packaging and repackaging
+
+“I understand that my package may require additional packaging or repackaging for safe transportation. Any chargeable packaging service must be explained to me and approved before the additional charge is applied.”
+
+Do not advertise packaging as free unless Swiftvero has approved that policy.
+
+Mandatory acknowledgement 10: Collection record
+
+“I acknowledge that Swiftvero may record the package’s condition and collection details, including photographs, for identification, operational records and dispute resolution.”
+
+Explain how such records are handled in the Privacy Policy.
+
+Mandatory acknowledgement 11: Customer communication
+
+“I agree to receive essential service communications about my booking, pickup, quotation, payment, shipment status and delivery.”
+
+Distinguish essential transactional messages from promotional marketing.
+
+Do not bundle marketing consent with mandatory service communication.
+
+C. Quotation approval consent
+
+Before the customer approves a quotation, display:
+
+“I have reviewed the confirmed package weight, applicable shipping service, selected optional services and total amount payable. I approve this quotation and understand that payment is required before the shipment proceeds to the next applicable processing stage.”
+
+Require active approval.
+
+Record the quotation version, amount, customer ID and approval timestamp.
+
+D. Cargo protection consent
+
+If the customer selects cargo protection, display:
+
+“I have reviewed the applicable cargo protection terms, eligibility, exclusions, declared value and compensation limits. I understand the conditions attached to this optional service.”
+
+The customer must actively select the protection option.
+
+Do not automatically add protection.
+
+Do not falsely describe an unapproved protection arrangement as insurance.
+
+Use only legally approved and provider-backed insurance terms where regulated insurance is offered.
+
+E. Priority shipping consent
+
+If Priority Shipping is selected, display:
+
+“I understand that Priority Shipping attracts an additional fee and is subject to destination, shipment eligibility and service availability. I have reviewed the available estimated delivery information and agree to the additional charge.”
+
+Do not promise an unsupported delivery date.
+
+F. Payment acknowledgement
+
+Before payment, display:
+
+“I confirm that I have reviewed the final amount payable and authorize payment for the selected shipping service and optional services.”
+
+Do not collect payment without displaying the final amount.
+
+G. Marketing consent
+
+Add a separate optional checkbox:
+
+“I would like to receive Swiftvero promotional offers, shipping updates, discounts and marketing communications.”
+
+This checkbox must:
+
+* Be optional.
+* Be unchecked by default.
+* Be separate from mandatory service communications.
+* Allow the customer to unsubscribe later.
+
+H. Consent management
+
+Build a consent record system that stores:
+
+* Customer ID.
+* Shipment ID or booking ID where applicable.
+* Consent category.
+* Exact policy or consent text version.
+* Accepted or declined status.
+* Date and time.
+* User or staff action where applicable.
+* Relevant audit information.
+
+Do not store only a single general consent flag.
+
+Do not allow staff to silently accept policies on behalf of customers.
+
+If a staff member assists a walk-in customer, the customer must be able to review and acknowledge the applicable terms through a customer-facing screen, digital signature or documented approved alternative.
+
+Consent records must be protected against unauthorized modification.
+
+Where a policy changes materially, require renewed acknowledgement when appropriate.
+
+⸻
+
+7. SHIPPING POLICIES AND CUSTOMER INFORMATION PAGES
+
+Create a professional policy centre accessible from the public website and customer portal.
+
+Include:
+
+1. Terms and Conditions.
+2. Privacy Policy.
+3. Pickup Policy.
+4. Shipping and Delivery Policy.
+5. Prohibited and Restricted Items Policy.
+6. Packaging and Repackaging Policy.
+7. Cargo Protection / Insurance Terms.
+8. Priority Shipping Terms.
+9. Cancellation and Refund Policy.
+10. Claims and Complaints Policy.
+11. Customer Responsibilities.
+12. Payment Policy.
+
+Policy writing requirements
+
+Use simple, understandable English.
+
+Explain:
+
+* What Swiftvero does.
+* What customers are paying for.
+* What free pickup covers.
+* What is not included in free pickup.
+* How the 24-hour collection commitment works.
+* Why final weight is determined at the facility.
+* How shipping prices are determined.
+* What happens if the declared package contents are inaccurate.
+* What items cannot be accepted.
+* What happens when a package requires additional packaging.
+* How optional cargo protection works.
+* How priority shipping works.
+* How cancellation and refunds are handled.
+* How customers report lost, damaged or delayed shipments.
+* How personal data is collected and processed.
+
+Do not invent legal rights, regulatory approvals, insurance cover or liability exclusions.
+
+Use configurable policy content that can be reviewed and approved by Swiftvero management and qualified legal advisers.
+
+Record policy versions and effective dates.
+
+Provide an admin interface for authorized administrators to update approved policy content.
+
+⸻
+
+8. CUSTOMER DASHBOARD REDESIGN
+
+Create a premium, mobile-first customer portal.
+
+The first mobile screen should make it easy for customers to understand their shipments and take action.
+
+Prioritize:
+
+* Book a Pickup.
+* Book a Shipment.
+* Track Shipment.
+* Active Shipments.
+* Pickup Requests.
+* Pending Quotations.
+* Outstanding Payments.
+* Notifications.
+* Support.
+
+Pickup section
+
+Customers must see:
+
+* Pickup reference.
+* Booking date.
+* Pickup address.
+* Confirmed collection date.
+* 24-hour collection deadline.
+* Current pickup status.
+* Collection confirmation.
+* Package count.
+* Next action.
+
+Use clear statuses:
+
+* Booking Received.
+* Awaiting Arrangement.
+* Scheduled.
+* Collection in Progress.
+* Picked Up.
+* Arrived at Facility.
+* Inspection and Weighing.
+* Quotation Ready.
+* Awaiting Customer Approval.
+* Awaiting Payment.
+* Processing Shipment.
+
+Do not display internal operational notes.
+
+⸻
+
+9. CENTRALIZED PICKUP MANAGEMENT: OPERATIONS ADMIN
+
+Do not create a separate Pickup Agent dashboard, pickup agent login or mandatory agent registration.
+
+All pickup bookings must automatically appear inside the existing Operations Admin dashboard.
+
+Create a dedicated navigation item called:
+
+Pickup Management
+
+Pickup dashboard
+
+Display:
+
+* New Pickup Requests.
+* Awaiting Scheduling.
+* Scheduled Today.
+* Approaching 24-Hour Deadline.
+* Overdue Pickups.
+* Collection in Progress.
+* Successfully Collected.
+* Failed / Rescheduled.
+
+Use actual database information, not invented production statistics.
+
+Pickup management table
+
+Display:
+
+* Pickup reference.
+* Customer name.
+* Phone number.
+* Pickup address.
+* Package count.
+* Booking timestamp.
+* Collection deadline.
+* Scheduled collection time.
+* Collection handler.
+* Assigned branch.
+* Current status.
+
+Allow search and filtering by:
+
+* Pickup reference.
+* Customer.
+* Date.
+* Branch.
+* Status.
+* Collection handler.
+* Deadline.
+
+Collection arrangement
+
+Provide a field called Collection Handler.
+
+Options:
+
+1. Existing Swiftvero staff.
+2. External logistics partner.
+3. Manually arranged collection.
+
+Allow manual entry of:
+
+* Handler name.
+* Phone number.
+* Collection instructions.
+* Assignment notes.
+
+No separate agent account is required.
+
+Operations Admin must be able to:
+
+* Review requests.
+* Arrange collections.
+* Schedule collection.
+* Record the handler.
+* Contact customers.
+* Reschedule.
+* Cancel with a reason.
+* Mark collection successful.
+* Mark failed collection with a reason.
+* Review collection evidence.
+
+Every status change must be recorded with the responsible staff member and timestamp.
+
+Pickup calendar
+
+Create:
+
+* Daily view.
+* Weekly view.
+* Monthly view.
+
+Allow Operations Admin to arrange collections by date and location.
+
+Highlight requests approaching the 24-hour collection deadline.
+
+Pickup notifications
+
+Notify Operations Admin immediately when a new booking is created.
+
+Send customers confirmation and status notifications through existing supported channels.
+
+⸻
+
+10. COLLECTION CONFIRMATION AND BRANCH RECEIPT
+
+Pickup collection and branch receipt are two separate operational events.
+
+Do not treat them as the same event.
+
+At the customer’s address
+
+The collection handler records:
+
+* Pickup reference.
+* Collection date and time.
+* Number of packages collected.
+* Visible package condition.
+* Collection photographs where applicable.
+* Customer confirmation.
+* Collection notes.
+
+Do not record a final weight at pickup.
+
+At Swiftvero’s facility
+
+Branch staff must:
+
+* Confirm arrival.
+* Match the pickup reference.
+* Confirm package count.
+* Record package condition.
+* Record any discrepancy.
+* Inspect the contents in accordance with applicable procedures and customer consent.
+* Prepare or repackage where necessary and approved.
+* Measure and weigh.
+* Record actual weight and dimensions.
+* Calculate chargeable weight.
+* Generate the final quotation.
+
+Maintain a complete audit trail from customer pickup to facility receipt.
+
+If a package is missing or damaged during collection or handover, create an exception record.
+
+⸻
+
+11. FRONT DESK ADMIN DASHBOARD REDESIGN
+
+Redesign the existing Front Desk Admin dashboard using the new Swiftvero colour system.
+
+Keep the interface compact, premium and easy to operate on mobile.
+
+The first screen should show:
+
+* Staff name and role.
+* Active branch.
+* Create New Shipment.
+* Register Walk-in Customer.
+* Find Existing Customer.
+* Expected Incoming Packages.
+* Today’s Collections.
+* Packages Received.
+* Awaiting Inspection.
+* Awaiting Payment.
+* Paid Shipments.
+* Ready for Handover.
+
+Add a compact Pickup Overview section.
+
+Front Desk Admin should be able to:
+
+* See expected incoming packages.
+* Search pickup references.
+* Confirm physical branch receipt.
+* Record package discrepancies.
+* Continue the existing inspection and weighing workflow.
+
+Front Desk Admin should not manage all pickup assignments unless explicitly authorized.
+
+Do not overload the dashboard with unnecessary statistics.
+
+⸻
+
+12. SHIPMENT CREATION AND SHIPPING SPEED
+
+Improve the existing shipment creation process.
+
+Use a clear step-by-step workflow:
+
+1. Customer selection.
+2. Sender and receiver details.
+3. Package declaration.
+4. Pickup or branch drop-off selection.
+5. Shipping speed selection.
+6. Cargo protection selection.
+7. Inspection and weighing.
+8. Quotation.
+9. Customer approval.
+10. Payment.
+11. Receipt and tracking.
+
+Shipping speed
+
+Display:
+
+STANDARD SHIPPING
+
+* Standard available service.
+* Applicable delivery estimate.
+* Standard quotation.
+
+PRIORITY SHIPPING
+
+* Faster available service where supported.
+* Applicable delivery estimate.
+* Additional priority fee.
+
+Default to Standard Shipping.
+
+Only display Priority Shipping when it is operationally available for the selected destination and package.
+
+Save the selected service to the shipment record.
+
+Make the selected option visible in:
+
+* Customer dashboard.
+* Operations dashboard.
+* Shipment record.
+* Dispatch manifest.
+* Receipt.
+* Tracking details.
+
+⸻
+
+13. CUSTOMER-FACING PRICING AND CHECKOUT
+
+Keep checkout simple and transparent.
+
+Do not expose internal logistics cost calculations.
+
+Remove unnecessary technical explanations such as:
+
+* Air cargo fuel allocation.
+* Aviation fuel adjustments.
+* Internal carrier cost.
+* Internal operational calculations.
+* Other non-customer-facing cost breakdowns.
+
+Customer-facing checkout should show:
+
+YOUR SHIPPING SUMMARY
+
+* Confirmed chargeable weight.
+* Selected shipping service.
+* Shipping charge.
+* Cargo protection fee, if selected.
+* Priority fee, if selected.
+* Any legally required applicable tax or mandatory charge.
+* Final amount payable.
+
+Use real approved pricing from the existing quotation engine.
+
+Never invent or hardcode production prices.
+
+Do not display a priority fee for Standard Shipping.
+
+Do not display a protection fee when protection is not selected.
+
+Explain that free pickup is separate from the international shipping charge.
+
+The final amount must be correct and consistent with the quotation, payment and receipt.
+
+⸻
+
+14. REDESIGN ALL OTHER DASHBOARDS
+
+Use the same design system across:
+
+* Customer.
+* Front Desk Admin.
+* Operations Admin.
+* Finance Lead.
+* Branch Manager.
+* Central Super Admin.
+
+Each dashboard must reflect its actual role and permissions.
+
+Do not duplicate the same dashboard across different roles.
+
+Operations Admin
+
+Prioritize:
+
+* New pickup requests.
+* 24-hour collection deadlines.
+* Pickup calendar.
+* Shipment processing.
+* Priority shipments.
+* Branch handovers.
+* Operational exceptions.
+
+Finance Lead
+
+Prioritize:
+
+* Verified payments.
+* Outstanding payments.
+* Refund requests.
+* Transaction history.
+* Revenue reports.
+* Reconciliation.
+
+Branch Manager
+
+Prioritize:
+
+* Branch performance.
+* Incoming packages.
+* Packages received.
+* Staff activity.
+* Daily collections.
+* Operational exceptions.
+
+Central Super Admin
+
+Prioritize:
+
+* Nationwide shipment activity.
+* Branch management.
+* Staff management.
+* Permissions.
+* Operational monitoring.
+* Financial oversight.
+* Policy management.
+* Audit records.
+
+⸻
+
+15. MOBILE-FIRST DESIGN REQUIREMENTS
+
+Every page must be optimized for mobile devices first.
+
+Target a minimum layout width of 375px.
+
+Test at:
+
+* 375px.
+* 390px.
+* 430px.
+* Tablet widths.
+* Desktop widths.
+
+Avoid:
+
+* Horizontal scrolling.
+* Tiny buttons.
+* Overcrowded cards.
+* Unnecessary large headers.
+* Excessive scrolling.
+* Desktop tables squeezed onto phones.
+
+Use:
+
+* Responsive cards.
+* Compact dashboards.
+* Mobile-friendly forms.
+* Clear progress indicators.
+* Bottom navigation where appropriate.
+* Sticky primary actions where helpful.
+* Collapsible sections.
+* Search and filter controls.
+
+The customer must be able to book a pickup comfortably from a smartphone.
+
+Staff must be able to manage bookings and confirm package receipt from a smartphone.
+
+⸻
+
+16. SECURITY, PRIVACY AND CUSTOMER DATA
+
+Maintain appropriate role-based access control.
+
+Requirements:
+
+* Secure authentication.
+* Branch-level access restrictions.
+* Customer data privacy.
+* Masked NIN/BVN values.
+* Secure passport document storage.
+* Consent records.
+* Audit logs.
+* Server-side validation.
+* Secure payment verification.
+* Proper file upload validation.
+* Restricted access to customer documents.
+* Appropriate data retention and deletion processes.
+
+Do not allow staff to:
+
+* Change customer consent without authorization.
+* Falsely mark identity verification as successful.
+* Change shipping prices without permission.
+* Approve their own exceptional refunds.
+* Access unrestricted financial information.
+* Delete audit records.
+* Mark overdue pickups as collected without evidence.
+
+Customer consent must not be used as a substitute for legal compliance or appropriate security controls.
+
+⸻
+
+17. DEMO MODE
+
+Preserve all existing demo accounts, branches, shipment records and interactive demonstrations.
+
+Every newly implemented feature must have a functional DEMO MODE experience.
+
+Create scenarios for:
+
+1. New customer registration.
+2. Existing customer booking.
+3. Successful pickup booking.
+4. New Operations Admin pickup notification.
+5. Pickup scheduling.
+6. Collection handler assignment.
+7. Collection within the 24-hour window.
+8. Pickup deadline approaching.
+9. Overdue pickup.
+10. Failed collection.
+11. Rescheduled collection.
+12. Successful collection confirmation.
+13. Arrival at Swiftvero facility.
+14. Package inspection.
+15. Package repacking.
+16. Package weighing.
+17. Final quotation.
+18. Standard Shipping selection.
+19. Priority Shipping selection.
+20. Optional cargo protection.
+21. Quotation approval.
+22. Successful payment.
+23. Receipt generation.
+24. Customer tracking updates.
+25. Customer consent history.
+26. Policy version update and renewed acknowledgement.
+
+Clearly label simulated operations.
+
+Never represent demo identity verification or payment as real production transactions.
+
+⸻
+
+18. IMPLEMENTATION PROCESS
+
+Before implementation:
+
+1. Inspect the complete existing codebase.
+2. Identify every existing page and dashboard.
+3. Inspect existing database tables and relationships.
+4. Review customer registration and KYC.
+5. Review pickup booking.
+6. Review shipment creation.
+7. Review weighing and quotation logic.
+8. Review payment processing.
+9. Review tracking and notifications.
+10. Review staff roles and permissions.
+11. Identify all existing demo workflows.
+
+Then implement the improvements incrementally.
+
+Do not make unnecessary database migrations.
+
+If schema changes are necessary:
+
+* Preserve existing records.
+* Use safe migrations.
+* Avoid destructive operations.
+* Maintain backward compatibility.
+* Add proper validation and indexes where required.
+
+Separate presentation, business logic and data operations.
+
+Use the existing backend and integrations.
+
+If an external integration is not connected, clearly identify it and implement the correct integration interface without pretending it is active.
+
+Do not invent live data or successful external API responses.
+
+⸻
+
+19. FINAL TESTING AND ACCEPTANCE CRITERIA
+
+Do not finish after making the website visually attractive.
+
+Test the complete customer and operational journey.
+
+The work is complete only when:
+
+* The entire website uses the new Swiftvero colour system.
+* All dashboards have a consistent premium design.
+* Mobile screens are properly organized.
+* Customers understand that pickup is free but international shipping is paid.
+* The 24-hour collection commitment is clearly communicated.
+* Successful bookings generate a 24-hour collection deadline.
+* Operations Admin receives every pickup request.
+* No separate Pickup Agent dashboard is introduced.
+* Collection handlers can be recorded without creating agent accounts.
+* Packages are not weighed at customer pickup addresses.
+* Final weighing occurs at the Swiftvero facility.
+* Customer declarations and consents are recorded.
+* Optional services require active customer selection.
+* Customers approve quotations before payment.
+* Standard and Priority Shipping work correctly.
+* Checkout shows only relevant customer-facing charges.
+* Package receipt and shipment inspection are connected.
+* Tracking and notifications continue working.
+* Existing authentication and permissions remain intact.
+* DEMO MODE remains functional.
+* No important existing features have been removed.
+* All visible controls work.
+
+Fix discovered errors before declaring completion.
+
+FINAL INSTRUCTION
+
+Act as the senior developer and professional product designer responsible for delivering this project.
+
+Do not merely provide recommendations, screenshots, design concepts or a list of suggested changes.
+
+Inspect the existing project, implement the redesign and workflow improvements directly, test the entire experience, and fix problems.
+
+The final Swiftvero experience must communicate one clear promise:
+
+FREE PICKUP WITHIN 24 HOURS. PROFESSIONAL PACKAGE HANDLING. TRANSPARENT INTERNATIONAL SHIPPING.
+
+The customer should know exactly what happens after booking, what they are agreeing to, when their package will be collected, how it will be weighed, and what they will eventually pay.
+
+Deliver a premium, reliable and easy-to-use international logistics platform.

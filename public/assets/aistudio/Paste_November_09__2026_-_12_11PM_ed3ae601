@@ -1,0 +1,2083 @@
+SWIFTVERO EXPRESS: MAJOR PLATFORM IMPROVEMENTS, TRACKING, CUSTOMER EXPERIENCE, WALLET, SUPPORT AND ACCOUNT REDESIGN
+
+ROLE AND EXPECTATIONS
+
+Act as a senior international logistics technology architect, senior product designer, senior UI/UX designer, financial systems specialist, customer experience strategist and experienced full-stack engineer.
+
+You are improving an existing international logistics platform called Swiftvero Express.
+
+Your job is not simply to add buttons or make pages look attractive. Your job is to improve how the entire platform works for customers, guests, businesses and staff.
+
+Think deeply about the actual business processes before changing anything.
+
+Build a platform that is:
+
+* Premium and professional.
+* Internationally positioned.
+* Mobile-first.
+* Easy for ordinary people to understand.
+* Easy to navigate.
+* Secure.
+* Operationally realistic.
+* Transparent about prices and services.
+* Properly organised for individual and business customers.
+* Easy for staff to manage.
+
+CRITICAL PROJECT INSTRUCTIONS
+
+This is an existing project.
+
+1. Inspect the entire existing project before making changes.
+2. Understand the current frontend, backend, database, authentication, payment integrations and existing business workflows.
+3. Identify which features already work.
+4. Reuse existing components and services where appropriate.
+5. Improve existing features rather than unnecessarily replacing them.
+6. Do not rebuild the application from scratch.
+7. Do not delete existing customer records, shipment records, staff accounts or transaction histories.
+8. Do not break existing integrations.
+9. Do not create duplicate dashboards, wallet accounts, notification systems or customer records.
+10. Do not create buttons that look functional but have no actual behaviour.
+11. Do not use fake data in live customer accounts.
+12. Keep DEMO MODE separate from LIVE MODE.
+13. Preserve existing working features unless a specific instruction below requires a change.
+14. Make changes incrementally and test each major section before proceeding.
+
+If a requested feature depends on a payment provider, WhatsApp integration, external shipping partner or another service, inspect the existing integration first. Do not pretend an integration exists when it does not.
+
+⸻
+
+1. OFFICIAL SWIFTVERO BRAND IDENTITY
+
+Use these official brand colours throughout the entire platform:
+
+* Primary Cyan: #00B4D8
+* Secondary Cyan: #90E0EF
+* Light Cyan: #CAF0F8
+* White: #FFFFFF
+
+Use white as the dominant background.
+
+Use the primary cyan for:
+
+* Main buttons.
+* Important actions.
+* Selected navigation.
+* Active links.
+* Important icons.
+* Progress indicators.
+* Key highlights.
+
+Use secondary cyan for supporting visual elements.
+
+Use light cyan for:
+
+* Soft card backgrounds.
+* Information panels.
+* Selected states.
+* Subtle visual highlights.
+
+Use dark neutral text for readability.
+
+Do not introduce unrelated brand colours such as purple, orange, gold, red, green or navy.
+
+Use suitable neutral colours for ordinary text and subtle borders. Status indicators may use accessible, restrained visual treatments, but must not change the official brand identity.
+
+Design standard
+
+All pages must look like parts of one professionally designed international logistics product.
+
+Use:
+
+* Clean layouts.
+* Consistent typography.
+* Proper spacing.
+* Attractive cards.
+* Simple icons.
+* Clear headings.
+* Medium-sized logos.
+* Consistent button designs.
+* Properly aligned forms.
+* Subtle borders and shadows.
+* Well-arranged navigation.
+
+Do not overcrowd the interface.
+
+Use the previously supplied mobile dashboard screenshot as inspiration for layout and organisation, not for its colours.
+
+⸻
+
+2. SIMPLE ENGLISH THROUGHOUT THE ENTIRE PLATFORM
+
+This requirement is compulsory.
+
+I do not want complicated English, unnecessary technical terminology or shipping industry jargon appearing in the customer interface.
+
+Use ordinary, professional English that customers in Nigeria, Ghana, Kenya, the UK, Canada and other countries can easily understand.
+
+Review every page and every customer-facing message.
+
+This includes:
+
+* Public website.
+* Customer dashboard.
+* Business dashboard.
+* Individual dashboard.
+* Staff dashboards.
+* Customer profiles.
+* Booking forms.
+* Tracking pages.
+* Wallet.
+* Payments.
+* Notifications.
+* Support tickets.
+* Reviews.
+* Policies.
+* FAQs.
+* Email messages.
+* Error messages.
+* Success messages.
+* Buttons.
+* Menu labels.
+* Tooltips.
+* Headings.
+* Feature names.
+
+Words and expressions that must be corrected
+
+Current wording	Better wording
+Full Booking Wizard	Book a Shipment
+SwiftShare Pilot Consignments	Remove or rename based on its actual function
+Consignment	Shipment
+Consignor	Sender
+Consignee	Receiver
+Corporate Account	Business Account
+Dispatch	Send out
+In Transit	On the Way
+Manifest	Shipment List
+Reconciliation	Payment Checking
+Remittance	Money Sent
+Fulfilment	Order Completion
+Initiate Transaction	Make Payment
+Volumetric Weight	Package Size-Based Weight
+Shipment Exception	Delivery Problem
+Logistics Documentation	Shipping Documents
+Customer Onboarding	Create Your Account
+Proactive Notification Settings	Notification Preferences
+
+These are examples. Conduct a full language review rather than correcting only the listed words.
+
+Specific feature-name corrections
+
+Full Booking Wizard
+
+This sounds unnecessarily technical.
+
+Replace it with:
+
+“Book a Shipment”
+
+Use this wording wherever customers see the booking process.
+
+SwiftShare Pilot Consignments
+
+Inspect what this feature actually does.
+
+If it is an internal test feature, do not expose it to ordinary customers.
+
+If it is a real customer service, give it a simple name that explains what the service does.
+
+Possible names, depending on its actual function:
+
+* Group Shipments.
+* Multiple Shipments.
+* Business Shipments.
+* Test Shipments, for internal DEMO MODE only.
+
+Do not invent a new service or remove a working feature without understanding it.
+
+Language quality rule
+
+The customer should never need to understand shipping industry terminology to use Swiftvero.
+
+Keep technical terms in the backend and internal code where necessary. Customer-facing wording must remain simple and human.
+
+⸻
+
+3. NOTIFICATION BELL: NOTIFICATIONS ONLY
+
+Correct the notification system throughout all dashboards.
+
+The notification bell must have one clear purpose:
+
+Show notifications.
+
+It must not open notification preferences, reminder settings, proactive notification controls or general account settings.
+
+Notification bell behaviour
+
+When a customer taps the bell, open the notification centre.
+
+The notification centre should display actual notifications such as:
+
+* Pickup booking confirmed.
+* Pickup assigned.
+* Pickup completed.
+* Package received at Swiftvero facility.
+* Package inspection completed.
+* Shipping price ready.
+* Payment received.
+* Shipment sent.
+* Shipment is on the way.
+* Customs update.
+* Delivery update.
+* Successful delivery.
+* Support ticket update.
+* Refund update.
+* Important account security alert.
+
+Show a notification count only when unread notifications exist.
+
+Do not display random or hardcoded notification counts.
+
+Customers should be able to:
+
+* View notifications.
+* Open the related shipment or support ticket.
+* Mark a notification as read.
+* Mark all notifications as read.
+* View notification history.
+* See the date and time of each notification.
+
+Keep the interface clean and mobile-friendly.
+
+Important notification rule
+
+Only create meaningful notifications.
+
+Do not send customers repeated notifications for insignificant internal activities.
+
+For example, customers do not need a notification every time an internal staff member opens a record or makes a private administrative note.
+
+Only notify customers when something relevant changes or requires their attention.
+
+Where notification settings belong
+
+Notification preferences must be under:
+
+Profile → Settings → Notifications
+
+This section should allow customers to manage:
+
+* Email notifications.
+* SMS notifications, where available.
+* WhatsApp notifications, where supported.
+* Important shipment updates.
+* Pickup reminders.
+* Payment notifications.
+* Promotional messages.
+* Cashback and promotion updates.
+* Security alerts.
+
+Keep operationally essential alerts separate from optional promotional messages.
+
+Do not allow customers to disable critical security messages or legally required service updates where these must be sent.
+
+The notification bell and notification preferences must remain separate throughout the application.
+
+Apply the same clear arrangement to staff dashboards, with staff notification preferences under their own settings.
+
+⸻
+
+4. PICKUP BOOKING: STANDARD AND PRIORITY OPTIONS
+
+Inspect the complete pickup booking process.
+
+Currently, customers can see Standard Pickup, but there is no proper opportunity to choose Priority Pickup.
+
+Correct this.
+
+Whenever a customer chooses a pickup from their address, there must be a clear choice between Standard Pickup and Priority Pickup.
+
+This applies to:
+
+* Registered individual customers.
+* Registered business customers.
+* Guest customers.
+* Customers using the public Get a Quote process.
+* Customers booking through the customer dashboard.
+
+Do not hide the choice inside an unrelated settings page.
+
+A. Standard Pickup
+
+Standard Pickup
+
+“Get your package collected within 24 hours of your confirmed booking.”
+
+Conditions:
+
+* Collection target: within 24 hours of confirmed booking.
+* No additional Standard Pickup charge.
+* Customer receives booking confirmation.
+* Customer receives updates when pickup is assigned and completed.
+
+The 24-hour period begins when the booking is successfully confirmed.
+
+Do not display a 2-hour pickup promise anywhere.
+
+B. Priority Pickup
+
+Priority Pickup
+
+“Need your package collected sooner? Choose Priority Pickup for faster collection.”
+
+Expected collection time:
+
+1 to 6 hours, depending on location, traffic and available pickup staff.
+
+Conditions:
+
+* Faster pickup handling.
+* Additional pickup charge.
+* Show the estimated collection time before confirmation.
+* Show the calculated price before confirmation.
+* Customer must approve the fee before submitting the booking.
+
+Do not display a guaranteed one-hour arrival when the system cannot support it.
+
+The system must calculate a realistic estimated arrival time using:
+
+* Pickup address.
+* Distance from available pickup staff or branch.
+* Traffic conditions, where a reliable traffic service is available.
+* Available pickup vehicles.
+* Staff availability.
+* Working hours.
+* Current pickup workload.
+* Location-specific restrictions.
+* Other operational conditions.
+
+If reliable traffic information is unavailable, use an honest estimated time based on the available operational information. Do not invent traffic data.
+
+If the 1–6-hour priority service cannot be supported at the selected location or time, explain that Priority Pickup is unavailable and offer the next available collection option.
+
+C. PRIORITY PICKUP PRICING
+
+Do not use one fixed priority pickup charge for every location.
+
+Create a configurable pricing system.
+
+The system should calculate the customer’s priority pickup fee using:
+
+* Distance.
+* Pickup location.
+* Available vehicle.
+* Operational cost.
+* Traffic conditions, where supported.
+* Current demand.
+* Service availability.
+* Location-specific pricing.
+* Swiftvero’s configured subsidy.
+
+Swiftvero priority pickup subsidy
+
+Swiftvero intends to subsidise part of the priority pickup cost.
+
+The customer should therefore see a reasonable and affordable final price.
+
+Do not simply pass the full operational cost to the customer.
+
+Build a configurable pricing model that separates:
+
+1. Estimated actual pickup cost.
+2. Customer’s priority pickup charge.
+3. Swiftvero’s subsidy.
+4. Final amount payable by the customer.
+
+The subsidy must be funded and recorded by Swiftvero, not silently removed from the financial records.
+
+Do not make priority pickup excessively expensive or unrealistically cheap.
+
+Allow Operations & Admin to configure:
+
+* Priority pickup base charge.
+* Distance-based charge.
+* Location-based charge.
+* Minimum customer charge.
+* Maximum customer charge.
+* Subsidy percentage or fixed subsidy.
+* Subsidy limits.
+* Available operating hours.
+* Supported areas.
+* Pickup capacity.
+* Temporary promotional rates.
+
+The customer should see only the final pickup charge and expected collection time.
+
+The internal cost and subsidy breakdown should be visible to authorised Operations & Admin staff, not unnecessarily displayed to customers.
+
+D. PICKUP BOOKING FORM
+
+Collect:
+
+1. Sender’s full name.
+2. Sender’s phone number.
+3. Pickup address.
+4. City.
+5. State or region.
+6. Country.
+7. Preferred pickup date.
+8. Available pickup time.
+9. Package description.
+10. Number of packages.
+11. At least one package photo.
+12. Optional estimated package size.
+13. Optional estimated weight.
+14. Additional pickup instructions.
+
+Require at least one clear package photo for pickup planning.
+
+Allow customers to preview and replace the photo before submitting.
+
+The operations team should use the image, package description and quantity to plan a suitable vehicle.
+
+Examples:
+
+* Small parcel: motorcycle or bike where permitted.
+* Medium package: car or suitable delivery vehicle.
+* Large package: van or another suitable vehicle.
+* Multiple packages: appropriate vehicle based on the combined load.
+
+Customers should not be required to choose the vehicle.
+
+The operations team makes the final vehicle decision.
+
+The package photo must not automatically determine the final shipping price.
+
+E. PICKUP POLICY AND CUSTOMER TERMS
+
+Keep the booking form clean.
+
+Do not display long policy explanations that make the page crowded.
+
+Place the full pickup policy under:
+
+Policies → Pickup Policy
+
+On the booking page:
+
+* Show a short, clear summary.
+* Provide a link to view the full pickup policy.
+* Keep the full policy collapsed by default.
+* Do not make customers navigate through multiple pages just to understand the basic pickup options.
+
+Where a legal or operational agreement requires customer acceptance, use a clear acknowledgement at the relevant point.
+
+Do not falsely record consent.
+
+Do not preselect a legal consent checkbox if explicit customer agreement is required. If the customer must agree, the checkbox must be actively selected before booking.
+
+The full terms should remain available without occupying excessive screen space.
+
+⸻
+
+5. CORRECT THE PICKUP AND SHIPPING WORKFLOW
+
+The actual Swiftvero process must be reflected accurately throughout the system.
+
+The correct workflow is:
+
+1. Customer requests a quote or books a pickup.
+2. Customer uploads a package photo where pickup is requested.
+3. Customer selects Standard or Priority Pickup.
+4. System checks pickup availability.
+5. System calculates the applicable pickup fee.
+6. Customer reviews and confirms the pickup.
+7. Swiftvero assigns an appropriate pickup agent and vehicle.
+8. Pickup agent collects the package.
+9. Package arrives at the Swiftvero facility.
+10. Staff inspect the declared contents and package condition.
+11. Staff complete packing where required.
+12. Staff record the actual weight and package dimensions.
+13. System calculates the shipping price using verified package details and the selected route.
+14. Customer receives the final shipping quote.
+15. Customer reviews and approves the quote.
+16. Customer pays using an available payment method.
+17. Payment is verified.
+18. Shipment is prepared and handed over for shipping.
+19. Customer receives tracking updates.
+
+Important rules
+
+Pickup agents do not weigh or measure packages at customers’ addresses.
+
+Actual weighing and measuring take place at the Swiftvero facility.
+
+The system must distinguish between:
+
+* Customer’s estimated package information.
+* Actual package weight.
+* Actual package dimensions.
+* Final shipping price.
+
+Never charge the customer an unapproved final shipping amount.
+
+Never mark a package as paid until payment is verified by the backend.
+
+⸻
+
+6. REDESIGN THE CUSTOMER TRACKING EXPERIENCE
+
+This is one of the most important improvements.
+
+The tracking page must be redesigned for both:
+
+1. Customers logged into their accounts.
+2. Guests who want to track a package without logging in.
+
+The tracking experience should be easy to understand even for someone who has never used an international shipping service before.
+
+Do not simply display a tracking number and a long list of technical status labels.
+
+Make the tracking information visually clear, well explained and useful.
+
+A. PUBLIC TRACKING PAGE
+
+Create a professional public tracking page.
+
+The page should contain:
+
+Track Your Shipment
+
+“Enter your tracking number to see where your package is and what happens next.”
+
+Include:
+
+* Large, clearly visible tracking number field.
+* Track button.
+* Example tracking number format.
+* Helpful instructions.
+* Link to customer support.
+
+Do not make the tracking input unnecessarily large. Use a comfortable medium-sized design that is easy to use on mobile.
+
+Allow customers to paste their tracking number easily.
+
+Show a clear error when the number is incorrect.
+
+Do not reveal private customer information through public tracking.
+
+B. TRACKING RESULTS PAGE
+
+Once a valid tracking number is entered, display an organised shipment summary.
+
+Show:
+
+* Tracking number.
+* Shipment status.
+* Sender’s country or city where appropriate.
+* Destination country or city where appropriate.
+* Date shipment was booked.
+* Expected delivery date or delivery range, where available.
+* Last update date and time.
+* Current location or last confirmed location, where available.
+* Shipment type.
+* Support option.
+
+Do not reveal private phone numbers, full addresses, email addresses, payment information or other sensitive customer information.
+
+C. MAKE THE TRACKING TIMELINE CLEARER
+
+Redesign the shipment progress timeline.
+
+It should be visually prominent and easy to understand.
+
+Use a clear vertical timeline on mobile and an appropriate horizontal or vertical timeline on larger screens.
+
+Each tracking stage should include:
+
+1. A simple status heading.
+2. Date and time.
+3. Location, when available.
+4. A short explanation of what happened.
+5. What the customer should expect next, where useful.
+
+Use simple English.
+
+Example tracking stages:
+
+1. Booking Received
+
+“We have received your shipping request.”
+
+2. Pickup Scheduled
+
+“Your package pickup has been arranged.”
+
+3. Package Collected
+
+“Our pickup team has collected your package.”
+
+4. Arrived at Swiftvero Facility
+
+“Your package has arrived at our facility.”
+
+5. Package Checked and Weighed
+
+“Our team has checked your package and recorded its actual weight and size.”
+
+6. Shipping Price Ready
+
+“Your final shipping price is ready for your approval.”
+
+7. Payment Confirmed
+
+“We have confirmed your shipping payment.”
+
+8. Shipment Sent
+
+“Your package has been handed over for shipping.”
+
+9. On the Way
+
+“Your package is moving towards its destination.”
+
+10. Customs Check
+
+“Your package is undergoing customs checks, where applicable.”
+
+11. Out for Delivery
+
+“Your package is with the local delivery team.”
+
+12. Delivered
+
+“Your package has been delivered.”
+
+Only display stages that have actually happened.
+
+Do not automatically mark every stage complete.
+
+Every status must be connected to a verified operational event or authorised update.
+
+D. MAKE THE CURRENT STATUS STAND OUT
+
+The current shipment status should be easy to identify.
+
+Use:
+
+* A clear status title.
+* A prominent status icon.
+* A short explanation.
+* The last update time.
+* Expected next step.
+
+Use the official cyan colour family for progress indicators and completed steps.
+
+Use accessible neutral status treatments for delays, exceptions or problems.
+
+Do not use confusing technical terms.
+
+E. TRACKING PROBLEMS AND SUPPORT
+
+If a shipment has a delay, failed delivery, customs issue or another problem, explain it clearly.
+
+Show:
+
+* What happened.
+* When it happened.
+* Whether the customer needs to take action.
+* What Swiftvero is doing.
+* How the customer can contact support.
+
+Include a visible:
+
+Get Help with This Shipment
+
+button.
+
+This should take the customer to the support process with the tracking number and shipment information already attached where possible.
+
+F. CUSTOMER DASHBOARD TRACKING
+
+Logged-in customers should also see their shipments in their account.
+
+Allow them to:
+
+* Open any shipment.
+* View the full tracking timeline.
+* See their pickup and delivery details.
+* View shipping price and payment status.
+* Download available receipts.
+* Contact support.
+* Submit a review after successful delivery.
+
+Customers should not have to re-enter their tracking number for their own shipments.
+
+⸻
+
+7. CUSTOMER REVIEWS AFTER SUCCESSFUL DELIVERY
+
+Introduce a proper customer review system.
+
+Whenever a shipment is successfully delivered, the customer should have the option to review Swiftvero.
+
+This applies to:
+
+* Registered individual customers.
+* Registered business customers.
+* Guest customers.
+
+The review option should only become available after successful delivery has been confirmed.
+
+A. REVIEW BUTTON
+
+After delivery, display:
+
+Rate Your Experience
+
+Include a clear button:
+
+Leave a Review
+
+Make it available:
+
+* On the shipment tracking page.
+* Inside the customer’s shipment details.
+* In the customer dashboard.
+* Through a delivery notification where appropriate.
+
+Do not show the review button before delivery is confirmed.
+
+B. REVIEW FORM
+
+Allow customers to provide:
+
+1. Overall rating from 1 to 5 stars.
+2. Written review.
+3. Optional package photo upload.
+4. Optional comments about pickup.
+5. Optional comments about communication and updates.
+6. Optional comments about delivery speed.
+7. Optional comments about package condition.
+
+Use a simple form.
+
+Do not force customers to answer every optional question.
+
+Allow customers to preview their review before submission.
+
+C. GUEST REVIEW VERIFICATION
+
+A guest customer must be able to leave a review without creating an account, provided they can prove they own the shipment.
+
+Use a secure verification process such as:
+
+* Verification code sent to the phone number or email attached to the booking.
+* Another supported secure verification method.
+
+Do not allow someone who simply knows another person’s tracking number to submit a review on their behalf.
+
+D. PUBLIC REVIEWS
+
+Approved reviews should appear on the public Swiftvero website.
+
+Create a professional:
+
+Customer Reviews
+
+section.
+
+Display:
+
+* Customer’s approved display name, subject to privacy settings.
+* Star rating.
+* Review text.
+* Shipment service type where appropriate.
+* Review date.
+* Customer-uploaded package photo, where approved.
+
+Do not publicly expose:
+
+* Full tracking numbers.
+* Customer phone numbers.
+* Email addresses.
+* Home addresses.
+* Private shipment documents.
+* Other personal information.
+
+E. REVIEW MODERATION
+
+Create review management for authorised Customer Service and Operations & Admin staff.
+
+Allow authorised staff to:
+
+* View new reviews.
+* Approve reviews.
+* Reject reviews that violate clear publishing rules.
+* Hide inappropriate content.
+* Request clarification where appropriate.
+* Flag suspicious reviews.
+* Record moderation history.
+
+Do not allow staff to secretly change a customer’s rating or rewrite their opinion.
+
+If a review is rejected, record the reason.
+
+Make it clear on the public website that published reviews are customer feedback and not every review must be positive.
+
+Allow customers to edit or request removal of their review under a clearly defined policy.
+
+F. PHOTO PRIVACY
+
+Customers must explicitly agree before their uploaded package photo is displayed publicly.
+
+Do not assume that uploading a photo for shipping gives Swiftvero permission to publish it.
+
+Use separate consent for public review images.
+
+⸻
+
+8. SHIPMENT CANCELLATION RULES
+
+Improve the cancellation system.
+
+I want customers to be able to cancel a shipment only while cancellation is operationally possible.
+
+My preferred business rule is:
+
+Once a shipment has left Swiftvero’s custody and has been handed over to the shipping carrier, it cannot be cancelled through the normal customer cancellation process.
+
+Implement clear cancellation stages.
+
+STAGE A: BEFORE PICKUP
+
+If the customer has booked a pickup but the package has not yet been collected:
+
+* Allow cancellation.
+* Allow cancellation of Standard Pickup.
+* Allow cancellation of Priority Pickup.
+* Apply any clearly disclosed priority pickup fee refund rules.
+* Record the cancellation reason.
+* Notify the relevant staff.
+
+STAGE B: PACKAGE COLLECTED BUT NOT YET HANDED OVER TO THE SHIPPING CARRIER
+
+If the package has been collected or has arrived at the Swiftvero facility but has not yet been handed over to the shipping carrier:
+
+* Do not automatically treat the shipment as non-cancellable.
+* Allow a cancellation request for review.
+* Check whether the package has already been packed, processed or prepared for shipping.
+* Apply any disclosed handling or return charges where applicable.
+* Allow authorised staff to approve or reject the request.
+* Explain any applicable refund or return conditions.
+
+STAGE C: HANDED OVER TO THE SHIPPING CARRIER
+
+Once the package has been handed over to the shipping carrier or has left Swiftvero’s custody:
+
+* Disable the normal cancellation button.
+* Clearly display that the shipment can no longer be cancelled.
+* Allow the customer to contact support for assistance.
+* Explain that any available return or interception request depends on the carrier and applicable service terms.
+* Do not promise that a return or interception is possible.
+
+STAGE D: DELIVERED
+
+A delivered shipment cannot be cancelled.
+
+Any complaint must go through the support, claims or refund process where applicable.
+
+CANCELLATION POLICY
+
+Keep the detailed cancellation policy under:
+
+Policies → Cancellation and Refund Policy
+
+Do not display long cancellation explanations during every booking step.
+
+Show a short relevant summary before confirmation.
+
+Make the full policy available to customers whenever they want to read it.
+
+IMPORTANT TECHNICAL RULE
+
+The cancellation restriction must be enforced by the backend.
+
+Do not rely only on hiding the cancellation button.
+
+Staff permissions and shipment status must prevent unauthorised cancellation after the carrier handover stage.
+
+Record all cancellation requests, approvals, rejections and refunds in the audit history.
+
+⸻
+
+9. CUSTOMER WALLET: REFUND AND RETURN OF DEPOSITED MONEY
+
+Improve the existing customer wallet.
+
+Customers should be able to view their money, see transaction history and request the return of eligible deposited funds.
+
+Do not treat cashback, promotional discounts and actual deposited money as the same thing.
+
+A. KEEP THREE BALANCES SEPARATE
+
+The wallet must clearly distinguish:
+
+1. Wallet Balance
+
+Money deposited by the customer.
+
+This is the customer’s actual deposited money, subject to the applicable wallet and payment terms.
+
+2. Cashback Balance
+
+Promotional rewards earned through eligible transactions.
+
+Cashback is not withdrawable.
+
+3. Promo Discounts
+
+Discounts applied through eligible promotional campaigns.
+
+Promo discounts are not money and cannot be withdrawn.
+
+Do not combine these balances into one misleading amount.
+
+B. ADD A REFUND OR RETURN FUNDS OPTION
+
+Add an option inside the wallet:
+
+Request Refund
+
+Description:
+
+“Request the return of eligible money you added to your Swiftvero wallet.”
+
+The customer should only be able to request a refund from eligible deposited wallet funds.
+
+Never allow customers to withdraw:
+
+* Cashback.
+* Welcome bonuses.
+* Promotional credits.
+* Promo code discounts.
+* Other non-cash rewards.
+
+C. REFUND TO THE ORIGINAL FUNDING SOURCE
+
+My preferred policy is that money should return to the original payment source that funded the wallet.
+
+For example:
+
+* If a customer funded their wallet through a bank transfer, the refund should go back to the verified originating bank account where supported.
+* If the customer funded through a card, the refund should return through the original card payment route where supported.
+* If the customer funded through another supported payment method, use the payment provider’s supported refund process.
+
+Do not allow a customer to freely choose a completely unrelated destination for a wallet refund.
+
+D. VERIFIED REFUND BANK ACCOUNT
+
+Create a customer refund bank account section under:
+
+Wallet → Refund Details
+
+Allow the customer to attach one verified bank account where bank refunds are supported.
+
+Collect:
+
+* Account holder’s name.
+* Bank name.
+* Account number.
+* Verified account name.
+* Verification status.
+
+Use an approved bank account verification service where available.
+
+The refund bank account should be linked to the customer’s verified identity.
+
+E. PROTECT THE REFUND BANK ACCOUNT
+
+The refund bank account must not be easy to change.
+
+Once verified:
+
+* Do not allow casual changes.
+* Require additional identity verification before a change.
+* Require an authorised review where appropriate.
+* Record the old and new bank account details securely.
+* Notify the customer of a requested or approved change.
+* Apply a configurable security waiting period after changes.
+* Keep a full audit history.
+
+Where the payment provider can identify the original funding account, prioritise refunding to that original source.
+
+The fixed refund bank account should be used only when the payment provider’s supported refund process requires or permits it.
+
+Important financial and technical safeguard:
+
+Do not assume that every payment provider exposes the original bank account details for every payment method.
+
+Inspect the existing payment gateway and confirm which refund methods it supports.
+
+If a bank transfer payment cannot be reliably linked to its originating bank account, do not pretend the system can verify it.
+
+Do not allow staff to manually redirect customer money to an unrelated account without proper verification and approval.
+
+F. REFUND REQUEST PROCESS
+
+The customer should be able to:
+
+1. Open their wallet.
+2. View their available deposited balance.
+3. Tap Request Refund.
+4. Enter the amount they want returned.
+5. See the eligible amount.
+6. See the refund destination.
+7. Review the request.
+8. Confirm the request.
+9. Track the refund status.
+
+Display statuses such as:
+
+* Request Received.
+* Under Review.
+* Approved.
+* Processing.
+* Completed.
+* Rejected.
+
+If rejected, display a simple explanation.
+
+Do not mark a refund as completed until the payment provider or relevant financial process confirms it.
+
+G. REFUND ELIGIBILITY AND SECURITY
+
+Prevent:
+
+* Refunds above the available eligible balance.
+* Duplicate refund requests.
+* Refunds of cashback.
+* Refunds of promo discounts.
+* Refunds of already-spent wallet funds.
+* Refunds to unverified accounts.
+* Duplicate processing.
+* Unauthorised staff adjustments.
+* Negative wallet balances.
+
+Use secure backend transactions, idempotency and an auditable financial ledger.
+
+If a refund request is pending, reserve or otherwise protect the amount so that it cannot be spent or refunded again.
+
+H. REFUND RULES AND POLICIES
+
+Put the full wallet refund policy under:
+
+Policies → Wallet and Refund Policy
+
+Clearly explain:
+
+* Which wallet funds can be returned.
+* Which funds cannot be returned.
+* How refunds are processed.
+* Refund destination rules.
+* Verification requirements.
+* Processing times.
+* Reasons a request may be rejected.
+* What happens when a payment provider cannot return funds through the original route.
+
+Do not invent guaranteed refund processing times.
+
+Use actual payment provider processing information.
+
+I. FINANCIAL COMPLIANCE
+
+Before enabling real-money wallet funding and refunds in LIVE MODE, confirm that the wallet structure, custody of funds, payment flow and refund process comply with applicable Nigerian and other relevant financial requirements.
+
+A normal merchant payment account does not automatically authorise a company to operate a stored-value or customer money-holding service.
+
+Do not claim that Swiftvero is a bank or that customer wallet funds have regulatory protection unless this has been confirmed.
+
+Keep the wallet in DEMO MODE until the required payment provider and regulatory approvals are in place.
+
+Do not store card details.
+
+⸻
+
+10. COMPLETE CUSTOMER TRANSACTION HISTORY
+
+Customers must be able to see their financial activity.
+
+Create a clear section under the customer dashboard:
+
+Payments and Transactions
+
+Include:
+
+* Wallet funding.
+* Shipping payments.
+* Pickup priority charges.
+* Cashback received.
+* Cashback used.
+* Promo discounts.
+* Refund requests.
+* Completed refunds.
+* Failed payments.
+* Pending payments.
+* Reversed transactions.
+* Other relevant account activity.
+
+Display:
+
+* Date.
+* Description.
+* Transaction reference.
+* Amount.
+* Transaction type.
+* Payment method where appropriate.
+* Status.
+* Available balance after the transaction, where applicable.
+
+Allow customers to:
+
+* Search transactions.
+* Filter by date.
+* Filter by transaction type.
+* Filter by status.
+* Open transaction details.
+* View or download receipts where available.
+
+Keep financial records accurate and connected to the actual backend ledger.
+
+Do not display fake transactions.
+
+Do not allow customers to change transaction records.
+
+⸻
+
+11. CUSTOMER SUPPORT THROUGH WHATSAPP AND THE SUPPORT CENTRE
+
+Make it very easy for customers to contact Swiftvero whenever they need assistance.
+
+Support should be accessible from:
+
+* Public website.
+* Tracking page.
+* Customer dashboard.
+* Shipment details.
+* Pickup details.
+* Wallet.
+* Payment history.
+* Support centre.
+
+A. WHATSAPP CONTACT
+
+Add a clear WhatsApp support button.
+
+Use it in appropriate locations without making the website cluttered.
+
+Possible labels:
+
+* Chat with Support.
+* Get Help on WhatsApp.
+* Contact Swiftvero.
+
+The WhatsApp button should open a conversation with the official Swiftvero WhatsApp Business number.
+
+Do not invent a phone number.
+
+Use a configurable official WhatsApp number managed through Operations & Admin settings.
+
+Make it possible to update the number without editing the website code.
+
+B. CONTEXTUAL WHATSAPP SUPPORT
+
+Where a customer is viewing a particular shipment, allow them to contact support about that shipment.
+
+For example, on the tracking page, provide:
+
+Report a Problem
+
+When tapped, open WhatsApp with a prepared message containing relevant non-sensitive information, such as:
+
+* Customer’s selected issue.
+* Tracking number.
+* Shipment status.
+* A short description of the problem.
+
+Do not include passwords, card details, full private addresses or other sensitive information in the WhatsApp message.
+
+Let the customer review the message before sending.
+
+C. CREATE A SUPPORT TICKET
+
+A WhatsApp conversation alone is not enough for proper issue tracking.
+
+Connect the support process to Swiftvero’s internal Customer Service workspace.
+
+Where a supported WhatsApp Business integration is available:
+
+* Receive incoming customer messages.
+* Match the conversation to the customer’s account or shipment where possible.
+* Create a support ticket.
+* Generate a unique ticket number.
+* Assign the ticket to Customer Service.
+* Save the conversation history.
+* Allow staff to reply.
+* Record ticket status and resolution.
+
+If the customer starts from a shipment-specific support button, automatically attach the relevant tracking number.
+
+D. WHATSAPP WITHOUT A FULL INTEGRATION
+
+If the existing project does not have an approved WhatsApp Business API integration:
+
+* Implement the official WhatsApp click-to-chat link.
+* Prefill a customer-approved support message.
+* Include the relevant tracking number where appropriate.
+* Provide a clear alternative support form.
+* Do not pretend that WhatsApp messages are automatically being saved as tickets.
+
+Design the backend integration so a proper WhatsApp Business connection can be added later.
+
+E. SUPPORT TICKET MANAGEMENT
+
+Create or improve the existing Customer Service workspace.
+
+Staff should be able to:
+
+* View new complaints.
+* View open tickets.
+* Assign tickets.
+* Reply to customers.
+* Add private internal notes.
+* Escalate issues.
+* Attach relevant shipment records.
+* Change ticket status.
+* Resolve complaints.
+* Reopen tickets where appropriate.
+* Review conversation history.
+
+Customers should be able to follow their ticket status.
+
+Generate a unique ticket number for every new support request.
+
+Send notifications when:
+
+* A ticket is created.
+* Support replies.
+* The ticket status changes.
+* More information is needed.
+* The issue is resolved.
+
+F. SUPPORT AVAILABILITY
+
+Make WhatsApp easy to access at any time.
+
+If human support is not staffed 24 hours a day, do not advertise guaranteed 24-hour human responses.
+
+Allow customers to send messages at any time and explain the expected response hours clearly.
+
+Use an automated acknowledgement where appropriate.
+
+The support system should retain the customer’s request so the team can follow up.
+
+⸻
+
+12. CUSTOMER DASHBOARD: GREETING AND ACCOUNT IDENTITY
+
+The current customer dashboard displays a large promotional description similar to:
+
+“Ready to send an international package? Free pickup anywhere in Lagos with certified digital weighing, transparent prices, and live tracking to over 180 countries worldwide.”
+
+I do not want this type of large description at the top of the customer dashboard.
+
+It is unnecessary, and parts of it do not accurately describe how Swiftvero operates.
+
+Remove it.
+
+Replace it with a clean, personalised welcome section.
+
+A. PERSONAL GREETING
+
+Use the customer’s local time to display an appropriate greeting.
+
+Examples:
+
+* Good morning, Amara.
+* Good afternoon, Amara.
+* Good evening, Amara.
+
+If the account belongs to a business, use the registered business name.
+
+Examples:
+
+* Good morning, Greenfield Stores.
+* Good afternoon, Greenfield Stores.
+* Good evening, Greenfield Stores.
+
+If the local time is unavailable, display a neutral greeting:
+
+“Welcome back, Amara.”
+
+Do not hardcode the same greeting for every customer.
+
+B. INDIVIDUAL ACCOUNT IDENTITY
+
+For an individual account, display:
+
+* Customer’s name.
+* Profile picture or initials.
+* Individual Account.
+* Identity verification status.
+
+Use simple status wording such as:
+
+* Account Verified.
+* Verification Pending.
+* Verification Required.
+
+Only show “Account Verified” when the required checks have actually been completed.
+
+C. BUSINESS ACCOUNT IDENTITY
+
+Business accounts must have a distinct appearance from individual accounts.
+
+Display:
+
+* Registered business name.
+* Business logo where available.
+* Business Account.
+* Business verification status.
+* Registration number where provided and appropriate.
+* Business contact details.
+* Authorised account representative.
+
+Use clear status wording such as:
+
+* Business Verified.
+* Business Verification Pending.
+* Business Verification Required.
+
+Only show “Business Verified” after the relevant business verification checks have been completed.
+
+Do not display a false verification badge.
+
+D. REMOVE UNNECESSARY PROMOTIONAL TEXT
+
+Do not use the dashboard’s most valuable space for generic advertising.
+
+Use the welcome section to help customers understand their account and access relevant actions.
+
+For example:
+
+* Book a Shipment.
+* Track Shipment.
+* My Pickups.
+* My Wallet.
+* Contact Support.
+
+Keep these actions organised and avoid repeating navigation shortcuts that already exist elsewhere.
+
+⸻
+
+13. SEPARATE INDIVIDUAL AND BUSINESS DASHBOARDS
+
+Individual customers and business customers should not automatically receive identical dashboards.
+
+They have different needs.
+
+Keep shared functions where they make sense, but make their presentation and account features appropriate to each account type.
+
+A. INDIVIDUAL CUSTOMER DASHBOARD
+
+Design the individual dashboard around personal shipping.
+
+Include:
+
+* Personal welcome section.
+* Individual account status.
+* Book a Shipment.
+* My Shipments.
+* My Pickups.
+* Track Shipment.
+* My Wallet.
+* Payments and Receipts.
+* Cashback and Promotions.
+* Support.
+* Notifications.
+* Profile and Settings.
+
+Display a clean account summary.
+
+Do not overwhelm individual customers with business management tools.
+
+B. BUSINESS CUSTOMER DASHBOARD
+
+Design a separate business dashboard for traders, companies, importers, exporters and organisations.
+
+Include:
+
+* Business welcome section.
+* Registered business name.
+* Business verification status.
+* Business registration number where provided.
+* Business profile.
+* Business contact details.
+* Shipment overview.
+* Bulk and multiple shipment management where supported.
+* Business pickup management.
+* Business shipment history.
+* Business payment history.
+* Business receipts.
+* Wallet.
+* Business support.
+* Notifications.
+* Business account settings.
+
+Where the existing system supports multiple authorised users under one business account, provide proper role-based access.
+
+For example:
+
+* Business Owner.
+* Business Manager.
+* Shipment Manager.
+* Finance or Accounts User.
+
+Do not expose this functionality if the backend does not support it. Build it properly before activating it.
+
+C. BUSINESS AND INDIVIDUAL DIFFERENCES
+
+The differences must be visible immediately.
+
+Use different welcome information, account identity cards and dashboard summaries.
+
+However, do not duplicate shared systems unnecessarily.
+
+Both account types can use:
+
+* Shipment tracking.
+* Wallet.
+* Payments.
+* Customer support.
+* Notifications.
+* Profile settings.
+
+Keep shared functions in shared components while presenting them appropriately for each account type.
+
+D. ACCOUNT TYPE SECURITY
+
+A customer must not be able to change an individual account into a verified business account simply by editing a label.
+
+Business account status and registration details must be verified through the proper backend process.
+
+Apply role-based permissions.
+
+Do not expose one business customer’s information to another business or individual customer.
+
+⸻
+
+14. PROFILE AND ACCOUNT SETTINGS
+
+Redesign customer profile pages.
+
+Keep the layout clean, well arranged and mobile-first.
+
+Organise settings into clear sections:
+
+Personal or Business Details
+
+* Name or registered business name.
+* Email.
+* Phone number.
+* Profile photo or business logo.
+* Account type.
+* Verification status.
+* Registration details where applicable.
+
+Addresses
+
+* Saved pickup addresses.
+* Saved delivery addresses where supported.
+* Default address.
+* Edit address.
+
+Security
+
+* Change password.
+* Login activity where supported.
+* Account security.
+* Verification requirements.
+
+Notifications
+
+* Email preferences.
+* SMS preferences.
+* WhatsApp preferences.
+* Shipment alerts.
+* Payment alerts.
+* Pickup reminders.
+* Promotional notifications.
+
+Wallet and Refund Details
+
+* Wallet overview.
+* Transaction history.
+* Refund requests.
+* Verified refund details.
+
+Support
+
+* Open support tickets.
+* Previous complaints.
+* Contact support.
+
+Keep the settings easy to understand.
+
+Do not put notification preferences inside the notification bell.
+
+⸻
+
+15. POLICY CENTRE: CENTRALISE CUSTOMER POLICIES
+
+I do not want customers to be forced to read long policy explanations at every stage of using the platform.
+
+Create one well-organised central section:
+
+Policies and Help
+
+Place all detailed policies there.
+
+Include:
+
+1. Shipping Policy.
+2. Pickup Policy.
+3. Standard Pickup.
+4. Priority Pickup.
+5. Package Size and Weight Rules.
+6. Restricted and Prohibited Items.
+7. Packaging Guidelines.
+8. Shipping Insurance.
+9. Customs and Import Duties.
+10. Delivery Time Estimates.
+11. Failed Delivery.
+12. Address Changes.
+13. Shipment Cancellation.
+14. Refund Policy.
+15. Wallet Policy.
+16. Cashback Policy.
+17. Promo Code Rules.
+18. Payment Policy.
+19. Lost or Damaged Packages.
+20. Business Shipping Terms.
+21. Customer Responsibilities.
+22. Complaints and Claims.
+23. Privacy Policy.
+24. Terms of Service.
+
+POLICY DESIGN
+
+Use:
+
+* Clear headings.
+* Short explanations.
+* Expandable sections.
+* Search.
+* Frequently asked questions.
+* Simple English.
+* Mobile-friendly layout.
+
+Do not use unnecessary legal language.
+
+Customers should be able to search for a policy and understand it without opening several different pages.
+
+SHORT INFORMATION AT THE POINT OF USE
+
+Even though detailed policies belong in the Policy Centre, customers should still see short and relevant information when making important decisions.
+
+Examples:
+
+During pickup booking:
+
+“Standard Pickup is within 24 hours. Priority Pickup is available within an estimated 1–6 hours where supported.”
+
+During insurance selection:
+
+“Protect your package with optional shipping insurance.”
+
+During checkout:
+
+“Review your shipping charges and payment details before confirming.”
+
+During cancellation:
+
+“Cancellation depends on the current stage of your shipment.”
+
+Use a simple link to the full policy.
+
+POLICY MANAGEMENT
+
+Allow authorised Operations & Admin staff to:
+
+* Create policies.
+* Edit policies.
+* Publish policies.
+* Unpublish policies.
+* Update policy versions.
+* View previous versions.
+* Record when customers accepted applicable terms.
+
+Do not allow unauthorised staff to change company policies.
+
+Do not invent legal approvals or claim policies have been legally reviewed when they have not.
+
+⸻
+
+16. PUBLIC WEBSITE AND GUEST EXPERIENCE
+
+The public website must be welcoming and easy to use.
+
+Visitors should be able to:
+
+* Explore services.
+* Get a shipping estimate where supported.
+* Request a quote.
+* Schedule a supported pickup.
+* Track a shipment.
+* Read policies.
+* Contact support.
+* Read approved customer reviews.
+* Create an account.
+
+Where guest booking is supported, do not force registration before the visitor can request a quote or book a pickup.
+
+REGISTRATION PROMOTION
+
+When a guest visitor requests a quote or begins a booking, show a clean promotional message.
+
+Enjoy More Benefits with a Swiftvero Account
+
+“Create a free account to enjoy eligible cashback rewards and special shipping discounts. You can also manage your shipments, track your packages and view your payments in one place.”
+
+Buttons:
+
+* Create Free Account.
+* Continue as Guest.
+
+Do not make the message aggressive.
+
+Do not block guest booking where it is supported.
+
+REWARD RULES
+
+* Only eligible registered customers receive qualifying rewards.
+* Do not promise cashback on every shipment unless campaign rules support it.
+* Prevent duplicate welcome bonuses.
+* Keep cashback separate from deposited wallet funds.
+* Show promotion conditions clearly.
+
+⸻
+
+17. LOGO SIZE AND DASHBOARD HEADER IMPROVEMENTS
+
+Review the logo placement across the entire website.
+
+The logo currently appears too large in some layouts.
+
+Reduce the logo to a balanced medium size.
+
+Requirements:
+
+* Maintain its original proportions.
+* Do not stretch it.
+* Do not crop it.
+* Keep it clear and readable.
+* Use a suitable size on mobile.
+* Use a suitable size on desktop.
+* Avoid allowing the logo to dominate the dashboard.
+* Align it properly with the navigation.
+
+The logo should look professional and consistent across public pages, customer dashboards and staff workspaces.
+
+⸻
+
+18. MOBILE-FIRST DESIGN FOR THE ENTIRE PLATFORM
+
+Every page, operation and interaction must be designed mobile-first.
+
+This includes:
+
+* Public website.
+* Individual dashboard.
+* Business dashboard.
+* Customer profiles.
+* Wallet.
+* Refund requests.
+* Tracking.
+* Pickup booking.
+* Quote forms.
+* Support centre.
+* Review forms.
+* Staff dashboards.
+* Tables.
+* Reports.
+* Operations management.
+* Policy Centre.
+
+Do not design desktop pages first and simply shrink them to fit mobile screens.
+
+MOBILE REQUIREMENTS
+
+* Properly sized text.
+* Medium-sized headings.
+* Easy-to-tap buttons.
+* Clear spacing.
+* Responsive cards.
+* Simple navigation.
+* No horizontal page overflow.
+* No overlapping text or icons.
+* No cut-off buttons.
+* No oversized logos.
+* No unnecessarily large tracking fields.
+* No tiny form controls.
+* No oversized tables.
+* Mobile-friendly filters and dropdowns.
+* Proper spacing around the screen edges.
+* Clear forms.
+* Responsive timelines.
+* Easy-to-read transaction history.
+
+Where tables are too wide, use responsive cards or a carefully designed scrollable table.
+
+DESKTOP REQUIREMENTS
+
+Use available space intelligently.
+
+Use organised side navigation for dashboards where appropriate.
+
+Do not stretch cards and text unnecessarily across the entire screen.
+
+Maintain the same design quality and consistency as mobile.
+
+⸻
+
+19. STAFF WORKSPACES AND INTERNAL OPERATIONS
+
+Preserve the existing three-workspace staff structure.
+
+Do not create unnecessary separate dashboards.
+
+The three main staff workspaces remain:
+
+A. PICKUP & SHIPPING MANAGEMENT
+
+Responsible for:
+
+* Pickup bookings.
+* Pickup scheduling.
+* Pickup assignments.
+* Standard and Priority Pickup.
+* Pickup vehicle planning.
+* Package photo review.
+* Package collection.
+* Package arrival at the facility.
+* Package inspection.
+* Actual weight and measurements.
+* Packing.
+* Shipping quote preparation.
+* Customer approval.
+* Payment status.
+* Shipment preparation.
+* Carrier handover.
+* Shipment status updates.
+* Operational problems.
+
+Staff must be able to see whether a pickup is Standard or Priority.
+
+Show:
+
+* Confirmed booking time.
+* Pickup deadline or estimated arrival time.
+* Pickup address.
+* Package photo.
+* Package count.
+* Package description.
+* Assigned pickup agent.
+* Vehicle assignment.
+* Pickup fee.
+* Priority subsidy information for authorised staff.
+* Pickup status.
+
+B. CUSTOMER SERVICE
+
+Responsible for:
+
+* Customer enquiries.
+* Complaints.
+* WhatsApp support.
+* Support tickets.
+* Shipment-related complaints.
+* Payment questions.
+* Refund enquiries.
+* Review complaints.
+* Customer follow-up.
+* Escalation.
+* Ticket resolution.
+
+C. OPERATIONS & ADMIN
+
+Responsible for overall company control.
+
+Main navigation:
+
+* Overview.
+* Pickup Management.
+* Shipment Management.
+* Branch Management.
+* Customer Management.
+* Payments and Reports.
+* Staff and Permissions.
+* Policies and Settings.
+
+Include relevant controls for:
+
+* Pickup pricing.
+* Priority pickup fees.
+* Priority subsidies.
+* Pickup availability.
+* Operating hours.
+* Service locations.
+* Shipping routes.
+* Cancellation rules.
+* Refund rules.
+* Policy management.
+* Review moderation.
+* Notification configuration.
+* WhatsApp support settings.
+
+Do not give every staff member unrestricted access.
+
+Use role-based permissions and audit records.
+
+Sensitive financial changes must have suitable approval controls.
+
+⸻
+
+20. NOTIFICATIONS, WHATSAPP AND SYSTEM MESSAGES
+
+Create a consistent notification system.
+
+Important customer events should trigger appropriate notifications.
+
+Examples:
+
+* Pickup confirmed.
+* Pickup assigned.
+* Pickup completed.
+* Package received.
+* Shipping quote ready.
+* Quote approved.
+* Payment confirmed.
+* Shipment sent.
+* Shipment delayed.
+* Customs update.
+* Delivered.
+* Review requested.
+* Support ticket updated.
+* Refund completed.
+
+Use the customer’s selected notification channels where available.
+
+Keep optional marketing messages separate from important operational notifications.
+
+Do not send unnecessary repeated alerts.
+
+Notification preferences must remain under Profile → Settings.
+
+The notification bell must only show notifications.
+
+⸻
+
+21. DATA SECURITY AND BACKEND RULES
+
+All important actions must be enforced by the backend.
+
+Do not rely on frontend visibility alone for security.
+
+Implement appropriate controls for:
+
+* Customer account access.
+* Business account access.
+* Staff permissions.
+* Wallet balances.
+* Refund requests.
+* Bank account changes.
+* Shipment cancellation.
+* Review ownership.
+* Guest review verification.
+* Public tracking privacy.
+* WhatsApp support records.
+* Notification access.
+* Policy changes.
+
+Keep audit records for sensitive actions.
+
+Use secure file uploads for:
+
+* Profile pictures.
+* Business logos.
+* Package photos.
+* Review images.
+* Supporting documents.
+
+Ensure customers can only access their own private records.
+
+Ensure business users can only access information permitted by their business account roles.
+
+Do not expose private information through public tracking or reviews.
+
+⸻
+
+22. FINAL ACCEPTANCE TESTS
+
+Do not declare this work complete until the following tests have been completed.
+
+Notifications
+
+1. Notification bell opens only the notification centre.
+2. Notification preferences are under Profile → Settings.
+3. Unread count reflects real unread notifications.
+4. Customers can mark notifications as read.
+5. Important notifications are generated from actual events.
+6. Promotional preferences are separate from essential service notifications.
+
+Pickup
+
+7. Standard Pickup displays collection within 24 hours of confirmed booking.
+8. Priority Pickup displays an estimated collection time of 1–6 hours where available.
+9. Priority Pickup is available to guests and registered customers where supported.
+10. Both pickup options are available during doorstep pickup booking.
+11. The customer sees the calculated Priority Pickup fee.
+12. Swiftvero’s subsidy is included in the internal pricing calculation.
+13. The customer sees the final amount, not unnecessary internal cost breakdowns.
+14. Priority Pickup is unavailable when operational capacity cannot support it.
+15. Package photo upload works.
+16. Staff can see the package photo.
+17. Pickup staff do not weigh packages at the customer’s address.
+18. Actual weighing and measuring happen at the Swiftvero facility.
+
+Tracking
+
+19. Guests can track valid shipments.
+20. Registered customers can track their own shipments from their dashboards.
+21. The tracking number field is clear and appropriately sized.
+22. Tracking statuses are easy to understand.
+23. The current status is visually prominent.
+24. Each status shows the actual date, time and location where available.
+25. The timeline does not display events that have not happened.
+26. Customers can report shipment problems from the tracking page.
+27. Public tracking does not expose private customer information.
+
+Reviews
+
+28. The review button appears only after confirmed delivery.
+29. Individual customers can review.
+30. Business customers can review where appropriate.
+31. Verified guests can review without creating an account.
+32. Customers can rate the service from 1 to 5 stars.
+33. Customers can write comments.
+34. Customers can upload optional package photos.
+35. Public image publication requires separate customer consent.
+36. Reviews pass through moderation.
+37. Approved reviews appear on the public website.
+38. Private shipment information is not displayed publicly.
+
+Cancellation
+
+39. Customers can cancel eligible bookings before pickup.
+40. Requests after package collection follow the applicable review process.
+41. Normal cancellation is disabled after carrier handover.
+42. Customers can still contact support about a shipment that cannot be cancelled.
+43. Cancellation rules are enforced by the backend.
+44. Refund decisions follow the applicable policy.
+
+Wallet and refunds
+
+45. Wallet funds, cashback and promo discounts remain separate.
+46. Customers can view their transaction history.
+47. Customers can request the return of eligible deposited wallet money.
+48. Cashback cannot be withdrawn.
+49. Promo discounts cannot be withdrawn.
+50. Refunds follow the original payment route where supported.
+51. Verified refund bank details are protected from unauthorised changes.
+52. Refund requests are tracked.
+53. Duplicate refund processing is prevented.
+54. A refund is not marked completed before confirmation.
+55. Financial records are auditable.
+
+Customer support
+
+56. WhatsApp support button works using the configured official number.
+57. Shipment-specific support messages can include the relevant tracking number.
+58. Customers can review a prepared WhatsApp message before sending.
+59. The support form creates a unique ticket.
+60. Connected WhatsApp messages can be linked to support tickets where integration is available.
+61. Staff can manage and resolve tickets.
+62. Customers can follow ticket progress.
+
+Customer dashboards
+
+63. Dashboard greetings use the customer’s name or business name.
+64. Greetings reflect the customer’s local time where available.
+65. Individual accounts have their own appropriate dashboard.
+66. Business accounts have a distinct business dashboard.
+67. Business verification is not falsely displayed.
+68. Individual verification is not falsely displayed.
+69. The old unnecessary promotional dashboard description is removed.
+70. Customer profiles are properly arranged.
+71. Logo size is balanced and medium-sized.
+72. Every page is mobile-first.
+73. Simple English is used throughout.
+
+Overall platform
+
+74. Existing features remain functional.
+75. Existing records remain intact.
+76. No duplicate wallets or customer accounts are created.
+77. No fake operational events appear in live accounts.
+78. No fake payments or refunds appear in live accounts.
+79. All new buttons work.
+80. All new forms validate correctly.
+81. All customer-facing pages work on mobile, tablet and desktop.
+82. All staff workspaces remain connected to the same underlying business records.
+83. DEMO MODE and LIVE MODE remain separate.
+
+⸻
+
+FINAL PRODUCT DIRECTION
+
+Swiftvero must feel like a premium international logistics platform, not a collection of unrelated dashboards.
+
+The individual customer should feel that the service is simple and personal.
+
+The business customer should feel that the platform understands business shipping and provides the tools needed to manage shipments.
+
+The guest should be able to get a quote, book a supported pickup, track a shipment and contact support without unnecessary barriers.
+
+The staff should have the information and controls needed to manage real operations.
+
+The customer should always understand:
+
+* What is happening to their package.
+* Where their package was last confirmed.
+* What happens next.
+* What they need to pay.
+* What they can cancel.
+* What money they can get back.
+* How to contact Swiftvero.
+
+Keep the website clean. Put detailed policies in the Policy Centre. Put notification preferences in Settings. Keep the notification bell for notifications only. Keep tracking clear and useful. Keep the wallet transparent and secure.
+
+Do not sacrifice actual business accuracy just to make the interface look attractive.
+
+Build the platform as though it will serve real individual customers, established businesses and international shipping operations every day.

@@ -1,0 +1,457 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - button "Swiftvero Express Home" [ref=e7]:
+          - img "Swiftvero Express" [ref=e9]
+        - generic [ref=e666]:
+          - button "Quote" [ref=e667]
+          - button "Toggle mobile menu" [ref=e668]
+    - main [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - generic [ref=e38]: International Air Freight & Express Cargo
+            - generic [ref=e45]: International Air Freight & Express Cargo · Nigeria to 180+ Countries
+            - heading "Your Goods. Our Global Reach." [level=1] [ref=e52]
+            - paragraph [ref=e53]: Ship parcels, documents and commercial goods from Nigeria to international destinations with convenient pickup, transparent quotations and reliable shipment tracking.
+            - generic [ref=e54]:
+              - button "Book a Shipment" [ref=e55]
+              - button "Track a Shipment" [ref=e59]
+              - button "Explore Our Services →" [ref=e64]
+            - generic [ref=e69]:
+              - strong [ref=e70]: "Important Service Promise:"
+              - text: Doorstep pickup is 100% free across eligible bookings. Collection occurs within 24 hours of booking confirmation. Free pickup does
+              - emphasis [ref=e71]: not
+              - text: mean free international shipping — transparent air freight charges are quoted separately after certified facility weighing.
+            - generic [ref=e72]:
+              - generic [ref=e73]: 1. Free Doorstep Pickup
+              - generic [ref=e78]: 2. Collection within 24 Hours
+              - generic [ref=e83]: 3. Facility Inspection & Weighing
+              - generic [ref=e88]: 4. Transparent Shipping Quotations
+              - generic [ref=e93]: 5. Standard & Priority Options
+              - generic [ref=e98]: 6. Real-Time Shipment Tracking
+              - generic [ref=e103]: 7. Proactive Support & Human Operations Desk
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - heading "Instant Rate Estimator" [level=3] [ref=e111]
+                - generic [ref=e112]: Pickup Free
+              - paragraph [ref=e113]: Get an upfront price estimate in seconds.
+            - generic [ref=e114]:
+              - button "Export (Out of Nigeria)" [ref=e115]
+              - button "Import (Into Nigeria)" [ref=e116]
+            - generic [ref=e117]:
+              - generic [ref=e118]:
+                - generic [ref=e119]: Destination Country
+                - combobox [ref=e120]:
+                  - option "United Kingdom" [selected]
+                  - option "United States"
+                  - option "Canada"
+                  - option "Germany"
+                  - option "South Africa"
+                  - option "Ghana"
+                  - option "United Arab Emirates"
+                  - option "Greenland (Remote)"
+              - generic [ref=e121]:
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Scale Weight (kg)
+                  - spinbutton [ref=e124]: "3"
+                - generic [ref=e125]:
+                  - generic [ref=e126]: Service Speed
+                  - combobox [ref=e127]:
+                    - option "Standard Air Courier (4–6 Days)" [selected]
+                    - option "Priority Air Express (2–3 Days)"
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - generic [ref=e130]: Air Carriage Linehaul
+                  - generic [ref=e131]: NGN 55,500
+                - generic [ref=e132]:
+                  - generic [ref=e133]: Jet Fuel & Airport Security
+                  - generic [ref=e134]: NGN 10,050
+                - generic [ref=e135]:
+                  - generic [ref=e136]: Doorstep Collection
+                  - generic [ref=e137]: Free (₦0)
+                - generic [ref=e138]:
+                  - generic [ref=e139]: Statutory VAT (7.5%)
+                  - generic [ref=e140]: NGN 4,916
+                - generic [ref=e141]:
+                  - generic [ref=e142]:
+                    - text: "Estimated Total:"
+                    - paragraph [ref=e143]: "Target delivery: Friday, 13 November 2026"
+                  - generic [ref=e144]: NGN 70,466
+              - button "Book This Shipment" [ref=e145]
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - generic [ref=e152]:
+              - generic [ref=e160]:
+                - text: Victoria Island Hub · Certified Intake
+                - heading "Certified Scales. No Invented Weights." [level=3] [ref=e161]
+              - paragraph [ref=e162]: Every parcel is weighed on calibrated digital scales at our walk-in reception counter or right at your doorstep. We show you the exact verified weight and itemized quote for your approval before you pay a single kobo.
+              - generic [ref=e163]:
+                - generic [ref=e164]:
+                  - text: Verification
+                  - paragraph [ref=e165]: Dual-Axis Calibrated
+                - generic [ref=e166]:
+                  - text: Transparency
+                  - paragraph [ref=e167]: Itemized Quote Lock
+            - generic [ref=e168]:
+              - generic [ref=e169]: Free doorstep pickup & scale intake
+              - generic [ref=e170]: ₦0 Surcharge
+          - generic [ref=e171]:
+            - generic [ref=e172]:
+              - generic [ref=e181]:
+                - text: Local Artisans · Global Reach
+                - heading "From Nigerian Ateliers to Global Doors" [level=3] [ref=e182]
+              - paragraph [ref=e183]: Empowering local fashion designers, Adire crafters, leather artisans, and families sending gifts abroad. We coordinate compliant international air carriage to the UK, US, Canada, Europe, and 180+ global destinations.
+              - generic [ref=e184]:
+                - generic [ref=e185]:
+                  - text: Packaging
+                  - paragraph [ref=e186]: Export Standard Cartons
+                - generic [ref=e187]:
+                  - text: Network
+                  - paragraph [ref=e188]: 180+ World Gateways
+            - generic [ref=e189]:
+              - generic [ref=e190]: Compliant commercial packaging guide
+              - generic [ref=e191]: Export Ready
+        - generic [ref=e194]:
+          - heading "“When your shipment needs attention, you shouldn’t have to chase us for answers.”" [level=2] [ref=e195]
+          - paragraph [ref=e196]: We monitor every scan milestone. If an expected update is overdue or an exception occurs, our team flags it and notifies you honestly before you have to ask.
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - generic [ref=e199]: Transparent Operational Lifecycle
+            - heading "The 8-Step Swiftvero Shipping Journey" [level=2] [ref=e200]
+            - paragraph [ref=e201]: From your doorstep to global destinations — clear milestones, 24-hour collection guarantee, and certified facility weighing.
+          - generic [ref=e202]:
+            - generic [ref=e204]:
+              - generic [ref=e205]: Step 01
+              - heading "Book Your Pickup Online" [level=3] [ref=e206]
+              - paragraph [ref=e207]: Declare what you are sending, package count, pickup location, and destination address in minutes.
+            - generic [ref=e209]:
+              - generic [ref=e210]: Step 02
+              - heading "24-Hour Doorstep Collection" [level=3] [ref=e211]
+              - paragraph [ref=e212]: Our assigned collection handler arrives within 24 hours to inspect outer condition, count, and sign handover.
+            - generic [ref=e214]:
+              - generic [ref=e215]: Step 03
+              - heading "Arrival at Facility" [level=3] [ref=e216]
+              - paragraph [ref=e217]: Your package is safely transferred to our secure operations centre and logged into verified intake.
+            - generic [ref=e219]:
+              - generic [ref=e220]: Step 04
+              - heading "Inspected, Repacked & Weighed" [level=3] [ref=e221]
+              - paragraph [ref=e222]: Trained technicians inspect contents, reinforce packaging for air cargo, and weigh on calibrated digital scales.
+            - generic [ref=e224]:
+              - generic [ref=e225]: Step 05
+              - heading "Receive Final Quotation" [level=3] [ref=e226]
+              - paragraph [ref=e227]: Get an itemized quote based on verified chargeable weight, chosen carrier service, and optional protection.
+            - generic [ref=e229]:
+              - generic [ref=e230]: Step 06
+              - heading "Approve & Complete Payment" [level=3] [ref=e231]
+              - paragraph [ref=e232]: Review every fee transparently. Approve with one click and pay securely with instant VAT receipt.
+            - generic [ref=e234]:
+              - generic [ref=e235]: Step 07
+              - heading "Processed & Dispatched" [level=3] [ref=e236]
+              - paragraph [ref=e237]: Air waybills and export customs manifests generated; handed over to authorized global carrier for international uplift.
+            - generic [ref=e239]:
+              - generic [ref=e240]: Step 08
+              - heading "Track Until Delivery" [level=3] [ref=e241]
+              - paragraph [ref=e242]: Follow live flight departures, customs clearance, and out-for-delivery milestones. Proactive alerts if updates stall.
+        - generic [ref=e244]:
+          - generic [ref=e245]:
+            - generic [ref=e246]:
+              - text: First-Time Shipper Friendly
+              - heading "Sending Your First Package Abroad?" [level=2] [ref=e247]
+              - paragraph [ref=e248]: You don't need to be an export logistics expert. Swiftvero takes care of the paperwork, scales, and customs details.
+            - button "Try Guided Shipping Assistant" [ref=e249]
+          - generic [ref=e253]:
+            - generic [ref=e254]:
+              - generic [ref=e255]: A
+              - heading "No Scale at Home? No Problem." [level=3] [ref=e256]
+              - paragraph [ref=e257]: Give us your best guess online. Our courier brings a certified digital scale to your doorstep and weighs it right in front of you for free.
+            - generic [ref=e258]:
+              - generic [ref=e259]: B
+              - heading "Clear Prohibited Goods Check" [level=3] [ref=e260]
+              - paragraph [ref=e261]: We clearly guide you on what cannot fly (pressurized sprays, raw meat, unsealed foods) so your package clears customs smoothly without seizure.
+            - generic [ref=e262]:
+              - generic [ref=e263]: C
+              - heading "You Approve Before Paying" [level=3] [ref=e264]
+              - paragraph [ref=e265]: We never deduct payment without your explicit confirmation. You see the verified weight, route linehaul, and delivery window before paying.
+        - generic [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e268]:
+              - heading "International Service Tiers" [level=2] [ref=e269]
+              - paragraph [ref=e270]: Export and import on supported commercial lanes worldwide.
+            - button "Compare specific route" [ref=e271]
+          - generic [ref=e275]:
+            - generic [ref=e276]:
+              - generic [ref=e277]: Fastest Available Lane
+              - heading "Priority Air Express" [level=3] [ref=e278]
+              - paragraph [ref=e279]: Fastest scheduled air transit for time-sensitive cargo, artisan exports, and critical documents.
+              - generic [ref=e280]:
+                - generic [ref=e281]:
+                  - generic [ref=e282]: "Target Transit:"
+                  - generic [ref=e283]: 2 – 3 business days
+                - generic [ref=e284]:
+                  - generic [ref=e285]: "Intake Handling:"
+                  - generic [ref=e286]: Same-day flight tender
+                - generic [ref=e287]:
+                  - generic [ref=e288]: "Doorstep Collection:"
+                  - generic [ref=e289]: Free (₦0)
+              - button "Select Priority Express" [ref=e290]
+            - generic [ref=e291]:
+              - generic [ref=e292]: Cost-Optimized Lane
+              - heading "Standard Air Courier" [level=3] [ref=e293]
+              - paragraph [ref=e294]: Reliable, consolidated air cargo for small businesses, commercial parcels, and non-urgent shipments.
+              - generic [ref=e295]:
+                - generic [ref=e296]:
+                  - generic [ref=e297]: "Target Transit:"
+                  - generic [ref=e298]: 4 – 6 business days
+                - generic [ref=e299]:
+                  - generic [ref=e300]: "Intake Handling:"
+                  - generic [ref=e301]: Consolidated scheduled flight
+                - generic [ref=e302]:
+                  - generic [ref=e303]: "Doorstep Collection:"
+                  - generic [ref=e304]: Free (₦0)
+              - button "Select Standard Courier" [ref=e305]
+        - generic [ref=e308]:
+          - generic [ref=e309]:
+            - generic [ref=e310]: Automated Scan-Gap Detection
+            - heading "We notify you first when an update is delayed." [level=2] [ref=e315]
+            - paragraph [ref=e316]: Logistics transfers can occasionally experience airport documentation checks or customs queues. Instead of leaving you wondering why a status hasn’t changed, our system flags scan gaps automatically and sends an honest explanation.
+            - generic [ref=e317]:
+              - paragraph [ref=e318]: "Our Real-World Customer Notice:"
+              - paragraph [ref=e319]: “Your shipment has not received a new tracking update within the expected window. Our team is checking the latest available information. We will update you as soon as we have confirmation.”
+          - generic [ref=e321]:
+            - generic [ref=e322]:
+              - generic [ref=e323]: Consignment SWV-2026-NG8491
+              - generic [ref=e324]: Under Review
+            - paragraph [ref=e325]: Heathrow Airport transfer scan pending. Logistics desk opened active liaison with ground handler.
+            - button "View Live Tracking Screen" [ref=e326]
+        - generic [ref=e327]:
+          - generic [ref=e328]:
+            - generic [ref=e329]:
+              - heading "Verified Customer Reviews" [level=2] [ref=e330]
+              - paragraph [ref=e331]: Reviews submitted by customers with verified completed shipments.
+            - generic [ref=e332]: 4.9 / 5.0 Average
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - generic [ref=e338]:
+                - generic [ref=e339]:
+                  - generic [ref=e340]: B
+                  - generic [ref=e341]: Babatunde E.
+                - generic [ref=e342]: Verified Shipment
+              - paragraph [ref=e358]: “The itemized quote was completely transparent from day one. When my parcel reached the airport hub, the team confirmed actual measurements immediately without any unexpected surprises.”
+              - generic [ref=e359]: "Swiftvero Response: Thank you Babatunde. Clear communication and honest measurements before payment are central to how Swiftvero operates."
+            - generic [ref=e360]:
+              - generic [ref=e361]:
+                - generic [ref=e362]:
+                  - generic [ref=e363]: C
+                  - generic [ref=e364]: Chidinma K.
+                - generic [ref=e365]: Verified Shipment
+              - paragraph [ref=e381]: “My delivered consignment of Lagos artisan crafts arrived in Atlanta in pristine shape. Packaging was intact and completely unblemished!”
+              - generic [ref=e382]: "Swiftvero Response: Thank you Chidinma. Glad to hear your artisan craft shipment arrived safely in Atlanta."
+        - generic [ref=e384]:
+          - generic [ref=e385]:
+            - generic [ref=e386]: Pilot concept · Availability depends on route approval
+            - heading "SwiftShare" [level=2] [ref=e389]
+            - paragraph [ref=e390]: A simpler way to send eligible items through verified, traveller-assisted routes — inspected, sealed, and carried by vetted international passengers.
+          - button "Explore SwiftShare" [ref=e391]
+        - generic [ref=e397]:
+          - generic [ref=e398]:
+            - generic [ref=e399]:
+              - generic [ref=e400]:
+                - generic [ref=e407]:
+                  - heading "Ikeja Consolidation Hub" [level=4] [ref=e408]
+                  - paragraph [ref=e409]: Lagos Murtala Muhammed Gateway
+                - generic [ref=e410]: Active Facility
+              - generic [ref=e411]:
+                - generic [ref=e412]:
+                  - generic [ref=e413]: Dual Scale Line
+                  - generic [ref=e414]: Floor & Bench Digital
+                - generic [ref=e415]:
+                  - generic [ref=e416]: Tamper Security
+                  - generic [ref=e417]: Sequential Numbered Seals
+                - generic [ref=e418]:
+                  - generic [ref=e419]: Export Compliance
+                  - generic [ref=e420]: NCAA Certified Screening
+                - generic [ref=e421]:
+                  - generic [ref=e422]: Flight Tenders
+                  - generic [ref=e423]: Scheduled LOS/ABV Departures
+            - generic [ref=e424]: Zero undocumented handoffs. Every transition logged to audit trail.
+          - generic [ref=e429]:
+            - generic [ref=e430]:
+              - generic [ref=e431]: Ground Operations & Cargo Custody
+              - heading "Real Logistics. Real People. No Guesswork." [level=2] [ref=e436]
+              - paragraph [ref=e437]: International shipping requires disciplined ground custody. At our Ikeja consolidation facility, every parcel received from doorstep dispatch or counter intake is audited, measured, barcoded, and prepared according to Nigerian Civil Aviation Authority (NCAA) security guidelines before air tender.
+            - generic [ref=e438]:
+              - generic [ref=e439]:
+                - generic [ref=e440]: Individual Barcode Audit
+                - paragraph [ref=e445]: Every box receives a unique consignment barcode for custody scans at each handoff.
+              - generic [ref=e446]:
+                - generic [ref=e447]: Flight Tender Liaison
+                - paragraph [ref=e452]: Direct handoff to scheduled international carrier flights out of Lagos and Abuja airports.
+            - generic [ref=e453]:
+              - button "Book Pickup for Your Shipment" [ref=e454]
+              - button "Lookup Tracking Status" [ref=e458]
+        - generic [ref=e460]:
+          - generic [ref=e461]:
+            - generic [ref=e462]:
+              - generic [ref=e463]: Frequently Asked Questions
+              - heading "Clear Answers to Common Questions" [level=2] [ref=e468]
+              - paragraph [ref=e469]: Everything you need to know about international air shipping from Nigeria, free doorstep collections, calibrated scale weighing, and customs clearances.
+            - button "Explore All FAQs" [ref=e470]
+          - generic [ref=e474]:
+            - generic [ref=e475]:
+              - button "Is doorstep pickup across Lagos and Abuja genuinely free?" [ref=e476]
+              - generic [ref=e481]: Yes, 100% free with zero hidden collection surcharges. When you book an export shipment, our authorized pickup agent arrives at your designated address with a certified digital scale and measuring tape to verify package specs right in front of you.
+            - button "What is the difference between actual scale weight and volumetric weight?" [ref=e483]
+            - button "What happens if the courier verifies a different weight than my online estimate?" [ref=e489]
+            - button "What goods are strictly prohibited from international air export?" [ref=e495]
+            - button "When do I actually pay for my consignment?" [ref=e501]
+          - generic [ref=e506]:
+            - generic [ref=e507]: Have a more specific question? Browse topics on customs documentation, SwiftShare traveller pilot, or claims.
+            - button "Open Help Center & FAQ" [ref=e508]
+        - generic [ref=e514]:
+          - generic [ref=e515]:
+            - generic [ref=e516]:
+              - generic [ref=e517]:
+                - generic [ref=e523]:
+                  - heading "Commercial Logistics" [level=4] [ref=e524]
+                  - paragraph [ref=e525]: SME & Corporate Export Accounts
+                - generic [ref=e526]: B2B Services
+              - generic [ref=e527]:
+                - generic [ref=e528]:
+                  - generic [ref=e529]: Volume Pricing
+                  - generic [ref=e530]: Tiered Air Freight Rates
+                - generic [ref=e531]:
+                  - generic [ref=e532]: Documentation
+                  - generic [ref=e533]: Commercial Invoices & Form M/NXP
+                - generic [ref=e534]:
+                  - generic [ref=e535]: Consignment Batching
+                  - generic [ref=e536]: Multi-Recipient Dispatch
+                - generic [ref=e537]:
+                  - generic [ref=e538]: Account Desk
+                  - generic [ref=e539]: Dedicated Operations Lead
+            - generic [ref=e540]: Scheduled daily collections from warehouses across Lagos & Ogun.
+          - generic [ref=e545]:
+            - generic [ref=e546]:
+              - generic [ref=e547]: Enterprise & Merchant Export Accounts
+              - generic [ref=e550]:
+                - generic [ref=e551]: Commercial Partnerships
+                - heading "The secret ingredient to global success is a strong partnership." [level=2] [ref=e552]
+              - paragraph [ref=e553]: Swiftvero supports Nigerian manufacturers, agro-allied exporters, spice traders, fashion brands, and international procurement teams with predictable volume rates, dedicated account officers, and export documentation assistance.
+            - generic [ref=e554]:
+              - generic [ref=e555]: Tiered volume rate cards with no surprise destination terminal surcharges
+              - generic [ref=e560]: Commercial invoice and NEPC export documentation guidance
+              - generic [ref=e565]: Free scheduled warehouse and boutique collections across Lagos, Abuja, and Port Harcourt
+            - generic [ref=e570]:
+              - button "Open a Business Account" [ref=e571]
+              - button "View Commercial Rates & Sectors" [ref=e575]
+    - contentinfo [ref=e576]:
+      - generic [ref=e577]:
+        - generic [ref=e578]:
+          - generic [ref=e579]:
+            - img "Swiftvero Express" [ref=e581]
+            - paragraph [ref=e582]: Swiftvero Express — Your world, connected.
+            - paragraph [ref=e583]: Swiftvero Express is an international logistics technology company, headquartered in Nigeria, coordinating outbound parcel, document, and cargo shipping from anywhere in Nigeria to eligible destinations worldwide.
+            - generic [ref=e584]:
+              - generic [ref=e585]: "Gateways: Ikeja Cargo Hub & Lekki Intake Center, Lagos, Nigeria"
+              - generic [ref=e590]: support@swiftvero.ng
+              - generic [ref=e595]: Worldwide International Air & Sea Logistics
+          - generic [ref=e600]:
+            - heading "Services" [level=4] [ref=e601]
+            - list [ref=e602]:
+              - listitem [ref=e603]:
+                - button "Cargo & Freight Forwarding" [ref=e604]
+              - listitem [ref=e605]:
+                - button "Smart Shipping Assistant" [ref=e606]
+              - listitem [ref=e607]:
+                - button "Priority Air Express (2–3 Days)" [ref=e608]
+              - listitem [ref=e609]:
+                - button "Standard Air Courier (4–6 Days)" [ref=e610]
+              - listitem [ref=e611]:
+                - button "SwiftShare (Traveller Pilot) Pilot" [ref=e612]:
+                  - generic [ref=e613]: SwiftShare (Traveller Pilot)
+                  - generic [ref=e614]: Pilot
+              - listitem [ref=e615]:
+                - button "SME & Artisan Export Solutions" [ref=e616]
+              - listitem [ref=e617]:
+                - button "Domestic Moving & Cargo Preview" [ref=e618]:
+                  - generic [ref=e619]: Domestic Moving & Cargo
+                  - generic [ref=e620]: Preview
+          - generic [ref=e621]:
+            - heading "Quick Links" [level=4] [ref=e622]
+            - list [ref=e623]:
+              - listitem [ref=e624]:
+                - button "Rate Calculator" [ref=e625]
+              - listitem [ref=e626]:
+                - button "Track Consignment" [ref=e627]
+              - listitem [ref=e628]:
+                - button "How Shipping Works" [ref=e629]
+              - listitem [ref=e630]:
+                - button "Frequently Asked Questions (FAQ)" [ref=e631]
+              - listitem [ref=e632]:
+                - button "Prohibited Goods Guide" [ref=e633]
+              - listitem [ref=e634]:
+                - button "About Swiftvero" [ref=e635]
+              - listitem [ref=e636]:
+                - button "Support & Enquiries" [ref=e637]
+          - generic [ref=e638]:
+            - heading "Compliance & Terms" [level=4] [ref=e639]
+            - list [ref=e640]:
+              - listitem [ref=e641]:
+                - button "Terms of Use" [ref=e642]
+              - listitem [ref=e643]:
+                - button "Privacy Notice (NDPA)" [ref=e644]
+              - listitem [ref=e645]:
+                - button "KYC & Identity Verification" [ref=e646]
+              - listitem [ref=e647]:
+                - button "Pricing & Quotation Policy" [ref=e648]
+              - listitem [ref=e649]:
+                - button "Cancellation & Refund Policy" [ref=e650]
+              - listitem [ref=e651]:
+                - button "Claims & Liability Limits" [ref=e652]
+              - listitem [ref=e653]:
+                - button "Cashback & Referral Terms" [ref=e654]
+        - paragraph [ref=e660]:
+          - strong [ref=e661]: "Operating Scope & Physical Verification:"
+          - text: Swiftvero Express Ltd coordinates outbound international parcel, document, and cargo shipping from Nigeria via commercial airline schedules and international air handling networks. Online estimates are confirmed following calibrated physical scale weighing and volumetric verification at our intake facility. Doorstep pickup and depot drop-off are free. All consignments are screened in accordance with civil aviation security regulations.
+        - generic [ref=e662]:
+          - generic [ref=e663]: "© 2026 Swiftvero Express Ltd. RC: 1894022. All rights reserved."
+          - generic [ref=e664]: Global Shipping · Out of Nigeria
+  - generic [ref=e694]:
+    - generic [ref=e696]:
+      - img "Swiftvero Express" [ref=e699]
+      - button "Close authentication modal" [ref=e700]
+    - generic [ref=e704]:
+      - button "Customer Sign In" [ref=e705]
+      - button "Create Account" [ref=e706]
+      - button "Staff Login (/staff/login)" [ref=e707]
+    - generic [ref=e709]:
+      - generic [ref=e710]:
+        - generic [ref=e711]: Consignor Portal Access
+        - heading "Welcome back" [level=3] [ref=e715]
+        - paragraph [ref=e716]: Sign in to view your shipments, scheduled pickups, and transparent air quotes.
+      - generic [ref=e717]:
+        - generic [ref=e718]: "Interactive Demo Quick-Fill:"
+        - generic [ref=e719]:
+          - button "Chidinma (Verified Shipper)" [ref=e720]
+          - button "Babatunde (Business Shipper)" [ref=e721]
+          - button "Fatima (Pending KYC)" [ref=e722]
+      - generic [ref=e723]:
+        - generic [ref=e724]:
+          - generic [ref=e725]: Email Address or Phone Number
+          - textbox "e.g. name@company.ng or +234 800..." [ref=e726]
+        - generic [ref=e727]:
+          - generic [ref=e728]:
+            - generic [ref=e729]: Password
+            - button "Forgot password?" [ref=e730]
+          - generic [ref=e731]:
+            - textbox "Enter your account password" [ref=e732]
+            - button "Show password" [ref=e733]
+        - generic [ref=e738] [cursor=pointer]:
+          - checkbox "Remember this device" [checked] [ref=e739]
+          - generic [ref=e740]: Remember this device
+        - button "Sign In to Portal" [ref=e741]
+      - generic [ref=e745]:
+        - text: Don't have an international shipper account?
+        - button "Create Account" [ref=e746]

@@ -50,7 +50,7 @@ export const BusinessPortal: React.FC = () => {
   const [recipients, setRecipients] = useState<BatchRecipient[]>([
     {
       id: 'rec_1',
-      recipientName: 'Harrods Luxury Consignment UK',
+      recipientName: 'Harrods Luxury Shipment UK',
       recipientPhone: '+44 20 7730 1234',
       recipientAddress: '87-135 Brompton Rd, Knightsbridge, London SW1X 7XL',
       destinationCountry: 'United Kingdom',
@@ -107,7 +107,7 @@ export const BusinessPortal: React.FC = () => {
   const handleDownloadCsvTemplate = () => {
     const csvContent =
       'RecipientName,Phone,Address,DestinationCountry,DestinationCity,WeightKg,LengthCm,WidthCm,HeightCm,ContentsDescription,DeclaredValueNgn,ServiceTier\n' +
-      'Harrods Luxury Consignment UK,+44 20 7730 1234,87-135 Brompton Rd,United Kingdom,London,8.5,45,35,25,Handcrafted Nigerian Bronze Sculptures,650000,priority\n' +
+      'Harrods Luxury Shipment UK,+44 20 7730 1234,87-135 Brompton Rd,United Kingdom,London,8.5,45,35,25,Handcrafted Nigerian Bronze Sculptures,650000,priority\n' +
       'African Art Boutique LLC,+1 212 555 9812,520 West 28th St,United States,New York,6.2,40,30,20,Indigo Dyed Adire Textiles,420000,priority\n' +
       'Toronto Afro Trade Distributors,+1 416 555 8820,400 University Ave,Canada,Toronto,10.0,45,35,30,Wood Carvings & Artwork,450000,standard\n';
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -124,7 +124,7 @@ export const BusinessPortal: React.FC = () => {
     const imported: BatchRecipient[] = [
       {
         id: `rec_${Date.now()}_1`,
-        recipientName: 'Harrods Luxury Consignment UK',
+        recipientName: 'Harrods Luxury Shipment UK',
         recipientPhone: '+44 20 7730 1234',
         recipientAddress: '87-135 Brompton Rd, Knightsbridge, London SW1X 7XL',
         destinationCountry: 'United Kingdom',
@@ -238,7 +238,7 @@ export const BusinessPortal: React.FC = () => {
             timestamp: new Date().toISOString(),
             stage: 'Batch Booking Confirmed',
             location: 'Lekki Commercial Terminal, Lagos',
-            description: `Commercial export consignment registered under enterprise account ${currentCustomer.companyName}. Free doorstep collection scheduled.`,
+            description: `Commercial export shipment registered under enterprise account ${currentCustomer.companyName}. Free doorstep collection scheduled.`,
           },
         ],
         lastUpdateTimestamp: new Date().toISOString(),
@@ -260,7 +260,7 @@ export const BusinessPortal: React.FC = () => {
       action: 'BATCH_CONSIGNMENT_COMMITTED',
       targetType: 'shipment',
       targetId: `BATCH-${Date.now().toString().slice(-5)}`,
-      details: `Enterprise consignor booked ${recipients.length} consignments (${totalWeightKg.toFixed(1)} kg total). Value: ₦${totalBatchNgn.toLocaleString()}.`,
+      details: `Enterprise sender booked ${recipients.length} shipments (${totalWeightKg.toFixed(1)} kg total). Value: ₦${totalBatchNgn.toLocaleString()}.`,
     });
 
     setBatchCreated(createdTrackingNumbers);
@@ -282,14 +282,14 @@ export const BusinessPortal: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#00B4D8]" />
             <span className="text-xs font-medium uppercase tracking-wider text-[#6A808C]">
-              Enterprise Consignor Desk
+              Enterprise Sender Desk
             </span>
           </div>
           <h1 className="text-2xl font-serif-display font-medium text-[#354B55] mt-1">
             {currentCustomer.companyName || 'Lekki Heritage Exports PLC'}
           </h1>
           <p className="text-xs text-[#6A808C] mt-0.5">
-            Consignor: {currentCustomer.name} · RC 1948201 · FIRS TIN Verified
+            Sender: {currentCustomer.name} · RC 1948201 · FIRS TIN Verified
           </p>
         </div>
 
@@ -311,7 +311,7 @@ export const BusinessPortal: React.FC = () => {
             <CheckCircle2 className="w-5 h-5 text-[#00B4D8] shrink-0 mt-0.5" />
             <div>
               <h4 className="font-semibold text-sm text-[#354B55]">
-                Commercial Batch Consignment Dispatched
+                Commercial Batch Shipment Dispatched
               </h4>
               <p className="mt-0.5 text-[#6A808C]">
                 Generated {batchCreated.length} official waybills: {batchCreated.join(', ')}. Doorstep pickup has been scheduled for your facility.
@@ -327,13 +327,13 @@ export const BusinessPortal: React.FC = () => {
         </div>
       )}
 
-      {/* Primary Visual Anchor: Active Commercial Consignments */}
+      {/* Primary Visual Anchor: Active Commercial Shipments */}
       {activeTab === 'shipments' && (
         <>
           <div className="bg-white rounded-2xl border border-[#DCEFF3] p-8 sm:p-10 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium uppercase tracking-wider text-[#6A808C]">
-                Active Commercial Export Consignments
+                Active Commercial Export Shipments
               </span>
               <span className="text-xs text-[#00B4D8] font-medium bg-[#CAF0F8] px-2.5 py-0.5 rounded-full border border-[#90E0EF]">
                 Enterprise Account
@@ -346,7 +346,7 @@ export const BusinessPortal: React.FC = () => {
                 {businessShipments.length}
               </span>
               <span className="text-sm text-[#6A808C]">
-                active commercial consignments
+                active commercial shipments
               </span>
             </div>
 
@@ -480,7 +480,7 @@ export const BusinessPortal: React.FC = () => {
       {/* Batch Booking Tab */}
       {activeTab === 'batch_booking' && (
         <div className="space-y-6 text-xs">
-          {/* Saved Consignor Header */}
+          {/* Saved Sender Header */}
           <div className="p-5 bg-white rounded-2xl border border-[#DCEFF3] space-y-3 shadow-xs">
             <span className="text-xs font-semibold text-[#354B55] block">
               Corporate Sender (Saved Once for Entire Batch)
@@ -696,7 +696,7 @@ export const BusinessPortal: React.FC = () => {
           <div className="p-6 bg-white rounded-2xl border border-[#DCEFF3] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
             <div className="space-y-0.5">
               <span className="text-xs text-[#6A808C]">
-                Consolidated Batch Invoice ({recipients.length} consignments · {totalWeightKg.toFixed(1)} kg)
+                Consolidated Batch Invoice ({recipients.length} shipments · {totalWeightKg.toFixed(1)} kg)
               </span>
               <div className="text-2xl font-serif-display font-bold text-[#354B55]">
                 {formatNaira(totalBatchNgn)}

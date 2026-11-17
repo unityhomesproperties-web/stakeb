@@ -135,7 +135,7 @@ export const WalkInCustomerModal: React.FC<WalkInCustomerModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-[#253B45]">Walk-In Customer Intake</h3>
-              <p className="text-xs text-[#637984]">Search existing consignor or register counter walk-in</p>
+              <p className="text-xs text-[#637984]">Search existing sender or register counter walk-in</p>
             </div>
           </div>
           <button
@@ -353,11 +353,11 @@ export const WalkInCustomerModal: React.FC<WalkInCustomerModalProps> = ({
           {/* Success After Registration */}
           {mode === 'create' && createdResult && (
             <div className="space-y-4 py-2">
-              <div className="p-4 bg-[#EAF6EE] border border-[#2F7D53]/30 rounded-xl text-center space-y-2">
-                <CheckCircle2 className="w-8 h-8 text-[#2F7D53] mx-auto" />
+              <div className="p-4 bg-[#CAF0F8] border border-[#00B4D8]/30 rounded-xl text-center space-y-2">
+                <CheckCircle2 className="w-8 h-8 text-[#00B4D8] mx-auto" />
                 <h4 className="font-bold text-sm text-[#1D2922]">Customer Successfully Registered</h4>
-                <p className="text-xs text-[#2F7D53]">{createdResult.message}</p>
-                <div className="text-xs font-mono font-bold bg-white p-2 rounded border border-[#2F7D53]/20 inline-block">
+                <p className="text-xs text-[#00B4D8]">{createdResult.message}</p>
+                <div className="text-xs font-mono font-bold bg-white p-2 rounded border border-[#00B4D8]/20 inline-block">
                   Reference: {createdResult.customer.id}
                 </div>
               </div>
@@ -396,7 +396,7 @@ export const WalkInCustomerModal: React.FC<WalkInCustomerModalProps> = ({
                     onSelectCustomer(createdResult.customer);
                     onClose();
                   }}
-                  className="w-full py-2.5 bg-[#2F7D53] hover:bg-[#174B35] text-white text-xs font-bold rounded-lg shadow-sm"
+                  className="w-full py-2.5 bg-[#00B4D8] hover:bg-[#008EA8] text-white text-xs font-bold rounded-lg shadow-sm"
                 >
                   Select &amp; Create Shipment for {createdResult.customer.name}
                 </button>

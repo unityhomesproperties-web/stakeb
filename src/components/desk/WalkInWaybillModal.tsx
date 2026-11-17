@@ -61,7 +61,7 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
           <div className="flex justify-between items-start border-b-2 border-black pb-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-black tracking-tight text-[#174B35]">SWIFTVERO</span>
+                <span className="text-2xl font-black tracking-tight text-[#008EA8]">SWIFTVERO</span>
                 <span className="text-2xl font-light tracking-wide text-[#00B4D8]">EXPRESS</span>
               </div>
               <p className="text-[11px] font-semibold text-slate-600 uppercase tracking-widest mt-0.5">
@@ -93,7 +93,7 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
               <div className="text-xs font-mono font-bold">{barcodeValue}</div>
             </div>
             <div className="text-right">
-              <span className="text-[10px] font-bold uppercase tracking-wider bg-[#EAF6EE] text-[#2F7D53] border border-[#2F7D53]/30 px-2 py-0.5 rounded">
+              <span className="text-[10px] font-bold uppercase tracking-wider bg-[#CAF0F8] text-[#00B4D8] border border-[#00B4D8]/30 px-2 py-0.5 rounded">
                 Tier: {shipment.selectedTier.toUpperCase()}
               </span>
               <div className="text-xs font-bold text-slate-800 mt-1">
@@ -124,7 +124,7 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
               <div><span className="text-slate-500">Name:</span> <span className="font-bold">{shipment.recipientName}</span></div>
               <div><span className="text-slate-500">Phone:</span> <span className="font-mono">{shipment.recipientPhone}</span></div>
               <div><span className="text-slate-500">Destination:</span> <span>{shipment.recipientAddress}, {shipment.destinationCity}, {shipment.destinationCountry}</span></div>
-              <div><span className="text-slate-500">Delivery Est:</span> <span className="font-bold text-[#2F7D53]">{shipment.quote?.estimatedDeliveryDisplay || shipment.estimatedDeliveryDisplay}</span></div>
+              <div><span className="text-slate-500">Delivery Est:</span> <span className="font-bold text-[#00B4D8]">{shipment.quote?.estimatedDeliveryDisplay || shipment.estimatedDeliveryDisplay}</span></div>
             </div>
           </div>
 
@@ -132,7 +132,7 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
           <div className="border border-black rounded-lg overflow-hidden text-xs">
             <div className="bg-slate-100 font-bold px-3 py-1.5 border-b border-black flex justify-between items-center text-[11px] uppercase">
               <span>3. PACKAGE DETAILS & PHYSICAL INSPECTION</span>
-              <span className="text-[#2F7D53]">NCAA Security Cleared</span>
+              <span className="text-[#00B4D8]">NCAA Security Cleared</span>
             </div>
             <table className="w-full text-left">
               <thead>
@@ -168,7 +168,7 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
           <div className="border border-slate-300 rounded-lg p-3 bg-slate-50 text-xs flex justify-between items-start gap-4">
             <div className="space-y-1">
               <div className="font-bold text-[11px] uppercase text-[#1D2922] flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#2F7D53]" />
+                <ShieldCheck className="w-4 h-4 text-[#00B4D8]" />
                 <span>Protection Option: {shipment.protectionPlan === 'premium' ? 'Premium Shipment Coverage (Leadway Alliance)' : 'Included Basic Protection'}</span>
               </div>
               <p className="text-[11px] text-slate-600">
@@ -179,7 +179,7 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
             </div>
             <div className="text-right shrink-0">
               <span className="text-[10px] text-slate-500 uppercase font-semibold">Protection Fee</span>
-              <div className="font-mono font-bold text-sm text-[#2F7D53]">
+              <div className="font-mono font-bold text-sm text-[#00B4D8]">
                 {formatNaira(shipment.protectionFeeNgn || 0)}
               </div>
             </div>
@@ -190,12 +190,12 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
             <div className="space-y-0.5">
               <span className="font-bold uppercase tracking-wider text-[11px]">Payment Summary</span>
               <div className="text-slate-600">
-                Payment Status: <span className="font-bold text-[#2F7D53] uppercase">{shipment.paymentStatus}</span> · Method: {shipment.paymentMethod || 'Walk-In Counter (Cash/POS)'}
+                Payment Status: <span className="font-bold text-[#00B4D8] uppercase">{shipment.paymentStatus}</span> · Method: {shipment.paymentMethod || 'Walk-In Counter (Cash/POS)'}
               </div>
             </div>
             <div className="text-right">
               <span className="text-[10px] uppercase text-slate-500 font-bold">Total Freight & Service Charges</span>
-              <div className="text-xl font-black font-mono text-[#174B35]">
+              <div className="text-xl font-black font-mono text-[#008EA8]">
                 {formatNaira(shipment.quote?.totalAmount || 0)}
               </div>
             </div>
@@ -211,13 +211,13 @@ export const WalkInWaybillModal: React.FC<WalkInWaybillModalProps> = ({
             </div>
 
             {/* Branch Officer Stamp */}
-            <div className="border-2 border-dashed border-[#2F7D53] rounded p-2.5 h-24 flex flex-col items-center justify-center text-center relative bg-[#EAF6EE]/30">
-              <div className="w-14 h-14 rounded-full border-2 border-[#2F7D53] flex flex-col items-center justify-center text-[#2F7D53] font-bold rotate-[-12deg]">
+            <div className="border-2 border-dashed border-[#00B4D8] rounded p-2.5 h-24 flex flex-col items-center justify-center text-center relative bg-[#CAF0F8]/30">
+              <div className="w-14 h-14 rounded-full border-2 border-[#00B4D8] flex flex-col items-center justify-center text-[#00B4D8] font-bold rotate-[-12deg]">
                 <span className="text-[7px] uppercase tracking-tighter">SWIFTVERO</span>
                 <span className="text-[9px] font-black uppercase">OFFICIAL</span>
                 <span className="text-[7px]">STAMP</span>
               </div>
-              <span className="text-[8px] font-mono text-[#2F7D53] mt-1 font-bold">
+              <span className="text-[8px] font-mono text-[#00B4D8] mt-1 font-bold">
                 {branchName.split(' ')[0].toUpperCase()} BRANCH · INTAKE OK
               </span>
             </div>

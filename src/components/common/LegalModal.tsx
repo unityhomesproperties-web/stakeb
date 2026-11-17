@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
-import { X, FileText, CheckCircle2 } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { X, FileText, CheckCircle2, Search, ChevronDown, ChevronUp } from 'lucide-react';
 
 export type PolicyKey =
   | 'terms'
   | 'privacy'
-  | 'kyc'
-  | 'prohibited'
+  | 'pickup'
   | 'shipping'
-  | 'pricing'
+  | 'prohibited'
+  | 'packaging'
+  | 'protection'
+  | 'priority'
   | 'cancellation'
   | 'claims'
-  | 'priority'
-  | 'protection'
+  | 'responsibilities'
+  | 'payment'
+  | 'kyc'
+  | 'pricing'
   | 'cashback'
-  | 'complaints';
+  | 'complaints'
+  | 'declaration'
+  | 'whatsapp'
+  | 'retention';
 
 interface LegalModalProps {
   isOpen: boolean;
@@ -75,6 +82,98 @@ export const LEGAL_POLICIES: Record<PolicyKey, PolicyDetail> = {
       },
     ],
   },
+  pickup: {
+    key: 'pickup',
+    title: 'Customer Pickup Policy',
+    version: 'v2.4',
+    lastUpdated: 'November 2026',
+    summary: 'Free pickup within 24 hours of booking confirmation and certified facility weighing rules.',
+    sections: [
+      {
+        heading: '1. Free Pickup Commitment',
+        body: 'Swiftvero Express offers free doorstep pickup for all eligible international shipment bookings. International shipping, air freight, customs, and delivery are quoted and paid separately. Free pickup does NOT mean free shipping or free international delivery.',
+      },
+      {
+        heading: '2. 24-Hour Collection Promise',
+        body: 'Once a customer successfully submits a pickup booking, Swiftvero arranges collection of the package from the confirmed address within 24 hours of booking confirmation. This 24-hour commitment applies strictly to physical collection from your premises in Nigeria, not international transit or destination delivery.',
+      },
+      {
+        heading: '3. Facility Weighing Policy (No Scale at Doorstep)',
+        body: 'Swiftvero does NOT send a weighing scale with the pickup collection person. The collection handler inspects the outer condition, verifies the package count, and issues a collection receipt. Final physical inspection, dimensions measurement, reinforcement where required, and certified digital scale weighing take place exclusively at the Swiftvero facility before your final shipping quotation is generated.',
+      },
+      {
+        heading: '4. Sender Availability & Accurate Contact',
+        body: 'The customer must make the package available at the confirmed pickup address, provide reachable phone numbers, and provide accurate landmarks. If collection is prevented due to sender unavailability or inaccessible premises, Operations Admin records the exception and reschedules collection.',
+      },
+    ],
+  },
+  packaging: {
+    key: 'packaging',
+    title: 'Packaging & Repackaging Policy',
+    version: 'v2.0',
+    lastUpdated: 'November 2026',
+    summary: 'Standards for international air cargo packaging and protective repackaging.',
+    sections: [
+      {
+        heading: '1. Safe Air Carriage Standards',
+        body: 'All shipments must be sufficiently packed to withstand international air cargo handling, cabin pressure variations, and transit consolidation.',
+      },
+      {
+        heading: '2. Facility Inspection & Reinforcement',
+        body: 'Upon arrival at our gateway intake center, every package is physically inspected. If an outer carton is compromised, unsealed, or fragile, facility staff provide professional reinforcement or repackaging.',
+      },
+      {
+        heading: '3. Customer Approval for Chargeable Packaging',
+        body: 'Standard protective tape and inspection sealing are provided. Any specialized crating, heavy-duty insulated packaging, or hazardous material prep will be clearly explained and must be approved by the customer before any charge is added.',
+      },
+    ],
+  },
+  responsibilities: {
+    key: 'responsibilities',
+    title: 'Customer Responsibilities',
+    version: 'v2.0',
+    lastUpdated: 'November 2026',
+    summary: 'Legal obligations, accurate declarations, and customer commitments.',
+    sections: [
+      {
+        heading: '1. Truthful & Complete Declarations',
+        body: 'The customer is legally responsible for declaring the true contents, item quantities, and market values of all goods. Misdeclaring commercial goods as personal gifts or concealing restricted items violates aviation and customs regulations.',
+      },
+      {
+        heading: '2. Prohibited Goods Certification',
+        body: 'Customers certify that packages do not contain undeclared firearms, hazardous chemicals, flammable substances, narcotics, or counterfeit currency. Any prohibited goods will be quarantined and reported to regulatory authorities.',
+      },
+      {
+        heading: '3. Pickup Availability & Handover',
+        body: 'Customers must be reachable at the designated phone number and ensure an authorized adult is available to hand over packages to the assigned Swiftvero collection handler.',
+      },
+      {
+        heading: '4. Timely Quotation Review & Payment',
+        body: 'Once the final shipping quotation is prepared following facility weighing, the customer must review and approve the quote promptly so flight cargo manifests can be booked without delay.',
+      },
+    ],
+  },
+  payment: {
+    key: 'payment',
+    title: 'Payment & Quotation Policy',
+    version: 'v2.2',
+    lastUpdated: 'November 2026',
+    summary: 'Transparent billing, approved payment methods, and advance settlement rules.',
+    sections: [
+      {
+        heading: '1. Transparent Customer Quotations',
+        body: 'Customer-facing quotations display only the verified chargeable weight, selected shipping speed (Standard vs Priority), optional cargo protection, priority surcharge (if selected), and statutory VAT. Internal airline fuel surcharges and carrier operational costs are absorbed into our transparent freight rates.',
+      },
+      {
+        heading: '2. Advance Payment Required',
+        body: 'International shipping charges must be settled in full before goods are dispatched on international flights. Pickup collection remains completely free (₦0).',
+      },
+      {
+        heading: '3. Approved Payment Channels',
+        body: 'Payments are accepted through approved electronic bank transfer, verified branch POS, or authorized online card gateways. Swiftvero collection handlers never accept cash on behalf of international freight charges at your doorstep.',
+      },
+    ],
+  },
   kyc: {
     key: 'kyc',
     title: 'KYC & Identity Verification Notice',
@@ -84,7 +183,7 @@ export const LEGAL_POLICIES: Record<PolicyKey, PolicyDetail> = {
     sections: [
       {
         heading: '1. Mandatory Verification',
-        body: 'Aviation security laws require every consignor sending goods internationally to verify their identity before air carriage can proceed.',
+        body: 'Aviation security laws require every sender sending goods internationally to verify their identity before air carriage can proceed.',
       },
       {
         heading: '2. Accepted Identification',
@@ -176,7 +275,7 @@ export const LEGAL_POLICIES: Record<PolicyKey, PolicyDetail> = {
       },
       {
         heading: '3. Flights in Transit',
-        body: 'Once a consignment has departed on an international flight, cancellation is no longer possible.',
+        body: 'Once a shipment has departed on an international flight, cancellation is no longer possible.',
       },
     ],
   },
@@ -293,6 +392,69 @@ export const LEGAL_POLICIES: Record<PolicyKey, PolicyDetail> = {
       },
     ],
   },
+  declaration: {
+    key: 'declaration',
+    title: 'Shipment Declaration & Value Policy',
+    version: 'v2.0',
+    lastUpdated: 'November 2026',
+    summary: 'Guidelines on item descriptions, declared monetary values, and commercial invoices.',
+    sections: [
+      {
+        heading: '1. Accurate Content Descriptions',
+        body: 'All items must be declared by specific item name and category (e.g., "Woven cotton shirts", not "General personal items"). Vague descriptions can cause airline holdbacks or customs rejection.',
+      },
+      {
+        heading: '2. Declared Value for Carriage',
+        body: 'The declared value must match commercial sales receipts or proof of purchase. Deliberate undervaluation to avoid customs duties violates international export regulations.',
+      },
+      {
+        heading: '3. Physical Verification at Facility',
+        body: 'Swiftvero staff verify package contents against your digital declaration during physical intake. Discrepancies require customer confirmation before flight booking.',
+      },
+    ],
+  },
+  whatsapp: {
+    key: 'whatsapp',
+    title: 'WhatsApp Business Channel Notice',
+    version: 'v1.2',
+    lastUpdated: 'November 2026',
+    summary: 'Official Swiftvero WhatsApp assistance, tracking notifications, and security guidelines.',
+    sections: [
+      {
+        heading: '1. Official Communication Channel',
+        body: 'Swiftvero delivers real-time shipping notifications and customer support through our official verified WhatsApp Business channel. We will never ask for your password, PIN, or full card details via chat.',
+      },
+      {
+        heading: '2. Customer Identity Verification',
+        body: 'To protect sensitive shipment and financial details, support representatives verify customer credentials before disclosing private tracking records or releasing account information.',
+      },
+      {
+        heading: '3. Human Support Escalation',
+        body: 'You can request immediate escalation to a live operations coordinator during standard operating hours (Monday to Saturday, 8:00 AM – 6:00 PM West Africa Time).',
+      },
+    ],
+  },
+  retention: {
+    key: 'retention',
+    title: 'Data Retention & Record Deletion Policy',
+    version: 'v1.4',
+    lastUpdated: 'November 2026',
+    summary: 'Rules for document storage, compliance archives, and customer deletion requests.',
+    sections: [
+      {
+        heading: '1. Aviation and Tax Compliance Records',
+        body: 'Shipping waybills, export manifests, and financial records are retained for minimum statutory periods mandated by aviation authorities and tax administrations.',
+      },
+      {
+        heading: '2. Customer ID Document Storage',
+        body: 'KYC identity documents are stored in encrypted vaults with restricted role access and are retained only for the active compliance lifetime of your account.',
+      },
+      {
+        heading: '3. Account Deletion and Right to Erasure',
+        body: 'You may request deletion of personal profile data and address book entries through the customer portal, subject to lawful statutory retention requirements for completed cargo shipments.',
+      },
+    ],
+  },
 };
 
 export const LegalModal: React.FC<LegalModalProps> = ({
@@ -303,23 +465,48 @@ export const LegalModal: React.FC<LegalModalProps> = ({
   showAcceptButton = false,
 }) => {
   const [activeKey, setActiveKey] = useState<PolicyKey>(initialPolicy);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedSections, setExpandedSections] = useState<Record<number, boolean>>({ 0: true, 1: true, 2: true });
+
+  // Filter policies based on search query
+  const filteredPolicies = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return Object.values(LEGAL_POLICIES);
+    return Object.values(LEGAL_POLICIES).filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q) ||
+        p.sections.some(
+          (s) => s.heading.toLowerCase().includes(q) || s.body.toLowerCase().includes(q)
+        )
+    );
+  }, [searchQuery]);
 
   if (!isOpen) return null;
 
-  const current = LEGAL_POLICIES[activeKey];
+  const current = LEGAL_POLICIES[activeKey] || LEGAL_POLICIES['terms'];
+
+  const toggleSection = (idx: number) => {
+    setExpandedSections((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-      <div className="bg-white rounded-lg shadow-xl border border-[#DCEFF3] w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-xs">
+      <div className="sv-card shadow-xl w-full max-w-4xl max-h-[88vh] flex flex-col overflow-hidden">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#DCEFF3] bg-[#CAF0F8]">
-          <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#00B4D8]" />
-            <h2 className="text-base font-bold text-[#354B55]">Swiftvero Policies & Legal Terms</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0] bg-[#CAF0F8]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-[10px] bg-white text-[#00B4D8] flex items-center justify-center shadow-2xs">
+              <FileText className="w-4 h-4 text-[#00B4D8]" />
+            </div>
+            <div>
+              <h2 className="sv-h3 text-[#0F172A]">Swiftvero Policies &amp; Help Centre</h2>
+              <p className="text-[12px] text-[#0F172A]/80">19 Simple English policies, carrier rules, and customer standards</p>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="text-[#6A808C] hover:text-[#354B55] p-1 rounded-md transition-colors"
+            className="text-[#0F172A] hover:bg-white/70 p-2 rounded-full transition-colors cursor-pointer"
             aria-label="Close legal modal"
           >
             <X className="w-5 h-5" />
@@ -328,76 +515,121 @@ export const LegalModal: React.FC<LegalModalProps> = ({
 
         {/* Modal Body: Sidebar + Content */}
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-          {/* Policy navigation list */}
-          <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-[#DCEFF3] bg-[#FFFFFF] p-3 overflow-y-auto max-h-48 md:max-h-full">
-            <div className="text-[11px] font-semibold text-[#6A808C] uppercase px-2 mb-2 tracking-wider">
-              Legal Documents
+          {/* Policy navigation list with Search */}
+          <div className="w-full md:w-72 border-b md:border-b-0 md:border-r border-[#E2E8F0] bg-[#FFFFFF] p-3 flex flex-col max-h-56 md:max-h-full">
+            {/* Search Box */}
+            <div className="relative mb-2.5">
+              <Search className="w-4 h-4 text-[#4B5563] absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search 19 policies..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="sv-input w-full pl-9 pr-3 py-2 text-[13px] border border-[#CBD5E1] rounded-[8px] bg-[#F8FAFC] text-[#111827]"
+              />
             </div>
-            <div className="space-y-0.5">
-              {Object.values(LEGAL_POLICIES).map((p) => (
+
+            <div className="text-[11px] font-bold text-[#4B5563] uppercase px-2 mb-1.5 tracking-wider flex justify-between">
+              <span>All 19 Policies</span>
+              <span className="tabular-nums">{filteredPolicies.length} match</span>
+            </div>
+
+            <div className="space-y-1 overflow-y-auto flex-1 pr-1">
+              {filteredPolicies.map((p) => (
                 <button
                   key={p.key}
-                  onClick={() => setActiveKey(p.key)}
-                  className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  onClick={() => {
+                    setActiveKey(p.key);
+                    setExpandedSections({ 0: true, 1: true, 2: true });
+                  }}
+                  className={`w-full text-left px-3 py-2 rounded-[10px] text-[13px] font-medium transition-colors cursor-pointer ${
                     activeKey === p.key
-                      ? 'bg-[#CAF0F8] text-[#00B4D8] font-semibold'
-                      : 'text-[#354B55] hover:bg-slate-50'
+                      ? 'bg-[#CAF0F8] text-[#0F172A] font-bold border border-[#90E0EF]'
+                      : 'text-[#1F2937] hover:bg-[#F8FAFC]'
                   }`}
                 >
-                  {p.title}
+                  <div className="truncate">{p.title}</div>
+                  <div className="text-[11px] text-[#4B5563] font-normal truncate mt-0.5">{p.summary}</div>
                 </button>
               ))}
+              {filteredPolicies.length === 0 && (
+                <div className="sv-label p-3 text-center">No matching policy found.</div>
+              )}
             </div>
           </div>
 
           {/* Active Policy Content */}
-          <div className="flex-1 p-6 overflow-y-auto bg-white">
-            <div className="border-b border-[#DCEFF3] pb-4 mb-4">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-xl font-bold font-serif-display text-[#354B55]">{current.title}</h3>
-                <span className="text-xs text-[#6A808C] whitespace-nowrap">
+          <div className="flex-1 p-6 overflow-y-auto bg-white space-y-5">
+            <div className="border-b border-[#E2E8F0] pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h3 className="sv-h2">{current.title}</h3>
+                <span className="text-[12px] font-semibold text-[#0F172A] bg-[#CAF0F8] px-3 py-0.5 rounded-full border border-[#90E0EF] whitespace-nowrap">
                   Version {current.version} · {current.lastUpdated}
                 </span>
               </div>
-              <p className="text-xs text-[#6A808C] mt-1">{current.summary}</p>
+              <p className="sv-body mt-2">{current.summary}</p>
             </div>
 
-            <div className="space-y-4">
-              {current.sections.map((sec, idx) => (
-                <div key={idx} className="space-y-1">
-                  <h4 className="text-sm font-semibold text-[#354B55]">{sec.heading}</h4>
-                  <p className="text-xs text-[#6A808C] leading-relaxed">{sec.body}</p>
-                </div>
-              ))}
+            {/* Expandable Sections */}
+            <div className="space-y-3">
+              {current.sections.map((sec, idx) => {
+                const isExpanded = expandedSections[idx] !== false;
+                return (
+                  <div
+                    key={idx}
+                    className="border border-[#CBD5E1] rounded-[8px] overflow-hidden bg-white shadow-2xs"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleSection(idx)}
+                      className="w-full flex items-center justify-between p-4 text-left bg-[#F8FAFC] hover:bg-[#CAF0F8]/40 transition-colors cursor-pointer"
+                    >
+                      <span className="text-[14px] font-bold text-[#111827]">{sec.heading}</span>
+                      <span className="w-7 h-7 rounded-full border border-[#CBD5E1] bg-white flex items-center justify-center shrink-0">
+                        {isExpanded ? (
+                          <ChevronUp className="w-4 h-4 text-[#00B4D8]" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-[#4B5563]" />
+                        )}
+                      </span>
+                    </button>
+                    {isExpanded && (
+                      <div className="p-4 sv-body border-t border-[#E2E8F0]">
+                        {sec.body}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
-            <div className="mt-8 p-3.5 bg-[#CAF0F8] rounded-md border border-[#DCEFF3] text-[11px] text-[#354B55]">
-              <span className="font-semibold text-[#00B4D8]">Standard Operating Notice:</span> Swiftvero Express
-              coordinates international cargo and parcel shipping in compliance with civil aviation regulations.
-              Doorstep pickup and depot drop-off are both completely free.
+            <div className="mt-6 p-4 bg-[#CAF0F8] rounded-[12px] border border-[#90E0EF] text-[13px] text-[#0F172A]">
+              <span className="font-bold">Standard Operating Notice:</span> Swiftvero Express
+              coordinates international shipping in compliance with civil aviation regulations.
+              Package weighing is performed accurately using calibrated digital scales at our facility intake before final payment.
             </div>
           </div>
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3 border-t border-[#DCEFF3] bg-white flex items-center justify-between">
-          <span className="text-xs text-[#6A808C]">Swiftvero Express Ltd · Official Policy Repository</span>
-          <div className="flex items-center gap-2">
+        <div className="px-6 py-3.5 border-t border-[#E2E8F0] bg-white flex items-center justify-between gap-3">
+          <span className="sv-label">Swiftvero Express Ltd · Official Policy Repository</span>
+          <div className="flex items-center gap-2.5">
             {showAcceptButton && (
               <button
                 onClick={() => {
                   onAccept?.();
                   onClose();
                 }}
-                className="px-4 py-2 text-xs font-semibold text-white bg-[#00B4D8] hover:bg-[#0096B4] rounded-md transition-colors flex items-center gap-1.5"
+                className="sv-btn-primary px-5 py-2 rounded-full text-[13px] flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>I Understand & Agree</span>
+                <CheckCircle2 className="w-4 h-4" />
+                <span>I Understand &amp; Agree</span>
               </button>
             )}
             <button
               onClick={onClose}
-              className="px-4 py-2 text-xs font-medium text-[#354B55] bg-white hover:bg-slate-50 border border-[#DCEFF3] rounded-md transition-colors"
+              className="px-5 py-2 text-[13px] font-semibold text-[#111827] bg-white hover:bg-[#F8FAFC] border border-[#CBD5E1] rounded-full transition-colors cursor-pointer"
             >
               Close
             </button>

@@ -4,6 +4,7 @@ import {
   calculateProtectionPremium,
   isItemExcludedFromProtection,
   DEFAULT_PROTECTION_CONFIG,
+  evaluateInsuranceAvailability,
   generateProtectionReference,
 } from './protection-calculator';
 
@@ -75,4 +76,32 @@ test('isItemExcludedFromProtection - Correctly flags cash, bullion, and hazardou
 test('generateProtectionReference - Formats reference code with PROT-2026 prefix', () => {
   const ref = generateProtectionReference('SWV-2026-NG8491');
   assert.match(ref, /^PROT-2026-[A-Z0-9]+$/);
+});
+
+test('evaluateInsuranceAvailability - Respects admin insuranceEnabled toggle and enabledServices', () => {
+  const disabled = evaluateInsuranceAvailability({
+    config: { ...DEFAULT_PROTECTION_CONFIG, insuranceEnabled: false },
+    destinationCountry: 'United Kingdom',
+    serviceTier: 'standard',
+    declaredValueNgn: 250000,
+  });
+  assert.equal(disabled.available, false);
+  assert.match(disabled.reason || '', /unavailable/i);
+
+  const serviceRestricted = evaluateInsuranceAvailability({
+    config: { ...DEFAULT_PROTECTION_CONFIG, insuranceEnabled: true, enabledServices: ['priority'] },
+    destinationCountry: 'United Kingdom',
+    serviceTier: 'standard',
+    declaredValueNgn: 250000,
+  });
+  assert.equal(serviceRestricted.available, false);
+
+  const enabled = evaluateInsuranceAvailability({
+    config: DEFAULT_PROTECTION_CONFIG,
+    destinationCountry: 'United Kingdom',
+    serviceTier: 'priority',
+    declaredValueNgn: 250000,
+  });
+  assert.equal(enabled.available, true);
+  assert.equal(enabled.calculation.calculatedPremiumNgn, 3750);
 });

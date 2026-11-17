@@ -1,0 +1,158 @@
+- generic [ref=f3e4]:
+  - generic [ref=f3e725]:
+    - generic [ref=f3e726]:
+      - button [ref=f3e727]:
+        - img "Swiftvero Express" [ref=f3e729]
+      - generic [ref=f3e731]: Customer Consignor Portal · Amara Okafor
+    - generic [ref=f3e732]:
+      - generic [ref=f3e733]:
+        - generic [ref=f3e734]: "Role:"
+        - combobox [ref=f3e735] [cursor=pointer]:
+          - option "Customer Portal" [selected]
+          - option "Corporate Shipper"
+          - 'option "Workspace A: Pickup & Shipping"'
+          - 'option "Workspace B: Customer Service"'
+          - 'option "Workspace C: Operations & Admin"'
+      - button "Sign Out" [ref=f3e736]
+  - main [ref=f3e14]:
+    - generic [ref=f3e742]:
+      - generic [ref=f3e743]:
+        - generic [ref=f3e744]:
+          - heading "Amara Okafor" [level=1] [ref=f3e746]
+          - paragraph [ref=f3e747]: International shipments, certified scale weighing & worldwide tracking
+        - generic [ref=f3e748]:
+          - generic [ref=f3e749]: Verified Shipper
+          - button "Protection Rules" [ref=f3e754]
+          - button "New Shipment" [ref=f3e758]
+      - generic [ref=f3e761]:
+        - button "Overview" [ref=f3e762]
+        - button "My Shipments 2" [ref=f3e768]:
+          - generic [ref=f3e773]: My Shipments
+          - generic [ref=f3e774]: "2"
+        - button "My Pickups 1" [ref=f3e775]:
+          - generic [ref=f3e781]: My Pickups
+          - generic [ref=f3e782]: "1"
+        - button "Book & Quote" [ref=f3e783]
+        - button "My Wallet ₦75k" [ref=f3e786]:
+          - generic [ref=f3e790]: My Wallet
+          - generic [ref=f3e791]: ₦75k
+        - button "Cashback & Promo" [ref=f3e792]
+        - button "Support Tickets" [ref=f3e799]
+        - button "Tracking" [ref=f3e803]
+        - button "Notifications" [ref=f3e808]
+        - button "Profile & Settings" [ref=f3e813]
+      - generic [ref=f3e819]:
+        - generic [ref=f3e820]:
+          - generic [ref=f3e821]: Swiftvero Express Shipping
+          - heading "You have 1 active shipment on the way." [level=2] [ref=f3e822]
+          - paragraph [ref=f3e823]: Free pickup anywhere in Lagos with certified digital weighing, transparent prices, and live tracking to over 180 countries worldwide.
+        - generic [ref=f3e824]:
+          - button "Book Free Pickup (24h)" [ref=f3e825]
+          - button "My Pickups (7)" [ref=f3e832]
+          - button "Full Booking Wizard" [ref=f3e837]
+      - generic [ref=f3e841]:
+        - generic [ref=f3e842] [cursor=pointer]:
+          - generic [ref=f3e843]: Active In Transit
+          - generic [ref=f3e848]: "1"
+          - generic [ref=f3e849]: View active air freight
+        - generic [ref=f3e853] [cursor=pointer]:
+          - generic [ref=f3e854]: Doorstep Pickups
+          - generic [ref=f3e862]: "1"
+          - generic [ref=f3e863]: Free scale collection
+        - generic [ref=f3e864] [cursor=pointer]:
+          - generic [ref=f3e865]: Shipping Credits
+          - generic [ref=f3e873]: NGN 24,500
+          - generic [ref=f3e874]: Non-withdrawable shipping credits
+        - generic [ref=f3e875] [cursor=pointer]:
+          - generic [ref=f3e876]: Total Shipments
+          - generic [ref=f3e883]: "2"
+          - generic [ref=f3e884]: 1 completed deliveries
+      - generic [ref=f3e885]:
+        - generic [ref=f3e886]:
+          - generic [ref=f3e887]:
+            - heading "Recent Shipments" [level=3] [ref=f3e888]
+            - paragraph [ref=f3e889]: Live status, package size checks, and easy repeat bookings
+          - button "View All Shipments (2)" [ref=f3e890]
+        - generic [ref=f3e894]:
+          - generic [ref=f3e895]:
+            - generic [ref=f3e900] [cursor=pointer]:
+              - generic [ref=f3e901]:
+                - generic [ref=f3e902]: SWV-2026-NG8491
+                - generic [ref=f3e903]: · Priority Express
+              - paragraph [ref=f3e904]: Lagos → London, United Kingdom
+            - generic [ref=f3e905]:
+              - generic [ref=f3e906]:
+                - generic [ref=f3e907]: Update Delayed
+                - generic [ref=f3e911]: NGN 147,579
+              - button "Repeat" [ref=f3e912]
+              - button "View live tracking updates" [ref=f3e917]
+          - generic [ref=f3e920]:
+            - generic [ref=f3e925] [cursor=pointer]:
+              - generic [ref=f3e926]:
+                - generic [ref=f3e927]: SWV-2026-NG3102
+                - generic [ref=f3e928]: · Standard Air
+              - paragraph [ref=f3e929]: Lagos → Atlanta, United States
+            - generic [ref=f3e930]:
+              - generic [ref=f3e931]:
+                - generic [ref=f3e932]: Delivered
+                - generic [ref=f3e936]: NGN 160,928
+              - button "Repeat" [ref=f3e937]
+              - button "View live tracking updates" [ref=f3e942]
+      - generic [ref=f3e945]:
+        - heading "Quick Actions & Tools" [level=3] [ref=f3e946]
+        - generic [ref=f3e947]:
+          - button "Track Shipment Live milestone tracking and delivery status" [ref=f3e948]:
+            - generic [ref=f3e954]:
+              - generic [ref=f3e955]: Track Shipment
+              - text: Live milestone tracking and delivery status
+          - button "Doorstep Collections Free doorstep digital scale verification schedule 1 scheduled" [ref=f3e958]:
+            - generic [ref=f3e966]:
+              - generic [ref=f3e967]: Doorstep Collections
+              - text: Free doorstep digital scale verification schedule
+            - generic [ref=f3e968]: 1 scheduled
+          - button "SwiftShare Pilot Consignments Traveller-assisted express delivery with tamper seals & delivery escrow Pilot" [ref=f3e972]:
+            - generic [ref=f3e977]:
+              - generic [ref=f3e978]: SwiftShare Pilot Consignments
+              - text: Traveller-assisted express delivery with tamper seals & delivery escrow
+            - generic [ref=f3e979]: Pilot
+          - button "Send to Multiple Receivers Enter sender details once and send multiple packages easily" [ref=f3e983]:
+            - generic [ref=f3e990]:
+              - generic [ref=f3e991]: Send to Multiple Receivers
+              - text: Enter sender details once and send multiple packages easily
+          - button "My Rewards & Shipping Credits Promotional credits to discount future shipments (usable at checkout) NGN 24,500" [ref=f3e994]:
+            - generic [ref=f3e1002]:
+              - generic [ref=f3e1003]: My Rewards & Shipping Credits
+              - text: Promotional credits to discount future shipments (usable at checkout)
+            - generic [ref=f3e1004]: NGN 24,500
+          - button "Verified Customer Reviews Rate delivered shipments and read company feedback" [ref=f3e1008]:
+            - generic [ref=f3e1013]:
+              - generic [ref=f3e1014]: Verified Customer Reviews
+              - text: Rate delivered shipments and read company feedback
+          - button "Saved Address Book Manage repeat recipients in the UK, US, Canada, and Europe" [ref=f3e1017]:
+            - generic [ref=f3e1024]:
+              - generic [ref=f3e1025]: Saved Address Book
+              - text: Manage repeat recipients in the UK, US, Canada, and Europe
+          - button "Package Shipment Templates Save standard carton sizes, items, and weights for 1-click rebooking" [ref=f3e1028]:
+            - generic [ref=f3e1035]:
+              - generic [ref=f3e1036]: Package Shipment Templates
+              - text: Save standard carton sizes, items, and weights for 1-click rebooking
+          - button "Claims & Delivery Disputes File structured claims for transit delays or package investigations" [ref=f3e1039]:
+            - generic [ref=f3e1045]:
+              - generic [ref=f3e1046]: Claims & Delivery Disputes
+              - text: File structured claims for transit delays or package investigations
+          - button "Business Team & Permissions Manage organization staff roles, booking rights, and finance viewing" [ref=f3e1049]:
+            - generic [ref=f3e1056]:
+              - generic [ref=f3e1057]: Business Team & Permissions
+              - text: Manage organization staff roles, booking rights, and finance viewing
+          - button "Notifications & Proactive Alert Center View milestone logs and manage communication channels" [ref=f3e1060]:
+            - generic [ref=f3e1066]:
+              - generic [ref=f3e1067]: Notifications & Proactive Alert Center
+              - text: View milestone logs and manage communication channels
+          - button "Customer Support & Enquiries Open a ticket or contact official WhatsApp desk" [ref=f3e1070]:
+            - generic [ref=f3e1075]:
+              - generic [ref=f3e1076]: Customer Support & Enquiries
+              - text: Open a ticket or contact official WhatsApp desk
+          - button "Account Profile & Identity Manage your sender profile, addresses, and ID verification" [ref=f3e1079]:
+            - generic [ref=f3e1086]:
+              - generic [ref=f3e1087]: Account Profile & Identity
+              - text: Manage your sender profile, addresses, and ID verification

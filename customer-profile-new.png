@@ -1,0 +1,90 @@
+- generic [ref=f3e4]:
+  - generic [ref=f3e725]:
+    - generic [ref=f3e726]:
+      - button [ref=f3e727]:
+        - img "Swiftvero Express" [ref=f3e729]
+      - generic [ref=f3e731]: Customer Consignor Portal · Amara Okafor
+    - generic [ref=f3e732]:
+      - generic [ref=f3e733]:
+        - generic [ref=f3e734]: "Role:"
+        - combobox [ref=f3e735] [cursor=pointer]:
+          - option "Customer Portal" [selected]
+          - option "Corporate Shipper"
+          - 'option "Workspace A: Pickup & Shipping"'
+          - 'option "Workspace B: Customer Service"'
+          - 'option "Workspace C: Operations & Admin"'
+      - button "Sign Out" [ref=f3e736]
+  - main [ref=f3e14]:
+    - generic [ref=f3e742]:
+      - generic [ref=f3e743]:
+        - generic [ref=f3e744]:
+          - heading "Amara Okafor" [level=1] [ref=f3e746]
+          - paragraph [ref=f3e747]: International shipments, certified scale weighing & worldwide tracking
+        - generic [ref=f3e748]:
+          - generic [ref=f3e749]: Verified Shipper
+          - button "Protection Rules" [ref=f3e754]
+          - button "New Shipment" [ref=f3e758]
+      - generic [ref=f3e761]:
+        - button "Overview" [ref=f3e762]
+        - button "My Shipments 2" [ref=f3e768]:
+          - generic [ref=f3e773]: My Shipments
+          - generic [ref=f3e774]: "2"
+        - button "My Pickups 1" [ref=f3e775]:
+          - generic [ref=f3e781]: My Pickups
+          - generic [ref=f3e782]: "1"
+        - button "Book & Quote" [ref=f3e783]
+        - button "My Wallet ₦75k" [ref=f3e786]:
+          - generic [ref=f3e790]: My Wallet
+          - generic [ref=f3e791]: ₦75k
+        - button "Cashback & Promo" [ref=f3e792]
+        - button "Support Tickets" [ref=f3e799]
+        - button "Tracking" [ref=f3e803]
+        - button "Notifications" [ref=f3e808]
+        - button "Profile & Settings" [active] [ref=f3e813]
+      - generic [ref=f3e1090]:
+        - button "← Back to Dashboard Overview" [ref=f3e1091]
+        - generic [ref=f3e1092]: profile
+      - generic [ref=f3e1093]:
+        - generic [ref=f3e1094]:
+          - generic [ref=f3e1095]:
+            - generic [ref=f3e1096]: AM
+            - generic [ref=f3e1097]:
+              - generic [ref=f3e1098]:
+                - heading "Amara Okafor" [level=2] [ref=f3e1099]
+                - generic [ref=f3e1100]: individual Account
+              - paragraph [ref=f3e1101]: amara.okafor@crafts.ng • +234 803 555 0192
+              - generic [ref=f3e1102]: Verified Identity
+          - generic [ref=f3e1107]:
+            - generic [ref=f3e1108]: Your Referral Code
+            - generic [ref=f3e1109]:
+              - generic [ref=f3e1110]: SWV-AMARA26
+              - button "Copy" [ref=f3e1111]
+            - generic [ref=f3e1116]: Invite friends and earn shipping discounts
+        - generic [ref=f3e1117]:
+          - button "Personal & Contact" [ref=f3e1118] [cursor=pointer]
+          - button "Saved Addresses" [ref=f3e1123] [cursor=pointer]
+          - button "Identity & KYC" [ref=f3e1128] [cursor=pointer]
+          - button "Security & Password" [ref=f3e1133] [cursor=pointer]
+          - button "Notification Settings" [ref=f3e1138] [cursor=pointer]
+        - generic [ref=f3e1143]:
+          - generic [ref=f3e1144]:
+            - heading "Personal Information & Contact Details" [level=3] [ref=f3e1145]
+            - paragraph [ref=f3e1146]: These details are used for pickup bookings, customs forms, and delivery updates.
+          - generic [ref=f3e1147]:
+            - generic [ref=f3e1148]:
+              - generic [ref=f3e1149]:
+                - generic [ref=f3e1150]: Full Name (as on Government ID)
+                - textbox [ref=f3e1151]: Amara Okafor
+              - generic [ref=f3e1152]:
+                - generic [ref=f3e1153]: Email Address
+                - textbox [ref=f3e1154]: amara.okafor@crafts.ng
+              - generic [ref=f3e1155]:
+                - generic [ref=f3e1156]: Primary Phone Number
+                - textbox [ref=f3e1157]: +234 803 555 0192
+              - generic [ref=f3e1158]:
+                - generic [ref=f3e1159]: WhatsApp Updates Number
+                - textbox [ref=f3e1160]: +234 803 555 0192
+              - generic [ref=f3e1161]:
+                - generic [ref=f3e1162]: Default Pickup Address
+                - textbox [ref=f3e1163]: Block B4, Admiralty Way, Lekki Phase 1, Lagos
+            - button "Save Changes" [ref=f3e1165] [cursor=pointer]

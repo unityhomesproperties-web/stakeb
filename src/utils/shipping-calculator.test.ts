@@ -8,6 +8,7 @@ import {
   recalculateVerifiedQuote,
   calculateEligibleCashback,
   calculateEstimatedDeliveryDate,
+  evaluateRouteAvailability,
 } from './shipping-calculator.ts';
 
 test('volumetric weight calculation matches industry divisor 5000', () => {
@@ -118,4 +119,27 @@ test('cashback is zero for pending shipments and only releases on delivery', () 
   const delivered = calculateEligibleCashback(quote, 'delivered');
   assert.equal(delivered.isEligible, true);
   assert.ok(delivered.amountNgn > 0);
+});
+
+test('evaluateRouteAvailability - confirms active bilateral corridors and flags unconfirmed routes', () => {
+  // Supported corridor
+  const supported = evaluateRouteAvailability('Nigeria', 'United Kingdom');
+  assert.equal(supported.isSupported, true);
+  assert.equal(supported.isConfirmed, true);
+
+  // Inbound supported corridor
+  const inbound = evaluateRouteAvailability('United States', 'Nigeria');
+  assert.equal(inbound.isSupported, true);
+  assert.equal(inbound.isConfirmed, true);
+
+  // Same country rejection
+  const sameCountry = evaluateRouteAvailability('Nigeria', 'Nigeria');
+  assert.equal(sameCountry.isSupported, false);
+  assert.ok(sameCountry.message?.includes('must be different countries'));
+
+  // Remote / unconfirmed route
+  const remote = evaluateRouteAvailability('Nigeria', 'Greenland (Remote)');
+  assert.equal(remote.isSupported, false);
+  assert.equal(remote.isConfirmed, false);
+  assert.equal(remote.message, 'Route availability needs to be confirmed.');
 });

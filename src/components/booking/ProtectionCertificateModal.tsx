@@ -61,128 +61,128 @@ Claims must be submitted within standard policy deadlines with packaging and inv
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl max-w-2xl w-full border border-[#DCE8DF] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-xs">
+      <div className="sv-card max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-6 py-4 bg-[#EAF6EE] border-b border-[#DCE8DF] flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#CAF0F8] border-b border-[#E2E8F0] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-white border border-[#2F7D53]/20 text-[#2F7D53] flex items-center justify-center shadow-2xs">
+            <div className="w-9 h-9 rounded-[10px] bg-white border border-[#90E0EF] text-[#00B4D8] flex items-center justify-center shadow-2xs">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#1D2922]">
+              <h3 className="sv-h3 text-[#0F172A]">
                 Shipment Protection Record
               </h3>
-              <p className="text-xs text-[#66736B]">
+              <p className="text-[12px] text-[#0F172A]/80">
                 Consignment coverage certificate &amp; policy terms summary
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-[#66736B] hover:text-[#1D2922] transition-colors"
+            className="p-2 rounded-full text-[#0F172A] hover:bg-white/70 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Certificate Body (Printable area) */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs text-[#1D2922]">
+        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-[13px] text-[#111827]">
           {/* Top Status & Reference Banner */}
-          <div className="p-4 rounded-xl bg-[#F5FAF6] border border-[#DCE8DF] flex flex-wrap items-center justify-between gap-3">
+          <div className="p-4 rounded-[12px] bg-[#F8FAFC] border border-[#E2E8F0] flex flex-wrap items-center justify-between gap-3">
             <div>
-              <span className="text-[10px] uppercase font-bold text-[#66736B]">
+              <span className="text-[11px] uppercase font-bold text-[#4B5563]">
                 Protection Reference Code
               </span>
-              <div className="text-lg font-mono font-bold text-[#2F7D53] mt-0.5">
+              <div className="text-[18px] font-extrabold text-[#111827] mt-0.5 tabular-nums">
                 {certificate.certificateNumber}
               </div>
             </div>
             <div className="text-right">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#EAF6EE] text-[#247347] border border-[#2F7D53]/30">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold bg-[#CAF0F8] text-[#0F172A] border border-[#90E0EF]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#247347]" />
                 <span>{certificate.status}</span>
               </span>
-              <div className="text-[11px] text-[#66736B] mt-1 font-mono">
+              <div className="sv-label mt-1 tabular-nums">
                 Booking: {certificate.bookingDate}
               </div>
             </div>
           </div>
 
           {/* Core Certificate Grid */}
-          <div className="border border-[#DCE8DF] rounded-xl overflow-hidden divide-y divide-[#DCE8DF]">
-            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#DCE8DF] p-3.5 bg-white">
+          <div className="border border-[#E2E8F0] rounded-[12px] overflow-hidden divide-y divide-[#E2E8F0]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0] p-4 bg-white">
               <div>
-                <span className="text-[11px] text-[#66736B] block">Consignment Tracking Number</span>
-                <span className="font-mono font-bold text-sm text-[#1D2922]">
+                <span className="sv-label block">Consignment Tracking Number</span>
+                <span className="font-bold text-[14px] text-[#111827] tabular-nums">
                   {certificate.shipmentTrackingNumber}
                 </span>
               </div>
-              <div className="pt-2 sm:pt-0 sm:pl-3.5">
-                <span className="text-[11px] text-[#66736B] block">Consignor Legal Name</span>
-                <span className="font-semibold text-sm text-[#1D2922]">
+              <div className="pt-2 sm:pt-0 sm:pl-4">
+                <span className="sv-label block">Consignor Legal Name</span>
+                <span className="font-semibold text-[14px] text-[#111827]">
                   {certificate.customerName}
                 </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#DCE8DF] p-3.5 bg-[#F5FAF6]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0] p-4 bg-[#F8FAFC]">
               <div>
-                <span className="text-[11px] text-[#66736B] block">Selected Protection Plan</span>
-                <span className="font-bold text-[#1D2922]">
+                <span className="sv-label block">Selected Protection Plan</span>
+                <span className="font-bold text-[#111827]">
                   {certificate.protectionPlan === 'premium' ? 'Premium Shipment Coverage' : 'Included Basic Protection'}
                 </span>
               </div>
-              <div className="pt-2 sm:pt-0 sm:pl-3.5">
-                <span className="text-[11px] text-[#66736B] block">Protection Premium Paid</span>
-                <span className="font-mono font-bold text-[#2F7D53]">
+              <div className="pt-2 sm:pt-0 sm:pl-4">
+                <span className="sv-label block">Protection Premium Paid</span>
+                <span className="font-bold text-[#0F172A] tabular-nums">
                   {formatNaira(certificate.premiumPaidNgn)} {certificate.premiumPaidNgn === 0 && '(Included ₦0)'}
                 </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#DCE8DF] p-3.5 bg-white">
+            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0] p-4 bg-white">
               <div>
-                <span className="text-[11px] text-[#66736B] block">Declared Shipment Value</span>
-                <span className="font-mono font-bold text-[#1D2922]">
+                <span className="sv-label block">Declared Shipment Value</span>
+                <span className="font-bold text-[#111827] tabular-nums">
                   {formatNaira(certificate.declaredValueNgn)}
                 </span>
               </div>
-              <div className="pt-2 sm:pt-0 sm:pl-3.5">
-                <span className="text-[11px] text-[#66736B] block">Maximum Insured / Covered Limit</span>
-                <span className="font-mono font-bold text-[#1D2922]">
+              <div className="pt-2 sm:pt-0 sm:pl-4">
+                <span className="sv-label block">Maximum Insured / Covered Limit</span>
+                <span className="font-bold text-[#111827] tabular-nums">
                   {formatNaira(certificate.coverageAmountNgn)}
                 </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#DCE8DF] p-3.5 bg-[#F5FAF6]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0] p-4 bg-[#F8FAFC]">
               <div>
-                <span className="text-[11px] text-[#66736B] block">Underwriting Alliance</span>
-                <span className="font-semibold text-[#1D2922]">
+                <span className="sv-label block">Underwriting Alliance</span>
+                <span className="font-semibold text-[#111827]">
                   {certificate.providerName}
                 </span>
               </div>
-              <div className="pt-2 sm:pt-0 sm:pl-3.5">
-                <span className="text-[11px] text-[#66736B] block">Applicable Policy Terms Version</span>
-                <span className="font-mono text-[#1D2922]">
+              <div className="pt-2 sm:pt-0 sm:pl-4">
+                <span className="sv-label block">Applicable Policy Terms Version</span>
+                <span className="font-medium text-[#111827] tabular-nums">
                   {certificate.termsVersion}
                 </span>
               </div>
             </div>
 
-            <div className="p-3.5 bg-white">
-              <span className="text-[11px] text-[#66736B] block">Deductible / Excess Terms</span>
-              <span className="font-medium text-[#1D2922]">
+            <div className="p-4 bg-white">
+              <span className="sv-label block">Deductible / Excess Terms</span>
+              <span className="font-medium text-[#111827]">
                 {certificate.deductibleText}
               </span>
             </div>
           </div>
 
           {/* Legal / Regulatory Disclaimer */}
-          <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 leading-relaxed space-y-1">
+          <div className="p-4 bg-amber-50 border border-amber-200 rounded-[12px] text-[12px] text-amber-900 leading-relaxed space-y-1">
             <div className="flex items-center gap-1.5 font-bold text-amber-950">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+              <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
               <span>Regulatory Verification Notice &amp; Demonstration Mode</span>
             </div>
             <p>
@@ -192,23 +192,23 @@ Claims must be submitted within standard policy deadlines with packaging and inv
         </div>
 
         {/* Footer actions */}
-        <div className="px-6 py-4 bg-gray-50 border-t border-[#DCE8DF] flex flex-wrap items-center justify-between gap-3">
-          <span className="text-[11px] text-[#66736B]">
+        <div className="px-6 py-4 bg-[#F8FAFC] border-t border-[#E2E8F0] flex flex-wrap items-center justify-between gap-3">
+          <span className="sv-label">
             Custody seal verified on intake dispatch
           </span>
           <div className="flex items-center gap-2.5">
             <button
               onClick={handleDownloadSummary}
-              className="px-3.5 py-2 border border-[#DCE8DF] bg-white hover:bg-gray-50 text-[#1D2922] font-semibold text-xs rounded-xl flex items-center gap-1.5 transition-colors shadow-2xs"
+              className="px-4 py-2 border border-[#CBD5E1] bg-white hover:bg-[#F1F5F9] text-[#111827] font-semibold text-[13px] rounded-full flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer"
             >
-              <Download className="w-3.5 h-3.5 text-[#2F7D53]" />
+              <Download className="w-4 h-4 text-[#00B4D8]" />
               <span>Download Summary</span>
             </button>
             <button
               onClick={handlePrint}
-              className="px-4 py-2 bg-[#2F7D53] hover:bg-[#174B35] text-white font-bold text-xs rounded-xl flex items-center gap-1.5 transition-colors shadow-sm"
+              className="sv-btn-primary px-5 py-2 text-[13px] rounded-full flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
-              <Printer className="w-3.5 h-3.5" />
+              <Printer className="w-4 h-4" />
               <span>Print Certificate</span>
             </button>
           </div>

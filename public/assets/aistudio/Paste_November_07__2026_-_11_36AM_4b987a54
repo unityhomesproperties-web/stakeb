@@ -1,0 +1,1466 @@
+SWIFTVERO EXPRESS: MASTER DEVELOPMENT INSTRUCTION
+
+ROLE AND RESPONSIBILITY
+
+Act as a senior full-stack software engineer, enterprise application architect, financial systems engineer, logistics operations specialist and senior UI/UX designer.
+
+You are responsible for improving and completing the existing Swiftvero Express website and application.
+
+Think and work like a professional development team building a reliable international shipping platform.
+
+You must inspect the existing project before making changes.
+
+Do not assume the current architecture, database, APIs, authentication system or components without inspecting them.
+
+This is an existing application. Do not rebuild it from scratch.
+
+Core development rules
+
+1. Preserve all existing working features.
+2. Preserve existing customer accounts and shipment records.
+3. Preserve existing database relationships.
+4. Preserve existing payment integrations.
+5. Preserve public website pages and existing content unless a change is requested.
+6. Do not remove working features simply because you want to redesign their appearance.
+7. Do not create duplicate dashboards or duplicate customer records.
+8. Do not use fake data in live production workflows.
+9. Do not hardcode prices, financial balances, delivery times or transaction statuses.
+10. Use the existing backend and database wherever possible.
+11. If a new database table, API, service or integration is necessary, implement it properly.
+12. Do not simulate a successful payment when the actual payment has failed.
+13. Do not expose confidential customer information to unauthorised staff.
+14. Make all customer-facing interfaces mobile-first.
+15. Make all buttons, menus, forms, filters, tabs and actions functional.
+16. Keep DEMO MODE available for testing.
+17. Clearly distinguish demo transactions from real transactions.
+18. Do not remove the existing demo functionality.
+19. Test each implementation phase before proceeding to the next.
+
+Official Swiftvero design system
+
+Use only this brand palette as the foundation:
+
+* Primary cyan: #00B4D8
+* Secondary cyan: #90E0EF
+* Light cyan: #CAF0F8
+* White: #FFFFFF
+
+Design direction:
+
+* Premium international logistics brand.
+* Clean, modern and professional.
+* White-dominant interface.
+* Light cyan backgrounds for selected sections.
+* Primary cyan for buttons and important actions.
+* Beautiful cards with consistent spacing.
+* Professional typography.
+* Clear visual hierarchy.
+* Minimal unnecessary decoration.
+* Excellent mobile responsiveness.
+* Consistent layouts across every dashboard.
+
+Do not introduce unrelated brand colours.
+
+Use neutral colours for normal text and borders. Use functional status colours only where necessary.
+
+⸻
+
+PHASE 1: INSPECT AND UNDERSTAND THE EXISTING APPLICATION
+
+Before writing or modifying code:
+
+1. Inspect the entire existing project.
+2. Identify the frontend framework and backend architecture.
+3. Inspect the database schema and relationships.
+4. Identify the authentication and authorisation system.
+5. Identify all existing customer dashboards.
+6. Identify all staff dashboards.
+7. Identify pickup and shipment workflows.
+8. Identify payment integrations.
+9. Identify existing wallet-related functionality, if any.
+10. Identify tracking and notification systems.
+11. Identify all existing branch management functionality.
+12. Identify demo-mode functionality.
+13. Identify existing APIs and integrations.
+
+Prepare an internal implementation map showing:
+
+* What already exists.
+* What needs modification.
+* What needs to be added.
+* What can be reused.
+* What dependencies must be maintained.
+* What risks could break existing functionality.
+
+Do not delete or replace working code simply to make implementation easier.
+
+If an existing feature already performs the requested function, improve and reuse it.
+
+At the end of this phase, establish a safe implementation plan and proceed to Phase 2.
+
+⸻
+
+PHASE 2: RESTRUCTURE THE ENTIRE STAFF DASHBOARD SYSTEM
+
+Main objective
+
+Remove the existing fragmented staff dashboard structure and consolidate staff operations into three main workspaces.
+
+The three workspaces are:
+
+1. Pickup & Shipping Management.
+2. Customer Service.
+3. Operations & Admin.
+
+Remove the separate dashboard experiences for:
+
+* Pickup Agents.
+* Front Desk Staff.
+* Separate Finance Admin.
+* Separate Branch Admin.
+* Other duplicated operational dashboards.
+
+IMPORTANT:
+
+Do not delete staff records or operational data.
+
+Do not remove the ability to assign staff to different duties.
+
+Instead, consolidate their access into the three workspaces using role-based permissions.
+
+WORKSPACE A: PICKUP & SHIPPING MANAGEMENT
+
+This workspace receives and manages all pickup bookings and shipment operations.
+
+It must include the following sections:
+
+1. Overview
+
+Display:
+
+* New pickup bookings.
+* Pickups scheduled.
+* Pickups awaiting collection.
+* Completed pickups.
+* Failed or missed pickups.
+* Packages received at the facility.
+* Packages awaiting inspection.
+* Packages awaiting quotation.
+* Quotations awaiting customer approval.
+* Shipments awaiting payment.
+* Shipments ready for dispatch.
+* Shipments sent.
+* Shipments with operational problems.
+
+Display figures using clear cards and useful charts.
+
+Allow staff to click any figure and view the corresponding records.
+
+2. Pickup Management
+
+Every customer pickup booking must automatically appear here.
+
+Display:
+
+* Booking reference.
+* Customer name.
+* Customer phone number.
+* Pickup address.
+* Pickup instructions.
+* Booking date and time.
+* Requested pickup date.
+* Pickup status.
+* Assigned staff member.
+* Special instructions.
+
+Provide actions:
+
+* View booking.
+* Confirm pickup.
+* Schedule pickup.
+* Assign pickup responsibility.
+* Reschedule pickup.
+* Contact customer.
+* Mark package collected.
+* Mark pickup unsuccessful.
+* Record reason for unsuccessful pickup.
+* Add internal notes.
+* View pickup history.
+
+The company currently promises free pickup within 24 hours of confirmed booking.
+
+Show this commitment clearly to staff.
+
+Create a warning when a booking is approaching its 24-hour collection deadline.
+
+Do not mark a pickup as completed until the staff member confirms that the package was actually collected.
+
+If a pickup fails, require a reason and record the event.
+
+3. Package Receiving and Inspection
+
+After pickup, the package must be received at the Swiftvero facility.
+
+Staff should be able to:
+
+* Search for the pickup booking.
+* Confirm package arrival.
+* Record package condition.
+* Check package contents against the customer’s declaration.
+* Record the actual weight.
+* Record package dimensions.
+* Record the number of packages.
+* Add inspection notes.
+* Upload package photographs where appropriate.
+* Record repacking or additional packaging.
+* Record the final packed weight and dimensions.
+
+IMPORTANT OPERATIONAL RULE:
+
+Swiftvero does not weigh packages at the customer’s home.
+
+Packages are collected first. Proper packing and weighing happen at the Swiftvero facility.
+
+The customer should be informed of this during booking.
+
+The actual shipping quotation must use the verified package information and applicable pricing rules.
+
+4. Shipment Management
+
+Create a central shipment management table.
+
+Display:
+
+* Tracking number.
+* Customer.
+* Sender.
+* Receiver.
+* Destination country.
+* Package category.
+* Actual weight.
+* Package dimensions.
+* Selected shipping speed.
+* Protection option.
+* Quoted price.
+* Payment status.
+* Shipment status.
+* Booking date.
+* Last update.
+
+Provide filters for:
+
+* New shipments.
+* Awaiting inspection.
+* Awaiting quotation.
+* Awaiting customer approval.
+* Awaiting payment.
+* Ready for dispatch.
+* In transit.
+* Delivered.
+* Delayed.
+* Cancelled.
+* Problem shipments.
+
+Provide shipment actions:
+
+* Open shipment.
+* Edit permitted shipment information.
+* Confirm inspection.
+* Prepare quotation.
+* Send quotation to customer.
+* Review customer approval.
+* Verify payment.
+* Confirm dispatch.
+* Update shipment status.
+* Upload supporting documents.
+* Add internal notes.
+* Contact customer.
+* Report a problem.
+
+5. Shipping Speed Management
+
+Support:
+
+* Standard Shipping.
+* Priority Shipping.
+
+The available options, prices and delivery estimates must be controlled by approved service configurations.
+
+Do not invent prices or delivery estimates.
+
+Display full customer-facing prices, not internal surcharge breakdowns.
+
+Ensure the selected shipping service is saved correctly.
+
+6. Pickup and Shipment Clarifications
+
+Create a dedicated section for issues requiring customer clarification.
+
+Examples:
+
+* Incomplete pickup address.
+* Customer unavailable.
+* Package contents unclear.
+* Declared contents differ from inspected contents.
+* Incorrect receiver details.
+* Package exceeds permitted size.
+* Restricted or prohibited items.
+* Missing documentation.
+* Customer has not approved the quotation.
+
+Staff must be able to contact the customer, record the response and close the clarification request.
+
+7. Operational Handover
+
+If a shipment moves between branches or operational teams, record:
+
+* Sending location.
+* Receiving location.
+* Staff member releasing the shipment.
+* Staff member receiving it.
+* Package count.
+* Package condition.
+* Transfer date and time.
+* Confirmation from both sides.
+
+Do not allow a transfer to be marked complete without the required receiving confirmation.
+
+⸻
+
+WORKSPACE B: CUSTOMER SERVICE
+
+Create a completely separate Customer Service workspace.
+
+Its purpose is to manage customer complaints, enquiries, disputes and support requests.
+
+This is not just a page displaying messages.
+
+It must function as a proper support ticket management system.
+
+1. Customer Service Overview
+
+Display:
+
+* Total open tickets.
+* New tickets.
+* Unassigned tickets.
+* Tickets being handled.
+* Waiting for customer response.
+* Waiting for internal department response.
+* Escalated tickets.
+* Resolved tickets.
+* Closed tickets.
+* Overdue tickets.
+* Average first response time.
+* Average resolution time.
+* Customer satisfaction score.
+
+Make all figures clickable.
+
+2. Automatic Support Ticket Creation
+
+Whenever a customer submits a complaint or support request, automatically create a unique support ticket.
+
+Example ticket number:
+
+SWV-CS-2026-000001
+
+The ticket must include:
+
+* Ticket number.
+* Customer ID.
+* Customer name.
+* Customer email.
+* Customer phone number.
+* Related tracking number, if applicable.
+* Related pickup reference, if applicable.
+* Complaint category.
+* Subject.
+* Description.
+* Attachments.
+* Date created.
+* Priority.
+* Current status.
+* Assigned support staff.
+* Conversation history.
+
+Generate ticket numbers automatically and ensure they are unique.
+
+3. Customer Support Categories
+
+Provide categories such as:
+
+* Pickup complaint.
+* Missed pickup.
+* Shipment delay.
+* Tracking problem.
+* Damaged package.
+* Missing package.
+* Incorrect shipping charge.
+* Payment problem.
+* Wallet top-up problem.
+* Cashback problem.
+* Promo code problem.
+* Refund request.
+* KYC or account verification.
+* Delivery problem.
+* General enquiry.
+* Other.
+
+Automatically suggest a relevant category when possible, but allow authorised staff to correct it.
+
+4. Ticket Statuses
+
+Use these statuses:
+
+* New.
+* Open.
+* Assigned.
+* In Progress.
+* Waiting for Customer.
+* Waiting for Operations.
+* Escalated.
+* Resolved.
+* Closed.
+
+A resolved ticket should not automatically disappear.
+
+Keep its history accessible.
+
+Allow a customer to reopen a ticket within a configurable period if the problem has not been resolved.
+
+5. Ticket Management
+
+Customer Service staff should be able to:
+
+* View all tickets.
+* Search by ticket number.
+* Search by customer name.
+* Search by tracking number.
+* Filter by category.
+* Filter by status.
+* Assign tickets.
+* Reassign tickets.
+* Send customer replies.
+* Add internal notes.
+* Attach supporting files.
+* Escalate issues.
+* Contact the relevant operational department.
+* Resolve tickets.
+* Close tickets.
+
+Internal notes must never be visible to customers.
+
+6. Customer Communication
+
+Provide a conversation interface similar to a professional customer support platform.
+
+Display:
+
+* Customer messages.
+* Staff replies.
+* Message timestamps.
+* Attachments.
+* Internal notes.
+* Status changes.
+* Assignment history.
+
+Where supported, send notifications through email and the existing notification system.
+
+Do not claim an email was delivered if the email service reports failure.
+
+7. Automatic Ticket Notifications
+
+When a ticket is created:
+
+Send the customer a confirmation containing:
+
+* Ticket number.
+* Complaint subject.
+* Confirmation that the request was received.
+* Instructions for checking its progress.
+
+When the status changes, notify the customer.
+
+When staff reply, notify the customer.
+
+When a ticket is resolved, notify the customer and request a satisfaction rating.
+
+8. Escalation
+
+If a complaint concerns:
+
+* Missing shipment.
+* Damaged shipment.
+* Serious payment discrepancy.
+* Wallet balance discrepancy.
+* Possible fraud.
+* Security issue.
+* Repeated pickup failure.
+
+Allow the support team to escalate it to Operations & Admin.
+
+Create escalation notifications.
+
+Keep a complete record of the issue and its handling.
+
+9. Customer Ticket Tracking
+
+Customers must be able to see their support tickets inside their account.
+
+They should be able to:
+
+* Open a ticket.
+* See its current status.
+* Read staff replies.
+* Reply to staff.
+* Upload additional evidence.
+* See the ticket history.
+* Confirm whether the problem has been resolved.
+* Reopen an eligible ticket.
+
+Also create a public ticket tracking page.
+
+Require both the ticket number and an appropriate verification factor, such as the customer’s registered email or secure access link.
+
+Never expose private complaint details using only a guessable ticket number.
+
+⸻
+
+WORKSPACE C: OPERATIONS & ADMIN
+
+This is the central command centre for Swiftvero.
+
+It must provide overall visibility and administrative control over the entire company.
+
+It should be the most comprehensive staff workspace.
+
+Main navigation
+
+Use exactly these primary sections:
+
+1. Overview.
+2. Pickup Management.
+3. Shipment Management.
+4. Branch Management.
+5. Customer Management.
+6. Payments and Reports.
+7. Staff and Permissions.
+8. Policies and Settings.
+
+Do not create another separate Finance Admin or Branch Admin dashboard.
+
+All company-wide administrative controls must be available through this workspace.
+
+1. Overview
+
+Create an executive dashboard displaying:
+
+* Total registered customers.
+* New customers.
+* Total pickup bookings.
+* Completed pickups.
+* Pending pickups.
+* Total shipments.
+* Shipments in progress.
+* Delivered shipments.
+* Delayed shipments.
+* Total shipping revenue.
+* Total successful payments.
+* Pending payments.
+* Failed payments.
+* Customer wallet liabilities.
+* Cashback liabilities.
+* Total refunds.
+* Open customer complaints.
+* Branch performance.
+* Staff performance.
+
+Provide date filters:
+
+* Today.
+* Yesterday.
+* Last 7 days.
+* Last 30 days.
+* This month.
+* Last month.
+* Custom date range.
+
+Use clear charts and summaries.
+
+Every metric should open the relevant detailed records.
+
+2. Pickup Management
+
+Operations & Admin must have full visibility of all pickup bookings.
+
+Allow administrators to:
+
+* View all pickups.
+* Filter by branch.
+* Filter by status.
+* View customer information.
+* View pickup history.
+* Reassign pickup responsibilities.
+* Review missed pickups.
+* Investigate delays.
+* Review pickup performance.
+* Resolve operational problems.
+* Export reports.
+
+Changes must be recorded in the audit log.
+
+3. Shipment Management
+
+Provide global access to all shipments.
+
+Administrators must be able to:
+
+* Search by tracking number.
+* View every shipment.
+* View customer and receiver information.
+* View package inspection details.
+* View shipping quotations.
+* View selected shipping speed.
+* View protection selection.
+* View payment status.
+* View shipment timeline.
+* Review delivery status.
+* Investigate delays.
+* Resolve operational issues.
+* Review cancelled shipments.
+* View all shipment documents.
+
+Sensitive changes must require appropriate permission and confirmation.
+
+Do not allow ordinary staff to alter historical shipment records without an audit trail.
+
+4. Branch Management
+
+Allow authorised administrators to:
+
+* Create branches.
+* Edit branch information.
+* Activate or deactivate branches.
+* Assign branch managers or responsible staff.
+* View branch pickup bookings.
+* View branch shipments.
+* View branch payments.
+* View branch performance.
+* Monitor branch activity.
+* Transfer shipments between branches.
+* Review branch reports.
+
+Every branch must have a unique identifier.
+
+Every pickup and shipment must have a clear operational location.
+
+5. Customer Management
+
+Provide a central customer directory.
+
+Display:
+
+* Customer name.
+* Customer ID.
+* Email.
+* Phone.
+* Registration date.
+* KYC status.
+* Wallet status.
+* Wallet balance.
+* Cashback balance.
+* Total shipments.
+* Total pickups.
+* Payment history.
+* Support ticket history.
+* Account status.
+
+Administrators should be able to:
+
+* Search customers.
+* View customer profiles.
+* Review shipment history.
+* Review pickup history.
+* Review payments.
+* Review wallet transactions.
+* Review complaints.
+* Suspend accounts where justified.
+* Restore eligible accounts.
+* Review verification status.
+* Manage permitted customer account actions.
+
+Mask sensitive identity information.
+
+Only authorised personnel should access full KYC information.
+
+6. Payments and Reports
+
+Create a comprehensive financial management section.
+
+It must display:
+
+* All successful payments.
+* All pending payments.
+* All failed payments.
+* All refunds.
+* All wallet top-ups.
+* All wallet payments.
+* All cashback credits.
+* All cashback redemptions.
+* All promo code discounts.
+* All shipping payments.
+* All protection payments.
+* All payment gateway references.
+* All transaction timestamps.
+
+Provide filters for:
+
+* Transaction type.
+* Customer.
+* Tracking number.
+* Branch.
+* Payment provider.
+* Transaction status.
+* Date range.
+
+Provide downloadable reports in CSV or Excel format.
+
+Support financial reconciliation.
+
+Do not allow administrators to manually change transaction amounts or delete financial transactions.
+
+Corrections must use properly recorded adjustment or reversal entries.
+
+7. Staff and Permissions
+
+Manage staff from one central interface.
+
+Allow authorised administrators to:
+
+* Create staff accounts.
+* Invite staff.
+* Edit staff profiles.
+* Assign staff to a workspace.
+* Assign staff to a branch.
+* Assign specific permissions.
+* Activate staff accounts.
+* Suspend staff accounts.
+* Reset access through secure procedures.
+* Review staff activity.
+* Review login history.
+
+Staff workspaces:
+
+A. Pickup & Shipping Management.
+
+B. Customer Service.
+
+C. Operations & Admin.
+
+Use role-based permissions.
+
+Suggested access:
+
+Pickup & Shipping Management:
+
+* Pickup operations.
+* Package inspection.
+* Shipment records.
+* Quotations.
+* Dispatch updates.
+* Customer clarifications.
+
+Customer Service:
+
+* Customer support tickets.
+* Customer communication.
+* Complaint escalation.
+* Relevant shipment and payment information, with restricted access.
+
+Operations & Admin:
+
+* Company-wide management.
+* Staff management.
+* Branch management.
+* Customer management.
+* Financial oversight.
+* Policy management.
+* Reporting.
+* Operational controls.
+
+Do not allow a support employee to approve their own financial adjustment.
+
+Do not allow ordinary operations staff to view full bank or identity verification credentials.
+
+Use permission checks on the backend, not just hidden frontend buttons.
+
+8. Policies and Settings
+
+Provide central configuration for:
+
+* Pickup policies.
+* Pickup service areas.
+* 24-hour pickup target.
+* Shipping destinations.
+* Shipping speed options.
+* Standard Shipping.
+* Priority Shipping.
+* Delivery estimates.
+* Shipping pricing.
+* Package limits.
+* Restricted items.
+* Protection options.
+* Cancellation policy.
+* Refund policy.
+* Wallet policy.
+* Cashback policy.
+* Promo code rules.
+* Customer KYC requirements.
+* Customer terms and conditions.
+* Privacy policy.
+* Support ticket categories.
+* Notification templates.
+* Branch settings.
+
+All configuration changes must be permission-controlled and recorded.
+
+⸻
+
+PHASE 3: BUILD THE CUSTOMER WALLET SYSTEM
+
+Objective
+
+Every successfully registered customer must automatically receive a Swiftvero wallet.
+
+The wallet should be available in the customer portal.
+
+Create the wallet during customer account creation using a reliable backend process.
+
+Do not create duplicate wallets when customers sign in repeatedly.
+
+Each wallet must have a unique internal identifier.
+
+1. Wallet structure
+
+Maintain three separate customer balances.
+
+A. Wallet Balance
+
+This represents actual money deposited by the customer through an approved payment method.
+
+Customers can:
+
+* View wallet balance.
+* Top up their wallet.
+* See transaction history.
+* Pay for shipping using wallet funds.
+* View payment references.
+* View refunds and adjustments.
+
+B. Cashback Balance
+
+This represents promotional credit earned through eligible activities.
+
+Customers can:
+
+* View available cashback.
+* See cashback earned.
+* See cashback used.
+* See cashback expiry where applicable.
+* Apply cashback to eligible shipping payments.
+
+Cashback must be non-withdrawable and non-transferable.
+
+It must not be treated as actual deposited money.
+
+C. Promo Codes
+
+Customers can:
+
+* Enter a promo code.
+* See whether it is valid.
+* See the discount amount or percentage.
+* Apply it to eligible shipping.
+* See its expiry date.
+* See any usage restrictions.
+
+A promo code is a discount entitlement, not a wallet balance.
+
+2. Wallet top-up
+
+Create a simple top-up process.
+
+Customer selects an amount.
+
+Suggested demo amounts:
+
+* ₦5,000.
+* ₦10,000.
+* ₦20,000.
+* ₦50,000.
+* Custom amount.
+
+Show:
+
+* Amount to top up.
+* Applicable payment fees, if any.
+* Total amount to pay.
+* Payment method.
+* Confirm payment button.
+
+Integrate with the existing approved payment gateway.
+
+Use the actual payment gateway transaction reference.
+
+IMPORTANT:
+
+Only credit wallet funds after authoritative server-side payment verification.
+
+Never credit wallet funds based solely on:
+
+* A frontend success message.
+* A redirect URL.
+* A customer screenshot.
+* A client-side callback.
+
+Use verified payment webhooks and server-side transaction verification.
+
+Make webhook processing idempotent.
+
+Prevent duplicate credits.
+
+Support:
+
+* Successful top-up.
+* Pending top-up.
+* Failed top-up.
+* Reversed top-up.
+* Reconciliation.
+
+Do not store customers’ card details.
+
+3. Wallet payment for shipping
+
+At checkout, display:
+
+How would you like to pay?
+
+* Pay with Swiftvero Wallet.
+* Pay with Cashback.
+* Use a Promo Code.
+* Pay with another available payment method.
+
+Allow customers to combine eligible methods.
+
+Example:
+
+Shipping price: ₦80,000.
+
+Wallet balance: ₦50,000.
+
+Cashback balance: ₦3,000.
+
+Eligible promo discount: ₦5,000.
+
+Amount remaining: ₦22,000.
+
+The system should calculate this correctly.
+
+If the customer has insufficient wallet funds, allow them to top up or pay the remaining amount using the approved external payment method.
+
+Do not charge the customer twice.
+
+Do not deduct wallet funds until the payment process is correctly authorised.
+
+Use a secure reservation or hold mechanism where necessary to prevent two simultaneous checkouts from spending the same balance.
+
+4. Refunds
+
+Build a proper refund process.
+
+Support:
+
+* Full shipping refund.
+* Partial shipping refund.
+* Wallet payment reversal.
+* External payment refund.
+* Refund of eligible unused deposited funds.
+
+Keep cashback and promotional discounts separate from deposited funds.
+
+If a shipment paid partly through wallet funds, cashback and an external payment method is refunded, calculate the refund allocation correctly.
+
+Use an approved refund policy.
+
+Require appropriate approval for exceptional refunds.
+
+Record every refund.
+
+Never silently overwrite a previous transaction.
+
+5. Wallet transaction history
+
+Every customer should see:
+
+* Transaction reference.
+* Date.
+* Description.
+* Transaction type.
+* Amount.
+* Balance after transaction.
+* Status.
+
+Types include:
+
+* Wallet top-up.
+* Shipping payment.
+* Refund.
+* Cashback earned.
+* Cashback used.
+* Promotional adjustment.
+* Approved correction.
+
+Use clear positive and negative transaction displays.
+
+6. Financial architecture
+
+Use a proper immutable double-entry ledger or equivalent auditable accounting design.
+
+Keep separate accounting records for:
+
+* Customer deposited funds.
+* Cashback liabilities.
+* Promo discounts.
+* Shipping revenue.
+* External payment receipts.
+* Refund liabilities.
+* Payment gateway fees.
+* Financial adjustments.
+
+Do not treat wallet top-ups as shipping revenue.
+
+Shipping revenue is recognised according to the appropriate accounting rules when the relevant service is earned.
+
+Every financial event must have:
+
+* Unique reference.
+* Customer ID.
+* Event type.
+* Amount.
+* Currency.
+* Timestamp.
+* Related shipment or transaction.
+* Previous balance.
+* New balance.
+* Source.
+* Status.
+
+Prevent:
+
+* Negative wallet balances.
+* Duplicate top-ups.
+* Duplicate refunds.
+* Duplicate cashback awards.
+* Repeated promo redemption.
+* Concurrent overspending.
+* Manual alteration of transaction history.
+
+Use server-side validation, database transactions and appropriate locking.
+
+7. Regulatory and provider requirements
+
+Before enabling live wallet top-ups:
+
+Confirm the proposed wallet arrangement with the selected payment provider and obtain appropriate Nigerian regulatory and legal advice.
+
+Do not assume that a normal merchant payment account authorises the company to hold stored customer funds.
+
+Make the payment provider integration configurable.
+
+Do not present the wallet as a bank account.
+
+Do not make unsupported claims about deposit protection, interest, withdrawal rights or regulatory authorisation.
+
+Do not activate live wallet funding until the required approval and operating arrangement have been confirmed.
+
+⸻
+
+PHASE 4: BUILD CASHBACK AND PROMO CODE MANAGEMENT
+
+Create a central promotion management system.
+
+1. Cashback
+
+Allow Operations & Admin to configure:
+
+* Cashback percentage.
+* Eligible shipping services.
+* Minimum eligible shipment amount.
+* Maximum cashback per shipment.
+* Cashback expiry.
+* Eligible customer groups.
+* Campaign start date.
+* Campaign end date.
+* Cashback funding source.
+
+Only award cashback after the qualifying shipment meets the approved completion criteria.
+
+Do not award cashback for:
+
+* Failed payments.
+* Cancelled shipments.
+* Refunded shipments where cashback eligibility is reversed.
+* Fraudulent or ineligible transactions.
+
+Use a unique cashback transaction reference.
+
+2. Promo codes
+
+Allow administrators to create:
+
+* Percentage discounts.
+* Fixed-value discounts.
+* First-shipment offers.
+* Returning-customer offers.
+* Business-customer offers.
+* Destination-specific offers.
+* Standard Shipping promotions.
+* Priority Shipping promotions.
+
+Configure:
+
+* Start date.
+* Expiry date.
+* Maximum uses.
+* Per-customer usage limit.
+* Minimum shipment value.
+* Maximum discount.
+* Eligible destinations.
+* Eligible services.
+* Whether the code can be combined with cashback.
+* Whether the code can be combined with another campaign.
+
+3. Checkout stacking rules
+
+Allow Operations & Admin to configure benefit stacking.
+
+Default recommendation:
+
+* Customer wallet funds can be used.
+* Cashback can be applied when eligible.
+* One promo code can be applied by default.
+* Campaign-specific rules determine whether cashback and promo discounts can combine.
+
+Never allow a discount to create a negative amount payable.
+
+Display a clear checkout breakdown without exposing internal company costs.
+
+⸻
+
+PHASE 5: REDESIGN THE CUSTOMER EXPERIENCE
+
+Keep the existing public website and improve it.
+
+1. Homepage
+
+Make the homepage communicate three key promises:
+
+* International shipping from Nigeria.
+* Free pickup within the stated service area and 24-hour collection target.
+* Clear shipping prices and shipment tracking.
+
+Use clear calls to action:
+
+* Book a Pickup.
+* Get a Shipping Estimate.
+* Track a Shipment.
+* Create an Account.
+
+Keep the design premium and uncluttered.
+
+2. Customer dashboard
+
+Organise the customer portal into:
+
+* Overview.
+* My Shipments.
+* My Pickups.
+* My Quotes.
+* My Wallet.
+* Payments and Receipts.
+* Cashback and Promotions.
+* Support Tickets.
+* Notifications.
+* Profile and Verification.
+
+Display wallet balance, cashback balance and available promo benefits as separate cards.
+
+Do not confuse the three.
+
+Make Book a Pickup prominent.
+
+3. Shipping estimator
+
+Allow customers to request an estimated price before creating an account.
+
+Clearly label the result as an estimate.
+
+The final shipping price must be calculated after the package is properly packed, weighed and measured at the Swiftvero facility.
+
+Do not make the initial estimate look like a guaranteed final price.
+
+4. Shipment booking
+
+Make the booking process simple.
+
+Collect only the information required at each stage.
+
+Do not make customers enter the actual package weight as a mandatory field if they do not know it.
+
+Collect the estimated package details where necessary.
+
+Include the required customer consent and policy acceptance.
+
+5. Shipping speed selection
+
+Offer Standard and Priority where available.
+
+Display:
+
+* Full Standard price.
+* Standard delivery estimate.
+* Full Priority price.
+* Priority delivery estimate.
+
+Do not display unnecessary internal surcharges.
+
+Recalculate the quotation when the customer changes their selection.
+
+6. Checkout
+
+Display:
+
+* Confirmed package weight.
+* Selected shipping service.
+* Full shipping price.
+* Protection fee, if selected.
+* Applicable approved taxes and optional services.
+* Wallet amount applied.
+* Cashback amount applied.
+* Promo discount applied.
+* Remaining amount payable.
+
+Do not expose internal air, fuel or carrier cost allocations.
+
+⸻
+
+PHASE 6: CENTRALISE NOTIFICATIONS AND CUSTOMER COMMUNICATION
+
+Create one consistent notification system.
+
+Support:
+
+* Pickup booking confirmation.
+* Pickup scheduling.
+* Pickup completion.
+* Package received at facility.
+* Inspection completed.
+* Quotation ready.
+* Customer approval required.
+* Payment confirmation.
+* Shipment dispatched.
+* Shipment in transit.
+* Delivery completed.
+* Support ticket created.
+* Support ticket reply.
+* Support ticket resolved.
+* Wallet top-up confirmation.
+* Wallet payment confirmation.
+* Cashback awarded.
+* Promo code applied.
+
+Use existing email, SMS or in-app integrations where available.
+
+Create notification templates that Operations & Admin can manage.
+
+Store notification delivery status.
+
+Do not mark a notification as delivered when the provider reports a failure.
+
+⸻
+
+PHASE 7: SECURITY, PERMISSIONS AND AUDIT LOGS
+
+This phase is mandatory.
+
+Implement proper backend security.
+
+Customer access
+
+Customers can only access their own:
+
+* Profile.
+* Wallet.
+* Transactions.
+* Shipments.
+* Pickups.
+* Quotes.
+* Receipts.
+* Support tickets.
+* Notifications.
+
+Pickup & Shipping Management access
+
+Staff can access the operational records required for their assigned work.
+
+Customer Service access
+
+Staff can access support tickets and the information needed to resolve customer problems.
+
+Operations & Admin access
+
+Authorised administrators can access company-wide management functions.
+
+Financial protection
+
+Require appropriate permissions and approvals for:
+
+* Refunds.
+* Wallet adjustments.
+* Cashback adjustments.
+* Promo campaign changes.
+* Payment corrections.
+* Financial exports.
+* Sensitive customer information.
+
+Do not allow staff to directly edit wallet balances.
+
+All financial adjustments must be recorded as ledger transactions.
+
+Audit logs
+
+Record:
+
+* Staff logins.
+* Failed login attempts.
+* Customer account changes.
+* Shipment changes.
+* Pickup changes.
+* Quotation changes.
+* Payment-related actions.
+* Wallet adjustments.
+* Refund approvals.
+* Branch changes.
+* Permission changes.
+* Policy changes.
+* Support escalations.
+
+Include actor, action, timestamp, affected record and relevant before-and-after values.
+
+Audit records must not be editable by ordinary administrators.
+
+⸻
+
+PHASE 8: DEMO MODE AND COMPLETE SYSTEM TESTING
+
+Maintain a fully interactive demo environment.
+
+Create realistic demo users:
+
+* Customer.
+* Pickup & Shipping Management staff.
+* Customer Service staff.
+* Operations & Admin staff.
+
+Create demo records for:
+
+* New pickup.
+* Completed pickup.
+* Failed pickup.
+* Package awaiting inspection.
+* Quotation awaiting approval.
+* Standard shipment.
+* Priority shipment.
+* Shipment awaiting payment.
+* Shipment in transit.
+* Delivered shipment.
+* Delayed shipment.
+* Open customer complaint.
+* Escalated complaint.
+* Resolved complaint.
+* Successful wallet top-up.
+* Failed wallet top-up.
+* Wallet shipping payment.
+* Cashback award.
+* Promo code redemption.
+* Full refund.
+* Partial refund.
+
+Every demo scenario must be clickable and interactive.
+
+Demo transactions must never affect live financial records.
+
+REQUIRED ACCEPTANCE TESTS
+
+Before declaring the project complete, verify the following:
+
+1. A newly registered customer automatically receives one wallet.
+2. Repeated login does not create duplicate wallets.
+3. Customer wallet top-up works in demo mode.
+4. Failed top-ups do not increase wallet balance.
+5. Verified successful top-ups increase wallet balance exactly once.
+6. Wallet payments work correctly.
+7. Cashback is kept separate from deposited money.
+8. Promo discounts are calculated correctly.
+9. Eligible benefits can be combined.
+10. Ineligible benefits cannot be combined.
+11. Customers cannot spend more than their available balance.
+12. Refunds restore the correct balances.
+13. Every wallet movement appears in transaction history.
+14. Every pickup booking appears in Pickup & Shipping Management.
+15. Every shipment is visible to authorised staff.
+16. Customer complaints create unique support tickets automatically.
+17. Customers can track their support tickets securely.
+18. Customer Service can respond to complaints.
+19. Operations & Admin can see all company activities.
+20. Branch management works correctly.
+21. Staff permissions work on the backend.
+22. Customers cannot access another customer’s information.
+23. Financial records cannot be silently modified.
+24. Tracking statuses are consistent.
+25. Existing public website features still work.
+26. The entire application works on mobile, tablet and desktop.
+27. All visible buttons and actions work.
+28. No broken links, blank pages or dead-end workflows remain.
+
+FINAL DELIVERY REQUIREMENTS
+
+Do not stop after creating the visual design.
+
+Complete the actual application functionality.
+
+Use the existing architecture and integrations.
+
+Do not invent backend integrations or claim they are live when they are not.
+
+Identify any missing third-party credentials or approvals.
+
+Do not silently replace a real integration with simulated behaviour.
+
+Provide a final implementation report showing:
+
+* Features completed.
+* Features modified.
+* Features preserved.
+* Database changes.
+* APIs and integrations added.
+* Security measures implemented.
+* Tests passed.
+* Tests failed.
+* Outstanding external approvals.
+* Features still operating in demo mode.
+
+The result must be a cohesive, secure and easy-to-use international shipping platform.
+
+Build for reliability, clarity, customer trust and future growth.

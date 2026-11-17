@@ -1,0 +1,1339 @@
+SWIFTVERO EXPRESS: COMPLETE PICKUP BOOKING, SHIPMENT MANAGEMENT, ACTUAL WEIGHT PRICING, PAYMENT ADJUSTMENTS, CUSTOMER BALANCES AND REWARDS IMPLEMENTATION
+
+ROLE AND EXPECTATIONS
+
+Act as a principal software architect, senior full-stack developer, senior UI/UX designer, database architect, payment integration specialist, logistics systems engineer and QA engineer.
+
+You are working on the EXISTING Swiftvero Express website and application.
+
+Your task is to inspect the existing project, understand its current architecture and implement the complete pickup-to-delivery workflow described in this prompt.
+
+This is an implementation task, not a request to create a new design concept or a separate application.
+
+Your most important instruction: INSPECT FIRST. IMPLEMENT ONLY WHAT IS MISSING OR NOT WORKING PROPERLY.
+
+Do not rebuild existing features unnecessarily.
+
+Do not create duplicate systems.
+
+Do not remove existing functionality.
+
+Do not replace existing integrations without a technical reason.
+
+Do not redesign unrelated pages.
+
+Do not invent features outside this project’s requirements.
+
+Preserve the existing Swiftvero identity, business rules, database records, authentication, customer portal, Operations Admin, Customer Service dashboard, Paystack integration and planned DHL integration.
+
+Where a feature already exists and works correctly, reuse it.
+
+Where it exists but is incomplete, improve it.
+
+Where it is missing, implement it.
+
+Where multiple existing features are disconnected, integrate them.
+
+Do not stop after the audit. Complete the implementation and test it.
+
+⸻
+
+PART 1: AUDIT THE EXISTING SWIFTVERO PROJECT
+
+Before changing anything, inspect the existing application thoroughly.
+
+Review:
+
+1. Public homepage and website navigation.
+2. Existing Quote page.
+3. Existing Shipment page.
+4. Customer registration and login.
+5. Customer dashboard.
+6. Existing pickup request functionality, if any.
+7. Existing shipment creation and tracking.
+8. Existing order and shipment reference generation.
+9. Existing payment system and Paystack integration.
+10. Existing customer wallet, cashback, promotional bonuses and credits.
+11. Existing payment history and transaction records.
+12. Operations Admin dashboard.
+13. Customer Service dashboard.
+14. Existing shipment status management.
+15. Existing pricing and shipping calculation logic.
+16. Existing DHL API integration or planned integration.
+17. Email and notification systems.
+18. Database structure, APIs and backend permissions.
+19. Demo mode and existing automated tests.
+
+Pay particular attention to the current website navigation.
+
+At present, the public website mainly exposes:
+
+* Quote.
+* Shipment.
+
+The Book a Pickup option is no longer visible.
+
+Determine whether pickup booking functionality still exists in the backend or whether it has been removed completely.
+
+Do not assume that a missing button means the entire feature is missing.
+
+Inspect the actual implementation.
+
+Prepare an internal comparison of existing features against this specification, then proceed with implementation.
+
+Do not ask for approval for normal technical decisions.
+
+⸻
+
+PART 2: RESTORE BOOK A PICKUP TO THE WEBSITE
+
+This feature is required.
+
+I want customers to have three clear primary actions on Swiftvero.
+
+1. Book a Pickup.
+2. Get a Quote.
+3. Track a Shipment.
+
+These are separate customer intentions and must not be confusingly combined.
+
+A. Public homepage
+
+Add a visible Book a Pickup action to the main website interface.
+
+It should be easy to find without scrolling through multiple sections.
+
+Recommended placement:
+
+* Main website navigation.
+* Main homepage hero section.
+* Relevant shipping service sections where appropriate.
+
+Use the existing Swiftvero design system.
+
+The three primary actions should have clear purposes:
+
+Book a Pickup
+
+For customers who already have a package they want Swiftvero to collect.
+
+Get a Quote
+
+For customers who want to estimate the cost of sending a package before proceeding.
+
+Track a Shipment
+
+For customers who already have a Swiftvero shipment reference or carrier tracking number.
+
+Do not make the homepage crowded.
+
+Use a clear visual hierarchy and keep the three actions easy to understand.
+
+B. Customer dashboard
+
+Add a clearly visible Book a Pickup action to the customer dashboard.
+
+Recommended placement:
+
+* Dashboard main action area.
+* Shipment overview section.
+* My Pickups or My Shipments section where relevant.
+
+A returning customer should not have to visit the public homepage to request another pickup.
+
+C. Pickup booking entry points
+
+Customers should be able to book a pickup:
+
+* From the public homepage.
+* From their customer dashboard.
+* From a relevant quote result or approved shipment flow, where appropriate.
+
+If a customer already has an existing shipment or quote, do not create a duplicate shipment unnecessarily.
+
+Allow the customer to connect a pickup request to an existing eligible quote or shipment where the business rules support it.
+
+D. Navigation
+
+Keep the public website navigation simple.
+
+Do not create several versions of the same booking action.
+
+Use one consistent Book a Pickup destination throughout the website.
+
+⸻
+
+PART 3: CUSTOMER PICKUP BOOKING
+
+Build or improve the pickup booking process.
+
+The pickup form should be simple, mobile-friendly and not unnecessarily long.
+
+A. Customer information
+
+Use authenticated customer information automatically where available.
+
+Collect:
+
+* Full name.
+* Phone number.
+* Email address.
+
+Allow customers to update their contact information where appropriate.
+
+Do not ask logged-in customers to repeatedly enter information already stored in their profiles.
+
+B. Pickup information
+
+Collect:
+
+* Pickup address.
+* State.
+* City or area.
+* Contact person, if different from the account holder.
+* Contact phone number.
+* Preferred pickup date.
+* Preferred time window.
+* Additional pickup instructions.
+
+Validate that the location is serviceable before confirming the pickup.
+
+C. Package information
+
+Collect:
+
+* Package description.
+* Number of packages.
+* Contents.
+* Estimated weight, if known.
+* Special handling information where necessary.
+
+Clearly explain that the customer’s weight is an estimate and that the final shipping price may change after actual weighing and measurement at Swiftvero’s facility.
+
+Do not make the estimated weight appear to be a verified measurement.
+
+D. Pickup service options
+
+Maintain the agreed Swiftvero pickup model:
+
+Standard Pickup
+
+* Free pickup.
+* Target collection within 24 hours after successful booking, subject to serviceability and confirmed arrangements.
+
+Priority Pickup
+
+* Faster pickup, typically 1–6 hours depending on location, traffic and operational availability.
+* Additional pickup fee based on location and availability.
+* Display the fee before the customer confirms.
+
+Do not invent pickup availability or guaranteed time windows.
+
+If the selected area cannot be served, clearly inform the customer.
+
+E. Successful booking
+
+After a successful pickup booking:
+
+* Generate a unique Swiftvero shipment reference.
+* Create or update the corresponding shipment record.
+* Save the pickup details.
+* Set the initial pickup status.
+* Display the reference to the customer.
+* Send a booking confirmation.
+* Add the request to the Operations Admin dashboard.
+* Display the request in the customer’s dashboard.
+
+Do not generate multiple shipment records for the same booking.
+
+Use existing shipment creation logic where possible.
+
+⸻
+
+PART 4: SWIFTVERO SHIPMENT REFERENCE
+
+Every shipment must have a unique Swiftvero reference.
+
+Example:
+
+SV-261116-0048
+
+This is an illustrative reference format.
+
+Generate the actual reference securely on the backend.
+
+The shipment reference should:
+
+* Be unique.
+* Be permanent.
+* Remain attached to the same shipment throughout its journey.
+* Be searchable by authorised staff.
+* Be visible to the customer.
+* Appear in shipment notifications and receipts.
+* Connect to the carrier tracking number when the shipment is booked.
+
+A QR code may also be generated to help authorised staff retrieve the shipment quickly.
+
+The QR code should resolve to a secure shipment lookup, not expose private customer information.
+
+The shipment reference is not a payment confirmation and must not give an unauthorised person access to the customer’s account.
+
+Important distinction
+
+Keep these separate:
+
+1. Swiftvero shipment reference: identifies the shipment.
+2. Pickup confirmation: records that the package was collected.
+3. Carrier tracking number: tracks the parcel through DHL or another carrier.
+4. Collection PIN: only required if Swiftvero later supports customer self-collection from its facility.
+
+Do not introduce unnecessary collection PIN functionality if it is not part of the current operating model.
+
+The customer should be able to access their shipment using their authenticated dashboard even if they lose their reference.
+
+⸻
+
+PART 5: OPERATIONS ADMIN PICKUP MANAGEMENT
+
+Use the existing Operations Admin dashboard.
+
+Do not create a separate pickup-agent dashboard.
+
+Operations Admin should receive all new pickup requests.
+
+Create or improve a section called Pickup Management.
+
+It should show:
+
+* New pickup requests.
+* Scheduled pickups.
+* Pickups awaiting collection.
+* Picked-up packages.
+* Failed pickups.
+* Rescheduled pickups.
+* Packages received at Swiftvero’s facility.
+
+Each request should show:
+
+* Swiftvero shipment reference.
+* Customer name.
+* Contact details.
+* Pickup address.
+* Destination.
+* Package description.
+* Estimated weight.
+* Selected pickup service.
+* Pickup fee, if applicable.
+* Requested pickup date.
+* Current status.
+
+Operations Admin should be able to:
+
+* Review requests.
+* Confirm or schedule pickups.
+* Record pickup arrangements.
+* Assign or record an internal pickup handler or external pickup partner.
+* Reschedule pickups.
+* Mark failed pickups with a reason.
+* Confirm collection.
+* Update pickup status.
+* View the full shipment history.
+
+Do not build a separate rider app or rider dashboard.
+
+Swiftvero will initially coordinate collections through its own operations and existing pickup arrangements.
+
+⸻
+
+PART 6: PACKAGE ARRIVAL AT SWIFTERO FACILITY
+
+Once a package physically arrives at Swiftvero’s facility, authorised Operations or store staff must be able to locate the shipment.
+
+Use the existing Operations Admin interface.
+
+Do not create another independent staff portal.
+
+Provide a simple shipment search field using:
+
+* Swiftvero shipment reference.
+* Customer name where permitted.
+* Customer phone number where permitted.
+
+A QR scanner can be supported if it fits the existing interface, but manual reference search must remain available.
+
+Package receipt
+
+When staff opens the shipment, allow them to confirm:
+
+* Package physically received.
+* Date and time received.
+* Number of packages.
+* Visible package condition.
+* Package description.
+* Any discrepancies.
+* Staff member confirming receipt.
+
+Allow optional package photos.
+
+After confirmation, update the shipment status to:
+
+Arrived at Swiftvero Facility
+
+Notify the customer that the package has arrived and will undergo weighing and measurement.
+
+Do not allow staff to mark a package as received without saving the required receipt information.
+
+⸻
+
+PART 7: ACTUAL WEIGHT AND DIMENSION MEASUREMENT
+
+This is one of the most important features.
+
+Customers may initially provide an estimated weight and may already have paid for that estimated weight.
+
+The final shipping price must be calculated using verified package measurements and the applicable carrier pricing rules.
+
+The Operations Admin interface must allow authorised staff to record:
+
+* Actual weight in kilograms.
+* Length in centimetres.
+* Width in centimetres.
+* Height in centimetres.
+* Number of packages.
+* Individual measurements for multiple packages where applicable.
+* Measurement date and time.
+* Staff member who recorded the measurements.
+* Optional measurement evidence or package photographs.
+
+Do not simply overwrite the customer’s original estimated weight.
+
+Preserve:
+
+* Customer’s declared estimated weight.
+* Original quotation.
+* Original amount paid.
+* Actual measured weight.
+* Dimensions.
+* Billable weight.
+* Revised quotation.
+* Payment adjustments.
+
+For multiple packages, record each package separately and calculate the shipment’s total billable weight according to the applicable carrier rules.
+
+Actual weight and volumetric weight
+
+The system must support both actual and volumetric weight.
+
+Use the applicable carrier’s formula and divisor.
+
+A typical volumetric weight formula is:
+
+Volumetric Weight = (Length × Width × Height) / Carrier Divisor
+
+The divisor must be configurable by carrier, route and service where applicable.
+
+Do not assume the same divisor or rounding rule applies to every carrier.
+
+Determine billable weight using the applicable carrier rules, including any minimum chargeable weight and rounding requirements.
+
+The final price must not be based on an arbitrary formula.
+
+Multiple carrier services
+
+Where available, calculate:
+
+* Standard Shipping.
+* Priority Shipping.
+
+Use the applicable route and carrier service rates.
+
+Do not display a service that is not actually available for the shipment’s destination.
+
+⸻
+
+PART 8: REVISED SHIPPING QUOTATION
+
+After actual weighing and measurement, authorised staff should be able to prepare a revised quotation.
+
+The system must preserve the original quotation and create a new quotation version.
+
+Never silently overwrite the original estimate.
+
+The revised quotation should contain:
+
+* Shipment reference.
+* Original estimated weight.
+* Actual weight.
+* Dimensions.
+* Billable weight.
+* Selected destination.
+* Available carrier service.
+* Shipping charge.
+* Applicable additional charges.
+* Total amount payable.
+* Quotation expiry, where appropriate.
+* Date and time generated.
+* Staff member or system responsible.
+
+All price calculations must be performed or verified by the backend.
+
+Customer notification
+
+When a revised quotation is ready, notify the customer.
+
+The customer’s dashboard should display:
+
+Your package has been weighed and measured. Your final shipping price is ready.
+
+Show:
+
+* Verified package measurements.
+* Billable weight.
+* Available shipping options.
+* Final price for each available option.
+* Amount already paid.
+* Any outstanding balance or overpayment credit.
+
+Make the customer’s next action clear.
+
+Do not ask customers to repeat information already recorded.
+
+⸻
+
+PART 9: CRITICAL PAYMENT ADJUSTMENT SYSTEM
+
+Many customers may already have paid for the estimated weight they declared when requesting a quote.
+
+The final amount may be higher or lower after the actual package is weighed.
+
+The system MUST correctly handle both situations.
+
+This is not an optional feature.
+
+Scenario A: Customer has underpaid
+
+Example:
+
+* Customer initially pays ₦100,000.
+* Actual shipping price after measurement is ₦120,000.
+* Outstanding balance is ₦20,000.
+
+The customer’s dashboard should display:
+
+Additional Payment Required: ₦20,000
+
+The customer should be able to:
+
+* View the original payment.
+* View the revised quotation.
+* See the amount already paid.
+* See the remaining balance.
+* Pay the outstanding balance through the existing Paystack integration.
+
+Do not ask the customer to pay the entire shipping price again.
+
+Only collect the verified remaining amount.
+
+Scenario B: Customer has overpaid
+
+Example:
+
+* Customer initially pays ₦100,000.
+* Actual final shipping price is ₦85,000.
+* Customer has overpaid by ₦15,000.
+
+The customer’s dashboard should display:
+
+Available Shipment Credit: ₦15,000
+
+This amount should be recorded in the customer’s account as an identifiable payment credit.
+
+The customer should be able to see:
+
+* Original amount paid.
+* Final shipping price.
+* Amount overpaid.
+* Available credit.
+* How the credit can be used.
+
+Do not silently discard the excess payment.
+
+Do not treat an overpayment as cashback or a promotional bonus.
+
+It is a customer payment credit arising from a shipment price adjustment.
+
+If the existing business policy supports refunds, provide the appropriate refund-request process.
+
+Do not automatically issue a cash refund unless the existing approved payment and refund rules support it.
+
+Do not allow the same overpayment to be credited twice.
+
+Scenario C: Customer pays exactly the final amount
+
+Example:
+
+* Amount paid: ₦100,000.
+* Final shipping price: ₦100,000.
+* Remaining amount: ₦0.
+* Overpayment credit: ₦0.
+
+Show the shipment as fully paid.
+
+Scenario D: Customer has not paid anything yet
+
+If the customer only requested a quotation and has not made a payment:
+
+* Show the final shipping price.
+* Require customer approval.
+* Collect the full payable amount after approval.
+
+Do not create a false payment credit or outstanding adjustment.
+
+Payment adjustment calculation
+
+The backend should calculate:
+
+Amount Already Paid = Verified Payments Allocated to the Shipment
+
+Remaining Amount = Final Approved Shipping Price - Amount Already Paid - Applicable Credits Applied
+
+Overpayment Credit = Amount Already Paid - Final Approved Shipping Price, where positive.
+
+Ensure the calculation cannot result in duplicate credit, double charging or negative payment balances.
+
+Do not treat pending, failed or unverified transactions as paid.
+
+⸻
+
+PART 10: CUSTOMER ACCOUNT BALANCE AND TRANSACTION HISTORY
+
+The customer dashboard must provide a clear view of available balances.
+
+Do not display all forms of money as one confusing wallet balance.
+
+Keep the different balance types separate.
+
+A. Shipment payment credit
+
+This is money the customer has already paid but did not need after actual weighing or an approved price adjustment.
+
+Display it as:
+
+Available Account Credit
+
+It must be traceable to the shipment that created it.
+
+B. Cashback balance
+
+This is promotional money earned through Swiftvero’s cashback programme.
+
+Display it separately as:
+
+Cashback Balance
+
+C. Promotional bonus balance
+
+This is promotional money awarded through referrals, campaigns, promotions or other approved rewards.
+
+Display it separately as:
+
+Bonus Balance
+
+D. Outstanding payment
+
+This is money the customer still owes on an approved quotation.
+
+Display it as:
+
+Outstanding Amount
+
+Do not mix outstanding debt with available customer credit.
+
+Customer dashboard balance section
+
+Provide a simple, clear account balance area showing:
+
+* Available Account Credit.
+* Cashback Balance.
+* Bonus Balance.
+* Outstanding Payments.
+
+Show only balances that exist.
+
+Avoid displaying unnecessary zero-value cards that make the dashboard crowded.
+
+The customer should be able to view a clear transaction history.
+
+Each transaction should show:
+
+* Transaction type.
+* Amount.
+* Related shipment, where applicable.
+* Date and time.
+* Status.
+* Short explanation.
+
+⸻
+
+PART 11: CUSTOMER CASHBACK AND BONUS REDEMPTION
+
+Customers should be able to use their available cashback and bonus balances whenever they make an eligible payment on Swiftvero.
+
+This is an important requirement.
+
+Do not make customers wait for a special campaign or contact Customer Service before using available rewards.
+
+Integrate the existing cashback and bonus systems into the payment and checkout process.
+
+Checkout behaviour
+
+When a customer reaches the payment stage, show available rewards and allow them to choose how much of their eligible balance to apply.
+
+For example:
+
+* Shipping charge: ₦120,000.
+* Available account credit: ₦10,000.
+* Available cashback: ₦5,000.
+* Available bonus: ₦5,000.
+* Remaining amount payable: ₦100,000.
+
+The customer should be able to select which balances to use.
+
+Where the existing reward policy allows it, permit the customer to use cashback and bonuses together.
+
+Do not force the customer to use all available rewards.
+
+Allow partial redemption.
+
+Clearly show:
+
+* Original shipping charge.
+* Account credit applied.
+* Cashback applied.
+* Bonus applied.
+* Remaining amount to pay.
+
+Reward restrictions
+
+Inspect the existing cashback and bonus rules.
+
+Reuse the actual approved expiry dates, eligibility requirements, usage limits and restrictions.
+
+Do not invent new restrictions.
+
+If a reward has expired, do not allow it to be redeemed.
+
+If a bonus is restricted to certain services or campaigns, enforce those rules.
+
+If the existing policy permits use on any Swiftvero shipping payment, allow it.
+
+Do not allow cashback or bonus balances to become negative.
+
+Redemption security
+
+All reward redemption must be validated by the backend.
+
+Use atomic transactions to prevent the same balance from being spent twice.
+
+Deduct rewards only after the relevant payment or transaction is successfully confirmed according to the payment flow.
+
+If payment fails, release any temporarily reserved reward balance.
+
+Maintain a full transaction ledger.
+
+Do not use frontend-only balance calculations.
+
+Important accounting distinction
+
+* Shipment credit is money the customer already paid.
+* Cashback is a promotional reward.
+* Bonus is a promotional reward.
+* Outstanding balance is money still owed.
+
+These must remain separate in the database and in the customer interface.
+
+Do not silently convert one category into another.
+
+⸻
+
+PART 12: QUOTATION APPROVAL AND PAYMENT FLOW
+
+The customer must approve the final quotation before the shipment is booked with the carrier.
+
+The system should follow this sequence:
+
+1. Actual measurements are recorded.
+2. Backend calculates the final quotation.
+3. Customer receives notification.
+4. Customer reviews available shipping services.
+5. Customer selects a service.
+6. Customer reviews the final amount.
+7. Customer chooses eligible account credit, cashback or bonuses to apply.
+8. Backend calculates the remaining amount.
+9. Customer approves the quotation.
+10. Customer pays the remaining amount through Paystack, if any.
+11. Backend verifies the payment.
+12. Shipment becomes eligible for carrier booking.
+
+If the customer’s available credit and rewards cover the full amount, allow the transaction to complete without requiring an unnecessary external payment.
+
+Still create a proper internal payment/settlement record.
+
+If the customer rejects the quotation
+
+Allow the customer to contact Customer Service or request clarification.
+
+Do not book the shipment.
+
+Do not charge the revised amount.
+
+Operations should follow the existing approved process for return, storage or alternative arrangements.
+
+Any return or additional handling fee must be disclosed and accepted before being charged.
+
+If the quotation changes after approval
+
+If staff changes the destination, service, weight or price after the customer has approved:
+
+* Create a new quotation version.
+* Preserve the previously approved quotation.
+* Notify the customer.
+* Require renewed approval.
+* Recalculate any outstanding amount or credit.
+* Do not silently charge the customer’s saved payment method.
+
+⸻
+
+PART 13: CUSTOMER DASHBOARD
+
+Improve the existing customer dashboard without creating an entirely new dashboard.
+
+The dashboard should make the customer’s next action obvious.
+
+Recommended main actions
+
+* Book a Pickup.
+* Get a Quote.
+* Track a Shipment.
+
+Recommended dashboard information
+
+Show relevant information such as:
+
+* Active Pickups.
+* Active Shipments.
+* Quotes Awaiting Approval.
+* Payments Awaiting Completion.
+* Available Account Credit.
+* Cashback Balance.
+* Bonus Balance.
+
+Only show useful information.
+
+Do not fill the dashboard with unnecessary statistics.
+
+My Pickups
+
+Customers should be able to view:
+
+* Pickup reference.
+* Pickup address.
+* Scheduled date.
+* Pickup service.
+* Pickup fee.
+* Current status.
+* Pickup history.
+
+My Shipments
+
+Customers should be able to view:
+
+* Swiftvero shipment reference.
+* Destination.
+* Shipment status.
+* Carrier tracking number, when available.
+* Current shipping service.
+* Actual billable weight.
+* Final shipping charge.
+* Payment status.
+* Available account credit related to the shipment.
+
+My Quotes
+
+Show:
+
+* Original estimate.
+* Revised quotation.
+* Actual measurements when available.
+* Available services.
+* Amount paid.
+* Outstanding amount.
+* Customer approval status.
+* Quotation expiry, where applicable.
+
+Account balance and rewards
+
+Show the different balances clearly and allow the customer to inspect their transaction history.
+
+Do not make the customer contact support just to understand why their balance changed.
+
+⸻
+
+PART 14: SHIPMENT STATUS MANAGEMENT
+
+Use a consistent shipment lifecycle.
+
+Recommended statuses:
+
+1. Pickup Requested.
+2. Pickup Scheduled.
+3. Pickup On the Way.
+4. Picked Up.
+5. Arrived at Swiftvero Facility.
+6. Awaiting Measurement.
+7. Measured.
+8. Quotation Ready.
+9. Awaiting Customer Approval.
+10. Awaiting Payment.
+11. Payment Confirmed.
+12. Ready for Carrier Booking.
+13. Carrier Booking in Progress.
+14. Booking Failed, where applicable.
+15. Shipment Booked.
+16. In Transit.
+17. Out for Delivery, where supported.
+18. Delivered.
+19. Cancelled or Returned, where applicable.
+
+Do not expose every internal status to customers.
+
+Translate internal statuses into simple customer-friendly language.
+
+Maintain the full internal history for Operations Admin.
+
+Every important status transition must be validated by the backend.
+
+Do not allow arbitrary status changes from the customer interface.
+
+⸻
+
+PART 15: DHL AND CARRIER INTEGRATION
+
+Inspect the existing DHL integration and preserve it.
+
+Do not create a fake DHL integration or generate fabricated tracking numbers.
+
+Once the customer has:
+
+* Approved the final quotation.
+* Completed all required payments.
+* Met the applicable shipment requirements.
+
+The system should allow Operations to book the shipment with the selected carrier.
+
+After successful carrier booking:
+
+* Save the actual carrier tracking number.
+* Attach it to the existing Swiftvero shipment reference.
+* Display it in the customer dashboard.
+* Send the customer a notification.
+* Allow tracking through the existing Swiftvero tracking page.
+
+The Swiftvero shipment reference must remain unchanged.
+
+If carrier booking fails:
+
+* Do not mark the shipment as dispatched.
+* Do not invent a tracking number.
+* Show an appropriate internal error.
+* Allow Operations to investigate and retry safely.
+
+Protect carrier API credentials on the backend.
+
+Use secure webhook handling and prevent duplicate carrier bookings.
+
+⸻
+
+PART 16: OPERATIONS ADMIN DASHBOARD
+
+Use the existing Operations Admin dashboard.
+
+Do not build a separate operations application.
+
+Provide a clear view of:
+
+* New pickup requests.
+* Scheduled pickups.
+* Pickups awaiting collection.
+* Packages received at the facility.
+* Shipments awaiting measurement.
+* Measured shipments.
+* Quotes awaiting customer approval.
+* Payments awaiting confirmation.
+* Outstanding balances.
+* Shipments with available overpayment credit.
+* Paid shipments awaiting carrier booking.
+* Carrier booking failures.
+* Shipments in transit.
+
+Shipment management
+
+Operations Admin should be able to:
+
+* Search by Swiftvero shipment reference.
+* Open shipment details.
+* Confirm physical package receipt.
+* Record actual measurements.
+* Generate revised quotations.
+* Review customer payments.
+* Review customer account credit and rewards applied to the shipment.
+* See outstanding balances.
+* Review customer approval.
+* Confirm payment status.
+* Initiate carrier booking where authorised.
+* Review carrier tracking details.
+* View shipment history.
+
+Permissions
+
+Use existing role-based access controls.
+
+Only authorised staff should be able to modify actual measurements, quotations, payment adjustments and shipment statuses.
+
+Record who performed each important action.
+
+Do not expose sensitive financial information to staff who do not need it.
+
+⸻
+
+PART 17: CUSTOMER SERVICE DASHBOARD
+
+Preserve the existing Customer Service dashboard.
+
+Customer Service should be able to:
+
+* Search for customers and shipments.
+* View pickup and shipment progress.
+* Explain quotation changes.
+* View verified payment records.
+* View available account credits and rewards.
+* Review customer transaction history.
+* Assist with payment discrepancies.
+* Record support notes.
+* Escalate unresolved payment or shipment issues to Operations Admin.
+
+Customer Service should not be able to arbitrarily change payment records, manufacture cashback or issue account credits without the correct permissions.
+
+Any authorised financial adjustment must be recorded in an audit log.
+
+⸻
+
+PART 18: FINANCIAL RECORDS AND AUDIT LOGS
+
+This is critical.
+
+Create or improve a reliable financial ledger using the existing payment and wallet architecture.
+
+Do not rely on one editable balance field as the only record of customer funds.
+
+Maintain traceable entries for:
+
+* Initial estimated shipping payment.
+* Revised shipping charge.
+* Additional customer payment.
+* Shipment overpayment credit.
+* Account credit redemption.
+* Cashback earned.
+* Cashback redeemed.
+* Bonus earned.
+* Bonus redeemed.
+* Reward expiry.
+* Refund, where applicable.
+* Payment reversal or chargeback.
+* Manual adjustment by authorised staff.
+
+Every financial record should include:
+
+* Unique transaction reference.
+* Customer ID.
+* Related shipment ID, where applicable.
+* Transaction category.
+* Amount.
+* Currency.
+* Direction: credit or debit.
+* Status.
+* Date and time.
+* Source or reason.
+* Related payment provider reference, where applicable.
+
+Never allow ordinary frontend requests to directly edit a customer’s balance.
+
+Use backend-authorised ledger transactions.
+
+Use idempotency protections to prevent duplicate payments, duplicate credits and duplicate reward redemptions.
+
+Reconcile internal payment records with Paystack transaction confirmations.
+
+Preserve all historical financial records.
+
+Do not silently alter completed transactions.
+
+⸻
+
+PART 19: NOTIFICATIONS
+
+Reuse the existing notification infrastructure.
+
+Send relevant notifications when:
+
+1. Pickup booking is successful.
+2. Pickup is scheduled.
+3. Pickup is rescheduled.
+4. Package is collected.
+5. Package arrives at Swiftvero facility.
+6. Package measurement is completed.
+7. Revised quotation is ready.
+8. Customer needs to approve the quotation.
+9. Payment is required.
+10. Additional payment is confirmed.
+11. Shipment overpayment credit is created.
+12. Cashback or bonus is earned.
+13. Shipment is booked with the carrier.
+14. Carrier tracking number becomes available.
+15. Shipment status changes.
+16. Shipment is delivered.
+
+Use simple, human language.
+
+Do not send repeated notifications for the same event.
+
+Allow customers to view important notifications inside their dashboards as well as through existing email notifications.
+
+⸻
+
+PART 20: UI/UX DESIGN REQUIREMENTS
+
+Use the official Swiftvero design palette:
+
+* Primary Cyan: #00B4D8
+* Secondary Light Blue: #90E0EF
+* Pale Blue: #CAF0F8
+
+Use the existing brand typography and design system.
+
+Design requirements:
+
+* Mobile-first.
+* Premium but simple.
+* Professional logistics experience.
+* Clear navigation.
+* Clean layouts.
+* Simple English.
+* Realistic, production-quality UI.
+* No generic AI-looking dashboard.
+* No excessive cards.
+* No oversized headings.
+* No unnecessary forms.
+* No duplicate buttons.
+* No confusing financial labels.
+* No fake statistics or invented shipment information.
+
+The main website must make these three actions easy to find:
+
+Book a Pickup | Get a Quote | Track a Shipment
+
+The customer dashboard must also provide these actions.
+
+Make the revised quotation and account balance screens especially clear.
+
+Customers must immediately understand:
+
+* How much their shipment costs.
+* How much they have already paid.
+* How much remains to pay.
+* Whether they have available credit.
+* How much cashback and bonus they can use.
+
+⸻
+
+PART 21: SECURITY AND TECHNICAL REQUIREMENTS
+
+Implement using the existing project’s technology stack.
+
+Do not change frameworks or replace the database without a genuine technical reason.
+
+Ensure:
+
+* Backend-controlled pricing calculations.
+* Backend-controlled financial balances.
+* Secure payment verification.
+* Role-based permissions.
+* Protected customer records.
+* Secure file uploads.
+* Proper validation of shipment details.
+* Secure quotation versioning.
+* Idempotent payment processing.
+* Idempotent shipment creation.
+* Duplicate carrier booking protection.
+* Secure webhook verification.
+* Audit logs.
+* Atomic reward redemption.
+* Database transaction safety.
+* Accurate currency calculations.
+* Correct handling of decimal weights and carrier rounding.
+* Time-zone consistency.
+* Reliable email and notification delivery.
+
+Do not expose private API keys or carrier credentials in frontend code.
+
+Do not trust client-submitted prices, payment status, balances, shipment weights or shipment status.
+
+The backend must remain the source of truth.
+
+⸻
+
+PART 22: DEMO MODE
+
+The entire new and improved workflow must be fully functional in DEMO MODE.
+
+Do not create buttons that merely look functional.
+
+Do not use fake success messages without updating the relevant demo records.
+
+Create clearly labelled demo scenarios.
+
+Test these cases:
+
+Pickup booking
+
+1. Customer successfully books a Standard Pickup.
+2. Customer successfully books a Priority Pickup.
+3. Customer enters an unsupported pickup location.
+4. Operations schedules a pickup.
+5. Operations reschedules a pickup.
+6. Operations marks a failed pickup with a reason.
+7. Customer sees the correct pickup status.
+
+Store receipt and weighing
+
+8. Package arrives at Swiftvero facility.
+9. Staff searches for the shipment using its reference.
+10. Staff records actual weight and dimensions.
+11. Multiple packages are measured separately.
+12. System calculates billable weight correctly.
+13. Original estimated weight remains preserved.
+
+Revised quotations
+
+14. Customer receives a revised quotation.
+15. Customer approves the revised quotation.
+16. Customer rejects the revised quotation.
+17. Customer selects an available shipping service.
+18. A quotation is changed after approval and requires renewed approval.
+
+Payment adjustments
+
+19. Customer paid less than the final shipping price.
+20. Customer paid more than the final shipping price.
+21. Customer paid exactly the final shipping price.
+22. Customer has not made an initial payment.
+23. Customer pays only the outstanding balance.
+24. Customer receives an overpayment credit.
+25. Duplicate credit creation is prevented.
+26. Failed payment does not mark a shipment as paid.
+
+Cashback and bonuses
+
+27. Customer uses cashback at checkout.
+28. Customer uses bonus at checkout.
+29. Customer uses both where permitted.
+30. Customer applies only part of an available balance.
+31. Expired bonuses cannot be redeemed.
+32. Payment failure restores any reserved rewards.
+33. A reward cannot be spent twice.
+34. Shipment credit is not confused with cashback or bonus.
+
+Carrier booking
+
+35. Paid and approved shipment is booked successfully.
+36. Carrier returns a genuine demo tracking reference in demo mode.
+37. Carrier booking failure does not mark the shipment as dispatched.
+38. Duplicate carrier booking is prevented.
+39. Tracking number appears in the customer’s dashboard.
+
+Dashboard and navigation
+
+40. Book a Pickup appears on the public homepage.
+41. Book a Pickup appears on the customer dashboard.
+42. Get a Quote works.
+43. Track a Shipment works.
+44. Existing customer records remain accessible.
+45. Existing payment history remains accessible.
+
+Use isolated demo records and never modify real customer balances or payment transactions during demo testing.
+
+⸻
+
+PART 23: FINAL ACCEPTANCE CHECKLIST
+
+Before declaring the task complete, confirm:
+
+* The existing application was inspected first.
+* Book a Pickup is visible on the public homepage.
+* Book a Pickup is visible in the customer dashboard.
+* Existing Quote functionality still works.
+* Existing Shipment and tracking functionality still works.
+* Pickup booking creates one correct shipment record.
+* Customers receive a permanent Swiftvero reference.
+* Operations can manage pickup requests.
+* Packages can be confirmed as received at the facility.
+* Actual weight and dimensions can be recorded.
+* Billable weight is calculated using the applicable carrier rules.
+* Revised quotations preserve the original estimate.
+* Customers who already paid can see their payment adjustments.
+* Underpayments show the correct outstanding amount.
+* Overpayments show the correct available account credit.
+* Cashback and bonus balances remain separate.
+* Customers can use eligible cashback and bonuses at checkout.
+* Rewards cannot be redeemed twice.
+* Paystack payment verification remains secure.
+* Carrier booking happens only after required approval and payment.
+* DHL tracking information is attached to the correct shipment.
+* Existing customer and admin functionality remains intact.
+* All new functionality works in demo mode.
+* No unrelated feature has been removed.
+
+FINAL IMPLEMENTATION REPORT
+
+After implementation, provide a concise report with:
+
+1. Existing features discovered and reused.
+2. Existing features improved.
+3. New features implemented.
+4. Changes made to the public website.
+5. Changes made to the customer dashboard.
+6. Changes made to Operations Admin.
+7. Payment adjustment and reward functionality implemented.
+8. Database and backend changes.
+9. Tests completed and their results.
+10. Remaining limitations or business decisions requiring attention.
+
+FINAL INSTRUCTION
+
+Do not overengineer Swiftvero.
+
+Do not create a new application.
+
+Do not rebuild features that already work.
+
+Do not remove existing functionality.
+
+Do not introduce a separate rider app or rider dashboard.
+
+Do not invent financial balances, shipping rates, tracking numbers or payment confirmations.
+
+The objective is to make the existing Swiftvero platform work as one connected logistics system.
+
+A customer should be able to book a pickup, follow the package to Swiftvero’s facility, receive an accurate final quotation after weighing, see their payment balance, use eligible cashback and bonuses, approve the final price, complete payment and track the shipment from one customer account.
+
+Make it simple for customers, efficient for Operations and financially accurate for Swiftvero.

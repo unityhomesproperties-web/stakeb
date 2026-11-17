@@ -1,0 +1,756 @@
+SWIFTVERO EXPRESS: COMPLETE BUSINESS, CUSTOMER EXPERIENCE, PICKUP WORKFLOW AND DASHBOARD CORRECTIONS
+
+Act as a senior international logistics product designer, senior UI/UX designer, business systems analyst, senior frontend engineer and experienced full-stack engineer.
+
+I need you to improve the existing Swiftvero Express website and platform based on the instructions below.
+
+Your responsibility is to make Swiftvero a premium international shipping and logistics platform that is simple to use, professionally designed, mobile-first, reliable and ready to expand into different countries.
+
+This is an existing project.
+
+Do not rebuild it from scratch. Do not remove working features, existing customer records, staff accounts, database structures, integrations or business functionality unnecessarily.
+
+First inspect the current implementation, identify the relevant pages and components, understand the existing workflows and then implement the improvements carefully.
+
+Preserve existing working functionality and build on the current architecture.
+
+⸻
+
+1. REMOVE NIGERIA-ONLY BRAND POSITIONING
+
+Swiftvero is being built as an international logistics company.
+
+Nigeria is our starting market, not the limit of our business.
+
+The website currently uses language that makes the entire company look like a Nigeria-only shipping business.
+
+Correct this throughout the public website, customer portal, marketing sections, service descriptions, FAQs and other relevant pages.
+
+For example, remove language such as:
+
+“International Air Freight & Express Cargo · Nigeria to 180+ Countries”
+
+Replace it with:
+
+“International Air Freight & Express Shipping”
+
+Supporting description:
+
+“Ship packages and goods across borders with reliable international delivery solutions.”
+
+Another example:
+
+Instead of:
+
+“Send packages from Nigeria to 180+ countries.”
+
+Use:
+
+“Send packages worldwide with Swiftvero.”
+
+Do not unnecessarily mention Nigeria in every heading, service description or promotional message.
+
+Important distinction
+
+Do not falsely claim that Swiftvero currently operates pickup services in every country.
+
+The website should communicate an international brand and global expansion vision without pretending that services are available in locations where they are not yet operational.
+
+Use a location-aware system:
+
+* Display services available in the customer’s selected country.
+* Show supported pickup locations.
+* Show available shipping routes.
+* Display relevant delivery estimates.
+* Clearly explain where a service is not yet available.
+* Allow the company to activate new countries and routes through admin settings.
+
+For the current operational stage, maintain the actual supported shipping routes and pickup locations in the backend.
+
+Do not hardcode Nigeria as the only possible origin country throughout the application.
+
+Build the system to support different origin countries, destination countries, currencies, pickup locations and shipping routes as the business expands.
+
+The website’s general branding should be internationally positioned, while actual service availability must remain accurate.
+
+⸻
+
+2. REDESIGN THE PICKUP BOOKING PROCESS
+
+This is an important correction to the current business workflow.
+
+Swiftvero does NOT visit customers with weighing scales or measuring equipment.
+
+Our pickup staff collect the package from the customer’s location and bring it to our facility.
+
+The actual weighing, measuring, inspection and final packing process happens at the Swiftvero facility.
+
+Remove the incorrect information currently displayed:
+
+“Doorstep Pickup & Weighing”
+
+“An authorized Swiftvero courier visits your address with certified scales and measuring tape.”
+
+Remove any suggestion that the pickup agent weighs or measures the package at the customer’s home.
+
+Replace it with:
+
+Package Pickup
+
+“We collect your package from your address and bring it to our facility. Our team checks, measures and weighs your package after it arrives. We then send you the final shipping price for approval.”
+
+Pickup booking form
+
+Create a simple, attractive and mobile-friendly booking form.
+
+Collect:
+
+1. Sender’s full name.
+2. Sender’s phone number.
+3. Pickup address.
+4. City.
+5. State or region.
+6. Country.
+7. Preferred pickup date.
+8. Preferred pickup time or available time window.
+9. Package description.
+10. Number of packages.
+11. One-time package photo upload.
+12. Optional estimated package size.
+13. Optional estimated weight.
+14. Additional pickup instructions.
+
+One-time package photo
+
+Require the customer to upload at least one clear photo of the package during pickup booking.
+
+The photo should help our operations team understand what kind of vehicle or pickup arrangement may be needed.
+
+For example:
+
+* Small parcel: motorcycle or bike where permitted.
+* Medium package: car or suitable delivery vehicle.
+* Large package: van or another suitable vehicle.
+* Multiple packages: appropriate vehicle based on the combined load.
+
+Do not make the customer choose the actual vehicle.
+
+Let the operations team determine the appropriate pickup vehicle using:
+
+* Package photo.
+* Package count.
+* Package description.
+* Available pickup staff.
+* Pickup location.
+* Vehicle availability.
+* Other relevant operational information.
+
+Allow the customer to replace the photo before submitting the booking.
+
+Show a preview of the uploaded photo.
+
+Clearly explain that the photo is for pickup planning and does not replace the inspection at our facility.
+
+Do not use the photo to automatically determine the final shipping price.
+
+⸻
+
+3. INTRODUCE STANDARD AND PRIORITY PICKUP
+
+Add two pickup options to the booking experience.
+
+Present them as two attractive cards with clear descriptions, expected collection times and transparent pricing.
+
+These two options must be clearly different.
+
+OPTION A: STANDARD PICKUP
+
+Standard Pickup
+
+“Get your package collected within 24 hours of your confirmed booking.”
+
+Conditions:
+
+* No additional standard pickup charge.
+* Collection within 24 hours of confirmed booking.
+* Pickup availability depends on the supported pickup area and operating conditions.
+* Customer receives pickup confirmation.
+* Customer receives updates when the pickup is assigned and completed.
+
+The 24-hour period must begin when the booking is successfully confirmed, not when the customer merely opens the booking form.
+
+Show the expected pickup deadline or collection window clearly.
+
+Do not display an incorrect 2-hour collection promise anywhere.
+
+OPTION B: PRIORITY PICKUP
+
+Priority Pickup
+
+“Need your package collected immediately? Choose Priority Pickup for instant collection.”
+
+Conditions:
+
+* Instant pickup handling.
+* Additional priority pickup charge.
+* Show the actual fee before confirmation.
+* Show the expected collection time.
+* Allow the customer to confirm or cancel before submitting.
+
+Priority means immediate pickup handling and dispatch of an available pickup agent as soon as possible.
+
+Do not falsely promise that a pickup agent will physically arrive instantly.
+
+The system must check operational availability and show the realistic expected arrival time before the customer pays or confirms.
+
+If instant pickup cannot be provided in the selected area or at that time, do not allow the customer to purchase the unavailable option.
+
+Instead, explain that priority pickup is currently unavailable and show the next available pickup option.
+
+IMPORTANT OPERATIONAL RULES
+
+Do not invent pickup times or fees.
+
+The system must use actual service availability, location, working hours, staffing and operational capacity.
+
+Standard Pickup must use a 24-hour collection target after confirmation.
+
+Priority Pickup must be offered as an instant-response service only where Swiftvero can actually provide it.
+
+Allow the Operations & Admin team to configure:
+
+* Standard pickup availability.
+* Standard pickup target time, with 24 hours as the standard target.
+* Priority pickup availability.
+* Priority pickup fee.
+* Priority pickup operating hours.
+* Supported pickup areas.
+* Pickup capacity.
+* Available pickup staff.
+* Blackout dates.
+* Emergency service restrictions.
+* Priority pickup restrictions.
+
+Pickup charges must be separate from shipping charges.
+
+Standard Pickup means there is no additional standard pickup charge. It does not mean that the shipping service itself is free.
+
+The customer should always see the full applicable pickup charge before booking.
+
+If a pickup is delayed beyond its confirmed collection window, record the delay and notify the customer with an updated expected collection time.
+
+Do not silently change a confirmed pickup time.
+
+⸻
+
+4. CORRECT THE WEIGHING AND SHIPPING PRICE WORKFLOW
+
+The correct business process must be:
+
+1. Customer books a pickup.
+2. Customer uploads a package photo.
+3. Customer selects Standard or Priority Pickup, where available.
+4. Swiftvero assigns a suitable pickup agent and vehicle.
+5. Pickup agent collects the package.
+6. Package arrives at the Swiftvero facility.
+7. Staff inspect the declared contents and package condition.
+8. Staff complete packing where required.
+9. Staff record actual weight and package dimensions.
+10. System calculates the shipping price using the actual information and selected route.
+11. Customer receives the shipping quote.
+12. Customer reviews and approves the quote.
+13. Customer pays using the available payment methods.
+14. Payment is verified.
+15. Shipment is prepared and sent.
+16. Customer receives tracking updates.
+
+Do not allow the pickup agent to enter a supposedly verified package weight at the customer’s doorstep.
+
+The system must distinguish between:
+
+* Customer’s estimated package information.
+* Actual package weight.
+* Actual package dimensions.
+* Final shipping price.
+
+The final price must be based on the actual verified package details and applicable route pricing.
+
+The customer must receive the final quote before payment.
+
+Do not automatically charge the customer an unapproved final shipping amount.
+
+⸻
+
+5. REMOVE REDUNDANT DASHBOARD SHORTCUTS
+
+Inspect the customer dashboard and every staff dashboard.
+
+In the latest screenshot, there are extra shortcut buttons near the top of the profile page:
+
+* My Pickups.
+* Book & Quote.
+* My Wallet.
+
+These duplicate the main navigation at the bottom of the mobile dashboard.
+
+Remove this unnecessary duplicate shortcut row from the dashboard and profile pages.
+
+Keep the existing bottom navigation because it is already clear and useful.
+
+Do not display two sets of navigation shortcuts performing the same functions.
+
+Keep dashboard pages clean and organised.
+
+REMOVE THE UNEXPLAINED SHIELD ICON
+
+There is also a shield-shaped icon beside the Verified Shipper badge in the customer profile screenshot.
+
+Its purpose is unclear and it is not needed in that location.
+
+Remove this unexplained shield icon and replace it with a proper notifications bell icon.
+
+The notification icon should be easy to access from the dashboard header.
+
+NOTIFICATIONS BEHAVIOUR
+
+When tapped, the notification icon should open the notification centre.
+
+Include:
+
+* New shipment updates.
+* Pickup updates.
+* Quote notifications.
+* Payment confirmations.
+* Support ticket updates.
+* Cashback and promotional notifications.
+* Important account messages.
+
+Show an unread notification count when there are unread messages.
+
+Allow customers to mark notifications as read.
+
+Do not display a random badge count. It must reflect actual unread notifications.
+
+Apply this header correction consistently across all relevant customer and staff dashboards.
+
+⸻
+
+6. ALLOW CUSTOMERS TO UPLOAD PROFILE PHOTOS
+
+Customers should be able to use their own pictures as profile pictures.
+
+Add profile picture upload and management.
+
+Customers should be able to:
+
+* Upload a profile photo.
+* Preview the photo.
+* Change the photo.
+* Remove the photo.
+* Use their initials as a fallback if they have no photo.
+
+Display the profile picture consistently across:
+
+* Customer dashboard.
+* Customer profile.
+* Account menu.
+* Support conversations where appropriate.
+* Other relevant customer account areas.
+
+Validate image format and file size.
+
+Use secure image storage and ensure customers can only change their own profile photos.
+
+Maintain a clean, professional profile layout.
+
+⸻
+
+7. CHANGE “CORPORATE ACCOUNT” TO “BUSINESS ACCOUNT”
+
+Use simple English throughout the platform.
+
+Wherever customers see:
+
+“Corporate Account”
+
+Replace it with:
+
+“Business Account”
+
+Use the same wording in:
+
+* Registration.
+* Account selection.
+* Customer profile.
+* Dashboard.
+* Business shipping.
+* Business account settings.
+* Marketing messages.
+* Forms and notifications.
+
+The available account types should be:
+
+1. Individual Account.
+2. Business Account.
+
+Business Account should be understandable to ordinary business owners, traders, importers and exporters.
+
+Do not use complicated corporate terminology.
+
+⸻
+
+8. CORRECT THE INSURANCE EXPERIENCE
+
+Simplify the insurance experience during shipment booking and checkout.
+
+Customers who choose to insure their packages should receive a clear confirmation that their package is insured.
+
+Do not display the insurance company’s name, branding or unnecessary insurance company information on the customer checkout or receipt.
+
+Do not overload the customer with long insurance explanations during checkout.
+
+CHECKOUT PRESENTATION
+
+Show a simple optional selection:
+
+Protect my package with shipping insurance.
+
+Display the applicable insurance price before the customer confirms.
+
+When the customer selects insurance, show:
+
+“Your package will be insured.”
+
+When insurance is not selected, show:
+
+“Shipping insurance not selected.”
+
+RECEIPT PRESENTATION
+
+If insurance was purchased, show only a simple entry such as:
+
+“Package Insurance: Included”
+
+Where necessary, show the amount paid for the insurance separately so the customer can understand the total charge.
+
+Do not display the insurance provider’s name or unnecessary insurance company descriptions.
+
+POLICY INFORMATION
+
+Move the detailed insurance explanation, coverage terms, exclusions, claim process, limitations and responsibilities to the Shipping Insurance section of the policy page.
+
+Include a simple link to the policy.
+
+Make sure customers can access the full terms before buying insurance.
+
+Do not hide important insurance exclusions or misrepresent the coverage.
+
+Only show a package as insured after the insurance purchase and applicable cover have been confirmed.
+
+⸻
+
+9. IMPROVE THE POLICY AND HELP CENTRE
+
+Customers should not have to click through several different pages to understand basic shipping rules.
+
+Create a well-organised Shipping Policies & Help Centre.
+
+Use simple English and clear sections.
+
+Include:
+
+1. Shipping Terms.
+2. Pickup Policy.
+3. Standard and Priority Pickup.
+4. Package Size and Weight Rules.
+5. Restricted and Prohibited Items.
+6. Packaging Guidelines.
+7. Shipping Insurance.
+8. Customs and Import Duties.
+9. Delivery Time Estimates.
+10. Failed Delivery.
+11. Address Changes.
+12. Shipment Cancellation.
+13. Refund Policy.
+14. Lost or Damaged Packages.
+15. Payment and Wallet Policy.
+16. Cashback and Promo Code Rules.
+17. Customer Responsibilities.
+18. Business Shipping Terms.
+19. Complaints and Claims.
+
+IMPORTANT POLICY DESIGN
+
+Write the policy information in simple, everyday English.
+
+Avoid long legal-style paragraphs where a short explanation will work.
+
+Use:
+
+* Clear headings.
+* Short paragraphs.
+* Bullets.
+* Frequently asked questions.
+* Expandable sections.
+* Searchable policy topics.
+
+Customers should be able to understand important rules without clicking through many pages.
+
+However, do not hide essential information.
+
+Show short, relevant explanations at the point where a customer makes a decision.
+
+For example:
+
+During pickup booking, show a short pickup policy summary and a link to the full policy.
+
+During insurance selection, show a short insurance summary and a link to the full policy.
+
+During checkout, show a short payment and cancellation summary.
+
+Use one central policy management system so that Operations & Admin can update policies without editing multiple pages manually.
+
+Keep version history and record customer acceptance of applicable terms.
+
+Do not invent legal terms or claim that a policy has legal approval when it has not been reviewed.
+
+PICKUP POLICY MUST REFLECT THE ACTUAL SERVICE
+
+The policy must clearly explain:
+
+* Standard Pickup is targeted within 24 hours of confirmed booking.
+* Priority Pickup is an instant pickup option where available.
+* Priority Pickup attracts an additional charge.
+* Standard Pickup has no additional pickup charge.
+* Pickup availability depends on location and operating conditions.
+* Pickup agents collect packages and do not weigh or measure them at the customer’s address.
+* Packages are checked, weighed and measured at the Swiftvero facility.
+* The final shipping price is sent to the customer for approval.
+
+Do not put conflicting pickup promises on the website, booking form or policy page.
+
+⸻
+
+10. PROMOTE CUSTOMER REGISTRATION TO GUEST VISITORS
+
+Visitors should be able to explore Swiftvero and request a shipping quote or schedule a pickup without creating an account first, where the existing booking process supports guest access.
+
+However, we want to encourage registration because registered customers can enjoy eligible cashback and discounts.
+
+When a guest visitor tries to schedule a pickup or request a quote, show a professional promotional message.
+
+PROMOTIONAL MESSAGE
+
+Enjoy More Benefits with a Swiftvero Account
+
+“Create a free account to enjoy cashback rewards and special shipping discounts on eligible shipments. You can also track your packages, manage your pickups and view all your shipping payments in one place.”
+
+Buttons:
+
+* Create Free Account.
+* Continue as Guest.
+
+Do not force registration if guest booking is supported.
+
+If the visitor continues as a guest, allow the booking or quote process to proceed.
+
+Make the promotional message helpful, not aggressive.
+
+REGISTRATION AND REWARD RULES
+
+* Explain the actual cashback and discount terms.
+* Do not promise cashback on every shipment unless the campaign rules support it.
+* Apply rewards only to eligible registered customer accounts.
+* Prevent customers from claiming the same welcome bonus repeatedly.
+* Ensure that cashback is credited only when the relevant eligibility conditions are met.
+* Show the promotion terms clearly.
+
+Use a beautiful modal or promotional panel that works properly on mobile.
+
+⸻
+
+11. SIMPLE ENGLISH THROUGHOUT THE ENTIRE PLATFORM
+
+Perform a complete language review.
+
+Do not correct only the pages mentioned in this prompt.
+
+Review the entire website, including:
+
+* Public pages.
+* Customer dashboards.
+* Staff dashboards.
+* Booking forms.
+* Profile pages.
+* Wallet.
+* Checkout.
+* Tracking.
+* Notifications.
+* Support tickets.
+* FAQs.
+* Policies.
+* Error messages.
+* Success messages.
+* Buttons.
+* Labels.
+* Tooltips.
+* Emails and system-generated customer messages.
+
+Use language that an ordinary person in Nigeria, Ghana, Kenya, the UK, Canada or another supported market can understand easily.
+
+Examples:
+
+* “Corporate Account” becomes “Business Account”.
+* “Consignee” becomes “Receiver”.
+* “Consignor” becomes “Sender”.
+* “Consignment” becomes “Shipment”.
+* “Dispatch” becomes “Send out”.
+* “Initiate” becomes “Start”.
+* “Utilise” becomes “Use”.
+* “In transit” becomes “On the way”.
+* “Shipment exception” becomes “Delivery problem”.
+* “Reconciliation” becomes “Payment checking”.
+* “Manifest” becomes “Shipment list”.
+* “Fulfilment” becomes “Order completion”.
+* “Remittance” becomes “Money sent”.
+* “Volumetric weight” becomes “Package size-based weight”.
+* “Logistics documentation” becomes “Shipping documents”.
+
+These are examples, not the complete list.
+
+Keep the English professional but natural.
+
+Do not make the language childish.
+
+Make it clear, direct and human.
+
+Keep internal technical terminology in code and database structures where necessary. However, customer-facing language must remain simple.
+
+⸻
+
+12. MAINTAIN THE SWIFTVERO DESIGN SYSTEM
+
+All changes must follow the official brand colours:
+
+* Primary Cyan: #00B4D8
+* Secondary Cyan: #90E0EF
+* Light Cyan: #CAF0F8
+* White: #FFFFFF
+
+Use white as the main background.
+
+Use cyan for primary buttons, important actions, active navigation and highlights.
+
+Use light cyan for subtle card backgrounds and information panels.
+
+Maintain consistent typography, spacing, icons, cards, borders, buttons and responsive behaviour.
+
+All customer and staff dashboards must look like parts of the same premium international product.
+
+Design mobile-first.
+
+Do not introduce unrelated colour palettes.
+
+Use the uploaded dashboard screenshot as a reference for layout, spacing, card arrangement, visual hierarchy and navigation.
+
+Do not copy the screenshot’s orange, navy or purple colours.
+
+All dashboard designs must follow Swiftvero’s cyan and white identity.
+
+Maintain the following design principles:
+
+* Clean and organised dashboards.
+* Clear section headings.
+* Properly spaced cards.
+* Simple icons.
+* Readable text.
+* Consistent button styles.
+* Easy-to-use forms.
+* Clear navigation.
+* No unnecessary duplicate shortcuts.
+* No cluttered layouts.
+* No unexplained decorative icons.
+* No overlapping elements.
+* No unnecessary scrolling.
+* Premium and professional visual appearance.
+
+All wallet pages, customer profiles, staff profiles, tables, forms, reports and other interfaces must follow the same design system.
+
+⸻
+
+13. FINAL TESTING AND ACCEPTANCE REQUIREMENTS
+
+Before finishing, test the following:
+
+1. Guest visitors can request quotes and schedule supported pickups without being forced to register.
+2. Guest visitors see the registration and cashback promotion.
+3. Registered customers can book pickups.
+4. Customers can upload a package photo.
+5. The uploaded photo appears in the relevant operations workspace.
+6. Operations staff can use package details to plan a suitable pickup vehicle.
+7. Standard Pickup displays the correct 24-hour collection target after confirmed booking.
+8. Standard Pickup does not display a 2-hour collection promise.
+9. Standard Pickup has no additional pickup charge.
+10. Priority Pickup is presented as an instant pickup option.
+11. Priority Pickup displays the correct fee and realistic expected arrival time.
+12. Priority Pickup is unavailable when operational capacity cannot support it.
+13. Customers can see the applicable pickup fee before confirming.
+14. Pickup staff are not asked to weigh or measure packages at the customer’s address.
+15. Staff can record actual weight and dimensions at the Swiftvero facility.
+16. Final shipping quotes use verified package details.
+17. Customers receive the final shipping quote before paying.
+18. Customers can select and purchase insurance.
+19. Insured shipments display a simple insurance confirmation.
+20. Insurance provider details do not unnecessarily appear on customer receipts.
+21. Customers can upload and change profile pictures.
+22. Business Account replaces Corporate Account everywhere customers see it.
+23. The redundant shortcut row is removed from dashboard and profile pages.
+24. The unexplained shield icon is replaced by a working notifications bell.
+25. The existing bottom navigation remains functional.
+26. All customer-facing language uses simple English.
+27. The website no longer presents Nigeria as the only possible origin country in its general brand messaging.
+28. Actual service coverage and available routes remain accurate.
+29. The website can support additional origin countries, destination countries, currencies and routes as the business expands.
+30. All pickup policies and website descriptions reflect the correct 24-hour Standard and instant Priority pickup options.
+31. The entire platform works properly on mobile, tablet and desktop.
+
+Preserve existing functionality and data.
+
+Do not mark a feature complete simply because its screen looks correct.
+
+Test the actual interaction, backend connection, data flow and permissions.
+
+Do not invent successful bookings, pickup assignments, payment confirmations or operational events.
+
+Do not make unsupported claims about service coverage or delivery times.
+
+⸻
+
+FINAL INSTRUCTION
+
+Think like a senior product designer and logistics technology architect building an international company that real customers and professional businesses will use every day.
+
+Swiftvero must feel like a serious, premium international shipping company.
+
+The platform must be:
+
+* Beautiful.
+* Simple to understand.
+* Easy to navigate.
+* Mobile-first.
+* Internationally positioned.
+* Operationally realistic.
+* Consistent in design.
+* Transparent about charges.
+* Clear about pickup and delivery expectations.
+* Secure and reliable.
+
+Most importantly, the website must reflect how Swiftvero actually operates.
+
+We collect packages from customers. We bring them to our facility. We inspect, pack where required, weigh and measure them there. We send the final shipping price to customers for approval. After payment is confirmed, we proceed with the shipment.
+
+Standard Pickup is within 24 hours of confirmed booking. Priority Pickup is instant, subject to actual availability, and attracts an additional fee.
+
+Do not introduce a 2-hour pickup promise anywhere.
+
+Implement the improvements carefully without breaking the existing project.

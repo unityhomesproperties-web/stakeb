@@ -1,6 +1,8 @@
 import { ParcelItem } from '../types';
 
 export interface ProtectionConfig {
+  insuranceEnabled: boolean;
+  enabledServices: ('standard' | 'priority')[];
   basicLiabilityDescription: string;
   basicLiabilityLimitNgn: number;
   premiumRatePercentage: number; // e.g. 1.5
@@ -22,6 +24,8 @@ export interface ProtectionConfig {
 }
 
 export const DEFAULT_PROTECTION_CONFIG: ProtectionConfig = {
+  insuranceEnabled: true,
+  enabledServices: ['standard', 'priority'],
   basicLiabilityDescription: 'Contractual carrier liability (Warsaw/Montreal convention standards up to standard liability limits). Excludes undeclared items and improper customer packaging.',
   basicLiabilityLimitNgn: 50000,
   premiumRatePercentage: 1.5, // 1.5% in demo mode
@@ -32,9 +36,9 @@ export const DEFAULT_PROTECTION_CONFIG: ProtectionConfig = {
   deductiblePercentage: 5,
   deductibleMinNgn: 10000,
   claimsDeadlineDays: 14,
-  providerName: 'Leadway Assurance PLC (Demo Underwriting Alliance)',
+  providerName: 'Authorized Underwriter (Verified Institutional Partner)',
   providerStatus: 'demo_simulated',
-  providerLicenseRef: 'NAICOM/RIC/029-DEMO',
+  providerLicenseRef: 'SV-INS-DEMO-01',
   excludedCategories: [
     'Cash, banknotes, bullion, & precious metal coins',
     'Unpackaged loose glassware & ceramic antiques',
@@ -160,6 +164,30 @@ export function calculateProtectionPremium(input: ProtectionCalculationInput): P
   }
 
   // Premium Coverage Plan
+  if (!config.insuranceEnabled) {
+    return {
+      plan: 'premium',
+      isEligible: false,
+      ineligibilityReason: 'Optional shipment insurance is currently disabled by Swiftvero administration. Standard contractual carrier liability applies.',
+      totalDeclaredValueNgn: totalDeclared,
+      eligibleDeclaredValueNgn: eligibleDeclared,
+      excludedDeclaredValueNgn: excludedDeclared,
+      premiumRatePercentage: config.premiumRatePercentage,
+      calculatedPremiumNgn: 0,
+      minPremiumApplied: false,
+      maxPremiumApplied: false,
+      coverageLimitNgn: config.basicLiabilityLimitNgn,
+      deductibleText: 'N/A',
+      providerName: config.providerName,
+      isSimulated: config.providerStatus === 'demo_simulated',
+      breakdownSummary: 'Optional insurance is currently unavailable.',
+      premiumNgn: 0,
+      coverageNgn: config.basicLiabilityLimitNgn,
+      ratePercentage: config.premiumRatePercentage,
+      excludedItems: excludedItemsList,
+    };
+  }
+
   // Check route eligibility if provided
   if (input.destinationCountry) {
     const isRouteEligible = config.eligibleRoutes.some(
@@ -259,4 +287,67 @@ export function calculateProtectionPremium(input: ProtectionCalculationInput): P
 export function generateProtectionReference(trackingNumber?: string): string {
   const seed = trackingNumber ? trackingNumber.replace(/[^A-Za-z0-9]/g, '').slice(-4) : Math.floor(1000 + Math.random() * 9000).toString();
   return `PROT-2026-${seed.toUpperCase()}`;
+}
+
+export interface InsuranceAvailabilityEvaluation {
+  available: boolean;
+  reason?: string;
+  calculation: ProtectionCalculationResult;
+  exclusions: string[];
+  claimsSummary: string;
+}
+
+export function evaluateInsuranceAvailability(params: {
+  config?: ProtectionConfig;
+  destinationCountry?: string;
+  serviceTier?: 'standard' | 'priority';
+  declaredValueNgn: number;
+  items?: ParcelItem[];
+}): InsuranceAvailabilityEvaluation {
+  const config = params.config || DEFAULT_PROTECTION_CONFIG;
+  const serviceTier = params.serviceTier || 'standard';
+  const calculation = calculateProtectionPremium({
+    plan: 'premium',
+    declaredValueNgn: params.declaredValueNgn,
+    items: params.items,
+    config,
+    destinationCountry: params.destinationCountry,
+  });
+
+  if (!config.insuranceEnabled) {
+    return {
+      available: false,
+      reason: 'Insurance is currently unavailable for this route or not yet enabled by administration.',
+      calculation,
+      exclusions: config.excludedCategories,
+      claimsSummary: `Claims must be filed within ${config.claimsDeadlineDays} days of delivery or incident.`,
+    };
+  }
+
+  if (config.enabledServices && !config.enabledServices.includes(serviceTier)) {
+    return {
+      available: false,
+      reason: `Optional insurance is not enabled for ${serviceTier === 'priority' ? 'Priority Express' : 'Standard Air'} shipments under current policy.`,
+      calculation: { ...calculation, isEligible: false, calculatedPremiumNgn: 0, premiumNgn: 0 },
+      exclusions: config.excludedCategories,
+      claimsSummary: `Claims must be filed within ${config.claimsDeadlineDays} days of delivery or incident.`,
+    };
+  }
+
+  if (!calculation.isEligible) {
+    return {
+      available: false,
+      reason: calculation.ineligibilityReason || 'Insurance is currently unavailable for this route or package category.',
+      calculation,
+      exclusions: config.excludedCategories,
+      claimsSummary: `Claims must be filed within ${config.claimsDeadlineDays} days of delivery or incident.`,
+    };
+  }
+
+  return {
+    available: true,
+    calculation,
+    exclusions: config.excludedCategories,
+    claimsSummary: `File loss or external damage claims within ${config.claimsDeadlineDays} days with invoice & hub intake photos. Deductible: ${calculation.deductibleText}.`,
+  };
 }

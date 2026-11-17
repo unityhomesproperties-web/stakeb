@@ -15,17 +15,24 @@ import { PickupAgentPortal } from './components/pickup/PickupAgentPortal';
 import { OperationsDashboard } from './components/operations/OperationsDashboard';
 import { FinanceLeadPortal } from './components/finance/FinanceLeadPortal';
 import { SuperAdminPortal } from './components/superadmin/SuperAdminPortal';
+import { PickupShippingWorkspace } from './components/workspaces/PickupShippingWorkspace';
+import { CustomerServiceWorkspace } from './components/workspaces/CustomerServiceWorkspace';
+import { OperationsAdminWorkspace } from './components/workspaces/OperationsAdminWorkspace';
+import { PublicTicketTrackingPage } from './components/support/PublicTicketTrackingPage';
 import { LogoSkeleton } from './components/common/LogoSkeleton';
 import { AuthModal } from './components/auth/AuthModal';
 import { KycWizardModal } from './components/customer/KycWizardModal';
 import { LegalModal, PolicyKey } from './components/common/LegalModal';
 import { FutureServicesModal } from './components/public/FutureServicesModal';
+import { GuestRegistrationPromoModal } from './components/common/GuestRegistrationPromoModal';
 import { BookingWizard } from './components/booking/BookingWizard';
+import { QuoteRetrievalView } from './components/booking/QuoteRetrievalView';
 import { SwiftSharePage } from './components/swiftshare/SwiftSharePage';
 import { FaqPage } from './components/public/FaqPage';
 import { CargoPage } from './components/public/CargoPage';
 import { ShippingAssistantPage } from './components/public/ShippingAssistantPage';
 import { Logo } from './components/common/Logo';
+import { BookPickupModal } from './components/customer/BookPickupModal';
 import { ArrowLeft, LogOut } from 'lucide-react';
 
 const MainAppContent: React.FC = () => {
@@ -35,6 +42,7 @@ const MainAppContent: React.FC = () => {
     activePublicNav,
     setActivePublicNav,
     currentCustomer,
+    selectedShipmentForTracking,
     setSelectedShipmentForTracking,
     setActiveCustomerTab,
     isLoading,
@@ -48,6 +56,10 @@ const MainAppContent: React.FC = () => {
   const [legalModalOpen, setLegalModalOpen] = useState(false);
   const [activePolicyKey, setActivePolicyKey] = useState<PolicyKey>('terms');
   const [futureModalOpen, setFutureModalOpen] = useState(false);
+  const [guestPromoOpen, setGuestPromoOpen] = useState(false);
+  const [guestPromoDismissed, setGuestPromoDismissed] = useState(false);
+  const [initialQuoteRefForBooking, setInitialQuoteRefForBooking] = useState<string | undefined>(undefined);
+  const [bookPickupModalOpen, setBookPickupModalOpen] = useState(false);
 
   const handleOpenAuth = (mode: 'signin' | 'register' | 'staff' = 'signin') => {
     setAuthInitialMode(mode);
@@ -60,6 +72,14 @@ const MainAppContent: React.FC = () => {
   };
 
   const handleOpenQuote = () => {
+    setInitialQuoteRefForBooking(undefined);
+    setActivePublicNav('quote');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleProceedGuestQuote = () => {
+    setGuestPromoDismissed(true);
+    setGuestPromoOpen(false);
     setActivePublicNav('quote');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -71,29 +91,23 @@ const MainAppContent: React.FC = () => {
   };
 
   const getPortalLabel = () => {
-    if (role === 'front_desk') {
-      return `Branch Desk Admin Portal · Counter Intake`;
+    if (role === 'pickup_shipping' || role === 'front_desk' || role === 'pickup_agent') {
+      return `Workspace A · Pickup & Shipping Management`;
     }
-    if (role === 'pickup_agent') {
-      return `Pickup Courier Portal · Field Operations`;
+    if (role === 'customer_service') {
+      return `Workspace B · Customer Service & Resolution Desk`;
     }
-    if (role === 'operations') {
-      return `MMIA Operations Control Tower · Hub Transit`;
-    }
-    if (role === 'finance') {
-      return `Corporate Finance & VAT Audit Portal`;
-    }
-    if (role === 'platform_admin' || role === 'super_admin' || role === 'owner') {
-      return `Central Head Office · Super Admin & Governance`;
+    if (role === 'operations_admin' || role === 'operations' || role === 'finance' || role === 'platform_admin' || role === 'super_admin' || role === 'owner') {
+      return `Workspace C · Operations & Admin Command`;
     }
     if (role === 'business') {
-      return `Business Consignor Portal · ${currentCustomer.companyName || currentCustomer.name}`;
+      return `Business Shipping Portal · ${currentCustomer.companyName || currentCustomer.name}`;
     }
-    return `Customer Portal · ${currentCustomer.name}`;
+    return `Customer Shipping Portal · ${currentCustomer.name}`;
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5FBFD] text-[#354B55] relative">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-slate-950 text-[#1F2937] dark:text-slate-100 relative transition-colors duration-200">
       {/* Animated Logo Loading Skeleton Overlay */}
       {isLoading && <LogoSkeleton message={loadingMessage} size="fullscreen" />}
 
@@ -104,13 +118,21 @@ const MainAppContent: React.FC = () => {
           <PublicHeader
             onOpenAuth={handleOpenAuth}
             onOpenQuote={handleOpenQuote}
+            onOpenBookPickup={() => setBookPickupModalOpen(true)}
+            onOpenPolicy={handleOpenPolicy}
           />
 
           <main className="flex-1">
             {activePublicNav === 'home' && (
               <HomePage
                 onOpenQuote={handleOpenQuote}
+                onOpenBookPickup={() => setBookPickupModalOpen(true)}
                 onOpenTrack={handleOpenTrack}
+                onOpenRetrieveQuote={(code) => {
+                  if (code) setSelectedShipmentForTracking(code);
+                  setActivePublicNav('retrieve-quote');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
                 onOpenAuth={handleOpenAuth}
                 onOpenComingSoon={() => setFutureModalOpen(true)}
                 onNavigateToSwiftShare={() => {
@@ -134,7 +156,7 @@ const MainAppContent: React.FC = () => {
             {activePublicNav === 'assistant' && (
               <ShippingAssistantPage
                 onOpenQuote={handleOpenQuote}
-                onStartBooking={(data) => {
+                onStartBooking={() => {
                   setRole('customer');
                   setActiveCustomerTab('book');
                 }}
@@ -191,48 +213,105 @@ const MainAppContent: React.FC = () => {
             )}
 
             {activePublicNav === 'track' && (
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
                 <div className="mb-4">
                   <button
+                    type="button"
                     onClick={() => setActivePublicNav('home')}
-                    className="text-xs font-semibold text-[#00B4D8] hover:underline flex items-center gap-1"
+                    className="text-[13px] font-bold text-[#0096C7] dark:text-[#90E0EF] hover:underline flex items-center gap-1 cursor-pointer"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <ArrowLeft className="w-4 h-4" />
                     <span>Back to Home</span>
                   </button>
                 </div>
                 <TrackingView
                   onOpenSupportWithShipment={(tracking) => {
+                    setSelectedShipmentForTracking(tracking);
                     setRole('customer');
                     setActiveCustomerTab('support');
                   }}
-                  onOpenReviewForShipment={(shipmentId) => {
+                  onOpenReviewForShipment={() => {
                     setRole('customer');
                     setActiveCustomerTab('reviews');
+                  }}
+                  onOpenQuoteRetrieval={(code) => {
+                    setSelectedShipmentForTracking(code);
+                    setActivePublicNav('retrieve-quote');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                />
+              </div>
+            )}
+
+            {activePublicNav === 'retrieve-quote' && (
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+                <div className="mb-4">
+                  <button
+                    type="button"
+                    onClick={() => setActivePublicNav('home')}
+                    className="text-[13px] font-bold text-[#0096C7] dark:text-[#90E0EF] hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Home</span>
+                  </button>
+                </div>
+                <QuoteRetrievalView
+                  initialCode={selectedShipmentForTracking || undefined}
+                  onTrackShipment={(code: string) => {
+                    setSelectedShipmentForTracking(code);
+                    setActivePublicNav('track');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  onConvertQuoteToBooking={(quoteRef: string) => {
+                    setInitialQuoteRefForBooking(quoteRef);
+                    setActivePublicNav('quote');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                 />
               </div>
             )}
 
             {activePublicNav === 'quote' && (
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
                 <div className="mb-4">
                   <button
-                    onClick={() => setActivePublicNav('home')}
-                    className="text-xs font-semibold text-[#00B4D8] hover:underline flex items-center gap-1"
+                    type="button"
+                    onClick={() => {
+                      setInitialQuoteRefForBooking(undefined);
+                      setActivePublicNav('home');
+                    }}
+                    className="text-[13px] font-bold text-[#0096C7] dark:text-[#90E0EF] hover:underline flex items-center gap-1 cursor-pointer"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <ArrowLeft className="w-4 h-4" />
                     <span>Back to Home</span>
                   </button>
                 </div>
                 <BookingWizard
+                  initialQuoteRef={initialQuoteRefForBooking}
                   onComplete={(trackingNum) => {
+                    setInitialQuoteRefForBooking(undefined);
                     setSelectedShipmentForTracking(trackingNum);
                     setActivePublicNav('track');
                   }}
                   onOpenPolicy={handleOpenPolicy}
                   onOpenKyc={() => setKycModalOpen(true)}
                 />
+              </div>
+            )}
+
+            {activePublicNav === 'ticket-track' && (
+              <div className="py-6">
+                <div className="max-w-3xl mx-auto px-4 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => setActivePublicNav('home')}
+                    className="text-[13px] font-bold text-[#0096C7] dark:text-[#90E0EF] hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Back to Home</span>
+                  </button>
+                </div>
+                <PublicTicketTrackingPage />
               </div>
             )}
           </main>
@@ -244,79 +323,79 @@ const MainAppContent: React.FC = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onOpenComingSoon={() => setFutureModalOpen(true)}
+            onOpenStaffPortal={() => handleOpenAuth('staff')}
           />
         </div>
       ) : (
         /* Authenticated Role Portal View */
-        <div className="flex-1 flex flex-col">
-          {/* Authenticated Top Navbar */}
-          <div className="bg-white border-b border-[#DDEEF2] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-40 shadow-xs">
-            <div className="flex items-center gap-3">
+        <div className="flex-1 flex flex-col bg-[#F8FAFC] dark:bg-slate-950 text-[#1F2937] dark:text-slate-100 min-h-screen transition-colors duration-200">
+          {/* Sticky #00B4D8 Authenticated Navbar */}
+          <div className="bg-[#00B4D8] text-white border-b border-[#0096C7] px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 sticky top-0 z-40 shadow-[0_2px_8px_rgba(15,23,42,0.08)]">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 min-w-0">
               <button
+                type="button"
                 onClick={() => setRole('visitor')}
                 title="Go to public website"
-                className="hover:opacity-90 transition-opacity shrink-0"
+                className="bg-white rounded-[8px] px-2 py-1 shadow-2xs hover:opacity-95 transition-opacity shrink-0 cursor-pointer"
               >
                 <Logo size="sm" />
               </button>
-              <div className="h-5 w-px bg-[#DDEEF2] hidden sm:block" />
-              <div className="text-xs text-[#637984] hidden md:block font-medium truncate max-w-xs">
+              <div className="h-5 w-px bg-white/30 hidden sm:block" />
+              <div className="text-[13px] text-white font-semibold hidden md:block truncate max-w-xs">
                 {getPortalLabel()}
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5">
-              {/* Quick Role Switcher Pill for Demo Review */}
-              <div className="flex items-center gap-1.5 bg-[#F7FCFD] border border-[#DDEEF2] rounded-lg px-2 py-1">
-                <span className="text-[10px] text-[#637984] font-semibold hidden sm:inline">Role:</span>
-                <select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value as any)}
-                  className="text-xs bg-transparent font-bold text-[#00B4D8] focus:outline-hidden cursor-pointer"
-                >
-                  <option value="customer">Customer</option>
-                  <option value="front_desk">Front Desk</option>
-                  <option value="pickup_agent">Pickup Agent</option>
-                  <option value="operations">Operations</option>
-                  <option value="finance">Finance</option>
-                  <option value="super_admin">Super Admin</option>
-                  <option value="business">Business Shipper</option>
-                </select>
-              </div>
+            <div className="flex items-center gap-2 min-w-0">
+              {/* Show Workspace Switcher only for internal staff roles — hidden for normal customer/business accounts */}
+              {role !== 'customer' && role !== 'business' && (
+                <div className="flex items-center gap-1 bg-white rounded-full px-3 py-1.5 min-w-0 shadow-2xs">
+                  <span className="text-[11px] text-[#4B5563] font-semibold hidden sm:inline shrink-0">Workspace:</span>
+                  <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value as any)}
+                    aria-label="Staff workspace switcher"
+                    className="text-[12px] bg-transparent font-bold text-[#0F172A] focus:outline-none cursor-pointer max-w-[140px] sm:max-w-none truncate"
+                  >
+                    <option value="pickup_shipping">Workspace A: Pickup &amp; Shipping</option>
+                    <option value="customer_service">Workspace B: Customer Service</option>
+                    <option value="operations_admin">Workspace C: Operations &amp; Admin</option>
+                    <option value="customer">Preview Customer Portal</option>
+                  </select>
+                </div>
+              )}
 
               <button
+                type="button"
                 onClick={() => setRole('visitor')}
-                className="px-3 py-1.5 border border-[#DDEEF2] rounded-lg text-xs font-medium text-[#253B45] hover:bg-[#CAF0F8]/50 transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-1.5 border border-white/60 bg-white/15 hover:bg-white/25 rounded-full text-[13px] font-bold text-white transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer"
                 title="Sign out of portal"
+                aria-label="Sign out of portal"
               >
-                <LogOut className="w-3.5 h-3.5 text-[#637984]" />
+                <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Sign Out</span>
               </button>
             </div>
           </div>
 
-          {/* Active Authenticated View: Role-specific portals */}
-          <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-5 sm:py-7">
-            {role === 'front_desk' && (
-              <BranchDeskPortal onOpenKycModal={() => setKycModalOpen(true)} />
+          {/* Active Authenticated View: Consolidated 3 Workspaces & Customer Portals */}
+          <main className="flex-1 w-full">
+            {(role === 'pickup_shipping' || role === 'front_desk' || role === 'pickup_agent') && (
+              <PickupShippingWorkspace />
             )}
-            {role === 'pickup_agent' && (
-              <PickupAgentPortal />
+            {role === 'customer_service' && (
+              <CustomerServiceWorkspace />
             )}
-            {role === 'operations' && (
-              <OperationsDashboard />
-            )}
-            {role === 'finance' && (
-              <FinanceLeadPortal />
-            )}
-            {(role === 'platform_admin' || role === 'super_admin' || role === 'owner') && (
-              <SuperAdminPortal />
+            {(role === 'operations_admin' || role === 'operations' || role === 'finance' || role === 'platform_admin' || role === 'super_admin' || role === 'owner') && (
+              <OperationsAdminWorkspace />
             )}
             {(role === 'customer' || role === 'business') && (
-              <CustomerPortal
-                onOpenPolicy={handleOpenPolicy}
-                onOpenKyc={() => setKycModalOpen(true)}
-              />
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-7">
+                <CustomerPortal
+                  onOpenPolicy={handleOpenPolicy}
+                  onOpenKyc={() => setKycModalOpen(true)}
+                />
+              </div>
             )}
           </main>
         </div>
@@ -348,6 +427,27 @@ const MainAppContent: React.FC = () => {
       <FutureServicesModal
         isOpen={futureModalOpen}
         onClose={() => setFutureModalOpen(false)}
+      />
+
+      <GuestRegistrationPromoModal
+        isOpen={guestPromoOpen}
+        onClose={() => setGuestPromoOpen(false)}
+        onCreateAccount={() => {
+          setGuestPromoOpen(false);
+          handleOpenAuth('register');
+        }}
+        onContinueAsGuest={handleProceedGuestQuote}
+      />
+
+      <BookPickupModal
+        isOpen={bookPickupModalOpen}
+        onClose={() => setBookPickupModalOpen(false)}
+        onOpenPolicy={handleOpenPolicy}
+        onSuccess={(trackingNumber) => {
+          if (trackingNumber) {
+            setSelectedShipmentForTracking(trackingNumber);
+          }
+        }}
       />
     </div>
   );

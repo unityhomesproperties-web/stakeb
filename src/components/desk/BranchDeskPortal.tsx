@@ -179,7 +179,7 @@ export const BranchDeskPortal: React.FC<BranchDeskPortalProps> = ({ onOpenKycMod
         <div className="flex items-center justify-between mb-3">
           <div>
             <h3 className="text-sm font-bold text-[#253B45]">Desk Priority Actions</h3>
-            <p className="text-xs text-[#637984]">Fast-track operations for physical walk-in consignors</p>
+            <p className="text-xs text-[#637984]">Fast-track operations for physical walk-in senders</p>
           </div>
           <span className="text-[11px] font-mono font-bold text-[#00B4D8] bg-[#CAF0F8] px-2 py-0.5 rounded-md">
             Counter Ready
@@ -389,7 +389,7 @@ export const BranchDeskPortal: React.FC<BranchDeskPortalProps> = ({ onOpenKycMod
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-[#253B45]">Counter Consignments</h3>
+              <h3 className="text-sm font-bold text-[#253B45]">Counter Shipments</h3>
               <span className="text-xs bg-[#EDF7F9] text-[#637984] px-2 py-0.5 rounded-full font-mono font-medium">
                 {filteredShipments.length} total
               </span>
@@ -431,7 +431,7 @@ export const BranchDeskPortal: React.FC<BranchDeskPortalProps> = ({ onOpenKycMod
             <thead>
               <tr className="border-b border-[#DDEEF2] text-[11px] text-[#637984] uppercase tracking-wider font-bold bg-[#F7FCFD]">
                 <th className="py-2.5 px-3">Tracking / Waybill</th>
-                <th className="py-2.5 px-3">Consignor</th>
+                <th className="py-2.5 px-3">Sender</th>
                 <th className="py-2.5 px-3">Destination</th>
                 <th className="py-2.5 px-3">Weight</th>
                 <th className="py-2.5 px-3">Speed</th>
@@ -526,7 +526,7 @@ export const BranchDeskPortal: React.FC<BranchDeskPortalProps> = ({ onOpenKycMod
         <div className="md:hidden space-y-3">
           {filteredShipments.length === 0 ? (
             <div className="py-8 text-center text-slate-400 text-xs">
-              No consignments found.
+              No shipments found.
             </div>
           ) : (
             filteredShipments.map((s) => (
@@ -556,7 +556,7 @@ export const BranchDeskPortal: React.FC<BranchDeskPortalProps> = ({ onOpenKycMod
 
                 <div className="grid grid-cols-2 gap-2 text-xs text-[#253B45]">
                   <div>
-                    <span className="text-[10px] text-[#637984] block">Consignor:</span>
+                    <span className="text-[10px] text-[#637984] block">Sender:</span>
                     <span className="font-semibold">{s.senderName}</span>
                     <span className="block text-[10px] text-[#637984] font-mono">{s.senderPhone}</span>
                   </div>

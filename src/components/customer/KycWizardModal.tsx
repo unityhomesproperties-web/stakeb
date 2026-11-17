@@ -165,23 +165,24 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl shadow-2xl border border-[#DCEFF3] w-full max-w-xl overflow-hidden flex flex-col max-h-[92vh]">
+      <div className="sv-card shadow-2xl w-full max-w-xl overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#DCEFF3] bg-[#F5FBFD]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0] bg-[#CAF0F8]/40">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#2F7D53]/10 flex items-center justify-center text-[#2F7D53]">
+            <div className="w-9 h-9 rounded-[10px] bg-[#CAF0F8] border border-[#90E0EF] flex items-center justify-center text-[#00B4D8]">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#1D2922]">Verify Your Identity</h3>
-              <p className="text-xs text-[#6A808C]">
+              <h3 className="sv-h3">Verify Your Identity</h3>
+              <p className="sv-label">
                 Verify your identity securely to access Swiftvero Express services.
               </p>
             </div>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="text-[#6A808C] hover:text-[#1D2922] p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+            className="text-[#4B5563] hover:text-[#111827] p-2 rounded-full hover:bg-white transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -238,19 +239,19 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                 <button
                   type="button"
                   onClick={() => handleSelectMethod('nin')}
-                  className="flex items-start gap-4 p-4 border border-[#DCEFF3] rounded-xl text-left hover:border-[#2F7D53] hover:bg-[#EAF6EE]/30 transition-all group"
+                  className="flex items-start gap-4 p-4 border border-[#E2E8F0] rounded-[12px] text-left hover:border-[#00B4D8] hover:bg-[#CAF0F8]/30 transition-all group cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-[#EAF6EE] text-[#2F7D53] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-[8px] bg-[#CAF0F8] border border-[#90E0EF] text-[#00B4D8] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                     <UserCheck className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-bold text-[#1D2922]">National Identification Number (NIN)</h4>
-                      <span className="text-[10px] font-semibold text-[#2F7D53] bg-[#EAF6EE] px-2 py-0.5 rounded-full">
+                    <div className="flex items-center justify-between gap-2">
+                      <h4 className="sv-h3">National Identification Number (NIN)</h4>
+                      <span className="text-[12px] font-medium text-[#0F172A] bg-[#CAF0F8] border border-[#90E0EF] px-2.5 py-0.5 rounded-full">
                         Instant (Recommended)
                       </span>
                     </div>
-                    <p className="text-xs text-[#6A808C] mt-1">
+                    <p className="sv-label mt-1">
                       Instantly validated through the National Identity Management Commission (NIMC) API.
                     </p>
                   </div>
@@ -260,7 +261,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                 <button
                   type="button"
                   onClick={() => handleSelectMethod('bvn')}
-                  className="flex items-start gap-4 p-4 border border-[#DCEFF3] rounded-xl text-left hover:border-[#2F7D53] hover:bg-[#EAF6EE]/30 transition-all group"
+                  className="flex items-start gap-4 p-4 border border-[#DCEFF3] rounded-xl text-left hover:border-[#00B4D8] hover:bg-[#CAF0F8]/30 transition-all group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[#EBF4FA] text-[#008EA8] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                     <Building2 className="w-5 h-5" />
@@ -282,7 +283,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                 <button
                   type="button"
                   onClick={() => handleSelectMethod('passport')}
-                  className="flex items-start gap-4 p-4 border border-[#DCEFF3] rounded-xl text-left hover:border-[#2F7D53] hover:bg-[#EAF6EE]/30 transition-all group"
+                  className="flex items-start gap-4 p-4 border border-[#DCEFF3] rounded-xl text-left hover:border-[#00B4D8] hover:bg-[#CAF0F8]/30 transition-all group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[#F3E8FF] text-[#7E22CE] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                     <CreditCard className="w-5 h-5" />
@@ -302,8 +303,8 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
               </div>
 
               {/* Data Privacy Note */}
-              <div className="flex items-start gap-2.5 p-3 rounded-lg bg-[#F5FAF6] border border-[#DCEFF3] text-[11px] text-[#4F685B]">
-                <Lock className="w-4 h-4 text-[#2F7D53] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 p-3 rounded-lg bg-[#F7FCFD] border border-[#DCEFF3] text-[11px] text-[#4F685B]">
+                <Lock className="w-4 h-4 text-[#00B4D8] shrink-0 mt-0.5" />
                 <span>
                   Your personal identity data is transmitted over encrypted TLS channels and never stored in plain text.
                   Swiftvero Express complies with the Nigeria Data Protection Act (NDPA) and NCAA cargo security mandates.
@@ -318,7 +319,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
               <div className="flex items-center justify-between pb-2 border-b border-[#DCEFF3]">
                 <button
                   onClick={() => setActiveStep('select_method')}
-                  className="text-xs font-semibold text-[#2F7D53] hover:underline flex items-center gap-1"
+                  className="text-xs font-semibold text-[#00B4D8] hover:underline flex items-center gap-1"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Choose a different method</span>
@@ -352,17 +353,17 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                         setNinNumber(val);
                       }}
                       placeholder="e.g. 29384756102"
-                      className="w-full px-3 py-2.5 text-sm font-mono tracking-wider border border-[#DCEFF3] rounded-lg focus:border-[#2F7D53] focus:outline-hidden bg-[#F5FAF6] text-[#1D2922]"
+                      className="w-full px-3 py-2.5 text-sm font-mono tracking-wider border border-[#DCEFF3] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-[#F7FCFD] text-[#1D2922]"
                     />
                     <div className="flex justify-between items-center mt-1 text-[11px] text-[#6A808C]">
                       <span>Exactly 11 numeric digits</span>
-                      <span className={ninNumber.length === 11 ? 'text-[#2F7D53] font-bold' : 'text-amber-600'}>
+                      <span className={ninNumber.length === 11 ? 'text-[#00B4D8] font-bold' : 'text-amber-600'}>
                         {ninNumber.length}/11 digits
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-[#F5FAF6] rounded-lg border border-[#DCEFF3] text-xs text-[#4F685B] space-y-1">
+                  <div className="p-3 bg-[#F7FCFD] rounded-lg border border-[#DCEFF3] text-xs text-[#4F685B] space-y-1">
                     <div className="font-semibold text-[#1D2922]">Profile Identity Match:</div>
                     <div>Account Name: <span className="font-bold text-[#1D2922]">{currentCustomer.name}</span></div>
                     <div>Registered Phone: <span className="font-bold text-[#1D2922]">{currentCustomer.phone}</span></div>
@@ -390,11 +391,11 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                         setBvnNumber(val);
                       }}
                       placeholder="e.g. 22194857391"
-                      className="w-full px-3 py-2.5 text-sm font-mono tracking-wider border border-[#DCEFF3] rounded-lg focus:border-[#2F7D53] focus:outline-hidden bg-[#F5FAF6] text-[#1D2922]"
+                      className="w-full px-3 py-2.5 text-sm font-mono tracking-wider border border-[#DCEFF3] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-[#F7FCFD] text-[#1D2922]"
                     />
                     <div className="flex justify-between items-center mt-1 text-[11px] text-[#6A808C]">
                       <span>Exactly 11 numeric digits</span>
-                      <span className={bvnNumber.length === 11 ? 'text-[#2F7D53] font-bold' : 'text-amber-600'}>
+                      <span className={bvnNumber.length === 11 ? 'text-[#00B4D8] font-bold' : 'text-amber-600'}>
                         {bvnNumber.length}/11 digits
                       </span>
                     </div>
@@ -423,7 +424,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                       <select
                         value={passportCountry}
                         onChange={(e) => setPassportCountry(e.target.value)}
-                        className="w-full px-3 py-2 text-xs border border-[#DCEFF3] rounded-lg focus:border-[#2F7D53] focus:outline-hidden bg-[#F5FAF6] text-[#1D2922]"
+                        className="w-full px-3 py-2 text-xs border border-[#DCEFF3] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-[#F7FCFD] text-[#1D2922]"
                       >
                         <option value="Nigeria">Nigeria</option>
                         <option value="United Kingdom">United Kingdom</option>
@@ -440,7 +441,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                         value={passportNumber}
                         onChange={(e) => setPassportNumber(e.target.value.toUpperCase())}
                         placeholder="e.g. A09823411"
-                        className="w-full px-3 py-2 text-xs font-mono border border-[#DCEFF3] rounded-lg focus:border-[#2F7D53] focus:outline-hidden bg-[#F5FAF6] text-[#1D2922]"
+                        className="w-full px-3 py-2 text-xs font-mono border border-[#DCEFF3] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-[#F7FCFD] text-[#1D2922]"
                       >
                       </input>
                     </div>
@@ -452,7 +453,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                       type="date"
                       value={passportExpiry}
                       onChange={(e) => setPassportExpiry(e.target.value)}
-                      className="w-full px-3 py-2 text-xs border border-[#DCEFF3] rounded-lg focus:border-[#2F7D53] focus:outline-hidden bg-[#F5FAF6] text-[#1D2922]"
+                      className="w-full px-3 py-2 text-xs border border-[#DCEFF3] rounded-lg focus:border-[#00B4D8] focus:outline-hidden bg-[#F7FCFD] text-[#1D2922]"
                     />
                   </div>
 
@@ -461,8 +462,8 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                     <label className="block text-xs font-semibold text-[#1D2922] mb-1">
                       Passport Biodata Page (JPEG, PNG or PDF)
                     </label>
-                    <div className="border-2 border-dashed border-[#2F7D53]/40 rounded-xl p-4 bg-[#F5FAF6] flex flex-col items-center text-center space-y-2">
-                      <div className="w-10 h-10 rounded-full bg-[#EAF6EE] text-[#2F7D53] flex items-center justify-center">
+                    <div className="border-2 border-dashed border-[#00B4D8]/40 rounded-xl p-4 bg-[#F7FCFD] flex flex-col items-center text-center space-y-2">
+                      <div className="w-10 h-10 rounded-full bg-[#CAF0F8] text-[#00B4D8] flex items-center justify-center">
                         <Upload className="w-5 h-5" />
                       </div>
                       <div>
@@ -473,14 +474,14 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                         <button
                           type="button"
                           onClick={() => setUploadedFile(`passport_scan_${Date.now().toString().slice(-4)}.jpg`)}
-                          className="px-2.5 py-1 text-[11px] font-semibold border border-[#2F7D53] text-[#2F7D53] rounded-md hover:bg-[#EAF6EE]"
+                          className="px-2.5 py-1 text-[11px] font-semibold border border-[#00B4D8] text-[#00B4D8] rounded-md hover:bg-[#CAF0F8]"
                         >
                           Replace File
                         </button>
                         <button
                           type="button"
                           onClick={() => setUploadedFile(`camera_capture_live_${Date.now().toString().slice(-4)}.jpg`)}
-                          className="px-2.5 py-1 text-[11px] font-semibold bg-[#2F7D53] text-white rounded-md hover:bg-[#174B35] flex items-center gap-1"
+                          className="px-2.5 py-1 text-[11px] font-semibold bg-[#00B4D8] text-white rounded-md hover:bg-[#008EA8] flex items-center gap-1"
                         >
                           <Camera className="w-3 h-3" />
                           <span>Simulate Camera</span>
@@ -498,7 +499,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                     type="checkbox"
                     checked={explicitConsent}
                     onChange={(e) => setExplicitConsent(e.target.checked)}
-                    className="mt-0.5 text-[#2F7D53] rounded border-[#DCEFF3] focus:ring-[#2F7D53]"
+                    className="mt-0.5 text-[#00B4D8] rounded border-[#DCEFF3] focus:ring-[#00B4D8]"
                   />
                   <span>
                     I give explicit consent to Swiftvero Express and authorised verification partners to verify my identity details
@@ -514,18 +515,18 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                 </div>
               )}
 
-              <div className="flex items-center justify-between pt-3 border-t border-[#DCEFF3]">
+              <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
                 <button
                   type="button"
                   onClick={() => setActiveStep('select_method')}
-                  className="px-3.5 py-2 text-xs font-semibold text-[#6A808C] hover:text-[#1D2922]"
+                  className="px-4 py-2 text-[13px] font-semibold text-[#4B5563] hover:text-[#111827] rounded-full cursor-pointer"
                 >
                   Back
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmitVerification}
-                  className="px-5 py-2.5 bg-[#2F7D53] hover:bg-[#174B35] text-white text-xs font-bold rounded-lg shadow-sm flex items-center gap-1.5 transition-colors"
+                  className="sv-btn-primary px-6 py-2.5 rounded-full flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Verify Identity</span>
                   <ArrowRight className="w-4 h-4" />
@@ -537,7 +538,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
           {/* STEP 3: SUBMITTING / SPINNER */}
           {activeStep === 'submitting' && (
             <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
-              <div className="w-14 h-14 rounded-full border-4 border-[#EAF6EE] border-t-[#2F7D53] animate-spin flex items-center justify-center text-[#2F7D53]">
+              <div className="w-14 h-14 rounded-full border-4 border-[#CAF0F8] border-t-[#00B4D8] animate-spin flex items-center justify-center text-[#00B4D8]">
                 <RefreshCw className="w-6 h-6 animate-pulse" />
               </div>
               <div className="space-y-1">
@@ -546,7 +547,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                   Connecting to {selectedMethod === 'nin' ? 'NIMC statutory API' : selectedMethod === 'bvn' ? 'NIBSS Central Directory' : 'Immigration Document Registry'} for biometric match and sanctions screening.
                 </p>
               </div>
-              <div className="text-[11px] text-[#2F7D53] font-semibold bg-[#EAF6EE] px-3 py-1 rounded-full">
+              <div className="text-[11px] text-[#00B4D8] font-semibold bg-[#CAF0F8] px-3 py-1 rounded-full">
                 Secure 256-bit TLS encrypted session
               </div>
             </div>
@@ -557,13 +558,13 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
             <div className="space-y-5">
               {/* SUCCESS */}
               {verificationResult.status === 'verified' && (
-                <div className="text-center space-y-3 p-6 bg-[#EAF6EE] border border-[#2F7D53]/20 rounded-2xl">
-                  <div className="w-14 h-14 rounded-full bg-[#2F7D53] text-white flex items-center justify-center mx-auto shadow-md">
+                <div className="text-center space-y-3 p-6 bg-[#CAF0F8] border border-[#00B4D8]/20 rounded-2xl">
+                  <div className="w-14 h-14 rounded-full bg-[#00B4D8] text-white flex items-center justify-center mx-auto shadow-md">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-[#1D2922]">Identity Successfully Verified</h4>
-                    <p className="text-xs text-[#2F7D53] font-medium mt-1">
+                    <p className="text-xs text-[#00B4D8] font-medium mt-1">
                       Your identity has been successfully verified. You can continue using Swiftvero Express.
                     </p>
                   </div>
@@ -582,7 +583,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                     </div>
                     <div className="flex justify-between py-1">
                       <span className="text-[#6A808C]">Audit Reference:</span>
-                      <span className="font-mono text-[11px] text-[#2F7D53]">{verificationResult.auditReference}</span>
+                      <span className="font-mono text-[11px] text-[#00B4D8]">{verificationResult.auditReference}</span>
                     </div>
                   </div>
                 </div>
@@ -663,13 +664,13 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
               )}
 
               {/* Modal Actions */}
-              <div className="flex items-center justify-between pt-3 border-t border-[#DCEFF3]">
+              <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
                 {verificationResult.status !== 'verified' ? (
                   <>
                     <button
                       type="button"
                       onClick={handleResetAndRetry}
-                      className="px-4 py-2 border border-[#DCEFF3] hover:bg-slate-50 text-xs font-semibold rounded-lg text-[#1D2922] flex items-center gap-1.5"
+                      className="px-5 py-2 border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[13px] font-semibold rounded-full text-[#111827] flex items-center gap-1.5 cursor-pointer"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                       <span>Retry Verification</span>
@@ -677,7 +678,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                     <button
                       type="button"
                       onClick={onClose}
-                      className="px-5 py-2 bg-[#2F7D53] text-white text-xs font-bold rounded-lg hover:bg-[#174B35]"
+                      className="sv-btn-primary px-6 py-2 rounded-full cursor-pointer"
                     >
                       Close
                     </button>
@@ -686,7 +687,7 @@ export const KycWizardModal: React.FC<KycWizardModalProps> = ({ isOpen, onClose,
                   <button
                     type="button"
                     onClick={onClose}
-                    className="w-full py-2.5 bg-[#2F7D53] hover:bg-[#174B35] text-white text-xs font-bold rounded-lg shadow-sm transition-colors text-center"
+                    className="sv-btn-primary w-full py-2.5 rounded-full text-center cursor-pointer"
                   >
                     Continue to Swiftvero Services
                   </button>
